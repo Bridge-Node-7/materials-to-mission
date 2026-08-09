@@ -58,3 +58,10 @@ commercial readiness is claimed.
 - The checked-in validation report is now reproducible across supported hosts.
 - Every operator environment must pass all runnable tests and the 95 percent combined coverage floor.
 - Only the three documented symlink-unavailable cases may skip where the operating system cannot create symbolic links.
+## Canonical cross-platform archive identity
+
+- ZIP member names are normalized POSIX-relative paths in canonical case-sensitive order.
+- Timestamps, creator system, ZIP versions, permissions, attributes, comments, and extra fields are fixed explicitly.
+- Members use stored compression so archive identity does not depend on host zlib output.
+- Regression tests simulate Windows ZIP defaults and require byte-identical output.
+

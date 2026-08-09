@@ -90,3 +90,54 @@ def test_release_archive_member_order_uses_posix_paths(tmp_path: Path) -> None:
             ".github/ISSUE_TEMPLATE/bug.yml",
             ".github/dependabot.yml",
         ]
+
+def test_release_archive_uses_canonical_host_independent_metadata(tmp_path: Path) -> None:
+    from materials_to_mission.release import (
+        CANONICAL_COMPRESSION,
+        CANONICAL_CREATE_SYSTEM,
+        CANONICAL_ZIP_VERSION,
+        FIXED_TIME,
+        build_deterministic_zip,
+    )
+    import zipfile
+
+    root = tmp_path / "root"
+    root.mkdir()
+    (root / "README.md").write_text("example\n", encoding="utf-8")
+
+    archive = build_deterministic_zip(root, tmp_path / "release.zip")
+    with zipfile.ZipFile(archive) as handle:
+        info = handle.getinfo("README.md")
+        assert info.create_system == CANONICAL_CREATE_SYSTEM
+        assert info.create_version == CANONICAL_ZIP_VERSION
+        assert info.extract_version == CANONICAL_ZIP_VERSION
+        assert info.date_time == FIXED_TIME
+        assert info.compress_type == CANONICAL_COMPRESSION == zipfile.ZIP_STORED
+        assert info.extra == b""
+        assert info.comment == b""
+
+
+def test_release_archive_ignores_windows_zipinfo_defaults(
+    tmp_path: Path, monkeypatch
+) -> None:
+    import materials_to_mission.release as release
+
+    root = tmp_path / "root"
+    root.mkdir()
+    (root / "README.md").write_text("example\n", encoding="utf-8")
+
+    baseline = release.build_deterministic_zip(root, tmp_path / "baseline.zip")
+    original_zip_info = release.zipfile.ZipInfo
+
+    class WindowsDefaultZipInfo(original_zip_info):
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.create_system = 0
+
+    monkeypatch.setattr(release.zipfile, "ZipInfo", WindowsDefaultZipInfo)
+    simulated_windows = release.build_deterministic_zip(
+        root, tmp_path / "simulated-windows.zip"
+    )
+
+    assert baseline.read_bytes() == simulated_windows.read_bytes()
+

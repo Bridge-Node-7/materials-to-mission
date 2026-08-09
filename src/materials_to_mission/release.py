@@ -20,6 +20,9 @@ EXCLUDED_DIRS = {
 }
 EXCLUDED_FILES = {".coverage"}
 FIXED_TIME = (1980, 1, 1, 0, 0, 0)
+CANONICAL_CREATE_SYSTEM = 3
+CANONICAL_ZIP_VERSION = 20
+CANONICAL_COMPRESSION = zipfile.ZIP_STORED
 
 
 def _is_excluded(relative: Path) -> bool:
@@ -77,14 +80,23 @@ def build_deterministic_zip(root: str | Path, output: str | Path) -> Path:
     with zipfile.ZipFile(
         output_path,
         "w",
-        compression=zipfile.ZIP_DEFLATED,
-        compresslevel=9,
+        compression=CANONICAL_COMPRESSION,
     ) as archive:
         for path in files:
             relative = path.relative_to(root_path).as_posix()
             info = zipfile.ZipInfo(relative, FIXED_TIME)
-            info.compress_type = zipfile.ZIP_DEFLATED
+            # ZipInfo defaults differ by host OS. Set every identity-bearing
+            # field explicitly so Windows and POSIX produce the same bytes.
+            info.create_system = CANONICAL_CREATE_SYSTEM
+            info.create_version = CANONICAL_ZIP_VERSION
+            info.extract_version = CANONICAL_ZIP_VERSION
+            info.flag_bits = 0
+            info.volume = 0
+            info.internal_attr = 0
             info.external_attr = _archive_mode(Path(relative)) << 16
+            info.compress_type = CANONICAL_COMPRESSION
+            info.extra = b""
+            info.comment = b""
             archive.writestr(info, path.read_bytes())
     return output_path
 

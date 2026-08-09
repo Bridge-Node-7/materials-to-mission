@@ -2,6 +2,12 @@
 
 All notable changes are documented here.
 
+## Unreleased archive identity hardening
+
+- Canonicalized every ZIP identity-bearing metadata field instead of inheriting host defaults.
+- Replaced host-library-dependent DEFLATE output with canonical stored members for byte-identical cross-platform source archives.
+- Added regression tests that simulate Windows `ZipInfo` defaults and verify exact archive equality.
+
 ## Unreleased validation hardening
 
 - Canonicalized repository-manifest and release-archive ordering by normalized POSIX-relative path so Linux and Windows generate identical identities.
