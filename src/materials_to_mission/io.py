@@ -6,18 +6,22 @@ from typing import Any
 
 from .errors import InputFileError
 
+
 MAX_INPUT_BYTES = 5 * 1024 * 1024
 MAX_NESTING_DEPTH = 64
 
 
-def _depth(value: Any, current: int = 0) -> int:
-    if current > MAX_NESTING_DEPTH:
-        return current
-    if isinstance(value, dict):
-        return max([current] + [_depth(v, current + 1) for v in value.values()])
-    if isinstance(value, list):
-        return max([current] + [_depth(v, current + 1) for v in value])
-    return current
+def _exceeds_depth(value: Any) -> bool:
+    stack: list[tuple[Any, int]] = [(value, 0)]
+    while stack:
+        current, depth = stack.pop()
+        if depth > MAX_NESTING_DEPTH:
+            return True
+        if isinstance(current, dict):
+            stack.extend((item, depth + 1) for item in current.values())
+        elif isinstance(current, list):
+            stack.extend((item, depth + 1) for item in current)
+    return False
 
 
 def read_json(path: str | Path) -> dict[str, Any]:
@@ -28,14 +32,23 @@ def read_json(path: str | Path) -> dict[str, Any]:
         raise InputFileError(f"cannot stat input: {p}: {exc}") from exc
     if size > MAX_INPUT_BYTES:
         raise InputFileError(f"input exceeds {MAX_INPUT_BYTES} bytes: {p}")
+
     try:
-        data = json.loads(p.read_text(encoding="utf-8"))
+        raw = p.read_text(encoding="utf-8")
+        data = json.loads(raw)
+    except RecursionError as exc:
+        raise InputFileError(
+            f"input exceeds maximum nesting depth {MAX_NESTING_DEPTH}: {p}"
+        ) from exc
     except (OSError, UnicodeError, json.JSONDecodeError) as exc:
         raise InputFileError(f"cannot read JSON input: {p}: {exc}") from exc
+
     if not isinstance(data, dict):
         raise InputFileError("top-level JSON value must be an object")
-    if _depth(data) > MAX_NESTING_DEPTH:
-        raise InputFileError(f"input exceeds maximum nesting depth {MAX_NESTING_DEPTH}")
+    if _exceeds_depth(data):
+        raise InputFileError(
+            f"input exceeds maximum nesting depth {MAX_NESTING_DEPTH}"
+        )
     return data
 
 

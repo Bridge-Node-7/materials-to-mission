@@ -87,3 +87,22 @@ All notable changes are documented here.
 - Permitted only the three documented symlink-unavailable skips on hosts that cannot create symbolic links.
 - Added JUnit evidence parsing and regression tests for allowed and unexpected skips.
 - Preserved canonical Linux symlink coverage while allowing Windows Gate 00 to reproduce the approved evidence contract.
+
+## Unreleased — assurance hardening
+
+### Added
+
+- Exact evidence, requirement, critical-condition, and decision-identity validation.
+- Conservative visibility treatment for partially supported evidence.
+- Structured public-boundary key scanning.
+- Controlled deeply nested JSON failure behavior.
+- Neutral, schema-valid authoring templates.
+- Regression and adversarial coverage for the Gate 0B assurance findings.
+
+### Changed
+
+- Directly declare the imported `referencing` runtime dependency.
+- Permit symlinks only inside untracked Git-ignored local/generated paths while preserving
+  tracked, unignored, and release-package symlink rejection.
+
+This section describes an unreleased maintenance candidate. `v0.1.0` remains unchanged.
