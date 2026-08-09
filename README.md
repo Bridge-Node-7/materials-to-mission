@@ -184,9 +184,10 @@ other restricted content. See [`docs/PUBLIC_BOUNDARY.md`](docs/PUBLIC_BOUNDARY.m
 
 ## Repository Maturity
 
-`v0.1.0` is an **M0 experimental public method baseline**. It supports public schema,
-workflow, and tooling evaluation. Main may contain reviewed unreleased maintenance, but
-the repository remains M0 until the real-workflow evidence in
+`v0.1.1` is an **M0 assurance-maintenance release** built on the immutable v0.1.0
+experimental public method baseline. It preserves the canonical schema contracts while
+hardening validation, portability, public-boundary controls, and maturity documentation.
+The repository remains M0 until the real-workflow evidence in
 [`docs/M1_READINESS.md`](docs/M1_READINESS.md) is complete. It is not a validated
 cross-case commercial product or an authority for certification or qualification.
 

@@ -2,38 +2,27 @@
 
 **As of August 9, 2026**
 
-Materials-to-Mission remains an **M0 experimental public method baseline**. The public
-`v0.1.0` release is immutable and remains the latest released version. The repository
-does not claim M1 real workflow proof, material or supplier qualification, certification,
-commercial validation, government adoption, or mission authorization.
+Materials-to-Mission remains an **M0 experimental public method**. Version `0.1.1`
+packages assurance, portability, public-boundary, and maturity-documentation maintenance
+without changing the canonical public schemas or claiming M1 real workflow proof.
 
-## Released Baseline
+## Release Lineage
 
-The immutable `v0.1.0` release provides the public method, six canonical schemas,
-synthetic examples, validation tooling, deterministic packaging, governance records, and
-explicit public/private boundaries.
+The immutable `v0.1.0` release remains the original public method and schema baseline.
+Version `v0.1.1` preserves that contract and adds maintenance corrections. The GitHub
+Releases page is authoritative for whether a prepared version has completed hosted
+publication and immutable public readback.
 
-## Current Main Branch
-
-Main includes unreleased assurance and portability maintenance after `v0.1.0`:
+## Version 0.1.1 Scope
 
 - stricter evidence, requirement, decision-identity, and critical-condition validation;
 - conservative handling of partially supported evidence;
 - structured public-boundary key scanning;
 - neutral authoring templates;
 - controlled deeply nested JSON failure behavior;
-- host-independent manifest hashing for UTF-8 text;
-- regression coverage for Linux and Windows behavior.
-
-The merged maintenance work passed the complete local repository gate, the hosted Ubuntu
-and Windows Python 3.11 and 3.13 matrix, and CodeQL. These results support maintenance
-readiness only. They do not establish M1.
-
-## Release Status
-
-The maintenance changes are documented under Unreleased in `CHANGELOG.md`. No `v0.1.1`
-tag or release has been created. Release authorization, exact-head verification, asset
-readback, and public closeout remain separate gates.
+- host-independent manifest hashing and canonical archive identity;
+- explicit current-state and M1-readiness records;
+- generic signed-tag release automation.
 
 ## M1 Status
 
@@ -45,8 +34,8 @@ See [`M1_READINESS.md`](M1_READINESS.md) for the evidence required before an M1 
 
 ## Website and Integration Status
 
-This repository does not modify the Bridge Node 7 website. Minimal website linkage remains
-a separate repository change governed by [`WEBSITE_INTEGRATION.md`](WEBSITE_INTEGRATION.md).
+This release does not modify the Bridge Node 7 website. Minimal website linkage remains a
+separate repository change governed by [`WEBSITE_INTEGRATION.md`](WEBSITE_INTEGRATION.md).
 
-Frontier Decision Engine integration also remains deferred until a separately reviewed
-thin adapter is justified by released contracts and case evidence.
+Frontier Decision Engine integration remains deferred until a separately reviewed thin
+adapter is justified by released contracts and case evidence.

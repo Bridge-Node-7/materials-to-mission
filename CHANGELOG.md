@@ -2,23 +2,33 @@
 
 All notable changes are documented here.
 
-## Unreleased documentation and maturity clarity
+## [0.1.1] - 2026-08-09
 
-- Added a dated current-state record distinguishing immutable `v0.1.0` from unreleased main.
-- Added explicit M1 entry, evidence-package, acceptance, and public-boundary conditions.
-- Clarified that documentation, tests, schemas, and generated artifacts do not establish M1.
-- Marked the verified M0 public baseline complete while preserving later roadmap gates.
+### Added
 
-## Unreleased archive identity hardening
+- Exact evidence, requirement, critical-condition, and decision-identity validation.
+- Conservative visibility treatment for partially supported evidence.
+- Structured public-boundary key scanning and controlled deeply nested JSON failures.
+- Neutral schema-valid authoring templates and assurance regression coverage.
+- Dated current-state and M1-readiness records with machine-readable M0 non-claims.
+- Generic signed-tag release automation and a dedicated v0.1.1 release record.
 
-- Canonicalized every ZIP identity-bearing metadata field instead of inheriting host defaults.
-- Replaced host-library-dependent DEFLATE output with canonical stored members for byte-identical cross-platform source archives.
-- Added regression tests that simulate Windows `ZipInfo` defaults and verify exact archive equality.
+### Changed
 
-## Unreleased validation hardening
+- Directly declare the imported `referencing` runtime dependency.
+- Permit symlinks only inside untracked Git-ignored local or generated paths while
+  preserving tracked, unignored, and release-package symlink rejection.
+- Canonicalize repository-manifest hashing and release-archive identity across Windows
+  and Linux.
+- Clarify that tests, documentation, schemas, and generated artifacts do not establish M1.
+- Preserve the immutable v0.1.0 schema authority and all existing public data contracts.
 
-- Canonicalized repository-manifest and release-archive ordering by normalized POSIX-relative path so Linux and Windows generate identical identities.
-- Added regression tests for Windows path ordering and deterministic archive member order.
+### Validation
+
+- Complete repository-native validation with a strict 95 percent coverage floor.
+- Hosted Ubuntu and Windows Python 3.11 and 3.13 checks.
+- CodeQL analysis.
+- Deterministic packaging and exact five-asset release verification.
 
 ## [0.1.0] - 2026-08-08
 
@@ -94,22 +104,3 @@ All notable changes are documented here.
 - Permitted only the three documented symlink-unavailable skips on hosts that cannot create symbolic links.
 - Added JUnit evidence parsing and regression tests for allowed and unexpected skips.
 - Preserved canonical Linux symlink coverage while allowing Windows Gate 00 to reproduce the approved evidence contract.
-
-## Unreleased — assurance hardening
-
-### Added
-
-- Exact evidence, requirement, critical-condition, and decision-identity validation.
-- Conservative visibility treatment for partially supported evidence.
-- Structured public-boundary key scanning.
-- Controlled deeply nested JSON failure behavior.
-- Neutral, schema-valid authoring templates.
-- Regression and adversarial coverage for the Gate 0B assurance findings.
-
-### Changed
-
-- Directly declare the imported `referencing` runtime dependency.
-- Permit symlinks only inside untracked Git-ignored local/generated paths while preserving
-  tracked, unignored, and release-package symlink rejection.
-
-This section describes an unreleased maintenance candidate. `v0.1.0` remains unchanged.

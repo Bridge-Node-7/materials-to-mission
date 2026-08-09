@@ -43,3 +43,24 @@ Review every changed evidence file before committing.
 If repository creation succeeds but push fails, do not delete the repository and do not
 rerun blindly. Preserve the evidence directory, inspect the remote state, and resume only
 through a reviewed recovery gate.
+
+## Maintenance Releases
+
+After the initial repository publication, patch releases use a bounded source pull
+request followed by an exact signed annotated tag. The hosted `Release` workflow remains
+the sole GitHub Release creator.
+
+Before tagging a maintenance release:
+
+1. update `VERSION`, package metadata, citation metadata, project facts, changelog, and
+   the version-specific release-notes file;
+2. run `python scripts/check_repo.py --update-evidence`, review the exact diff, and rerun
+   `python scripts/check_repo.py` without mutation;
+3. require hosted CI and CodeQL at the exact signed pull-request head;
+4. merge only the reviewed head and validate a fresh clone of merged `main`;
+5. create and push one verified signed annotated tag matching `VERSION`;
+6. verify the hosted workflow, immutable release, exact five assets, checksums,
+   archive-to-tree equality, latest route, and signed-out public access.
+
+Maintenance releases do not modify canonical schema identifiers unless a separately
+reviewed contract change explicitly authorizes that work.
