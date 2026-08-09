@@ -20,11 +20,27 @@ def canonical_relative(path: Path, root: Path = ROOT) -> str:
     return path.relative_to(root).as_posix()
 
 
+def canonical_file_bytes(path: Path) -> bytes:
+    # Normalize UTF-8 text to LF while preserving exact binary bytes.
+    raw = path.read_bytes()
+    if b"\x00" in raw:
+        return raw
+    try:
+        text = raw.decode("utf-8")
+    except UnicodeDecodeError:
+        return raw
+    return text.replace("\r\n", "\n").replace("\r", "\n").encode("utf-8")
+
+
+def manifest_digest(path: Path) -> str:
+    return hashlib.sha256(canonical_file_bytes(path)).hexdigest()
+
+
 def expected_text() -> str:
     lines = []
     paths = (p for p in ROOT.rglob("*") if include(p))
     for path in sorted(paths, key=canonical_relative):
-        digest = hashlib.sha256(path.read_bytes()).hexdigest()
+        digest = manifest_digest(path)
         lines.append(f"{digest}  {canonical_relative(path)}")
     return "\n".join(lines) + "\n"
 
