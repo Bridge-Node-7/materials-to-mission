@@ -16,11 +16,16 @@ def include(path: Path) -> bool:
     return path.is_file() and path.name != ".coverage" and path.suffix not in {".pyc", ".pyo"}
 
 
+def canonical_relative(path: Path, root: Path = ROOT) -> str:
+    return path.relative_to(root).as_posix()
+
+
 def expected_text() -> str:
     lines = []
-    for path in sorted(p for p in ROOT.rglob("*") if include(p)):
+    paths = (p for p in ROOT.rglob("*") if include(p))
+    for path in sorted(paths, key=canonical_relative):
         digest = hashlib.sha256(path.read_bytes()).hexdigest()
-        lines.append(f"{digest}  {path.relative_to(ROOT).as_posix()}")
+        lines.append(f"{digest}  {canonical_relative(path)}")
     return "\n".join(lines) + "\n"
 
 

@@ -67,9 +67,12 @@ def build_deterministic_zip(root: str | Path, output: str | Path) -> Path:
     _validate_output_location(root_path, output_path)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     files = sorted(
-        path
-        for path in root_path.rglob("*")
-        if _include(path, root_path) and path.resolve() != output_path
+        (
+            path
+            for path in root_path.rglob("*")
+            if _include(path, root_path) and path.resolve() != output_path
+        ),
+        key=lambda path: path.relative_to(root_path).as_posix(),
     )
     with zipfile.ZipFile(
         output_path,

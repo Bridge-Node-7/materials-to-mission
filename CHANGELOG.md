@@ -2,6 +2,11 @@
 
 All notable changes are documented here.
 
+## Unreleased validation hardening
+
+- Canonicalized repository-manifest and release-archive ordering by normalized POSIX-relative path so Linux and Windows generate identical identities.
+- Added regression tests for Windows path ordering and deterministic archive member order.
+
 ## [0.1.0] - 2026-08-08
 
 ### Added

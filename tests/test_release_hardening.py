@@ -50,3 +50,43 @@ def test_publication_kit_validator_rejects_missing_gate_set(tmp_path: Path) -> N
     )
     assert result.returncode != 0
     assert "gate set mismatch" in result.stdout + result.stderr
+
+
+def test_manifest_sort_key_is_posix_relative_and_case_sensitive() -> None:
+    import importlib.util
+    from pathlib import PureWindowsPath
+
+    spec = importlib.util.spec_from_file_location(
+        "build_manifest", ROOT / "scripts/build_manifest.py"
+    )
+    assert spec and spec.loader
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+
+    root = PureWindowsPath("C:/repo")
+    paths = [
+        root / ".github/dependabot.yml",
+        root / ".github/ISSUE_TEMPLATE/bug.yml",
+    ]
+    ordered = sorted(paths, key=lambda path: module.canonical_relative(path, root))
+    assert [module.canonical_relative(path, root) for path in ordered] == [
+        ".github/ISSUE_TEMPLATE/bug.yml",
+        ".github/dependabot.yml",
+    ]
+
+
+def test_release_archive_member_order_uses_posix_paths(tmp_path: Path) -> None:
+    from materials_to_mission.release import build_deterministic_zip
+    import zipfile
+
+    root = tmp_path / "root"
+    (root / ".github/ISSUE_TEMPLATE").mkdir(parents=True)
+    (root / ".github/ISSUE_TEMPLATE/bug.yml").write_text("bug\n", encoding="utf-8")
+    (root / ".github/dependabot.yml").write_text("deps\n", encoding="utf-8")
+
+    archive = build_deterministic_zip(root, tmp_path / "release.zip")
+    with zipfile.ZipFile(archive) as handle:
+        assert handle.namelist() == [
+            ".github/ISSUE_TEMPLATE/bug.yml",
+            ".github/dependabot.yml",
+        ]
