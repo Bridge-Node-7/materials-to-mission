@@ -60,12 +60,12 @@ Passport presents the smallest useful human decision view without replacing that
 
 ## Who This Is For
 
-- Materials and qualification teams evaluating evidence readiness
-- Program and mission decision owners managing consequential uncertainty
-- Sourcing and supply-chain assurance teams tracing weak links and alternatives
-- Researchers and tool builders evaluating portable evidence and decision contracts
+- Independent researchers and builders exploring evidence-backed decisions
+- Individual practitioners testing the method with synthetic records
+- Technical reviewers evaluating portable schemas and validation behavior
+- Small collaborators assessing whether future use is justified
 
-These are intended audiences, not claims of current adoption.
+These are evaluation audiences, not claims of adoption.
 
 ## What This Repository Proves
 
@@ -90,9 +90,9 @@ These are intended audiences, not claims of current adoption.
 
 ## Choose Your Path
 
-**New to the method?** Read [`docs/START_HERE.md`](docs/START_HERE.md).  
-**Evaluating the toolkit?** Follow the [five-minute evaluation](docs/FIVE_MINUTE_EVALUATION.md).  
-**Integrating records?** Start with [`SCHEMA_CATALOG.json`](SCHEMA_CATALOG.json) and [`docs/INTEROPERABILITY.md`](docs/INTEROPERABILITY.md).  
+**New to the method?** Read [`docs/START_HERE.md`](docs/START_HERE.md).
+**Evaluating the toolkit?** Follow the [five-minute evaluation](docs/FIVE_MINUTE_EVALUATION.md).
+**Integrating records?** Start with [`SCHEMA_CATALOG.json`](SCHEMA_CATALOG.json) and [`docs/INTEROPERABILITY.md`](docs/INTEROPERABILITY.md).
 **Maintaining or releasing?** Use [`docs/RELEASE_PROCESS.md`](docs/RELEASE_PROCESS.md) and [`docs/ACTION_PIN_PROVENANCE.md`](docs/ACTION_PIN_PROVENANCE.md).
 **Checking current maturity?** Read [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md) and [`docs/M1_READINESS.md`](docs/M1_READINESS.md).
 **Planning a protected case?** Use [`docs/M1_CASE_001_PLAYBOOK.md`](docs/M1_CASE_001_PLAYBOOK.md) and [`templates/private-case-readiness-checklist.md`](templates/private-case-readiness-checklist.md).
@@ -201,16 +201,17 @@ other restricted content. See [`docs/PUBLIC_BOUNDARY.md`](docs/PUBLIC_BOUNDARY.m
 
 ## Repository Maturity
 
-`v0.1.1` is an **M0 assurance-maintenance release** built on the immutable v0.1.0
-experimental public method baseline. It preserves the canonical schema contracts while
-hardening validation, portability, public-boundary controls, and maturity documentation.
+`v0.1.2` is the current **M0 authority and traceability closeout release** built
+on the immutable v0.1.0 experimental public method baseline. It preserves the canonical
+schema contracts while hardening human-authority declarations, requirement identity,
+validation evidence, guided evaluation, and protected Case 001 preparation.
 The repository remains M0 until the real-workflow evidence in
 [`docs/M1_READINESS.md`](docs/M1_READINESS.md) is complete. It is not a validated
 cross-case commercial product or an authority for certification or qualification.
 
 ## Bridge Node 7 Portfolio Fit
 
-- [Bridge Node 7](https://bridgenode7.com/) provides the institutional narrative and public routing.
+- [Bridge Node 7](https://bridgenode7.com/) provides the public context and routing.
 - **Materials-to-Mission** owns the canonical public method, schemas, validator, and synthetic records.
 - [Frontier Decision Engine](https://github.com/Bridge-Node-7/frontier-decision-engine) remains generic decision infrastructure and may later consume this released contract through a thin adapter.
 - Real operational cases and protected evidence remain in controlled private systems.

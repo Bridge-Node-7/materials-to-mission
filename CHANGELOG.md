@@ -3,6 +3,9 @@
 All notable changes are documented here.
 
 ## Unreleased
+
+## [0.1.2] - 2026-08-09
+
 ### Fixed
 
 - Harden human-authority declarations against demonstrated automation-only aliases while
@@ -10,23 +13,30 @@ All notable changes are documented here.
 - Reject duplicate Decision Charter requirement identifiers across requirements and
   acceptance criteria.
 - Derive validation-report release identity from the reviewed project version.
+- Normalize generated validation evidence to prevent trailing-whitespace drift.
 - Return a controlled package error for direct rendering of an unvalidated record.
 
 ### Added
 
 - Guided one-command public evaluation with calm fail-closed output.
-- Focused scope, M1 Case 001, readiness-state, and template guidance.
+- Focused scope, M1 Case 001, readiness-state, and private-case template guidance.
+- Deterministic exact-diff protected-content verification before the corrective merge.
 
 ### Documentation
 
-- Reconcile current-state records with the completed `v0.1.1` release and live website
-  public-method link.
-- Distinguish the immutable `v0.1.0` schema baseline from the current `v0.1.1`
-  maintenance release.
-- Record the FDE release prerequisite as complete while keeping implementation deferred
-  pending real Case 001 evidence and repeated user need.
-- Mark the original public-release plan executed and preserve historical operators as
-  evidence only.
+- Reconcile current-state records with the `v0.1.2` release line.
+- Preserve the immutable `v0.1.0` schema baseline and `v0.1.1` maintenance lineage.
+- Keep M1, qualification, certification, adoption, and operational-authorization
+  non-claims explicit.
+
+### Validation
+
+- 118 collected tests with all runnable tests passing.
+- 97 percent combined statement and branch coverage.
+- Hosted Ubuntu and Windows Python 3.11 and 3.13 checks.
+- CodeQL analysis.
+- Deterministic packaging, exact five-asset release verification, and archive-to-tree
+  equality.
 
 ## [0.1.1] - 2026-08-09
 
