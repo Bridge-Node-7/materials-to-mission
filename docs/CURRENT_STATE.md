@@ -2,16 +2,17 @@
 
 **As of August 9, 2026**
 
-Materials-to-Mission remains an **M0 experimental public method**. Version `0.1.1`
-packages assurance, portability, public-boundary, and maturity-documentation maintenance
-without changing the canonical public schemas or claiming M1 real workflow proof.
+Materials-to-Mission remains an **M0 experimental public method**. Version `v0.1.1`
+is the current public assurance-maintenance release. It preserves the immutable `v0.1.0`
+schema authority while adding validation, portability, public-boundary, release, and
+maturity-documentation maintenance.
 
 ## Release Lineage
 
-The immutable `v0.1.0` release remains the original public method and schema baseline.
-Version `v0.1.1` preserves that contract and adds maintenance corrections. The GitHub
-Releases page is authoritative for whether a prepared version has completed hosted
-publication and immutable public readback.
+The immutable `v0.1.0` release remains the original public method and canonical schema
+baseline. Version `v0.1.1` is the current maintenance release and preserves those schema
+identifiers. The GitHub Releases page and signed release evidence govern public release
+identity.
 
 ## Version 0.1.1 Scope
 
@@ -30,12 +31,17 @@ M1 is **not achieved**. No approved real Case 001, private case evidence package
 independent case review, human disposition, measured outcome, or authorized sanitized
 case study is present in this public repository.
 
+The current evidence gate is a bounded real Case 001 under appropriate private controls.
 See [`M1_READINESS.md`](M1_READINESS.md) for the evidence required before an M1 claim.
 
 ## Website and Integration Status
 
-This release does not modify the Bridge Node 7 website. Minimal website linkage remains a
-separate repository change governed by [`WEBSITE_INTEGRATION.md`](WEBSITE_INTEGRATION.md).
+The separately governed website follow-on is complete. The existing Materials page presents
+one restrained **View Public Method** link to this repository. No new website route or
+duplicate Readiness-page link was required. This repository release did not modify the
+website, and future website changes remain separately governed by
+[`WEBSITE_INTEGRATION.md`](WEBSITE_INTEGRATION.md).
 
-Frontier Decision Engine integration remains deferred until a separately reviewed thin
-adapter is justified by released contracts and case evidence.
+The canonical-release prerequisite for a Frontier Decision Engine adapter is complete.
+Adapter implementation remains deferred until real Case 001 evidence, stable mapping needs,
+and repeated user need justify a separately reviewed thin consumer adapter.
