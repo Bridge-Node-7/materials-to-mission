@@ -1,6 +1,7 @@
 # Roadmap
 
-Roadmap work is evidence-gated.
+Roadmap work is evidence-gated. A checked item records a completed public repository
+milestone, not real-world qualification or product maturity.
 
 ## Candidate Next Steps
 
@@ -11,14 +12,17 @@ Roadmap work is evidence-gated.
 - Add only evidence-backed automation.
 - Publish a sanitized case study only after authorization.
 
-A hosted backend, broad supplier database, autonomous recommendation engine, or
-new certification claim is not part of the current roadmap.
-
+A hosted backend, broad supplier database, autonomous recommendation engine, or new
+certification claim is not part of the current roadmap.
 
 ## Immediate Public Sequence
 
-1. Publish and verify the M0 standalone method baseline.
-2. Add one minimal website link.
-3. Complete real Case 001 privately.
-4. Derive M1 evidence and product requirements.
-5. Build a thin FDE adapter to the released contract.
+1. [x] Publish and verify the immutable M0 standalone method baseline.
+2. [ ] Complete the separately governed minimal website linkage.
+3. [ ] Authorize and complete real Case 001 privately.
+4. [ ] Derive M1 evidence and case-grounded product requirements.
+5. [ ] Build a thin FDE adapter only when the released contract and evidence justify it.
+
+Current repository and release status is recorded in
+[`CURRENT_STATE.md`](CURRENT_STATE.md). M1 entry and acceptance conditions are recorded in
+[`M1_READINESS.md`](M1_READINESS.md).

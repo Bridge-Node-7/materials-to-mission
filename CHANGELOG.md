@@ -2,6 +2,13 @@
 
 All notable changes are documented here.
 
+## Unreleased documentation and maturity clarity
+
+- Added a dated current-state record distinguishing immutable `v0.1.0` from unreleased main.
+- Added explicit M1 entry, evidence-package, acceptance, and public-boundary conditions.
+- Clarified that documentation, tests, schemas, and generated artifacts do not establish M1.
+- Marked the verified M0 public baseline complete while preserving later roadmap gates.
+
 ## Unreleased archive identity hardening
 
 - Canonicalized every ZIP identity-bearing metadata field instead of inheriting host defaults.
