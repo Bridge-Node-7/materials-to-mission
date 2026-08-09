@@ -37,3 +37,19 @@ The maintenance candidate adds semantic checks that the M0 schemas alone cannot 
 
 These checks remain public-method validation. They do not establish material qualification,
 compliance, source ownership, laboratory validity, production capacity, or mission authorization.
+
+## v0.1.2 candidate closeout traceability
+
+- Automation-only authority aliases are normalized and rejected; clearly named humans in
+  AI, model-risk, and automation roles remain valid declarations.
+- Decision Charter requirements and acceptance criteria share one unique identifier
+  namespace.
+- `VALIDATION_REPORT.md` derives its version from `VERSION`, which must agree with
+  `pyproject.toml`.
+- Direct renderer misuse returns a controlled toolkit exception; the CLI continues to
+  validate before rendering.
+- `scripts/evaluate_public_method.py` exercises the existing public CLI and confirms one
+  intentional fail-closed fixture.
+- These controls validate declarations and repository behavior. They do not authenticate a
+  legal identity or establish qualification, compliance, production readiness, adoption,
+  or operational authorization.

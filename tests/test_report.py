@@ -1,3 +1,6 @@
+import pytest
+
+from materials_to_mission.errors import MaterialsToMissionError
 from materials_to_mission.report import render_decision_passport
 
 
@@ -13,3 +16,10 @@ def test_report_contains_required_sections(example_case):
         assert heading in report
     assert "Fictional Human Decision Owner" in report
     assert "`HOLD`" in report
+
+def test_report_direct_use_has_controlled_error():
+    with pytest.raises(
+        MaterialsToMissionError,
+        match="Decision Passport rendering requires a structurally valid case",
+    ):
+        render_decision_passport({})

@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+from collections import Counter
 from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
 import re
+import unicodedata
 from typing import Any, Iterable
 
 from jsonschema import Draft202012Validator, FormatChecker
@@ -65,17 +67,36 @@ def _schema_findings(case: dict[str, Any]) -> list[ValidationFinding]:
     ]
 
 
-_AUTOMATION_PREFIX = re.compile(
-    r"^(?:ai|artificial intelligence|automated|automation|algorithmic?|model|"
-    r"machine|bot|decision engine)\b",
+_AUTOMATION_TERM = re.compile(
+    r"\b(?:ai|artificial intelligence|automated|automation|algorithm(?:ic)?|"
+    r"machine(?: learning)?|bot|chatbot|large language model|llm|chatgpt|"
+    r"gpt(?:\s+\d+(?:\.\d+)?)?|claude|autonomous(?: agent)?|"
+    r"decision engine|system selected agent|agent|model)\b",
     re.IGNORECASE,
+)
+_NAMED_HUMAN_WITH_ROLE = re.compile(
+    r"\b(?i:manager|lead|director|officer|owner|authority|reviewer|engineer|"
+    r"analyst|counsel|scientist|researcher|coordinator|administrator|architect|"
+    r"supervisor|chair|chief|head|specialist)\s+"
+    r"(?:(?i:dr|mr|ms|mx)\.?\s+)?"
+    r"[A-Z][A-Za-z'’\-]+\s+[A-Z][A-Za-z'’\-]+\b"
 )
 _EVIDENCE_ID = re.compile(r"^(E-[0-9]{3,})(?=$|[:\s])")
 _CONDITION_ID = re.compile(r"^(CC-[A-Z0-9-]+)(?=$|[:\s])")
 
 
+def _normalize_authority(value: str) -> str:
+    normalized = unicodedata.normalize("NFKC", value)
+    normalized = re.sub(r"(?i)\ba[\W_]*i\b", "ai", normalized)
+    normalized = re.sub(r"[-_/]+", " ", normalized)
+    return re.sub(r"\s+", " ", normalized).strip().casefold()
+
+
 def _looks_automated_authority(value: str) -> bool:
-    return bool(_AUTOMATION_PREFIX.search(value.strip()))
+    normalized = _normalize_authority(value)
+    if not _AUTOMATION_TERM.search(normalized):
+        return False
+    return _NAMED_HUMAN_WITH_ROLE.search(value) is None
 
 
 def _leading_identifier(value: Any, pattern: re.Pattern[str]) -> str | None:
@@ -217,7 +238,7 @@ def _semantic_findings(
                 )
             )
 
-    requirement_ids = {
+    requirement_id_values = [
         str(item.get("requirement_id", ""))
         for collection in (
             charter.get("requirements", []),
@@ -225,7 +246,21 @@ def _semantic_findings(
         )
         for item in collection
         if str(item.get("requirement_id", ""))
-    }
+    ]
+    duplicate_requirement_ids = sorted(
+        identifier
+        for identifier, count in Counter(requirement_id_values).items()
+        if count > 1
+    )
+    for identifier in duplicate_requirement_ids:
+        findings.append(
+            ValidationFinding(
+                "DUPLICATE_REQUIREMENT_ID",
+                f"Decision Charter requirement identifier {identifier} is duplicated",
+                "$.decision_charter",
+            )
+        )
+    requirement_ids = set(requirement_id_values)
 
     for index, item in enumerate(evidence):
         state = item.get("claim_state")
