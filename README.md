@@ -94,6 +94,7 @@ These are intended audiences, not claims of current adoption.
 **Evaluating the toolkit?** Follow the [five-minute evaluation](docs/FIVE_MINUTE_EVALUATION.md).  
 **Integrating records?** Start with [`SCHEMA_CATALOG.json`](SCHEMA_CATALOG.json) and [`docs/INTEROPERABILITY.md`](docs/INTEROPERABILITY.md).  
 **Maintaining or releasing?** Use [`docs/RELEASE_PROCESS.md`](docs/RELEASE_PROCESS.md) and [`docs/ACTION_PIN_PROVENANCE.md`](docs/ACTION_PIN_PROVENANCE.md).
+**Checking current maturity?** Read [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md) and [`docs/M1_READINESS.md`](docs/M1_READINESS.md).
 
 ## Evaluate the Method
 
@@ -184,8 +185,10 @@ other restricted content. See [`docs/PUBLIC_BOUNDARY.md`](docs/PUBLIC_BOUNDARY.m
 ## Repository Maturity
 
 `v0.1.0` is an **M0 experimental public method baseline**. It supports public schema,
-workflow, and tooling evaluation. It is not M1 real workflow proof, a validated cross-case
-commercial product, or an authority for certification or qualification.
+workflow, and tooling evaluation. Main may contain reviewed unreleased maintenance, but
+the repository remains M0 until the real-workflow evidence in
+[`docs/M1_READINESS.md`](docs/M1_READINESS.md) is complete. It is not a validated
+cross-case commercial product or an authority for certification or qualification.
 
 ## Bridge Node 7 Portfolio Fit
 

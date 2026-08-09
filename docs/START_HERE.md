@@ -32,6 +32,14 @@ material, source, supplier, laboratory, or mission.
 2. Review [`INTEROPERABILITY.md`](INTEROPERABILITY.md).
 3. Preserve the canonical `v0.1.0` schema identifiers and human-authority fields.
 
+### Understand Current Maturity
+
+1. Read [`CURRENT_STATE.md`](CURRENT_STATE.md).
+2. Read [`MATURITY_AND_PROOF.md`](MATURITY_AND_PROOF.md).
+3. Use [`M1_READINESS.md`](M1_READINESS.md) before proposing any real Case 001.
+
+Documentation readiness does not establish M1.
+
 ### Maintain the Repository
 
 1. Read [`VALIDATION.md`](VALIDATION.md).
