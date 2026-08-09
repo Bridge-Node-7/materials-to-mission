@@ -41,8 +41,11 @@ def test_cli_scan_bad_json_output(root, capsys):
 def test_cli_package(root, tmp_path, capsys):
     code = main(["package", "--root", str(root), "--output-dir", str(tmp_path)])
     assert code == 0
-    assert (tmp_path / "materials-to-mission-v0.1.0.zip").exists()
-    assert (tmp_path / "materials-to-mission-v0.1.0.zip.sha256").exists()
+    version = (root / "VERSION").read_text(encoding="utf-8").strip()
+    archive = tmp_path / f"materials-to-mission-v{version}.zip"
+    checksum = tmp_path / f"materials-to-mission-v{version}.zip.sha256"
+    assert archive.exists()
+    assert checksum.exists()
     assert "SHA-256" in capsys.readouterr().out
 
 

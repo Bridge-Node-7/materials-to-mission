@@ -1,6 +1,6 @@
 {
   "project": "materials-to-mission",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "maturity": "experimental-public-baseline",
   "current_public_maturity": "M0",
   "m1_real_workflow_proof_claimed": false,
@@ -20,7 +20,7 @@
   ],
   "reference_case": "examples/synthetic-critical-material-pathway/case.json",
   "validation_command": "python scripts/check_repo.py",
-  "release_artifact": "materials-to-mission-v0.1.0.zip",
+  "release_artifact": "materials-to-mission-v0.1.1.zip",
   "license": "MIT",
   "account_owner": "Bridge-Node-7",
   "account_type": "User",
@@ -38,5 +38,7 @@
   "validation_evidence_policy": "checked-in evidence must match a fresh non-mutating repository gate",
   "coverage_gate_percent": 95,
   "publication_kit_validator": "scripts/check_publication_kit.py",
-  "public_source_contains_github_write_gates": false
+  "public_source_contains_github_write_gates": false,
+  "release_notes": "RELEASE_NOTES_v0.1.1.md",
+  "current_release_maturity": "M0 assurance maintenance"
 }
