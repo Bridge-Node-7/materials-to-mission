@@ -106,3 +106,10 @@ def test_validate_rejects_skipped_count_mismatch():
 def test_validation_report_requires_project_version():
     with pytest.raises(ValueError, match="project version is required"):
         render_validation_report(70, " ")
+
+def test_validation_report_has_no_trailing_whitespace():
+    report = render_validation_report(70, "0.1.2")
+    assert all(
+        line == line.rstrip(" \t")
+        for line in report.splitlines()
+    )
