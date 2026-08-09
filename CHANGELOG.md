@@ -3,6 +3,19 @@
 All notable changes are documented here.
 
 ## Unreleased
+### Fixed
+
+- Harden human-authority declarations against demonstrated automation-only aliases while
+  preserving clearly named humans in AI, model-risk, and automation roles.
+- Reject duplicate Decision Charter requirement identifiers across requirements and
+  acceptance criteria.
+- Derive validation-report release identity from the reviewed project version.
+- Return a controlled package error for direct rendering of an unvalidated record.
+
+### Added
+
+- Guided one-command public evaluation with calm fail-closed output.
+- Focused scope, M1 Case 001, readiness-state, and template guidance.
 
 ### Documentation
 

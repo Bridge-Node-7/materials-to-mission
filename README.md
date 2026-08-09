@@ -95,6 +95,7 @@ These are intended audiences, not claims of current adoption.
 **Integrating records?** Start with [`SCHEMA_CATALOG.json`](SCHEMA_CATALOG.json) and [`docs/INTEROPERABILITY.md`](docs/INTEROPERABILITY.md).  
 **Maintaining or releasing?** Use [`docs/RELEASE_PROCESS.md`](docs/RELEASE_PROCESS.md) and [`docs/ACTION_PIN_PROVENANCE.md`](docs/ACTION_PIN_PROVENANCE.md).
 **Checking current maturity?** Read [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md) and [`docs/M1_READINESS.md`](docs/M1_READINESS.md).
+**Planning a protected case?** Use [`docs/M1_CASE_001_PLAYBOOK.md`](docs/M1_CASE_001_PLAYBOOK.md) and [`templates/private-case-readiness-checklist.md`](templates/private-case-readiness-checklist.md).
 
 ## Evaluate the Method
 
@@ -109,11 +110,27 @@ python -m pip install --no-deps --no-build-isolation -e .
 
 Validate and render the synthetic reference:
 
+Run the guided five-minute evaluation:
+
+```bash
+python scripts/evaluate_public_method.py
+```
+
+Expected operator view:
+
+```text
+PASS - SYNTHETIC CASE VALID
+PASS - DECISION PASSPORT WRITTEN
+PASS - FAIL-CLOSED EXAMPLE CONFIRMED
+NEXT - OPEN build/guided-decision-passport.md
+```
+
+The individual public commands remain available:
+
 ```bash
 m2m validate examples/synthetic-critical-material-pathway/case.json --public
 m2m render examples/synthetic-critical-material-pathway/case.json --output build/decision-passport.md
 ```
-
 Inspect one intentional failure:
 
 ```bash
