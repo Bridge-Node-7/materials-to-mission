@@ -48,11 +48,11 @@ jobs:
           python - <<'PY'
           import json
           from pathlib import Path
-          data = json.loads(Path('dist/release-manifest.json').read_text())
-          assert data['git_bound'] is True
-          assert data['tag'] == 'v0.1.0'
-          assert data['commit']
-          assert data['tree']
+          data = json.loads(Path("dist/release-manifest.json").read_text())
+          assert data["git_bound"] is True
+          assert data["tag"] == f"v{data['version']}"
+          assert data["commit"]
+          assert data["tree"]
           PY
       - name: Create draft release, attach exact allowlist, then publish
         env:
@@ -60,20 +60,21 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          version="$(cat VERSION)"
+          test "${GITHUB_REF_NAME}" = "v${version}"
+          notes_file="RELEASE_NOTES_${GITHUB_REF_NAME}.md"
+          archive="dist/materials-to-mission-${GITHUB_REF_NAME}.zip"
+          test -f "$notes_file"
+          test -f "$archive"
+          manifest_tag="$(python -c 'import json; print(json.load(open("dist/release-manifest.json"))["tag"])')"
+          test "$manifest_tag" = "$GITHUB_REF_NAME"
           if gh release view "${GITHUB_REF_NAME}" >/dev/null 2>&1; then
             echo "Release already exists" >&2
             exit 1
           fi
-          gh release create "${GITHUB_REF_NAME}" --draft --verify-tag \
-            --title "Materials-to-Mission ${GITHUB_REF_NAME} — Experimental Public Method Baseline" \
-            --notes-file RELEASE_NOTES_v0.1.0.md
-          gh release upload "${GITHUB_REF_NAME}" \
-            dist/materials-to-mission-v0.1.0.zip \
-            dist/SHA256SUMS \
-            dist/release-manifest.json \
-            REPO_FILE_MANIFEST.sha256 \
-            VALIDATION_REPORT.md
-          expected="$(printf '%s\n' REPO_FILE_MANIFEST.sha256 SHA256SUMS VALIDATION_REPORT.md materials-to-mission-v0.1.0.zip release-manifest.json | sort)"
+          gh release create "${GITHUB_REF_NAME}" --draft --verify-tag             --title "Materials-to-Mission ${GITHUB_REF_NAME} — M0 Assurance Maintenance"             --notes-file "$notes_file"
+          gh release upload "${GITHUB_REF_NAME}"             "$archive"             dist/SHA256SUMS             dist/release-manifest.json             REPO_FILE_MANIFEST.sha256             VALIDATION_REPORT.md
+          expected="$(printf '%s\n' REPO_FILE_MANIFEST.sha256 SHA256SUMS VALIDATION_REPORT.md "materials-to-mission-${GITHUB_REF_NAME}.zip" release-manifest.json | sort)"
           observed="$(gh release view "${GITHUB_REF_NAME}" --json assets --jq '.assets[].name' | sort)"
           test "$observed" = "$expected"
           gh release edit "${GITHUB_REF_NAME}" --draft=false --latest
