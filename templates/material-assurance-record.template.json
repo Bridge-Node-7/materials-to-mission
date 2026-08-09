@@ -1,5 +1,5 @@
 {
-  "record_id": "M2M-MAR-SYNTHETIC-001",
+  "record_id": "M2M-MAR-TEMPLATE-001",
   "record_version": "0.1.0",
   "mission": {
     "mission_id": "MISSION-001",
@@ -7,38 +7,38 @@
     "outcome": "Reliable fictional positioning during a demonstration window."
   },
   "system": {
-    "system_id": "SYSTEM-001",
-    "label": "Fictional Guidance Assembly"
+    "system_id": "SYSTEM-TEMPLATE",
+    "label": "Fictional Template System"
   },
   "component": {
-    "component_id": "COMPONENT-001",
-    "label": "Fictional Precision Actuator",
+    "component_id": "COMPONENT-TEMPLATE",
+    "label": "Fictional Template Component",
     "function": "Provide bounded positioning in the synthetic scenario."
   },
   "material": {
-    "material_id": "MATERIAL-M17",
-    "label": "Synthetic Alloy M-17",
+    "material_id": "MATERIAL-TEMPLATE",
+    "label": "Fictional Template Material",
     "form": "Fictional sintered blank",
     "intended_function": "Support fictional actuator performance."
   },
   "source": {
-    "source_id": "SOURCE-001",
-    "label": "Fictional Source Record A",
+    "source_id": "SOURCE-TEMPLATE",
+    "label": "Fictional Template Source",
     "status": "UNKNOWN"
   },
   "process": {
-    "process_id": "PROCESS-P4",
-    "label": "Fictional Powder Processing Route P-4",
+    "process_id": "PROCESS-TEMPLATE",
+    "label": "Fictional Template Process",
     "status": "PARTIALLY_DOCUMENTED"
   },
   "supplier": {
-    "supplier_id": "SUPPLIER-ALPHA",
-    "label": "Fictional Supplier Alpha",
+    "supplier_id": "SUPPLIER-TEMPLATE",
+    "label": "Fictional Template Supplier",
     "synthetic": true
   },
   "facility": {
-    "facility_id": "FACILITY-ONE",
-    "label": "Fictional Facility One",
+    "facility_id": "FACILITY-TEMPLATE",
+    "label": "Fictional Template Facility",
     "synthetic": true
   },
   "evidence_records": [
@@ -77,7 +77,7 @@
     {
       "evidence_id": "E-002",
       "title": "Fictional Supplier Process Statement",
-      "source": "Fictional Supplier Alpha",
+      "source": "Fictional Template Supplier",
       "source_type": "SUPPLIER_RECORD",
       "locator": "Synthetic record PS-4",
       "version": "1.0",
@@ -138,7 +138,7 @@
     {
       "evidence_id": "E-004",
       "title": "Fictional Origin Record",
-      "source": "Fictional Source Record A",
+      "source": "Fictional Template Source",
       "source_type": "SUPPLIER_RECORD",
       "locator": "Origin package placeholder",
       "version": "0.1",
