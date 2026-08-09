@@ -1,0 +1,457 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/Bridge-Node-7/materials-to-mission/v0.1.0/schemas/material-assurance-record.schema.json",
+  "title": "Materials-to-Mission Material Assurance Record",
+  "type": "object",
+  "required": [
+    "record_id",
+    "record_version",
+    "mission",
+    "system",
+    "component",
+    "material",
+    "source",
+    "process",
+    "supplier",
+    "facility",
+    "evidence_records",
+    "risks",
+    "weak_links",
+    "alternatives",
+    "critical_conditions",
+    "test_methods",
+    "results",
+    "qualification_state",
+    "mitigations",
+    "limitations",
+    "human_reviews",
+    "proposed_disposition",
+    "next_action",
+    "success_signal",
+    "stop_rule",
+    "reassessment_trigger"
+  ],
+  "properties": {
+    "record_id": {
+      "type": "string",
+      "pattern": "^M2M-MAR-[A-Z0-9-]+$"
+    },
+    "record_version": {
+      "const": "0.1.0"
+    },
+    "mission": {
+      "type": "object",
+      "required": [
+        "mission_id",
+        "label",
+        "outcome"
+      ],
+      "properties": {
+        "mission_id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "outcome": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "system": {
+      "type": "object",
+      "required": [
+        "system_id",
+        "label"
+      ],
+      "properties": {
+        "system_id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "component": {
+      "type": "object",
+      "required": [
+        "component_id",
+        "label",
+        "function"
+      ],
+      "properties": {
+        "component_id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "function": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "material": {
+      "type": "object",
+      "required": [
+        "material_id",
+        "label",
+        "form",
+        "intended_function"
+      ],
+      "properties": {
+        "material_id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "form": {
+          "type": "string"
+        },
+        "intended_function": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "source_id",
+        "label",
+        "status"
+      ],
+      "properties": {
+        "source_id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "VERIFIED",
+            "PARTIALLY_DOCUMENTED",
+            "UNKNOWN",
+            "CONTRADICTED"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "process": {
+      "type": "object",
+      "required": [
+        "process_id",
+        "label",
+        "status"
+      ],
+      "properties": {
+        "process_id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "DOCUMENTED",
+            "PARTIALLY_DOCUMENTED",
+            "UNKNOWN",
+            "CONTRADICTED"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "supplier": {
+      "type": "object",
+      "required": [
+        "supplier_id",
+        "label",
+        "synthetic"
+      ],
+      "properties": {
+        "supplier_id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "synthetic": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "facility": {
+      "type": "object",
+      "required": [
+        "facility_id",
+        "label",
+        "synthetic"
+      ],
+      "properties": {
+        "facility_id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "synthetic": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "evidence_records": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "$ref": "evidence-record.schema.json"
+      }
+    },
+    "risks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "risk_id",
+          "statement",
+          "consequence",
+          "owner"
+        ],
+        "properties": {
+          "risk_id": {
+            "type": "string"
+          },
+          "statement": {
+            "type": "string"
+          },
+          "consequence": {
+            "type": "string"
+          },
+          "owner": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "weak_links": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "weak_link_id",
+          "statement",
+          "governing"
+        ],
+        "properties": {
+          "weak_link_id": {
+            "type": "string"
+          },
+          "statement": {
+            "type": "string"
+          },
+          "governing": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "alternatives": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": [
+          "alternative_id",
+          "label",
+          "tradeoff"
+        ],
+        "properties": {
+          "alternative_id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "tradeoff": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "critical_conditions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "common.schema.json#/$defs/criticalCondition"
+      }
+    },
+    "test_methods": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "method_id",
+          "label",
+          "applicability"
+        ],
+        "properties": {
+          "method_id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "applicability": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "results": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "result_id",
+          "method_id",
+          "statement",
+          "status"
+        ],
+        "properties": {
+          "result_id": {
+            "type": "string"
+          },
+          "method_id": {
+            "type": "string"
+          },
+          "statement": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "PASS",
+              "FAIL",
+              "INCONCLUSIVE",
+              "NOT_RUN"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "qualification_state": {
+      "enum": [
+        "NOT_ASSESSED",
+        "EVIDENCE_INCOMPLETE",
+        "READY_FOR_VALIDATION",
+        "VALIDATION_IN_PROGRESS",
+        "HOLD",
+        "STOP"
+      ]
+    },
+    "mitigations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "mitigation_id",
+          "action",
+          "owner"
+        ],
+        "properties": {
+          "mitigation_id": {
+            "type": "string"
+          },
+          "action": {
+            "type": "string"
+          },
+          "owner": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "human_reviews": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "reviewer_role",
+          "reviewer",
+          "date",
+          "disposition"
+        ],
+        "properties": {
+          "reviewer_role": {
+            "type": "string"
+          },
+          "reviewer": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "disposition": {
+            "enum": [
+              "ACCEPT",
+              "ACCEPT_WITH_CONDITIONS",
+              "REVISE",
+              "REJECT"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "proposed_disposition": {
+      "$ref": "common.schema.json#/$defs/disposition"
+    },
+    "next_action": {
+      "type": "string",
+      "minLength": 1
+    },
+    "success_signal": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stop_rule": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reassessment_trigger": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "additionalProperties": false
+}

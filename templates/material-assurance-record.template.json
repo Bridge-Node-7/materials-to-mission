@@ -1,0 +1,304 @@
+{
+  "record_id": "M2M-MAR-SYNTHETIC-001",
+  "record_version": "0.1.0",
+  "mission": {
+    "mission_id": "MISSION-001",
+    "label": "Fictional orbital inspection demonstration",
+    "outcome": "Reliable fictional positioning during a demonstration window."
+  },
+  "system": {
+    "system_id": "SYSTEM-001",
+    "label": "Fictional Guidance Assembly"
+  },
+  "component": {
+    "component_id": "COMPONENT-001",
+    "label": "Fictional Precision Actuator",
+    "function": "Provide bounded positioning in the synthetic scenario."
+  },
+  "material": {
+    "material_id": "MATERIAL-M17",
+    "label": "Synthetic Alloy M-17",
+    "form": "Fictional sintered blank",
+    "intended_function": "Support fictional actuator performance."
+  },
+  "source": {
+    "source_id": "SOURCE-001",
+    "label": "Fictional Source Record A",
+    "status": "UNKNOWN"
+  },
+  "process": {
+    "process_id": "PROCESS-P4",
+    "label": "Fictional Powder Processing Route P-4",
+    "status": "PARTIALLY_DOCUMENTED"
+  },
+  "supplier": {
+    "supplier_id": "SUPPLIER-ALPHA",
+    "label": "Fictional Supplier Alpha",
+    "synthetic": true
+  },
+  "facility": {
+    "facility_id": "FACILITY-ONE",
+    "label": "Fictional Facility One",
+    "synthetic": true
+  },
+  "evidence_records": [
+    {
+      "evidence_id": "E-001",
+      "title": "Fictional Material Specification FS-17",
+      "source": "Fictional specification authority",
+      "source_type": "STANDARD",
+      "locator": "FS-17 section 4.2",
+      "version": "1.0",
+      "date_issued": "2026-06-01",
+      "date_accessed": "2026-08-08",
+      "basis": "DOCUMENTED",
+      "claim_state": "SUPPORTED",
+      "confidence": "HIGH",
+      "applicability": "Defines the synthetic bench requirement.",
+      "requirement_links": [
+        "REQ-BENCH"
+      ],
+      "claim_links": [
+        "CLAIM-BENCH-THRESHOLD"
+      ],
+      "contradictory_evidence": [],
+      "limitations": [
+        "Fictional public reference only."
+      ],
+      "classification": "PUBLIC",
+      "ai_involvement": {
+        "used": true,
+        "tasks": [
+          "Draft organization"
+        ]
+      },
+      "human_reviewer": "Fictional Human Reviewer"
+    },
+    {
+      "evidence_id": "E-002",
+      "title": "Fictional Supplier Process Statement",
+      "source": "Fictional Supplier Alpha",
+      "source_type": "SUPPLIER_RECORD",
+      "locator": "Synthetic record PS-4",
+      "version": "1.0",
+      "date_issued": "2026-06-10",
+      "date_accessed": "2026-08-08",
+      "basis": "REPORTED",
+      "claim_state": "PARTIALLY_SUPPORTED",
+      "confidence": "MEDIUM",
+      "applicability": "Describes fictional process route P-4.",
+      "requirement_links": [
+        "REQ-ORIGIN"
+      ],
+      "claim_links": [
+        "CLAIM-PROCESS"
+      ],
+      "contradictory_evidence": [],
+      "limitations": [
+        "Supplier-reported and not independently confirmed."
+      ],
+      "classification": "PUBLIC",
+      "ai_involvement": {
+        "used": false,
+        "tasks": []
+      },
+      "human_reviewer": "Fictional Human Reviewer"
+    },
+    {
+      "evidence_id": "E-003",
+      "title": "Fictional BM-1 Bench Record",
+      "source": "Fictional Public Laboratory",
+      "source_type": "TEST_RECORD",
+      "locator": "BM-1 record 001",
+      "version": "1.0",
+      "date_issued": "2026-07-01",
+      "date_accessed": "2026-08-08",
+      "basis": "TESTED",
+      "claim_state": "SUPPORTED",
+      "confidence": "HIGH",
+      "applicability": "Synthetic bench sample under fictional method BM-1.",
+      "requirement_links": [
+        "REQ-BENCH",
+        "AC-BENCH"
+      ],
+      "claim_links": [
+        "CLAIM-BENCH-PASS"
+      ],
+      "contradictory_evidence": [],
+      "limitations": [
+        "Single fictional bench sample; no production inference."
+      ],
+      "classification": "PUBLIC",
+      "ai_involvement": {
+        "used": false,
+        "tasks": []
+      },
+      "human_reviewer": "Fictional Technical Reviewer"
+    },
+    {
+      "evidence_id": "E-004",
+      "title": "Fictional Origin Record",
+      "source": "Fictional Source Record A",
+      "source_type": "SUPPLIER_RECORD",
+      "locator": "Origin package placeholder",
+      "version": "0.1",
+      "date_issued": "2026-07-15",
+      "date_accessed": "2026-08-08",
+      "basis": "DOCUMENTED",
+      "claim_state": "UNKNOWN",
+      "confidence": "UNASSESSED",
+      "applicability": "Intended to support synthetic source origin.",
+      "requirement_links": [
+        "REQ-ORIGIN",
+        "AC-ORIGIN"
+      ],
+      "claim_links": [
+        "CLAIM-ORIGIN"
+      ],
+      "contradictory_evidence": [],
+      "limitations": [
+        "The public synthetic record intentionally omits sufficient origin evidence."
+      ],
+      "classification": "PUBLIC",
+      "ai_involvement": {
+        "used": false,
+        "tasks": []
+      },
+      "human_reviewer": "Fictional Human Reviewer"
+    },
+    {
+      "evidence_id": "E-005",
+      "title": "Fictional Capacity Statements",
+      "source": "Two fictional public statements",
+      "source_type": "MANUFACTURER_CLAIM",
+      "locator": "Synthetic statements CS-A and CS-B",
+      "version": "1.0",
+      "date_issued": "2026-07-20",
+      "date_accessed": "2026-08-08",
+      "basis": "REPORTED",
+      "claim_state": "CONTRADICTED",
+      "confidence": "LOW",
+      "applicability": "Only to the synthetic scenario; not used as production evidence.",
+      "requirement_links": [
+        "REQ-ORIGIN"
+      ],
+      "claim_links": [
+        "CLAIM-CAPACITY"
+      ],
+      "contradictory_evidence": [
+        "CS-A conflicts with CS-B"
+      ],
+      "limitations": [
+        "No production capacity conclusion is permitted."
+      ],
+      "classification": "PUBLIC",
+      "ai_involvement": {
+        "used": true,
+        "tasks": [
+          "Comparison"
+        ]
+      },
+      "human_reviewer": "Fictional Human Reviewer"
+    }
+  ],
+  "risks": [
+    {
+      "risk_id": "RISK-001",
+      "statement": "Origin evidence is incomplete.",
+      "consequence": "The source cannot enter the fictional validation activity with adequate provenance.",
+      "owner": "Fictional Materials Lead"
+    },
+    {
+      "risk_id": "RISK-002",
+      "statement": "Capacity statements conflict.",
+      "consequence": "Schedule assumptions could be unsupported.",
+      "owner": "Fictional Sourcing Lead"
+    }
+  ],
+  "weak_links": [
+    {
+      "weak_link_id": "WL-001",
+      "statement": "The governing weak link is missing independently reviewable origin evidence.",
+      "governing": true
+    }
+  ],
+  "alternatives": [
+    {
+      "alternative_id": "ALT-001",
+      "label": "Hold pending complete origin package",
+      "tradeoff": "Protects provenance but may delay the synthetic schedule."
+    },
+    {
+      "alternative_id": "ALT-002",
+      "label": "Validate a fictional alternate source",
+      "tradeoff": "Requires additional evidence and test cost."
+    },
+    {
+      "alternative_id": "ALT-003",
+      "label": "Partner with a fictional public laboratory",
+      "tradeoff": "May improve review quality but does not resolve ownership or origin by itself."
+    }
+  ],
+  "critical_conditions": [
+    {
+      "condition_id": "CC-ORIGIN",
+      "statement": "Origin documentation is mandatory before advancement.",
+      "noncompensating": true,
+      "triggered": true,
+      "required_resolution": "Obtain and independently review a mutually consistent fictional origin and lot package."
+    },
+    {
+      "condition_id": "CC-BENCH",
+      "statement": "Fictional bench requirement must pass.",
+      "noncompensating": true,
+      "triggered": false,
+      "required_resolution": "Repeat the fictional test if the method or sample identity changes."
+    }
+  ],
+  "test_methods": [
+    {
+      "method_id": "BM-1",
+      "label": "Fictional Bench Method BM-1",
+      "applicability": "Synthetic public demonstration only."
+    }
+  ],
+  "results": [
+    {
+      "result_id": "RESULT-001",
+      "method_id": "BM-1",
+      "statement": "The fictional bench sample met fictional specification FS-17 section 4.2.",
+      "status": "PASS"
+    }
+  ],
+  "qualification_state": "HOLD",
+  "mitigations": [
+    {
+      "mitigation_id": "MIT-001",
+      "action": "Request a complete fictional origin and lot package.",
+      "owner": "Fictional Materials Lead"
+    },
+    {
+      "mitigation_id": "MIT-002",
+      "action": "Evaluate fictional alternate source evidence.",
+      "owner": "Fictional Sourcing Lead"
+    }
+  ],
+  "limitations": [
+    "All entities and records are fictional.",
+    "One synthetic bench result cannot establish production capability.",
+    "No legal, compliance, or qualification conclusion is made."
+  ],
+  "human_reviews": [
+    {
+      "reviewer_role": "Independent technical reviewer",
+      "reviewer": "Fictional Technical Reviewer",
+      "date": "2026-08-08",
+      "disposition": "ACCEPT_WITH_CONDITIONS"
+    }
+  ],
+  "proposed_disposition": "HOLD",
+  "next_action": "Obtain and independently review the fictional origin package before reconsidering advancement.",
+  "success_signal": "Origin and lot records become mutually consistent and reviewable.",
+  "stop_rule": "Stop the fictional pathway if mandatory origin evidence remains unresolved at the decision deadline.",
+  "reassessment_trigger": "Receipt of a new origin package, contradictory test record, or changed process route."
+}

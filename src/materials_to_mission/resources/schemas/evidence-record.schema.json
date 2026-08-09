@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/Bridge-Node-7/materials-to-mission/v0.1.0/schemas/evidence-record.schema.json",
+  "title": "Materials-to-Mission Evidence Record",
+  "type": "object",
+  "required": [
+    "evidence_id",
+    "title",
+    "source",
+    "source_type",
+    "locator",
+    "date_issued",
+    "date_accessed",
+    "basis",
+    "claim_state",
+    "confidence",
+    "applicability",
+    "requirement_links",
+    "limitations",
+    "classification",
+    "ai_involvement",
+    "human_reviewer"
+  ],
+  "properties": {
+    "evidence_id": {
+      "type": "string",
+      "pattern": "^E-[0-9]{3,}$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_type": {
+      "enum": [
+        "OFFICIAL_RECORD",
+        "STANDARD",
+        "TEST_RECORD",
+        "SUPPLIER_RECORD",
+        "PEER_REVIEWED_RESEARCH",
+        "PATENT",
+        "MANUFACTURER_CLAIM",
+        "MARKET_INFORMATION",
+        "ANALYST_ASSESSMENT",
+        "USER_REPORT",
+        "AI_SUMMARY",
+        "UNVERIFIED_ASSERTION"
+      ]
+    },
+    "locator": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "type": "string"
+    },
+    "date_issued": {
+      "type": "string",
+      "format": "date"
+    },
+    "date_accessed": {
+      "type": "string",
+      "format": "date"
+    },
+    "effective_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "review_due_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "basis": {
+      "$ref": "common.schema.json#/$defs/evidenceBasis"
+    },
+    "claim_state": {
+      "$ref": "common.schema.json#/$defs/claimState"
+    },
+    "confidence": {
+      "$ref": "common.schema.json#/$defs/confidence"
+    },
+    "applicability": {
+      "type": "string",
+      "minLength": 1
+    },
+    "requirement_links": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "claim_links": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "contradictory_evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "classification": {
+      "$ref": "common.schema.json#/$defs/classification"
+    },
+    "ai_involvement": {
+      "type": "object",
+      "required": [
+        "used",
+        "tasks"
+      ],
+      "properties": {
+        "used": {
+          "type": "boolean"
+        },
+        "tasks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "human_reviewer": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "additionalProperties": false
+}

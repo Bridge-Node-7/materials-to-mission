@@ -1,0 +1,43 @@
+{
+  "passport_id": "M2M-PASSPORT-CASE-XXX",
+  "decision_id": "M2M-CASE-XXX",
+  "mission_consequence": "State the consequence.",
+  "evidence_posture": {
+    "supported": [],
+    "unknown": [],
+    "contradicted": [],
+    "unsupported": [],
+    "expired": []
+  },
+  "weak_link": "State the governing weak link.",
+  "critical_conditions": [],
+  "options": [
+    {
+      "option_id": "OPT-001",
+      "label": "Option one",
+      "tradeoff": "Trade-off"
+    },
+    {
+      "option_id": "OPT-002",
+      "label": "Option two",
+      "tradeoff": "Trade-off"
+    }
+  ],
+  "recommendation": "State the bounded recommendation.",
+  "decision_owner": "Named human decision owner",
+  "disposition_authority": "Named human disposition authority",
+  "disposition": "HOLD",
+  "next_action": "State the next action.",
+  "acceptance_criteria": [
+    "State the acceptance criteria."
+  ],
+  "proof_requirements": [
+    "State the proof required."
+  ],
+  "success_signal": "State the success signal.",
+  "stop_rule": "State the stop rule.",
+  "reassessment_trigger": "State the reassessment trigger.",
+  "limitations": [
+    "State the limitations."
+  ]
+}

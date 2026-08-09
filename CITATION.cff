@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+title: Materials-to-Mission
+message: "Cite this repository as the Bridge Node 7 Materials-to-Mission public reference method and validation toolkit."
+type: software
+authors:
+  - name: Bridge Node 7
+version: 0.1.0
+date-released: 2026-08-08
+license: MIT
+repository-code: https://github.com/Bridge-Node-7/materials-to-mission
+url: https://bridgenode7.com/
+keywords:
+  - materials
+  - supply-chain
+  - evidence
+  - decision-support
+  - qualification
+  - readiness

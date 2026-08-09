@@ -1,0 +1,37 @@
+{
+  "project": "materials-to-mission",
+  "version": "0.1.0",
+  "maturity": "experimental-public-baseline",
+  "public_safe_examples_only": true,
+  "human_decision_authority_required": true,
+  "real_world_qualification_claimed": false,
+  "schemas": [
+    "schemas/common.schema.json",
+    "schemas/decision-charter.schema.json",
+    "schemas/evidence-record.schema.json",
+    "schemas/material-assurance-record.schema.json",
+    "schemas/decision-passport.schema.json",
+    "schemas/case.schema.json"
+  ],
+  "reference_case": "examples/synthetic-critical-material-pathway/case.json",
+  "validation_command": "python scripts/check_repo.py",
+  "release_artifact": "materials-to-mission-v0.1.0.zip",
+  "license": "MIT",
+  "account_owner": "Bridge-Node-7",
+  "account_type": "User",
+  "schema_authority": "https://raw.githubusercontent.com/Bridge-Node-7/materials-to-mission/v0.1.0/schemas/",
+  "release_creation_authority": "tag-triggered GitHub Actions Release workflow",
+  "website_integration": "minimal external links after public release readback",
+  "fde_integration": "thin consumer adapter after canonical release",
+  "cli_exit_codes": {
+    "success": 0,
+    "validation_or_boundary_finding": 2,
+    "input_or_filesystem_error": 3
+  },
+  "source_gate_count": 2,
+  "action_pin_provenance": "docs/ACTION_PIN_PROVENANCE.md",
+  "validation_evidence_policy": "checked-in evidence must match a fresh non-mutating repository gate",
+  "coverage_gate_percent": 95,
+  "publication_kit_validator": "scripts/check_publication_kit.py",
+  "public_source_contains_github_write_gates": false
+}

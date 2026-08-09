@@ -1,0 +1,62 @@
+[build-system]
+requires = ["setuptools==82.0.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "materials-to-mission"
+version = "0.1.0"
+description = "Public-safe Materials-to-Mission evidence, validation, and human decision toolkit."
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [{name = "Bridge Node 7"}]
+keywords = ["materials", "evidence", "supply-chain", "decision-support", "readiness"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "Intended Audience :: Manufacturing",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Typing :: Typed",
+]
+dependencies = ["jsonschema>=4.23,<5"]
+
+[project.optional-dependencies]
+dev = [
+  "coverage>=7.6,<8",
+  "pytest>=8,<10",
+]
+
+[project.scripts]
+m2m = "materials_to_mission.cli:main"
+
+[project.urls]
+Homepage = "https://bridgenode7.com/"
+Repository = "https://github.com/Bridge-Node-7/materials-to-mission"
+Issues = "https://github.com/Bridge-Node-7/materials-to-mission/issues"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+materials_to_mission = ["py.typed", "resources/schemas/*.json", "resources/policy/*.json"]
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+testpaths = ["tests"]
+
+[tool.coverage.run]
+branch = true
+source = ["materials_to_mission"]
+omit = ["src/materials_to_mission/__main__.py"]
+
+[tool.coverage.report]
+fail_under = 95
+show_missing = true

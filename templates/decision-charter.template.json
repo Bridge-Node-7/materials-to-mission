@@ -1,0 +1,88 @@
+{
+  "charter_id": "M2M-CHARTER-CASE-XXX",
+  "decision_statement": "Determine whether the specified material pathway has sufficient evidence to enter a defined next-stage validation activity for the stated mission by the decision deadline.",
+  "mission": "Describe the bounded mission or capability.",
+  "scope": {
+    "included": [
+      "List included material, source, process, component, and evidence boundaries."
+    ],
+    "excluded": [
+      "List excluded systems, claims, data, and decisions."
+    ]
+  },
+  "stakeholder_role": "Accountable stakeholder role",
+  "decision_owner": "Named human decision owner",
+  "disposition_authority": "Named human disposition authority",
+  "decision_deadline": "2026-12-31",
+  "consequence_of_error": "Describe the consequence of a wrong decision.",
+  "consequence_of_delay": "Describe the consequence of delay.",
+  "requirements": [
+    {
+      "requirement_id": "REQ-001",
+      "statement": "Define the first requirement.",
+      "category": "EVIDENCE",
+      "critical": true,
+      "method": "Document review",
+      "evidence_required": [
+        "Required evidence"
+      ]
+    },
+    {
+      "requirement_id": "REQ-002",
+      "statement": "Define the second requirement.",
+      "category": "MATERIAL",
+      "critical": false,
+      "method": "Technical review",
+      "evidence_required": [
+        "Required evidence"
+      ]
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "requirement_id": "AC-001",
+      "statement": "Define a measurable acceptance rule.",
+      "category": "EVIDENCE",
+      "critical": true,
+      "method": "Review",
+      "evidence_required": [
+        "Acceptance evidence"
+      ]
+    },
+    {
+      "requirement_id": "AC-002",
+      "statement": "Define another acceptance rule.",
+      "category": "MISSION",
+      "critical": false,
+      "method": "Review",
+      "evidence_required": [
+        "Acceptance evidence"
+      ]
+    }
+  ],
+  "stop_conditions": [
+    "Stop when a mandatory critical condition cannot be resolved."
+  ],
+  "classification": "PUBLIC",
+  "allowed_dispositions": [
+    "ADVANCE",
+    "VALIDATE",
+    "PARTNER",
+    "HOLD",
+    "STOP"
+  ],
+  "required_reviewers": [
+    "Independent technical reviewer"
+  ],
+  "ai_use": {
+    "allowed": [
+      "Extraction",
+      "Organization",
+      "Drafting"
+    ],
+    "prohibited": [
+      "Autonomous certification",
+      "Autonomous final decision"
+    ]
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/Bridge-Node-7/materials-to-mission/v0.1.0/schemas/common.schema.json",
+  "title": "Materials-to-Mission Common Definitions",
+  "$defs": {
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "identifier": {
+      "type": "string",
+      "pattern": "^[A-Z0-9][A-Z0-9._-]*$"
+    },
+    "isoDate": {
+      "type": "string",
+      "format": "date"
+    },
+    "classification": {
+      "enum": [
+        "PUBLIC",
+        "PARTNER_CONFIDENTIAL",
+        "PROPRIETARY",
+        "CONTROLLED",
+        "RESTRICTED"
+      ]
+    },
+    "evidenceBasis": {
+      "enum": [
+        "OBSERVED",
+        "TESTED",
+        "DOCUMENTED",
+        "REPORTED",
+        "INFERRED",
+        "ASSUMED"
+      ]
+    },
+    "claimState": {
+      "enum": [
+        "SUPPORTED",
+        "PARTIALLY_SUPPORTED",
+        "CONTRADICTED",
+        "UNSUPPORTED",
+        "UNKNOWN",
+        "NOT_APPLICABLE",
+        "EXPIRED"
+      ]
+    },
+    "disposition": {
+      "enum": [
+        "ADVANCE",
+        "VALIDATE",
+        "PARTNER",
+        "HOLD",
+        "STOP"
+      ]
+    },
+    "confidence": {
+      "enum": [
+        "HIGH",
+        "MEDIUM",
+        "LOW",
+        "UNASSESSED"
+      ]
+    },
+    "requirement": {
+      "type": "object",
+      "required": [
+        "requirement_id",
+        "statement",
+        "category",
+        "critical",
+        "method",
+        "evidence_required"
+      ],
+      "properties": {
+        "requirement_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "statement": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "category": {
+          "enum": [
+            "MISSION",
+            "MATERIAL",
+            "SOURCE",
+            "PROCESS",
+            "COMPONENT",
+            "EVIDENCE",
+            "SECURITY_LEGAL",
+            "COMMERCIAL"
+          ]
+        },
+        "critical": {
+          "type": "boolean"
+        },
+        "method": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "evidence_required": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "requalification_trigger": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "criticalCondition": {
+      "type": "object",
+      "required": [
+        "condition_id",
+        "statement",
+        "noncompensating",
+        "triggered",
+        "required_resolution"
+      ],
+      "properties": {
+        "condition_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "statement": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "noncompensating": {
+          "const": true
+        },
+        "triggered": {
+          "type": "boolean"
+        },
+        "required_resolution": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

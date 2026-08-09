@@ -1,0 +1,27 @@
+{
+  "policy_version": "0.1.0",
+  "description": "Public-safe guardrail patterns for repository examples and public release artifacts.",
+  "prohibited_case_insensitive_tokens": [
+    "protected-material-codeword",
+    "real supplier",
+    "customer name",
+    "classified",
+    "controlled unclassified information",
+    "cui//",
+    "itar-controlled",
+    "confirmed production capacity",
+    "certified supplier",
+    "qualified material",
+    "guaranteed compliance",
+    "investment recommendation"
+  ],
+  "prohibited_regexes": [
+    "(?i)\\b(?:ssn|social security number)\\b",
+    "(?i)\\b(?:api[_ -]?key|secret[_ -]?key|private[_ -]?key)\\b\\s*[:=]",
+    "-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----"
+  ],
+  "required_synthetic_markers": [
+    "synthetic",
+    "fictional"
+  ]
+}

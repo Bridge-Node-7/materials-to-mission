@@ -1,0 +1,170 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/Bridge-Node-7/materials-to-mission/v0.1.0/schemas/decision-passport.schema.json",
+  "title": "Materials-to-Mission Decision Passport",
+  "type": "object",
+  "required": [
+    "passport_id",
+    "decision_id",
+    "mission_consequence",
+    "evidence_posture",
+    "weak_link",
+    "critical_conditions",
+    "options",
+    "recommendation",
+    "decision_owner",
+    "disposition_authority",
+    "disposition",
+    "next_action",
+    "acceptance_criteria",
+    "proof_requirements",
+    "success_signal",
+    "stop_rule",
+    "reassessment_trigger",
+    "limitations"
+  ],
+  "properties": {
+    "passport_id": {
+      "type": "string",
+      "pattern": "^M2M-PASSPORT-[A-Z0-9-]+$"
+    },
+    "decision_id": {
+      "type": "string",
+      "pattern": "^M2M-[A-Z0-9-]+$"
+    },
+    "mission_consequence": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidence_posture": {
+      "type": "object",
+      "required": [
+        "supported",
+        "unknown",
+        "contradicted",
+        "unsupported",
+        "expired"
+      ],
+      "properties": {
+        "supported": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "unknown": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "contradicted": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "unsupported": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "expired": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "weak_link": {
+      "type": "string",
+      "minLength": 1
+    },
+    "critical_conditions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "options": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": [
+          "option_id",
+          "label",
+          "tradeoff"
+        ],
+        "properties": {
+          "option_id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "tradeoff": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "recommendation": {
+      "type": "string",
+      "minLength": 1
+    },
+    "decision_owner": {
+      "type": "string",
+      "minLength": 1
+    },
+    "disposition_authority": {
+      "type": "string",
+      "minLength": 1
+    },
+    "disposition": {
+      "$ref": "common.schema.json#/$defs/disposition"
+    },
+    "next_action": {
+      "type": "string",
+      "minLength": 1
+    },
+    "acceptance_criteria": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "proof_requirements": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "success_signal": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stop_rule": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reassessment_trigger": {
+      "type": "string",
+      "minLength": 1
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": false
+}

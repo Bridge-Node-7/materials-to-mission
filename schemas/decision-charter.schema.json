@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/Bridge-Node-7/materials-to-mission/v0.1.0/schemas/decision-charter.schema.json",
+  "title": "Materials-to-Mission Decision Charter",
+  "type": "object",
+  "required": [
+    "charter_id",
+    "decision_statement",
+    "mission",
+    "scope",
+    "stakeholder_role",
+    "decision_owner",
+    "disposition_authority",
+    "decision_deadline",
+    "consequence_of_error",
+    "consequence_of_delay",
+    "requirements",
+    "acceptance_criteria",
+    "stop_conditions",
+    "classification",
+    "allowed_dispositions",
+    "required_reviewers"
+  ],
+  "properties": {
+    "charter_id": {
+      "type": "string",
+      "pattern": "^M2M-CHARTER-[A-Z0-9-]+$"
+    },
+    "decision_statement": {
+      "type": "string",
+      "minLength": 20
+    },
+    "mission": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scope": {
+      "type": "object",
+      "required": [
+        "included",
+        "excluded"
+      ],
+      "properties": {
+        "included": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "excluded": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "stakeholder_role": {
+      "type": "string",
+      "minLength": 1
+    },
+    "decision_owner": {
+      "type": "string",
+      "minLength": 1
+    },
+    "disposition_authority": {
+      "type": "string",
+      "minLength": 1
+    },
+    "decision_deadline": {
+      "type": "string",
+      "format": "date"
+    },
+    "consequence_of_error": {
+      "type": "string",
+      "minLength": 1
+    },
+    "consequence_of_delay": {
+      "type": "string",
+      "minLength": 1
+    },
+    "requirements": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "$ref": "common.schema.json#/$defs/requirement"
+      }
+    },
+    "acceptance_criteria": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "$ref": "common.schema.json#/$defs/requirement"
+      }
+    },
+    "stop_conditions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "classification": {
+      "$ref": "common.schema.json#/$defs/classification"
+    },
+    "allowed_dispositions": {
+      "type": "array",
+      "minItems": 2,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "common.schema.json#/$defs/disposition"
+      }
+    },
+    "required_reviewers": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "ai_use": {
+      "type": "object",
+      "required": [
+        "allowed",
+        "prohibited"
+      ],
+      "properties": {
+        "allowed": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "prohibited": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

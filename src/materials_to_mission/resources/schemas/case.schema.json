@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/Bridge-Node-7/materials-to-mission/v0.1.0/schemas/case.schema.json",
+  "title": "Materials-to-Mission Case",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "case_id",
+    "title",
+    "maturity",
+    "synthetic",
+    "public_safe",
+    "decision_charter",
+    "material_assurance_record",
+    "decision_passport",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "case_id": {
+      "type": "string",
+      "pattern": "^M2M-[A-Z0-9-]+$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "maturity": {
+      "enum": [
+        "SYNTHETIC_PUBLIC_REFERENCE",
+        "PRIVATE_OPERATIONAL_CASE"
+      ]
+    },
+    "synthetic": {
+      "type": "boolean"
+    },
+    "public_safe": {
+      "type": "boolean"
+    },
+    "decision_charter": {
+      "$ref": "decision-charter.schema.json"
+    },
+    "material_assurance_record": {
+      "$ref": "material-assurance-record.schema.json"
+    },
+    "decision_passport": {
+      "$ref": "decision-passport.schema.json"
+    },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "created_by",
+        "created_at",
+        "generated_with_ai",
+        "ai_tasks",
+        "human_reviewed_by",
+        "source_record_ids",
+        "record_version"
+      ],
+      "properties": {
+        "created_by": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "generated_with_ai": {
+          "type": "boolean"
+        },
+        "ai_tasks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "human_reviewed_by": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "source_record_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "record_version": {
+          "const": "0.1.0"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,39 @@
+{
+  "catalog_version": "0.1.0",
+  "authority": "https://raw.githubusercontent.com/Bridge-Node-7/materials-to-mission/v0.1.0/schemas/",
+  "schemas": [
+    {
+      "name": "common",
+      "path": "schemas/common.schema.json",
+      "purpose": "Shared enumerations and definitions"
+    },
+    {
+      "name": "decision-charter",
+      "path": "schemas/decision-charter.schema.json",
+      "purpose": "Decision scope, authority, requirements, and stop conditions"
+    },
+    {
+      "name": "evidence-record",
+      "path": "schemas/evidence-record.schema.json",
+      "purpose": "Source, basis, claim state, confidence, applicability, and limitations"
+    },
+    {
+      "name": "material-assurance-record",
+      "path": "schemas/material-assurance-record.schema.json",
+      "purpose": "Complete evidence-bearing decision record"
+    },
+    {
+      "name": "decision-passport",
+      "path": "schemas/decision-passport.schema.json",
+      "purpose": "Concise human-facing decision artifact"
+    },
+    {
+      "name": "case",
+      "path": "schemas/case.schema.json",
+      "purpose": "Complete Materials-to-Mission case envelope"
+    }
+  ],
+  "authority_type": "immutable-version-tag",
+  "canonical_repository": "Bridge-Node-7/materials-to-mission",
+  "schema_version": "0.1.0"
+}
