@@ -2,12 +2,14 @@ from __future__ import annotations
 
 from typing import Any
 
+from .errors import MaterialsToMissionError
+
 
 def _bullets(values: list[str]) -> str:
     return "\n".join(f"- {value}" for value in values) if values else "- None recorded"
 
 
-def render_decision_passport(case: dict[str, Any]) -> str:
+def _render_decision_passport(case: dict[str, Any]) -> str:
     passport = case["decision_passport"]
     charter = case["decision_charter"]
     posture = passport["evidence_posture"]
@@ -104,3 +106,11 @@ def render_decision_passport(case: dict[str, Any]) -> str:
         "",
     ])
     return "\n".join(lines)
+
+def render_decision_passport(case: dict[str, Any]) -> str:
+    try:
+        return _render_decision_passport(case)
+    except (KeyError, TypeError) as exc:
+        raise MaterialsToMissionError(
+            "Decision Passport rendering requires a structurally valid case"
+        ) from exc

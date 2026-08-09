@@ -64,11 +64,14 @@ def validate_pytest_summary(summary: PytestSummary) -> None:
             raise ValueError(f"unexpected skipped test: {identifier}: {reason}")
 
 
-def render_validation_report(test_count: int) -> str:
+def render_validation_report(test_count: int, version: str) -> str:
+    version = version.strip()
+    if not version:
+        raise ValueError("project version is required")
     return f"""# Validation Report
 
 **Project:** Materials-to-Mission  
-**Version:** 0.1.0  
+**Version:** {version}
 **Status:** PASS within the stated public synthetic scope
 
 ## Executed

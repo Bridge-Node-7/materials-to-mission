@@ -211,3 +211,71 @@ def test_symlink_policy_allows_only_untracked_ignored_paths(
     assert module.symlink_is_permitted(tracked=False, ignored=True)
     assert not module.symlink_is_permitted(tracked=True, ignored=True)
     assert not module.symlink_is_permitted(tracked=False, ignored=False)
+
+@pytest.mark.parametrize(
+    "alias",
+    [
+        "ChatGPT",
+        "GPT-4",
+        "LLM",
+        "A.I.",
+        "Claude",
+        "autonomous agent",
+        "our AI",
+        "system-selected agent",
+    ],
+)
+def test_gate13_automation_only_authorities_are_rejected(
+    example_case: dict,
+    alias: str,
+) -> None:
+    case = copy.deepcopy(example_case)
+    case["decision_charter"]["decision_owner"] = alias
+    case["decision_passport"]["decision_owner"] = alias
+    assert "HUMAN_AUTHORITY" in codes(case)
+
+
+@pytest.mark.parametrize(
+    "label",
+    [
+        "AI Program Manager Maya Chen",
+        "Model Risk Lead Jordan Lee",
+        "Automation Assurance Director Priya Shah",
+    ],
+)
+def test_gate13_named_humans_in_automation_roles_are_allowed(
+    example_case: dict,
+    label: str,
+) -> None:
+    case = copy.deepcopy(example_case)
+    case["decision_charter"]["decision_owner"] = label
+    case["decision_passport"]["decision_owner"] = label
+    assert "HUMAN_AUTHORITY" not in codes(case)
+
+
+def test_duplicate_requirement_ids_are_rejected(example_case: dict) -> None:
+    case = copy.deepcopy(example_case)
+    case["decision_charter"]["requirements"].append(
+        copy.deepcopy(case["decision_charter"]["requirements"][0])
+    )
+    assert "DUPLICATE_REQUIREMENT_ID" in codes(case)
+
+
+def test_duplicate_acceptance_criterion_ids_are_rejected(
+    example_case: dict,
+) -> None:
+    case = copy.deepcopy(example_case)
+    case["decision_charter"]["acceptance_criteria"].append(
+        copy.deepcopy(case["decision_charter"]["acceptance_criteria"][0])
+    )
+    assert "DUPLICATE_REQUIREMENT_ID" in codes(case)
+
+
+def test_requirement_and_acceptance_ids_share_one_namespace(
+    example_case: dict,
+) -> None:
+    case = copy.deepcopy(example_case)
+    case["decision_charter"]["acceptance_criteria"][0]["requirement_id"] = (
+        case["decision_charter"]["requirements"][0]["requirement_id"]
+    )
+    assert "DUPLICATE_REQUIREMENT_ID" in codes(case)
