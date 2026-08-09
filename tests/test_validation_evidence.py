@@ -11,8 +11,9 @@ from materials_to_mission.validation_evidence import (
 
 
 def test_validation_report_is_host_independent():
-    report = render_validation_report(70)
+    report = render_validation_report(70, "0.1.1")
     assert "70 collected; all runnable tests PASS" in report
+    assert "**Version:** 0.1.1" in report
     assert "95 percent floor" in report
     assert "96.88" not in report
     assert "96.40" not in report
@@ -101,3 +102,7 @@ def test_validate_rejects_skipped_count_mismatch():
     )
     with pytest.raises(ValueError, match="skipped count"):
         validate_pytest_summary(summary)
+
+def test_validation_report_requires_project_version():
+    with pytest.raises(ValueError, match="project version is required"):
+        render_validation_report(70, " ")

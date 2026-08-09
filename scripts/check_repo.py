@@ -8,6 +8,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import tomllib
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
@@ -180,7 +181,23 @@ def main(argv: list[str] | None = None) -> int:
 
     check_symlinks()
 
-    report = render_validation_report(test_count)
+    project_version = (ROOT / "VERSION").read_text(
+        encoding="utf-8"
+    ).strip()
+    if not project_version:
+        raise SystemExit("STOP - VERSION must contain a project version")
+    pyproject = tomllib.loads(
+        (ROOT / "pyproject.toml").read_text(encoding="utf-8")
+    )
+    declared_version = str(
+        pyproject.get("project", {}).get("version", "")
+    ).strip()
+    if declared_version != project_version:
+        raise SystemExit(
+            "STOP - VERSION and pyproject.toml project.version differ: "
+            f"{project_version!r} != {declared_version!r}"
+        )
+    report = render_validation_report(test_count, project_version)
     report_path = ROOT / "VALIDATION_REPORT.md"
     if args.update_evidence:
         report_path.write_text(report, encoding="utf-8")
