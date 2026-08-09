@@ -198,9 +198,10 @@ cross-case commercial product or an authority for certification or qualification
 - [Frontier Decision Engine](https://github.com/Bridge-Node-7/frontier-decision-engine) remains generic decision infrastructure and may later consume this released contract through a thin adapter.
 - Real operational cases and protected evidence remain in controlled private systems.
 
-The first website integration is intentionally minimal: one restrained public-method link
-from the existing Materials and Readiness experiences after the immutable repository release
-passes public readback.
+The first website integration is complete and intentionally minimal. The existing
+Materials page presents one restrained **View Public Method** link to this repository.
+The Readiness page remains a narrative and inquiry surface; no duplicate repository link or
+new route is required. Future website changes remain separately governed.
 
 ## Security
 
