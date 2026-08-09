@@ -9,7 +9,11 @@ python scripts/check_repo.py
 ```
 
 The default gate is non-mutating. It fails if `VALIDATION_REPORT.md` or
-`REPO_FILE_MANIFEST.sha256` is stale.
+`REPO_FILE_MANIFEST.sha256` is stale. The checked-in report is intentionally
+host-independent: every supported host must pass all runnable tests and the 95 percent
+combined statement-and-branch coverage floor. Only the three documented symlink tests
+may skip when the operating system cannot create symbolic links; any other skip fails
+closed.
 
 After a reviewed source or test change, refresh the checked-in evidence once:
 

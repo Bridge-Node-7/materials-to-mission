@@ -68,3 +68,11 @@ All notable changes are documented here.
 - Required complete publication-kit manifest coverage and rejected symbolic links or unlisted files.
 - Verified bundle author and committer timestamps against the candidate identity.
 - Added regression tests for contradictory predecessor metadata, timestamp drift, environment drift, and manifest gaps.
+
+### Cross-Platform Validation Evidence Closeout
+
+- Made the checked-in validation report host-independent while preserving the strict 95 percent local coverage floor.
+- Required all runnable tests to pass on every operator machine.
+- Permitted only the three documented symlink-unavailable skips on hosts that cannot create symbolic links.
+- Added JUnit evidence parsing and regression tests for allowed and unexpected skips.
+- Preserved canonical Linux symlink coverage while allowing Windows Gate 00 to reproduce the approved evidence contract.

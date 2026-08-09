@@ -12,8 +12,9 @@
 - Semantic validation: PASS
 - Public-boundary validation: PASS
 - Adversarial fixtures: PASS
-- Unit and integration tests: 66 PASS
-- Exact combined statement and branch coverage: 96.88 percent
+- Unit and integration tests: 74 collected; all runnable tests PASS
+- Platform-dependent test policy: only the three documented symlink-unavailable cases may skip
+- Combined statement and branch coverage: PASS at or above the 95 percent floor
 - Markdown relative links: PASS
 - GitHub Actions full-SHA pinning: PASS
 - Public-source maintainer gate contracts: PASS
@@ -21,7 +22,7 @@
 - Separate publication-kit gates: validated by the publication kit
 - Symbolic-link rejection: PASS
 - Deterministic archive comparison: PASS
-- Checked-in validation evidence: current and non-mutating
+- Checked-in validation evidence: current and host-independent
 - SHA-256 manifest verification: PASS
 - Compressed-data integrity: verified by the release build
 

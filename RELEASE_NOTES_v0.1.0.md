@@ -52,3 +52,9 @@ commercial readiness is claimed.
 - Candidate metadata, release manifest, environment file, Git bundle, and bootstrap timestamp must agree.
 - Publication-kit manifests must cover every shipped file exactly.
 - Contradictory predecessor or timestamp-correction records fail closed.
+
+## Cross-platform validation evidence
+
+- The checked-in validation report is now reproducible across supported hosts.
+- Every operator environment must pass all runnable tests and the 95 percent combined coverage floor.
+- Only the three documented symlink-unavailable cases may skip where the operating system cannot create symbolic links.

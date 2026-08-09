@@ -10,6 +10,14 @@ import sys
 import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+
+from materials_to_mission.validation_evidence import (
+    COVERAGE_FLOOR_PERCENT,
+    parse_pytest_junit,
+    render_validation_report,
+    validate_pytest_summary,
+)
 PYTHON = sys.executable
 GENERATED = [ROOT / "build", ROOT / "dist", ROOT / ".pytest_cache", ROOT / "htmlcov", ROOT / ".coverage"]
 
@@ -50,22 +58,29 @@ for path in sorted(ROOT.rglob("*.json")):
         continue
     json.loads(path.read_text(encoding="utf-8"))
 print("PASS - JSON parsing")
-run(PYTHON, "-m", "coverage", "run", "-m", "pytest")
+run(
+    PYTHON,
+    "-m",
+    "coverage",
+    "run",
+    "-m",
+    "pytest",
+    "--junitxml=build/pytest-junit.xml",
+)
 run(PYTHON, "-m", "coverage", "report")
 run(PYTHON, "-m", "coverage", "json", "-o", "build/coverage.json")
 coverage_data = json.loads((ROOT / "build/coverage.json").read_text(encoding="utf-8"))
 coverage_percent = coverage_data["totals"]["percent_covered"]
-collect = subprocess.run(
-    [PYTHON, "-m", "pytest", "--collect-only", "-q"],
-    cwd=ROOT,
-    check=True,
-    text=True,
-    capture_output=True,
-)
-match = re.search(r"(\d+) tests? collected", collect.stdout)
-test_count = int(match.group(1)) if match else "PASS"
-if coverage_percent < 95:
-    raise SystemExit(f"STOP - coverage below 95 percent: {coverage_percent:.2f}")
+if coverage_percent < COVERAGE_FLOOR_PERCENT:
+    raise SystemExit(
+        f"STOP - coverage below {COVERAGE_FLOOR_PERCENT:.0f} percent: {coverage_percent:.2f}"
+    )
+try:
+    pytest_summary = parse_pytest_junit(ROOT / "build/pytest-junit.xml")
+    validate_pytest_summary(pytest_summary)
+except ValueError as exc:
+    raise SystemExit(f"STOP - pytest evidence is invalid: {exc}") from exc
+test_count = pytest_summary.tests
 run(PYTHON, "scripts/check_links.py")
 run(PYTHON, "scripts/check_gate_contracts.py")
 run(
@@ -91,39 +106,7 @@ for path in ROOT.rglob("*"):
         raise SystemExit(f"STOP - symbolic links are not permitted: {path}")
 print("PASS - no symbolic links")
 
-report = f"""# Validation Report
-
-**Project:** Materials-to-Mission  
-**Version:** 0.1.0  
-**Status:** PASS within the stated public synthetic scope
-
-## Executed
-
-- Python compilation: PASS
-- JSON parsing: PASS
-- JSON Schema validation: PASS
-- Semantic validation: PASS
-- Public-boundary validation: PASS
-- Adversarial fixtures: PASS
-- Unit and integration tests: {test_count} PASS
-- Exact combined statement and branch coverage: {coverage_percent:.2f} percent
-- Markdown relative links: PASS
-- GitHub Actions full-SHA pinning: PASS
-- Public-source maintainer gate contracts: PASS
-- Hosted Release workflow contract: PASS
-- Separate publication-kit gates: validated by the publication kit
-- Symbolic-link rejection: PASS
-- Deterministic archive comparison: PASS
-- Checked-in validation evidence: current and non-mutating
-- SHA-256 manifest verification: PASS
-- Compressed-data integrity: verified by the release build
-
-## Not Proven
-
-This validation does not prove a real material, supplier, laboratory, sample,
-lot, mission, legal, regulatory, certification, qualification, production,
-customer, government, or commercial conclusion.
-"""
+report = render_validation_report(test_count)
 
 report_path = ROOT / "VALIDATION_REPORT.md"
 if args.update_evidence:

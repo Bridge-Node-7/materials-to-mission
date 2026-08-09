@@ -27,3 +27,11 @@ Current authority:
 The controlling final release package generated from this exact source supersedes all RC,
 earlier FINAL, V2, and V3-era operator and publication identities. Earlier packages remain
 evidence only and must not be executed or mixed with the controlling final line.
+
+## Cross-platform Gate 00 clarification
+
+The controlling release line generated from this source supersedes V3.3 because V3.3
+required a Linux-specific exact coverage percentage in `VALIDATION_REPORT.md`. The
+current evidence contract remains strict while reproducible across supported hosts:
+all runnable tests must pass, local combined coverage must remain at or above 95 percent,
+and only the three documented symlink-unavailable tests may skip.
