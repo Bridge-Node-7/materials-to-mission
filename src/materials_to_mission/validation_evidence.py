@@ -68,9 +68,9 @@ def render_validation_report(test_count: int, version: str) -> str:
     version = version.strip()
     if not version:
         raise ValueError("project version is required")
-    return f"""# Validation Report
+    report = f"""# Validation Report
 
-**Project:** Materials-to-Mission  
+**Project:** Materials-to-Mission
 **Version:** {version}
 **Status:** PASS within the stated public synthetic scope
 
@@ -102,3 +102,4 @@ This validation does not prove a real material, supplier, laboratory, sample,
 lot, mission, legal, regulatory, certification, qualification, production,
 customer, government, or commercial conclusion.
 """
+    return "\n".join(line.rstrip(" \t") for line in report.splitlines()) + "\n"
