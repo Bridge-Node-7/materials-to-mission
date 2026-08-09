@@ -2,6 +2,19 @@
 
 All notable changes are documented here.
 
+## Unreleased
+
+### Documentation
+
+- Reconcile current-state records with the completed `v0.1.1` release and live website
+  public-method link.
+- Distinguish the immutable `v0.1.0` schema baseline from the current `v0.1.1`
+  maintenance release.
+- Record the FDE release prerequisite as complete while keeping implementation deferred
+  pending real Case 001 evidence and repeated user need.
+- Mark the original public-release plan executed and preserve historical operators as
+  evidence only.
+
 ## [0.1.1] - 2026-08-09
 
 ### Added
