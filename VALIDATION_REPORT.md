@@ -1,7 +1,7 @@
 # Validation Report
 
-**Project:** Materials-to-Mission  
-**Version:** 0.1.1
+**Project:** Materials-to-Mission
+**Version:** 0.1.2
 **Status:** PASS within the stated public synthetic scope
 
 ## Executed
@@ -12,7 +12,7 @@
 - Semantic validation: PASS
 - Public-boundary validation: PASS
 - Adversarial fixtures: PASS
-- Unit and integration tests: 117 collected; all runnable tests PASS
+- Unit and integration tests: 118 collected; all runnable tests PASS
 - Platform-dependent test policy: only the three documented symlink-unavailable cases may skip
 - Combined statement and branch coverage: PASS at or above the 95 percent floor
 - Markdown relative links: PASS
