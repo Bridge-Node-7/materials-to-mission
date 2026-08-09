@@ -2,9 +2,14 @@
 
 ## Current Status
 
-Materials-to-Mission is **M0 only**. The immutable `v0.1.0` release is the current public
-baseline. Main may include reviewed unreleased maintenance, but no real Case 001 or M1
-outcome evidence is present.
+Materials-to-Mission is **M0 only**.
+
+- Canonical schema baseline: immutable `v0.1.0`
+- Current public maintenance release: immutable `v0.1.1`
+- Real Case 001: not completed
+- M1 real-workflow proof: not achieved
+
+No real Case 001 or M1 outcome evidence is present in this public repository.
 
 See [`CURRENT_STATE.md`](CURRENT_STATE.md) for the current repository and release state.
 See [`M1_READINESS.md`](M1_READINESS.md) for the evidence required before an M1 claim.
@@ -20,7 +25,7 @@ One approved real Case 001, applicable evidence, Material Assurance Record, inde
 review, human disposition, action, measured outcome, and reassessment trigger.
 
 M1 is not established by documentation, schema validity, test coverage, deterministic
-packaging, or a generated Decision Passport alone.
+packaging, a generated Decision Passport, website discoverability, or a public release alone.
 
 ## M2 — External and Commercial Proof
 
