@@ -45,4 +45,24 @@ if "--draft" not in release_workflow:
     raise SystemExit("STOP - hosted release workflow must create a draft before publication")
 if "git diff --exit-code" not in release_workflow:
     raise SystemExit("STOP - release workflow does not prove validation left the tagged tree unchanged")
+
+for required in (
+    'notes_file="RELEASE_NOTES_${GITHUB_REF_NAME}.md"',
+    'archive="dist/materials-to-mission-${GITHUB_REF_NAME}.zip"',
+    'test "$manifest_tag" = "$GITHUB_REF_NAME"',
+    'assert data["tag"] == f"v{data[\'version\']}"',
+):
+    if required not in release_workflow:
+        raise SystemExit(
+            f"STOP - release workflow is not version-generic: {required}"
+        )
+for forbidden in (
+    "RELEASE_NOTES_v0.1.0.md",
+    "dist/materials-to-mission-v0.1.0.zip",
+    "assert data['tag'] == 'v0.1.0'",
+):
+    if forbidden in release_workflow:
+        raise SystemExit(
+            f"STOP - release workflow contains a hard-coded release identity: {forbidden}"
+        )
 print("PASS - public-source maintainer gates and hosted Release workflow contract")
