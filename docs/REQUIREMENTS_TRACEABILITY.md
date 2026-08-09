@@ -18,3 +18,22 @@
 | Transient content is excluded | Release builder | `test_release_excludes_transient_directories` |
 | Actions are immutable | Complete local gate | Full-SHA pin check |
 | Public release is review-gated | GitHub workflows and operator gates | Bash syntax and hosted CI after publication |
+
+## v0.1.1 assurance-hardening traceability
+
+The maintenance candidate adds semantic checks that the M0 schemas alone cannot express:
+
+- consequential owners and disposition authorities may not be automation identities;
+- MAR and Passport dispositions must be allowed by the Decision Charter;
+- evidence and critical-condition visibility use exact leading identifiers;
+- `PARTIALLY_SUPPORTED` evidence remains visible in the Passport `unknown` posture;
+- requirement links resolve to Charter requirements or acceptance criteria;
+- evidence issue dates may not be later than access dates;
+- one evidence identifier may not occupy incompatible posture buckets;
+- the Passport decision identifier equals the case identifier;
+- secret-like structured keys are scanned in addition to serialized values;
+- excessive JSON nesting returns a controlled operational error;
+- ignored local-environment symlinks are distinguished from tracked or release-path symlinks.
+
+These checks remain public-method validation. They do not establish material qualification,
+compliance, source ownership, laboratory validity, production capacity, or mission authorization.

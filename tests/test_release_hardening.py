@@ -75,6 +75,46 @@ def test_manifest_sort_key_is_posix_relative_and_case_sensitive() -> None:
     ]
 
 
+def test_manifest_hash_is_line_ending_independent(tmp_path: Path) -> None:
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location(
+        "build_manifest_line_endings", ROOT / "scripts/build_manifest.py"
+    )
+    assert spec and spec.loader
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+
+    lf = tmp_path / "lf.txt"
+    crlf = tmp_path / "crlf.txt"
+    cr = tmp_path / "cr.txt"
+    lf.write_bytes(b"alpha\nbeta\n")
+    crlf.write_bytes(b"alpha\r\nbeta\r\n")
+    cr.write_bytes(b"alpha\rbeta\r")
+
+    expected = module.manifest_digest(lf)
+    assert module.manifest_digest(crlf) == expected
+    assert module.manifest_digest(cr) == expected
+
+
+def test_manifest_hash_preserves_binary_bytes(tmp_path: Path) -> None:
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location(
+        "build_manifest_binary", ROOT / "scripts/build_manifest.py"
+    )
+    assert spec and spec.loader
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+
+    binary = tmp_path / "fixture.bin"
+    raw = b"\x00alpha\r\nbeta\xff"
+    binary.write_bytes(raw)
+
+    assert module.canonical_file_bytes(binary) == raw
+    assert module.manifest_digest(binary) == module.hashlib.sha256(raw).hexdigest()
+
+
 def test_release_archive_member_order_uses_posix_paths(tmp_path: Path) -> None:
     from materials_to_mission.release import build_deterministic_zip
     import zipfile
