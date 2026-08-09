@@ -22,7 +22,10 @@ classifiers = [
   "Programming Language :: Python :: 3.13",
   "Typing :: Typed",
 ]
-dependencies = ["jsonschema>=4.23,<5"]
+dependencies = [
+  "jsonschema>=4.23,<5",
+  "referencing>=0.37,<1",
+]
 
 [project.optional-dependencies]
 dev = [
