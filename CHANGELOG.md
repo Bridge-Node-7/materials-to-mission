@@ -6,6 +6,25 @@ All notable changes are documented here.
 
 No unreleased product changes are recorded.
 
+## [0.3.1] - 2026-08-10
+
+### Corrected
+- Reconciled README public-boundary truth and website-integration record truth.
+- Added narrow automation-owner alias guards for Scoring Engine, Rules Engine, and Inference Service.
+- Added explicit deterministic local-browser preview guidance.
+- Tightened Trace wording so public use context is not presented as a program-specific requirement.
+
+### Refined
+- Clarified public-snapshot, public-evidence-state, and snapshot-toolkit microcopy.
+- Preserved compact journey navigation and a vertical Trace on narrow screens.
+- Increased the dialog close target and added deliberate View Public Method / Back to Materials completion routes.
+
+### Preserved
+- Immutable v0.3.0 history.
+- Canonical v0.1.0 schemas and existing validation-profile identifiers.
+- Frozen GA-001 v1.0.0 snapshot/source/rights evidence.
+- Public-view contract 0.3.0, M0 maturity, no-score behavior, and human consequential authority.
+
 ## [0.3.0] - 2026-08-10
 ### Added
 

@@ -529,8 +529,8 @@ dialog p { color: var(--explore-muted); }
   position: absolute;
   top: 16px;
   right: 16px;
-  width: 38px;
-  height: 38px;
+  width: 46px;
+  height: 46px;
   border: 0;
   border-radius: 50%;
   background: rgba(255,255,255,.08);
@@ -540,7 +540,54 @@ dialog p { color: var(--explore-muted); }
 .noscript { padding: 20px; background: #fff3cd; color: #2b2514; }
 
 @media (max-width: 900px) {
-  .site-header nav { display: none; }
+  .site-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .site-header nav {
+    display: flex;
+    width: 100%;
+    gap: 16px;
+    overflow-x: auto;
+    padding: 2px 0 7px;
+    white-space: nowrap;
+    scrollbar-width: thin;
+  }
+  .trace-shell {
+    overflow-x: visible;
+    padding-bottom: 8px;
+  }
+  .trace-list {
+    min-width: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .trace-node {
+    min-height: 0;
+    padding: 0 0 20px 74px;
+  }
+  .trace-node::before {
+    top: 0;
+    bottom: 0;
+    left: 28px;
+    width: 1px;
+    height: 100%;
+  }
+  .trace-node:first-child::before {
+    left: 28px;
+    width: 1px;
+  }
+  .trace-node:last-child::before {
+    width: 1px;
+    height: 28px;
+  }
+  .trace-dot {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
   .arrival-grid,
   .atlas-grid,
   .focus-grid,
@@ -578,4 +625,14 @@ dialog p { color: var(--explore-muted); }
     animation-duration: 80ms !important;
     animation-iteration-count: 1 !important;
   }
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.footer-links a {
+  color: var(--explore-accent);
+  text-decoration: none;
 }

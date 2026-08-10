@@ -1,6 +1,6 @@
 # Materials-to-Mission
 
-**Experimental public baseline · Synthetic examples only · Human-owned decisions**
+**M0 experimental public method · Synthetic reference cases + reviewed public-source snapshot · Human-owned decisions**
 
 Materials-to-Mission is Bridge Node 7's public-safe method and validation toolkit for
 connecting a consequential mission decision to the material, source, process, evidence,
@@ -11,6 +11,14 @@ CLI, synthetic reference cases, adverse fixtures, a complete Material Assurance 
 a concise Decision Passport. It does not publish real supplier intelligence, customer
 records, laboratory data, patent-sensitive implementation, restricted technical information,
 or operational vulnerabilities.
+
+**Live public experience:** [https://bridgenode7.com/materials-to-mission/](https://bridgenode7.com/materials-to-mission/)  
+**Five-minute evaluation:** [docs/FIVE_MINUTE_EVALUATION.md](docs/FIVE_MINUTE_EVALUATION.md)
+
+GA-001 v1.0.0 is a reviewed public-source evidence snapshot based on official public sources.
+It is **not** a synthetic canonical example and it is **not** a real operational Case 001.
+Public-source demonstration does not imply qualification, acquisition approval, mission
+readiness, adoption, or M1.
 
 ## One Question
 
@@ -202,36 +210,42 @@ consequential conclusion.**
 
 ## Public Boundary
 
-All included examples are fictional and synthetic. Public records must not contain real
-customer names, supplier identities, samples, lots, facilities, prices, capacities,
-vulnerabilities, protected laboratory results, patent-sensitive methods, classified
-information, controlled unclassified information, export-controlled technical data, or
-other restricted content. See [`docs/PUBLIC_BOUNDARY.md`](docs/PUBLIC_BOUNDARY.md).
+Synthetic reference cases remain fictional and synthetic. GA-001 v1.0.0 is separately
+identified as a bounded **reviewed public-source evidence snapshot** containing official-source
+metadata and original paraphrase. It is not private operational evidence and not a real Case
+001.
+
+Public records must not contain real customer names, nonpublic supplier identities, samples,
+lots, protected facilities, prices, capacities, vulnerabilities, protected laboratory results,
+patent-sensitive methods, classified information, controlled unclassified information,
+export-controlled technical data, or other restricted content. See
+[`docs/PUBLIC_BOUNDARY.md`](docs/PUBLIC_BOUNDARY.md).
 
 ## Repository Maturity
 
-`v0.3.0` is the current signed **M0 Public Visual Experience release**. It preserves the
-immutable v0.1.0 structural schema authority and frozen validation-profile behavior while
-adding the derived, read-only Golden Journey browser and GA-001 public-source demonstration.
+`v0.3.1` is the bounded M0 UX/credibility maintenance release. It preserves immutable
+`v0.3.0` release history, immutable v0.1.0 structural schema authority, existing validation
+profile identifiers, GA-001 v1.0.0 evidence meaning, M0 maturity, and human consequential
+authority.
 
 The live public experience is
 [bridgenode7.com/materials-to-mission/](https://bridgenode7.com/materials-to-mission/).
-
 The repository remains M0 until the real-workflow evidence in
 [`docs/M1_READINESS.md`](docs/M1_READINESS.md) is complete. It is not a validated
 cross-case commercial product or an authority for certification or qualification.
 
 ## Bridge Node 7 Portfolio Fit
 
-- [Bridge Node 7](https://bridgenode7.com/) provides the public context and routing.
-- **Materials-to-Mission** owns the canonical public method, schemas, validator, and synthetic records.
-- [Frontier Decision Engine](https://github.com/Bridge-Node-7/frontier-decision-engine) remains generic decision infrastructure and may later consume this released contract through a thin adapter.
+- [Bridge Node 7](https://bridgenode7.com/) provides public context and routing.
+- **Materials-to-Mission** owns the canonical public method, schemas, validator, synthetic
+  reference cases, reviewed public-source snapshots, and derived visual experience.
+- [Frontier Decision Engine](https://github.com/Bridge-Node-7/frontier-decision-engine)
+  remains generic decision infrastructure and may later consume this contract through a thin adapter.
 - Real operational cases and protected evidence remain in controlled private systems.
 
-The website integration is complete and intentionally minimal. The existing Materials
-page presents one restrained **View Public Method** link to the live Materials-to-Mission
-experience. The Readiness page remains a narrative and inquiry surface; no duplicate method
-link is required. Future website changes remain separately governed.
+The separately governed Materials page routes to the live Materials-to-Mission experience.
+The application itself provides **View Public Method** access back to this repository.
+No additional website release is required for this repository-only maintenance line.
 
 ## Security
 

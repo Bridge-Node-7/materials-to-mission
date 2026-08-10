@@ -2,6 +2,8 @@
 
 This path gives a first-time evaluator one visible success and one visible fail-closed result.
 
+**Prerequisite:** complete the installation steps in the root README. The five-minute path begins after installation.
+
 ## 1. Open the Synthetic Case
 
 Review:
