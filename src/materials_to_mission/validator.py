@@ -17,6 +17,8 @@ from .resources import schema_dir
 from .validation_profiles import (
     BASELINE_PROFILE_ID,
     DEFAULT_VALIDATION_PROFILE,
+    STRICT_PROFILE_ID,
+    STRICT_V040_PROFILE_ID,
     get_validation_profile,
 )
 
@@ -78,8 +80,11 @@ _AUTOMATION_TERM = re.compile(
     r"\b(?:ai|artificial intelligence|automated|automation|algorithm(?:ic)?|"
     r"machine(?: learning)?|bot|chatbot|large language model|llm|chatgpt|"
     r"gpt(?:\s+\d+(?:\.\d+)?)?|claude|autonomous(?: agent)?|"
-    r"decision engine|scoring engine|rules engine|inference service|"
-    r"system selected agent|agent|model)\b",
+    r"decision engine|system selected agent|agent|model)\b",
+    re.IGNORECASE,
+)
+_STRICT_V040_AUTOMATION_ALIAS = re.compile(
+    r"\b(?:scoring engine|rules engine|inference service)\b",
     re.IGNORECASE,
 )
 _NAMED_HUMAN_WITH_ROLE = re.compile(
@@ -131,9 +136,16 @@ def _normalize_authority(value: str) -> str:
     return re.sub(r"\s+", " ", normalized).strip().casefold()
 
 
-def _authority_state(value: str) -> str:
+def _authority_state(
+    value: str,
+    *,
+    strict_v040_aliases: bool = False,
+) -> str:
     normalized = _normalize_authority(value)
-    if not _AUTOMATION_TERM.search(normalized):
+    automation = bool(_AUTOMATION_TERM.search(normalized))
+    if strict_v040_aliases:
+        automation = automation or bool(_STRICT_V040_AUTOMATION_ALIAS.search(normalized))
+    if not automation:
         return "HUMAN"
     if _NAMED_HUMAN_WITH_ROLE.search(unicodedata.normalize("NFKC", value)):
         return "AMBIGUOUS"
@@ -165,6 +177,8 @@ def _parse_date(value: Any) -> date | None:
 def _semantic_findings(
     case: dict[str, Any],
     public: bool,
+    *,
+    strict_v040_aliases: bool = False,
 ) -> list[ValidationFinding]:
     findings: list[ValidationFinding] = []
     charter = case.get("decision_charter", {})
@@ -183,7 +197,10 @@ def _semantic_findings(
                 )
             )
         else:
-            authority_state = _authority_state(value)
+            authority_state = _authority_state(
+                value,
+                strict_v040_aliases=strict_v040_aliases,
+            )
             if authority_state == "AUTOMATION":
                 findings.append(
                     ValidationFinding(
@@ -659,8 +676,20 @@ def validate_case(
     if not findings:
         if resolved.profile_id == BASELINE_PROFILE_ID:
             findings.extend(_semantic_findings_baseline(case, public))
-        else:
+        elif resolved.profile_id == STRICT_PROFILE_ID:
             findings.extend(_semantic_findings(case, public))
+        elif resolved.profile_id == STRICT_V040_PROFILE_ID:
+            findings.extend(
+                _semantic_findings(
+                    case,
+                    public,
+                    strict_v040_aliases=True,
+                )
+            )
+        else:
+            raise ValueError(
+                f"unsupported validation profile: {resolved.profile_id}"
+            )
     return ValidationResult(
         tuple(findings),
         validation_profile=resolved.profile_id,

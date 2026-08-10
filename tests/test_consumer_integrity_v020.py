@@ -17,6 +17,7 @@ from materials_to_mission.validation_profiles import (
     BASELINE_PROFILE_ID,
     DEFAULT_VALIDATION_PROFILE,
     STRICT_PROFILE_ID,
+    STRICT_V040_PROFILE_ID,
     get_validation_profile,
 )
 from materials_to_mission.validator import validate_case
@@ -30,12 +31,14 @@ def historical_case(root: Path) -> dict:
     return json.loads((root / "tests/fixtures/historical/v0.1.0-reference-case.json").read_text(encoding="utf-8"))
 
 
-def test_profile_identifiers_are_frozen() -> None:
+def test_profile_identifiers_and_default_are_explicit() -> None:
     assert BASELINE_PROFILE_ID == "m0-baseline-0.1.0"
     assert STRICT_PROFILE_ID == "m0-strict-0.2.0"
-    assert DEFAULT_VALIDATION_PROFILE == STRICT_PROFILE_ID
+    assert STRICT_V040_PROFILE_ID == "m0-strict-0.4.0"
+    assert DEFAULT_VALIDATION_PROFILE == STRICT_V040_PROFILE_ID
     assert get_validation_profile(BASELINE_PROFILE_ID).schema_authority == "v0.1.0"
     assert get_validation_profile(STRICT_PROFILE_ID).schema_authority == "v0.1.0"
+    assert get_validation_profile(STRICT_V040_PROFILE_ID).schema_authority == "v0.1.0"
     with pytest.raises(ValueError, match="unknown validation profile"):
         get_validation_profile("not-a-profile")
 

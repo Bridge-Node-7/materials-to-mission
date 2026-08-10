@@ -16,7 +16,7 @@ fictional and public-safe.
 ## 2. Validate It
 
 ```bash
-m2m validate examples/synthetic-critical-material-pathway/case.json --public --profile m0-strict-0.2.0
+m2m validate examples/synthetic-critical-material-pathway/case.json --public --profile m0-strict-0.4.0
 ```
 
 Expected:
@@ -28,7 +28,7 @@ PASS - case is structurally and semantically valid
 ## 3. Render the Decision Passport
 
 ```bash
-m2m render examples/synthetic-critical-material-pathway/case.json --output build/decision-passport.md --profile m0-strict-0.2.0
+m2m render examples/synthetic-critical-material-pathway/case.json --output build/decision-passport.md --profile m0-strict-0.4.0
 ```
 
 Open `build/decision-passport.md`. Locate the governing weak link, human authority,
@@ -37,7 +37,7 @@ disposition, stop rule, and reassessment trigger.
 ## 4. Inspect a Deliberate Failure
 
 ```bash
-m2m validate examples/invalid/missing-human-owner.json --public --json --profile m0-strict-0.2.0
+m2m validate examples/invalid/missing-human-owner.json --public --json --profile m0-strict-0.4.0
 ```
 
 Expected:

@@ -40,7 +40,7 @@ jobs:
           m2m validate \
             examples/synthetic-critical-material-pathway/case.json \
             --public \
-            --profile m0-strict-0.2.0 \
+            --profile m0-strict-0.4.0 \
             --json > build/consumer-validation.json
           python - <<'PY'
           import json
@@ -49,7 +49,7 @@ jobs:
           assert data["valid"] is True
           expected_version = Path("VERSION").read_text(encoding="utf-8").strip()
           assert data["toolkit_version"] == expected_version
-          assert data["validation_profile"] == "m0-strict-0.2.0"
+          assert data["validation_profile"] == "m0-strict-0.4.0"
           PY
       - name: Upload consumer evidence
         if: always()
