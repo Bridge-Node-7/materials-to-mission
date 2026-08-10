@@ -9,7 +9,7 @@
   --examine-surface: #FCFAF5;
   --examine-text: #1B2028;
   --examine-muted: #5D6672;
-  --examine-accent: #8A6A3C;
+  --examine-accent: #825F31;
 
   --supported: #3F7D67;
   --unknown: #6E7681;
@@ -54,6 +54,7 @@ button { cursor: pointer; }
   background: #fff;
   color: #111;
   transform: translateY(-140%);
+  transition: none;
 }
 .skip-link:focus { transform: translateY(0); }
 
