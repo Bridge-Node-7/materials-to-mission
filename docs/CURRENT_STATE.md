@@ -2,7 +2,7 @@
 
 **As of August 10, 2026**
 
-Materials-to-Mission is an **M0 experimental public method**. Version `v0.3.0` is the
+Materials-to-Mission is an **M0 experimental public method**. Version `v0.3.1` is the
 current signed public release and the first complete M0 Public Visual Experience.
 
 ## Release Lineage
@@ -10,13 +10,13 @@ current signed public release and the first complete M0 Public Visual Experience
 The immutable `v0.1.0` release remains the canonical structural schema baseline.
 Versions `v0.1.1` and `v0.1.2` are assurance-maintenance releases. Version `v0.2.0`
 established Consumer & Contract Integrity and explicit validation-profile identity.
-Version `v0.3.0` adds the derived browser experience and GA-001 public-source
-demonstration without changing canonical schema authority or validation-profile semantics.
+Version `v0.3.0` added the derived browser experience and GA-001 public-source
+demonstration. Version `v0.3.1` is a bounded UX/credibility maintenance patch.
 
 GitHub Releases, verified signed tags, release manifests, checksums, deterministic archives,
 and hosted validation govern release identity.
 
-## v0.3.0 Public Visual Experience
+## v0.3.1 M0 Public Experience
 
 The released experience preserves:
 
@@ -31,7 +31,7 @@ The released experience preserves:
 ## Public Gate
 
 **CLOSED.** Required M0 public visual release work is complete. Production deployment,
-signed v0.3.0 release, minimal website routing, exact public readback, hosted checks,
+signed v0.3.1 release, minimal website routing, exact public readback, hosted checks,
 and final closeout have been verified.
 
 The live experience is:
@@ -51,5 +51,5 @@ Real operational Case 001 remains a separately controlled private evidence path.
 
 ## Preserve
 
-No required next public gate remains for the v0.3.0 M0 Public Visual Experience.
+No required next public gate remains for the v0.3.1 M0 maintenance line.
 Future capability work requires a separately authorized evidence gate.
