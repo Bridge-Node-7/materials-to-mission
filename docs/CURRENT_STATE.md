@@ -3,52 +3,53 @@
 **As of August 10, 2026**
 
 Materials-to-Mission remains an **M0 experimental public method**. Version `v0.2.0`
-is the Consumer & Contract Integrity release candidate. It preserves the immutable
-`v0.1.0` structural schema authority while explicitly separating semantic validation
-behavior into versioned profiles and repairing the demonstrated consumer first-run and
-software-version identity gaps.
+Consumer & Contract Integrity is the current released baseline. It preserves the immutable
+`v0.1.0` canonical schema authority while explicitly versioning semantic validation
+behavior through compatible validation profiles and repairing the demonstrated
+first-time-consumer contract.
 
 ## Release Lineage
 
 The immutable `v0.1.0` release remains the original public method and canonical schema
-baseline. Versions `v0.1.1` and `v0.1.2` strengthened assurance and semantic validation
-while preserving the v0.1.0 structural schema identifiers. Candidate `v0.2.0`
-adds explicit validation-profile identity so historical semantics are not silently
-reinterpreted by newer toolkit code. The GitHub Releases page and signed release evidence
-govern public release identity after a candidate is actually released.
+baseline. Versions `v0.1.1` and `v0.1.2` are assurance-maintenance releases. Version
+`v0.2.0` is the current Consumer & Contract Integrity release. GitHub Releases, the
+verified signed tag, release manifest, checksums, and deterministic archive govern public
+release identity.
 
-## Version 0.2.0 Scope
+## v0.2.0 Contract
 
-- explicit `m0-baseline-0.1.0` historical semantic compatibility;
-- default `m0-strict-0.2.0` strengthened M0 semantic validation;
-- documented Python 3.12 consumer-install repair and matching hosted CI path;
-- singular toolkit/package/CLI version identity;
-- truthful evaluator installation diagnostics;
-- surgical teaching fixtures;
-- bounded authority, Unicode-confusable, synthetic-state, and Public Boundary hardening;
-- compatibility and release-documentation reconciliation;
-- no browser/frontend or Gallium public snapshot in this release candidate.
+The released baseline includes:
+
+- a documented Python 3.12 consumer installation path;
+- explicit `m0-baseline-0.1.0` and `m0-strict-0.2.0` validation profiles;
+- historical compatibility regression coverage;
+- bounded human-authority ambiguity and Unicode-confusable hardening;
+- synthetic-state coherence and public-boundary hardening;
+- LF-stable cross-platform generated release evidence;
+- deterministic archive and release provenance.
+
+Canonical v0.1.0 schema identifiers remain unchanged.
+
+## Current Public Gate
+
+The current public development gate is the **v0.3.0 public visual experience foundation**.
+
+The browser is derived, read-only, and non-authoritative. Python semantic validation
+remains authoritative. The first real-world public demonstration will use a separately
+frozen Gallium public-source evidence snapshot, not a real operational Case 001.
 
 ## M1 Status
 
 M1 is **not achieved**. No approved real Case 001, private case evidence package,
-independent case review, human disposition, measured outcome, or authorized sanitized
-case study is present in this public repository.
+independent case review, human disposition, measured outcome, or authorized sanitized case
+study is present in this public repository.
 
-The current evidence gate is a bounded real Case 001 under appropriate private controls.
-See [`M1_READINESS.md`](M1_READINESS.md) for the evidence required before an M1 claim.
+Real operational Case 001 remains a separately controlled private evidence path and is not
+a prerequisite for demonstrating the M0 public visual method against public-source
+evidence.
 
 ## Website and Integration Status
 
-The separately governed website integration remains complete. The existing Materials page
-presents one restrained **View Public Method** link to this repository. This release does
-not modify the website.
-
-The canonical-release prerequisite for a Frontier Decision Engine adapter remains
-complete. Adapter implementation remains deferred until real Case 001 evidence, stable
-mapping needs, and repeated user need justify a separately reviewed thin consumer adapter.
-## Program Register
-
-The public-safe ideas, evidence-gated options, private-only capabilities, and permanent
-no-go boundaries carried forward from the development journey are recorded in
-[`PROGRAM_REGISTER.md`](PROGRAM_REGISTER.md).
+The separately governed Bridge Node 7 website remains outside this repository. No
+BridgeNode7.com change is authorized by the visual-foundation gate. Website routing follows
+only after the browser experience passes its own release and deployment readback.

@@ -1,0 +1,81 @@
+{
+  "accessibility": {
+    "color_only_meaning": false,
+    "focus_recovery": true,
+    "high_contrast_review": true,
+    "keyboard": true,
+    "narrow_width_320px": true,
+    "reduced_motion": true,
+    "screen_reader_structure": true,
+    "touch_targets": true,
+    "visible_focus": true,
+    "zoom_200_percent": true
+  },
+  "modes": {
+    "examine": {
+      "accent": "#8A6A3C",
+      "field": "#F4F0E7",
+      "surface": "#FCFAF5",
+      "text_primary": "#1B2028",
+      "text_secondary": "#5D6672"
+    },
+    "explore": {
+      "accent": "#C7A96B",
+      "field": "#0B1018",
+      "surface": "#121A24",
+      "text_primary": "#F2F4F7",
+      "text_secondary": "#AEB8C4"
+    }
+  },
+  "motion_ms": {
+    "context_max": 520,
+    "context_min": 320,
+    "environment_max": 950,
+    "environment_min": 700,
+    "micro_max": 220,
+    "micro_min": 140,
+    "reduced_max": 80
+  },
+  "motion_prohibited": [
+    "looping decorative motion",
+    "parallax",
+    "scroll-jacking",
+    "pulsing urgency",
+    "scanning theater",
+    "celebration animation"
+  ],
+  "principle": "Luxury through restraint; evidence clarity before visual drama.",
+  "product": "Materials-to-Mission",
+  "radius_px": {
+    "large": 22,
+    "medium": 14,
+    "small": 8
+  },
+  "semantic_colors": {
+    "contradicted": "#9B4D4D",
+    "expired": "#7B6A8B",
+    "revoked": "#7F4A4A",
+    "superseded": "#66717D",
+    "supported": "#3F7D67",
+    "unknown": "#6E7681",
+    "unsupported": "#8A6F47"
+  },
+  "spacing_px": [
+    4,
+    8,
+    12,
+    16,
+    24,
+    32,
+    48,
+    64,
+    96
+  ],
+  "typography": {
+    "body_min_px": 16,
+    "line_height": 1.55,
+    "measure_max_ch": 72,
+    "numeric_style": "tabular-nums"
+  },
+  "version": "0.3.0"
+}
