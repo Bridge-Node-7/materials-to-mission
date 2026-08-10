@@ -2,19 +2,19 @@
 
 **As of August 10, 2026**
 
-Materials-to-Mission remains an **M0 experimental public method**. Version `v0.2.0`
-Consumer & Contract Integrity is the current released baseline. It preserves the immutable
-`v0.1.0` canonical schema authority while explicitly versioning semantic validation
-behavior through compatible validation profiles and repairing the demonstrated
-first-time-consumer contract.
+Materials-to-Mission remains an **M0 experimental public method**. Source version
+`v0.3.0` is the Public Visual Experience release line. It preserves the immutable `v0.1.0`
+canonical schema authority and frozen validation-profile behavior while adding the derived,
+read-only Golden Journey browser and GA-001 public-source demonstration. Remote release
+identity remains governed by the signed GitHub release gate.
 
 ## Release Lineage
 
 The immutable `v0.1.0` release remains the original public method and canonical schema
 baseline. Versions `v0.1.1` and `v0.1.2` are assurance-maintenance releases. Version
-`v0.2.0` is the current Consumer & Contract Integrity release. GitHub Releases, the
-verified signed tag, release manifest, checksums, and deterministic archive govern public
-release identity.
+`v0.2.0` established Consumer & Contract Integrity. Version `v0.3.0` is the initial
+Public Visual Experience release line. GitHub Releases, the verified signed tag, release
+manifest, checksums, and deterministic archive govern public release identity.
 
 ## v0.2.0 Contract
 
