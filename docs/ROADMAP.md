@@ -13,7 +13,7 @@ milestone, not real-world qualification or product maturity.
 6. [x] Implement one complete Golden Journey:
    Arrival → Materials Atlas → Gallium → Trace to Mission → Show Support → Examine →
    Decision Room.
-7. [ ] Complete observed browser, accessibility, privacy, security, and performance UAT.
+7. [x] Complete observed browser, accessibility, privacy, security, and performance UAT.
 8. [ ] Verify exact production deployment and public provenance.
 9. [ ] Release the initial visual experience and then perform minimal website routing.
 10. [ ] Close remaining required work to zero.
@@ -29,7 +29,7 @@ readiness score, or new certification claim is not part of the current roadmap.
 
 ## Current Gate
 
-**Current public gate:** WEB-03 observed browser, accessibility, privacy, security, and performance UAT.
+**Current public gate:** DEP-00 production deployment and exact public provenance readback.
 
 Current release state is recorded in `CURRENT_STATE.md`. M1 entry and acceptance
 conditions remain recorded separately in `M1_READINESS.md`.
