@@ -1,0 +1,64 @@
+{
+  "review_date": "2026-08-10",
+  "snapshot_id": "GA-001",
+  "source_policy": "Official U.S. Government public sources only for GA-001 v1.0.0. Repository content stores source metadata and original paraphrase, not copied source bodies.",
+  "sources": [
+    {
+      "accessed_date": "2026-08-10",
+      "authority": "official-government",
+      "claim_scope": [
+        "U.S. production/import context",
+        "gallium compound/wafter consumption context",
+        "integrated-circuit and optoelectronic use context"
+      ],
+      "publisher": "U.S. Geological Survey, National Minerals Information Center",
+      "source_date": null,
+      "source_id": "USGS-GA-STATS",
+      "title": "Gallium Statistics and Information",
+      "url": "https://www.usgs.gov/centers/national-minerals-information-center/gallium-statistics-and-information"
+    },
+    {
+      "accessed_date": "2026-08-10",
+      "authority": "official-government",
+      "claim_scope": [
+        "final 2025 critical-minerals-list status",
+        "semiconductor-use context"
+      ],
+      "publisher": "U.S. Geological Survey",
+      "source_date": "2025-11-14",
+      "source_id": "USGS-CRITICAL-2025",
+      "title": "Interior Department releases final 2025 List of Critical Minerals",
+      "url": "https://www.usgs.gov/news/science-snippet/interior-department-releases-final-2025-list-critical-minerals"
+    },
+    {
+      "accessed_date": "2026-08-10",
+      "authority": "official-government",
+      "claim_scope": [
+        "net-import-reliance statement",
+        "domestic primary recovery history",
+        "TRACE-Ga selected-project context",
+        "defense and semiconductor sector relevance"
+      ],
+      "publisher": "U.S. Department of Energy, Office of Critical Minerals and Energy Innovation",
+      "source_date": "2026-04-14",
+      "source_id": "DOE-TRACE-GA-2026",
+      "title": "DOE's Office of Critical Minerals and Energy Innovation Selects Five Organizations to Restart Domestic Primary Gallium Recovery",
+      "url": "https://www.energy.gov/cmei/articles/does-office-critical-minerals-and-energy-innovation-selects-five-organizations"
+    },
+    {
+      "accessed_date": "2026-08-10",
+      "authority": "official-government",
+      "claim_scope": [
+        "TRACE-Ga prototype objectives",
+        "continuous-operation campaign target",
+        "scale-up objective",
+        "domestic-feedstock context"
+      ],
+      "publisher": "U.S. Department of Energy",
+      "source_date": "2025-09-15",
+      "source_id": "DOE-TRACE-GA-2025",
+      "title": "U.S. Department of Energy Announces $6 Million to Enhance U.S. Supply Chain Security Through Domestic Gallium Production",
+      "url": "https://www.energy.gov/hgeo/articles/us-department-energy-announces-6-million-enhance-us-supply-chain-security-through"
+    }
+  ]
+}

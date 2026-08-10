@@ -1,0 +1,12 @@
+{
+  "approved_for_public_repository": true,
+  "blanket_public_domain_assertion": false,
+  "long_source_quotes_redistributed": false,
+  "repository_license_scope": "The repository license applies to original repository structure, code, and original paraphrase. No license is asserted over third-party or source-agency materials beyond applicable law.",
+  "review_rule": "GA-001 stores official-source URLs, bibliographic metadata, and original structured paraphrases. It does not archive source webpages, PDFs, photographs, or other source-agency media.",
+  "rights_posture": "metadata-and-original-paraphrase-only",
+  "rights_version": "1.0.0",
+  "snapshot_id": "GA-001",
+  "source_files_redistributed": false,
+  "source_images_redistributed": false
+}

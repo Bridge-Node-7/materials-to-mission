@@ -17,7 +17,7 @@ Current release:        v0.2.0
 Canonical schemas:      immutable v0.1.0 identifiers
 Validation profiles:    m0-baseline-0.1.0 / m0-strict-0.2.0
 Public maturity:        M0
-Current public gate:    v0.3.0 public visual foundation
+Current public gate:    WEB-02 Golden Journey browser implementation
 ```
 
 ## Integrated Public Doctrine
@@ -64,14 +64,13 @@ No composite readiness score or risk dial may average away a critical condition.
 
 ## Gallium Public Demonstration
 
-GA-001 is planned as a separately frozen **public-source evidence snapshot**. It is not a
+GA-001 v1.0.0 is frozen as a **public-source evidence snapshot**. It is not a
 real operational Case 001 and does not alter canonical schema authority.
 
 Synthetic cases prove the method. Public-source snapshots demonstrate the method against
 reality. Private operational cases use the method consequentially.
 
-DATA-00 must prove source identity, scope, rights, dates, provenance, public usability, and
-boundary compliance before GA-001 enters the repository.
+DATA-00 records source identity, scope, rights posture, review dates, provenance, public usability, and boundary compliance for GA-001.
 
 ## Private Evidence Path
 

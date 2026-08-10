@@ -1,0 +1,109 @@
+{
+  "bounded_interpretations": [
+    {
+      "basis_claim_ids": [
+        "GA-C01",
+        "GA-C02",
+        "GA-C05",
+        "GA-C06",
+        "GA-C07"
+      ],
+      "interpretation_id": "GA-I01",
+      "state": "supported",
+      "text": "The public evidence supports a material supply-dependence concern and active federal effort to restart or expand domestic gallium recovery."
+    },
+    {
+      "basis_claim_ids": [
+        "GA-C05",
+        "GA-C06",
+        "GA-C07"
+      ],
+      "interpretation_id": "GA-I02",
+      "state": "unknown",
+      "text": "The reviewed public evidence does not establish qualified domestic production capacity, program-specific acquisition access, or mission-ready availability."
+    }
+  ],
+  "claims": [
+    {
+      "claim": "Gallium is included on the final 2025 U.S. List of Critical Minerals, where USGS identifies semiconductor use.",
+      "claim_id": "GA-C01",
+      "source_ids": [
+        "USGS-CRITICAL-2025"
+      ],
+      "support_state": "supported"
+    },
+    {
+      "claim": "USGS reports that low-purity unrefined gallium is not produced in the United States and that U.S. demand is met by imports from multiple countries.",
+      "claim_id": "GA-C02",
+      "source_ids": [
+        "USGS-GA-STATS"
+      ],
+      "support_state": "supported"
+    },
+    {
+      "claim": "USGS reports that about 79% of gallium consumed in the United States is in GaAs, GaN, and GaP wafers.",
+      "claim_id": "GA-C03",
+      "source_ids": [
+        "USGS-GA-STATS"
+      ],
+      "support_state": "supported"
+    },
+    {
+      "claim": "USGS reports analog and digital integrated circuits as the largest identified share of U.S. gallium consumption, with optoelectronic devices accounting for most of the remainder.",
+      "claim_id": "GA-C04",
+      "source_ids": [
+        "USGS-GA-STATS"
+      ],
+      "support_state": "supported"
+    },
+    {
+      "claim": "DOE stated on April 14, 2026 that the United States was 100% net import reliant on gallium and had not domestically produced the critical mineral since 1987.",
+      "claim_id": "GA-C05",
+      "source_ids": [
+        "DOE-TRACE-GA-2026"
+      ],
+      "support_state": "supported"
+    },
+    {
+      "claim": "DOE announced approximately $5.4 million for five TRACE-Ga projects intended to advance domestic gallium recovery from U.S. metal-processing feedstocks.",
+      "claim_id": "GA-C06",
+      "source_ids": [
+        "DOE-TRACE-GA-2026"
+      ],
+      "support_state": "supported"
+    },
+    {
+      "claim": "DOE described TRACE-Ga prototype objectives that include producing at least 50 kilograms of pure gallium during at least one 14-day continuous campaign and demonstrating a pathway toward at least one metric ton per year scale.",
+      "claim_id": "GA-C07",
+      "source_ids": [
+        "DOE-TRACE-GA-2025"
+      ],
+      "support_state": "supported"
+    }
+  ],
+  "evidence_scope": "Public evidence concerning U.S. gallium supply dependence, semiconductor-use context, critical-mineral status, and current federal domestic-recovery activity.",
+  "geographic_scope": "United States public-source context",
+  "human_authority_required": true,
+  "material": {
+    "atomic_number": 31,
+    "name": "Gallium",
+    "symbol": "Ga"
+  },
+  "not_in_scope": [
+    "supplier qualification",
+    "customer or program requirements",
+    "private capacity",
+    "pricing",
+    "facility vulnerability",
+    "lot or sample evidence",
+    "acquisition eligibility",
+    "mission qualification",
+    "real operational Case 001"
+  ],
+  "public_maturity": "M0",
+  "real_case_001": false,
+  "review_date": "2026-08-10",
+  "snapshot_id": "GA-001",
+  "snapshot_kind": "public-source-evidence-snapshot",
+  "snapshot_version": "1.0.0"
+}

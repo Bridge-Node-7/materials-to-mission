@@ -32,11 +32,10 @@ Canonical v0.1.0 schema identifiers remain unchanged.
 
 ## Current Public Gate
 
-The current public development gate is the **v0.3.0 public visual experience foundation**.
+The v0.3.0 public visual foundation is merged. GA-001 Gallium public-source evidence snapshot v1.0.0 is now frozen. The current public development gate is the **WEB-02 Golden Journey browser implementation**.
 
 The browser is derived, read-only, and non-authoritative. Python semantic validation
-remains authoritative. The first real-world public demonstration will use a separately
-frozen Gallium public-source evidence snapshot, not a real operational Case 001.
+remains authoritative. The first real-world public demonstration uses the frozen GA-001 Gallium public-source evidence snapshot, not a real operational Case 001.
 
 ## M1 Status
 
