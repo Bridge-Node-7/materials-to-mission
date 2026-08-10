@@ -27,6 +27,7 @@ The reviewed `v0.2.0` Consumer & Contract Integrity candidate is not yet a publi
 - Detect demonstrated Greek/Cyrillic confusable automation and protected-content forms.
 - Enforce synthetic public-reference state coherently in both directions.
 - Add high-value ITAR, CUI, and export-controlled public-boundary patterns.
+- Force generated validation-report and repository-manifest bytes to LF so release archives reproduce identically across Windows and POSIX checkouts.
 
 ### Compatibility erratum
 

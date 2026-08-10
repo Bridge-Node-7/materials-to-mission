@@ -181,3 +181,31 @@ def test_release_archive_ignores_windows_zipinfo_defaults(
 
     assert baseline.read_bytes() == simulated_windows.read_bytes()
 
+
+def test_generated_release_evidence_writers_force_lf_bytes(tmp_path: Path) -> None:
+    import importlib.util
+
+    cases = [
+        (
+            "check_repo_lf_writer",
+            ROOT / "scripts/check_repo.py",
+            "_write_utf8_lf(report_path, report)",
+        ),
+        (
+            "build_manifest_lf_writer",
+            ROOT / "scripts/build_manifest.py",
+            "_write_utf8_lf(OUTPUT, expected)",
+        ),
+    ]
+
+    for module_name, script_path, expected_call in cases:
+        spec = importlib.util.spec_from_file_location(module_name, script_path)
+        assert spec and spec.loader
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+
+        target = tmp_path / f"{module_name}.txt"
+        module._write_utf8_lf(target, "alpha\r\nbeta\r\n")
+
+        assert target.read_bytes() == b"alpha\nbeta\n"
+        assert expected_call in script_path.read_text(encoding="utf-8")
