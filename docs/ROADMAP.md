@@ -10,7 +10,7 @@ milestone, not real-world qualification or product maturity.
 3. [x] Release v0.2.0 Consumer & Contract Integrity with immutable v0.1.0 schema authority.
 4. [x] Freeze the v0.3.0 public visual foundation and derived view contract.
 5. [x] Freeze GA-001 Gallium public-source evidence, rights, scope, and snapshot provenance.
-6. [ ] Implement one complete Golden Journey:
+6. [x] Implement one complete Golden Journey:
    Arrival → Materials Atlas → Gallium → Trace to Mission → Show Support → Examine →
    Decision Room.
 7. [ ] Complete observed browser, accessibility, privacy, security, and performance UAT.
@@ -29,7 +29,7 @@ readiness score, or new certification claim is not part of the current roadmap.
 
 ## Current Gate
 
-**Current public gate:** WEB-02 Golden Journey browser implementation.
+**Current public gate:** WEB-03 observed browser, accessibility, privacy, security, and performance UAT.
 
 Current release state is recorded in `CURRENT_STATE.md`. M1 entry and acceptance
 conditions remain recorded separately in `M1_READINESS.md`.
