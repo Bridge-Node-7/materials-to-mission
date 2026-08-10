@@ -412,7 +412,9 @@
         "E-001: fictional requirement is documented",
         "E-003: fictional bench result is supported"
       ],
-      "unknown": [],
+      "unknown": [
+        "E-002: partially supported supplier process statement remains uncertain"
+      ],
       "contradicted": [
         "E-005: fictional capacity statements conflict"
       ],

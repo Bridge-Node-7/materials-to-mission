@@ -31,6 +31,7 @@ material, source, supplier, laboratory, or mission.
 1. Read the root `SCHEMA_CATALOG.json`.
 2. Review [`INTEROPERABILITY.md`](INTEROPERABILITY.md).
 3. Preserve the canonical `v0.1.0` schema identifiers and human-authority fields.
+4. Read [`VALIDATION_PROFILES.md`](VALIDATION_PROFILES.md) before depending on semantic accept/reject behavior.
 
 ### Understand Current Maturity
 
