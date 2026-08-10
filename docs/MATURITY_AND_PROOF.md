@@ -5,7 +5,7 @@
 Materials-to-Mission is **M0 only**.
 
 - Canonical schema baseline: immutable `v0.1.0`
-- Current public maintenance release: immutable `v0.1.1`
+- Current public release: immutable `v0.1.2` authority and traceability closeout
 - Real Case 001: not completed
 - M1 real-workflow proof: not achieved
 
@@ -39,7 +39,7 @@ packaging, a generated Decision Passport, website discoverability, or a public r
 Case-derived interface behavior, released interoperability contract, complete product V&V,
 and controlled public integration.
 
-## M4 — Stable Institutional Product
+## M4 — Stable Product
 
 Repeated materially different cases, stable versus case-specific requirements, P5 and P6,
 continuing assurance, sustainable security and maintenance, and repeatable economics.
