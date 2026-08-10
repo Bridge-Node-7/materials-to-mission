@@ -15,7 +15,7 @@ DO NOT EXECUTE
 - Dedicated standalone `Bridge-Node-7/materials-to-mission` repository
 - MIT license
 - Immutable `v0.1.0` public method and canonical schema baseline
-- Immutable `v0.1.1` current M0 assurance-maintenance release
+- Immutable `v0.1.2` current M0 authority and traceability closeout release
 - M0 experimental public method may exist before Case 001
 - M1 and later claims remain evidence-gated
 - Version-tag-bound canonical schema identifiers

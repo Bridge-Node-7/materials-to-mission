@@ -3,6 +3,9 @@
 Roadmap work is evidence-gated. A checked item records a completed public repository
 milestone, not real-world qualification or product maturity.
 
+Durable public options, private-only capabilities, and permanent no-go decisions are
+recorded in [`PROGRAM_REGISTER.md`](PROGRAM_REGISTER.md).
+
 ## Candidate Next Steps
 
 - Validate the method through a bounded real Case 001 under appropriate private controls.

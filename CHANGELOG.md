@@ -4,6 +4,17 @@ All notable changes are documented here.
 
 ## Unreleased
 
+### Added
+
+- A concise public program register preserving durable ideas, evidence-gated future options,
+  private-only capabilities, and permanent no-go boundaries.
+
+### Fixed
+
+- Align maturity, supersession, and FDE adapter records with the current immutable `v0.1.2`
+  release line.
+- Keep maturity language individual-scale and remove the stale institutional-product heading.
+
 ## [0.1.2] - 2026-08-09
 
 ### Fixed
