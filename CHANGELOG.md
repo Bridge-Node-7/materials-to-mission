@@ -4,7 +4,30 @@ All notable changes are documented here.
 
 ## Unreleased
 
-The reviewed `v0.2.0` Consumer & Contract Integrity candidate is not yet a published release. Remote release status remains governed by the signed GitHub release gates.
+No unreleased product changes are recorded beyond the v0.3.0 release line below.
+
+## [0.3.0] - 2026-08-10
+### Added
+
+- Derived, read-only Materials-to-Mission browser with the seven-stage Golden Journey.
+- Frozen GA-001 v1.0.0 Gallium public-source evidence snapshot and source-support view.
+- Versioned public view contract 0.3.0 and controlled Explore/Examine presentation tokens.
+- Exact GitHub Pages deployment workflow with full-SHA-pinned Actions.
+
+### Verified
+
+- Observed desktop, mobile, 320px, reduced-motion, and 200%-zoom-equivalent browser UAT.
+- Accessibility, privacy, security, performance, deterministic build, and exact public-byte readback.
+- Corrected Examine-accent contrast, implicit favicon request, and reduced-motion skip-link focus visibility.
+- HTTPS production deployment with human consequential authority preserved.
+
+### Maturity
+
+- Public maturity remains M0.
+- Canonical v0.1.0 schema identifiers remain unchanged.
+- Validation profiles remain `m0-baseline-0.1.0` and `m0-strict-0.2.0`.
+- GA-001 is a public-source evidence snapshot, not a real operational Case 001.
+- No M1, qualification, certification, compliance, acquisition, production, or autonomous-decision claim is made.
 
 ## [0.2.0] - 2026-08-10 (candidate)
 
