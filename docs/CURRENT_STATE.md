@@ -32,7 +32,7 @@ Canonical v0.1.0 schema identifiers remain unchanged.
 
 ## Current Public Gate
 
-The v0.3.0 public visual foundation, GA-001 v1.0.0 snapshot, and seven-stage Golden Journey browser are merged. **WEB-03 observed browser UAT is PASS after correcting three bounded pre-release presentation/accessibility defects: Examine-accent contrast, an implicit favicon 404, and reduced-motion skip-link focus visibility. Desktop, mobile, 320px, reduced-motion, 200% zoom-equivalent reflow, accessibility, privacy, security, and performance checks pass. The current gate is DEP-00 production deployment and exact public provenance readback.**
+The v0.3.0 public visual foundation, GA-001 v1.0.0 snapshot, and seven-stage Golden Journey browser are merged. **WEB-03 observed browser UAT is PASS after correcting three bounded pre-release presentation/accessibility defects: Examine-accent contrast, an implicit favicon 404, and reduced-motion skip-link focus visibility. Desktop, mobile, 320px, reduced-motion, 200% zoom-equivalent reflow, accessibility, privacy, security, and performance checks pass. DEP-00 production deployment and exact public provenance readback are **PASS**. The deterministic browser build is deployed through the repository's pinned GitHub Pages workflow over HTTPS, and public runtime bytes match the accepted deployment build. The current gate is REL-03 initial visual release.**
 
 The browser is derived, read-only, and non-authoritative. Python semantic validation
 remains authoritative. The first real-world public demonstration uses the frozen GA-001 Gallium public-source evidence snapshot, not a real operational Case 001.
