@@ -1,11 +1,11 @@
 {
   "project": "materials-to-mission",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "maturity": "experimental-public-baseline",
   "current_public_maturity": "M0",
-  "current_release_maturity": "M0 authority and traceability closeout",
+  "current_release_maturity": "M0 consumer and contract integrity closeout",
   "public_repository_status": "live",
-  "public_release_status": "current-v0.1.2",
+  "public_release_status": "candidate-v0.2.0",
   "m1_real_workflow_proof_claimed": false,
   "case_001_publicly_demonstrated": false,
   "current_evidence_gate": "M1_REAL_CASE_001",
@@ -25,8 +25,8 @@
   ],
   "reference_case": "examples/synthetic-critical-material-pathway/case.json",
   "validation_command": "python scripts/check_repo.py",
-  "release_artifact": "materials-to-mission-v0.1.2.zip",
-  "release_notes": "RELEASE_NOTES_v0.1.2.md",
+  "release_artifact": "materials-to-mission-v0.2.0.zip",
+  "release_notes": "RELEASE_NOTES_v0.2.0.md",
   "license": "MIT",
   "account_owner": "Bridge-Node-7",
   "account_type": "User",
@@ -47,5 +47,11 @@
   "validation_evidence_policy": "checked-in evidence must match a fresh non-mutating repository gate",
   "coverage_gate_percent": 95,
   "publication_kit_validator": "scripts/check_publication_kit.py",
-  "public_source_contains_github_write_gates": false
+  "public_source_contains_github_write_gates": false,
+  "validation_profile_default": "m0-strict-0.2.0",
+  "validation_profiles": [
+    "m0-baseline-0.1.0",
+    "m0-strict-0.2.0"
+  ],
+  "validation_profile_record": "docs/VALIDATION_PROFILES.md"
 }

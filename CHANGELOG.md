@@ -4,16 +4,43 @@ All notable changes are documented here.
 
 ## Unreleased
 
+The reviewed `v0.2.0` Consumer & Contract Integrity candidate is not yet a published release. Remote release status remains governed by the signed GitHub release gates.
+
+## [0.2.0] - 2026-08-10 (candidate)
+
 ### Added
 
-- A concise public program register preserving durable ideas, evidence-gated future options,
-  private-only capabilities, and permanent no-go boundaries.
+- Explicit validation-profile identity independent from immutable v0.1.0 schema identity.
+- Historical `m0-baseline-0.1.0` compatibility behavior, including the original v0.1.0 public-boundary behavior.
+- Default `m0-strict-0.2.0` strengthened M0 behavior.
+- Machine-readable validation output carrying toolkit and validation-profile identity.
+- Dedicated Python 3.12 consumer-path CI using the documented public install.
+- Historical released-reference regression coverage.
 
 ### Fixed
 
-- Align maturity, supersession, and FDE adapter records with the current immutable `v0.1.2`
-  release line.
-- Keep maturity language individual-scale and remove the stale institutional-product heading.
+- Include the exact setuptools build backend in the public consumer/bootstrap lock.
+- Distinguish toolkit-not-installed failures from case-validation failures in the guided evaluator.
+- Derive CLI/package version identity from installed package metadata with a source-tree fallback.
+- Isolate invalid teaching fixtures to their intended failure.
+- Surface ambiguous named-human plus automation authority declarations for review.
+- Detect demonstrated Greek/Cyrillic confusable automation and protected-content forms.
+- Enforce synthetic public-reference state coherently in both directions.
+- Add high-value ITAR, CUI, and export-controlled public-boundary patterns.
+- Force generated validation-report and repository-manifest bytes to LF so release archives reproduce identically across Windows and POSIX checkouts.
+
+### Compatibility erratum
+
+The v0.1.1 and v0.1.2 lines preserved the immutable v0.1.0 **structural schema identifiers**, but they also strengthened ERROR-level semantic validation. Therefore the earlier phrase "all existing public data contracts" was broader than the demonstrated behavior.
+
+Candidate 0.2.0 resolves that ambiguity by keeping schema authority unchanged while versioning semantic acceptance behavior explicitly through validation profiles.
+
+### Maturity
+
+- Public maturity remains M0.
+- No real Case 001 is published.
+- No M1, qualification, certification, compliance, acquisition, production, commercial-readiness, or operational-authorization claim is made.
+- No browser application or Gallium public snapshot is included.
 
 ## [0.1.2] - 2026-08-09
 

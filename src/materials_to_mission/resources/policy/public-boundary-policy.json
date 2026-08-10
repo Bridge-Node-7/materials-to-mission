@@ -1,5 +1,5 @@
 {
-  "policy_version": "0.1.0",
+  "policy_version": "0.2.0",
   "description": "Public-safe guardrail patterns for repository examples and public release artifacts.",
   "prohibited_case_insensitive_tokens": [
     "protected-material-codeword",
@@ -18,7 +18,10 @@
   "prohibited_regexes": [
     "(?i)\\b(?:ssn|social security number)\\b",
     "(?i)\\b(?:api[_ -]?key|secret[_ -]?key|private[_ -]?key)\\b\\s*[:=]",
-    "-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----"
+    "-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----",
+    "(?i)\\bITAR\\b",
+    "(?i)\\bCUI\\b",
+    "(?i)\\bexport[- ]controlled\\b"
   ],
   "required_synthetic_markers": [
     "synthetic",

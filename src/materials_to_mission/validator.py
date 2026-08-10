@@ -3,6 +3,7 @@ from __future__ import annotations
 from collections import Counter
 from dataclasses import dataclass
 from datetime import date
+import json
 from pathlib import Path
 import re
 import unicodedata
@@ -13,6 +14,11 @@ from referencing import Registry, Resource
 
 from .boundary import scan_public_boundary
 from .resources import schema_dir
+from .validation_profiles import (
+    BASELINE_PROFILE_ID,
+    DEFAULT_VALIDATION_PROFILE,
+    get_validation_profile,
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -26,6 +32,7 @@ class ValidationFinding:
 @dataclass(frozen=True, slots=True)
 class ValidationResult:
     findings: tuple[ValidationFinding, ...]
+    validation_profile: str = DEFAULT_VALIDATION_PROFILE
 
     @property
     def valid(self) -> bool:
@@ -85,18 +92,51 @@ _EVIDENCE_ID = re.compile(r"^(E-[0-9]{3,})(?=$|[:\s])")
 _CONDITION_ID = re.compile(r"^(CC-[A-Z0-9-]+)(?=$|[:\s])")
 
 
+_AUTHORITY_CONFUSABLES = str.maketrans(
+    {
+        # Greek look-alikes used only for narrow authority-token normalization.
+        "\u0391": "A", "\u03b1": "a",
+        "\u0399": "I", "\u03b9": "i",
+        "\u039f": "O", "\u03bf": "o",
+        "\u0392": "B", "\u03b2": "b",
+        "\u0395": "E", "\u03b5": "e",
+        "\u039a": "K", "\u03ba": "k",
+        "\u039c": "M", "\u03bc": "m",
+        "\u03a4": "T", "\u03c4": "t",
+        "\u03a7": "X", "\u03c7": "x",
+        # Cyrillic look-alikes used only for narrow authority-token normalization.
+        "\u0410": "A", "\u0430": "a",
+        "\u0406": "I", "\u0456": "i",
+        "\u0412": "B", "\u0432": "b",
+        "\u0415": "E", "\u0435": "e",
+        "\u041a": "K", "\u043a": "k",
+        "\u041c": "M", "\u043c": "m",
+        "\u041d": "H", "\u043d": "h",
+        "\u041e": "O", "\u043e": "o",
+        "\u0420": "P", "\u0440": "p",
+        "\u0421": "C", "\u0441": "c",
+        "\u0422": "T", "\u0442": "t",
+        "\u0425": "X", "\u0445": "x",
+    }
+)
+
+
 def _normalize_authority(value: str) -> str:
-    normalized = unicodedata.normalize("NFKC", value)
+    normalized = unicodedata.normalize("NFKC", value).translate(
+        _AUTHORITY_CONFUSABLES
+    )
     normalized = re.sub(r"(?i)\ba[\W_]*i\b", "ai", normalized)
     normalized = re.sub(r"[-_/]+", " ", normalized)
     return re.sub(r"\s+", " ", normalized).strip().casefold()
 
 
-def _looks_automated_authority(value: str) -> bool:
+def _authority_state(value: str) -> str:
     normalized = _normalize_authority(value)
     if not _AUTOMATION_TERM.search(normalized):
-        return False
-    return _NAMED_HUMAN_WITH_ROLE.search(value) is None
+        return "HUMAN"
+    if _NAMED_HUMAN_WITH_ROLE.search(unicodedata.normalize("NFKC", value)):
+        return "AMBIGUOUS"
+    return "AUTOMATION"
 
 
 def _leading_identifier(value: Any, pattern: re.Pattern[str]) -> str | None:
@@ -141,14 +181,29 @@ def _semantic_findings(
                     path,
                 )
             )
-        elif _looks_automated_authority(value):
-            findings.append(
-                ValidationFinding(
-                    "HUMAN_AUTHORITY",
-                    f"{field} may not be assigned to automation",
-                    path,
+        else:
+            authority_state = _authority_state(value)
+            if authority_state == "AUTOMATION":
+                findings.append(
+                    ValidationFinding(
+                        "HUMAN_AUTHORITY",
+                        f"{field} may not be assigned to automation",
+                        path,
+                    )
                 )
-            )
+            elif authority_state == "AMBIGUOUS":
+                findings.append(
+                    ValidationFinding(
+                        "AUTHORITY_AMBIGUITY",
+                        (
+                            f"{field} names a human but also contains automation "
+                            "language; require explicit human review of the "
+                            "authority declaration"
+                        ),
+                        path,
+                        "WARNING",
+                    )
+                )
 
     allowed_dispositions = {
         str(value)
@@ -364,6 +419,21 @@ def _semantic_findings(
             )
         )
 
+    if case.get("maturity") == "SYNTHETIC_PUBLIC_REFERENCE" and (
+        case.get("synthetic") is not True
+        or case.get("public_safe") is not True
+    ):
+        findings.append(
+            ValidationFinding(
+                "SYNTHETIC_STATE",
+                (
+                    "SYNTHETIC_PUBLIC_REFERENCE maturity requires both "
+                    "synthetic=true and public_safe=true"
+                ),
+                "$",
+            )
+        )
+
     if public or case.get("public_safe"):
         if not case.get("synthetic") or (
             case.get("maturity") != "SYNTHETIC_PUBLIC_REFERENCE"
@@ -393,12 +463,204 @@ def _semantic_findings(
     return findings
 
 
+
+_V010_PUBLIC_TOKENS = (
+    "protected-material-codeword",
+    "real supplier",
+    "customer name",
+    "classified",
+    "controlled unclassified information",
+    "cui//",
+    "itar-controlled",
+    "confirmed production capacity",
+    "certified supplier",
+    "qualified material",
+    "guaranteed compliance",
+    "investment recommendation",
+)
+_V010_PUBLIC_REGEXES = (
+    r"(?i)\b(?:ssn|social security number)\b",
+    r"(?i)\b(?:api[_ -]?key|secret[_ -]?key|private[_ -]?key)\b\s*[:=]",
+    r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----",
+)
+
+
+def _scan_public_boundary_baseline(value: Any) -> list[str]:
+    text = json.dumps(value, ensure_ascii=False, sort_keys=True)
+    lower = text.lower()
+    findings: list[str] = []
+    for token in _V010_PUBLIC_TOKENS:
+        if token.lower() in lower:
+            findings.append(f"prohibited public token: {token}")
+    for pattern in _V010_PUBLIC_REGEXES:
+        if re.search(pattern, text):
+            findings.append(f"prohibited public pattern: {pattern}")
+    return findings
+
+
+def _semantic_findings_baseline(
+    case: dict[str, Any],
+    public: bool,
+) -> list[ValidationFinding]:
+    """Reproduce the original v0.1.0 semantic acceptance behavior."""
+    findings: list[ValidationFinding] = []
+    charter = case.get("decision_charter", {})
+    mar = case.get("material_assurance_record", {})
+    passport = case.get("decision_passport", {})
+
+    for field in ("decision_owner", "disposition_authority"):
+        value = str(charter.get(field, "")).strip()
+        path = f"$.decision_charter.{field}"
+        if not value:
+            findings.append(
+                ValidationFinding(
+                    "HUMAN_AUTHORITY",
+                    f"{field} must name a human authority",
+                    path,
+                )
+            )
+        if value.lower() in {"ai", "automated system", "algorithm", "model"}:
+            findings.append(
+                ValidationFinding(
+                    "HUMAN_AUTHORITY",
+                    f"{field} may not be assigned to automation",
+                    path,
+                )
+            )
+
+    triggered = [
+        condition
+        for condition in mar.get("critical_conditions", [])
+        if condition.get("triggered")
+    ]
+    dispositions = {
+        str(mar.get("proposed_disposition", "")),
+        str(passport.get("disposition", "")),
+    }
+    if triggered and dispositions.intersection({"ADVANCE", "PARTNER"}):
+        findings.append(
+            ValidationFinding(
+                "CRITICAL_CONDITION",
+                "triggered critical conditions block ADVANCE and PARTNER",
+                "$.decision_passport.disposition",
+            )
+        )
+
+    evidence = mar.get("evidence_records", [])
+    posture = passport.get("evidence_posture", {})
+    mapping = {
+        "UNKNOWN": "unknown",
+        "CONTRADICTED": "contradicted",
+        "UNSUPPORTED": "unsupported",
+        "EXPIRED": "expired",
+    }
+    for item in evidence:
+        state = item.get("claim_state")
+        bucket = mapping.get(state)
+        if not bucket:
+            continue
+        evidence_id = item.get("evidence_id", "")
+        values = posture.get(bucket, [])
+        if not any(evidence_id in str(value) for value in values):
+            findings.append(
+                ValidationFinding(
+                    "VISIBLE_UNCERTAINTY",
+                    f"{state} evidence {evidence_id} is not visible "
+                    "in Decision Passport posture",
+                    f"$.decision_passport.evidence_posture.{bucket}",
+                )
+            )
+
+    governing = [
+        weak_link for weak_link in mar.get("weak_links", [])
+        if weak_link.get("governing")
+    ]
+    if len(governing) != 1:
+        findings.append(
+            ValidationFinding(
+                "WEAK_LINK",
+                "exactly one governing weak link is required",
+                "$.material_assurance_record.weak_links",
+            )
+        )
+
+    if passport.get("decision_owner") != charter.get("decision_owner"):
+        findings.append(
+            ValidationFinding(
+                "AUTHORITY_MISMATCH",
+                "Decision Passport owner must match Decision Charter owner",
+                "$.decision_passport.decision_owner",
+            )
+        )
+    if passport.get("disposition_authority") != charter.get("disposition_authority"):
+        findings.append(
+            ValidationFinding(
+                "AUTHORITY_MISMATCH",
+                "Decision Passport authority must match Decision Charter authority",
+                "$.decision_passport.disposition_authority",
+            )
+        )
+    if passport.get("disposition") != mar.get("proposed_disposition"):
+        findings.append(
+            ValidationFinding(
+                "DISPOSITION_MISMATCH",
+                "MAR and Decision Passport dispositions must match",
+                "$.decision_passport.disposition",
+            )
+        )
+
+    evidence_ids = {item.get("evidence_id") for item in evidence}
+    source_ids = set(case.get("provenance", {}).get("source_record_ids", []))
+    if evidence_ids != source_ids:
+        findings.append(
+            ValidationFinding(
+                "PROVENANCE",
+                "provenance source_record_ids must exactly match MAR evidence IDs",
+                "$.provenance.source_record_ids",
+            )
+        )
+
+    if public or case.get("public_safe"):
+        if not case.get("synthetic") or (
+            case.get("maturity") != "SYNTHETIC_PUBLIC_REFERENCE"
+        ):
+            findings.append(
+                ValidationFinding(
+                    "PUBLIC_BOUNDARY",
+                    "public-safe cases must be synthetic public references",
+                    "$",
+                )
+            )
+        for message in _scan_public_boundary_baseline(case):
+            findings.append(ValidationFinding("PUBLIC_BOUNDARY", message, "$"))
+        supplier = str(mar.get("supplier", {}).get("label", "")).lower()
+        facility = str(mar.get("facility", {}).get("label", "")).lower()
+        if "fictional" not in supplier or "fictional" not in facility:
+            findings.append(
+                ValidationFinding(
+                    "PUBLIC_BOUNDARY",
+                    "public supplier and facility labels must be visibly fictional",
+                    "$.material_assurance_record",
+                )
+            )
+
+    return findings
+
+
 def validate_case(
     case: dict[str, Any],
     *,
     public: bool = False,
+    profile: str = DEFAULT_VALIDATION_PROFILE,
 ) -> ValidationResult:
+    resolved = get_validation_profile(profile)
     findings = _schema_findings(case)
     if not findings:
-        findings.extend(_semantic_findings(case, public))
-    return ValidationResult(tuple(findings))
+        if resolved.profile_id == BASELINE_PROFILE_ID:
+            findings.extend(_semantic_findings_baseline(case, public))
+        else:
+            findings.extend(_semantic_findings(case, public))
+    return ValidationResult(
+        tuple(findings),
+        validation_profile=resolved.profile_id,
+    )
