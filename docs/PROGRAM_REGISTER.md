@@ -13,11 +13,11 @@ an individual-scale public demonstration.
 
 ```text
 Repository:             Bridge-Node-7/materials-to-mission
-Current release:        v0.2.0
+Current release:        v0.3.0
 Canonical schemas:      immutable v0.1.0 identifiers
 Validation profiles:    m0-baseline-0.1.0 / m0-strict-0.2.0
 Public maturity:        M0
-Current public gate:    REL-03 initial visual release
+Current public gate:    CLOSED
 ```
 
 ## Integrated Public Doctrine

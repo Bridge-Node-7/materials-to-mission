@@ -2,40 +2,44 @@
 
 **As of August 10, 2026**
 
-Materials-to-Mission remains an **M0 experimental public method**. Source version
-`v0.3.0` is the Public Visual Experience release line. It preserves the immutable `v0.1.0`
-canonical schema authority and frozen validation-profile behavior while adding the derived,
-read-only Golden Journey browser and GA-001 public-source demonstration. Remote release
-identity remains governed by the signed GitHub release gate.
+Materials-to-Mission is an **M0 experimental public method**. Version `v0.3.0` is the
+current signed public release and the first complete M0 Public Visual Experience.
 
 ## Release Lineage
 
-The immutable `v0.1.0` release remains the original public method and canonical schema
-baseline. Versions `v0.1.1` and `v0.1.2` are assurance-maintenance releases. Version
-`v0.2.0` established Consumer & Contract Integrity. Version `v0.3.0` is the initial
-Public Visual Experience release line. GitHub Releases, the verified signed tag, release
-manifest, checksums, and deterministic archive govern public release identity.
+The immutable `v0.1.0` release remains the canonical structural schema baseline.
+Versions `v0.1.1` and `v0.1.2` are assurance-maintenance releases. Version `v0.2.0`
+established Consumer & Contract Integrity and explicit validation-profile identity.
+Version `v0.3.0` adds the derived browser experience and GA-001 public-source
+demonstration without changing canonical schema authority or validation-profile semantics.
 
-## v0.2.0 Contract
+GitHub Releases, verified signed tags, release manifests, checksums, deterministic archives,
+and hosted validation govern release identity.
 
-The released baseline includes:
+## v0.3.0 Public Visual Experience
 
-- a documented Python 3.12 consumer installation path;
-- explicit `m0-baseline-0.1.0` and `m0-strict-0.2.0` validation profiles;
-- historical compatibility regression coverage;
-- bounded human-authority ambiguity and Unicode-confusable hardening;
-- synthetic-state coherence and public-boundary hardening;
-- LF-stable cross-platform generated release evidence;
-- deterministic archive and release provenance.
+The released experience preserves:
 
-Canonical v0.1.0 schema identifiers remain unchanged.
+- the seven-stage Golden Journey;
+- GA-001 v1.0.0 as a public-source evidence snapshot, not a real operational Case 001;
+- public view contract 0.3.0 as derived and non-authoritative;
+- Python semantic validation as authoritative;
+- no backend, telemetry, account system, remote persistence, or write-back;
+- visible evidence support, uncertainty, next proof, and named human authority;
+- production HTTPS deployment with exact public-byte provenance.
 
-## Current Public Gate
+## Public Gate
 
-The v0.3.0 public visual foundation, GA-001 v1.0.0 snapshot, and seven-stage Golden Journey browser are merged. **WEB-03 observed browser UAT is PASS after correcting three bounded pre-release presentation/accessibility defects: Examine-accent contrast, an implicit favicon 404, and reduced-motion skip-link focus visibility. Desktop, mobile, 320px, reduced-motion, 200% zoom-equivalent reflow, accessibility, privacy, security, and performance checks pass. DEP-00 production deployment and exact public provenance readback are **PASS**. The deterministic browser build is deployed through the repository's pinned GitHub Pages workflow over HTTPS, and public runtime bytes match the accepted deployment build. The current gate is REL-03 initial visual release.**
+**CLOSED.** Required M0 public visual release work is complete. Production deployment,
+signed v0.3.0 release, minimal website routing, exact public readback, hosted checks,
+and final closeout have been verified.
 
-The browser is derived, read-only, and non-authoritative. Python semantic validation
-remains authoritative. The first real-world public demonstration uses the frozen GA-001 Gallium public-source evidence snapshot, not a real operational Case 001.
+The live experience is:
+
+`https://bridgenode7.com/materials-to-mission/`
+
+The Bridge Node 7 Materials page routes to that live experience. The separately governed
+website release is `v1.1.4`.
 
 ## M1 Status
 
@@ -43,12 +47,9 @@ M1 is **not achieved**. No approved real Case 001, private case evidence package
 independent case review, human disposition, measured outcome, or authorized sanitized case
 study is present in this public repository.
 
-Real operational Case 001 remains a separately controlled private evidence path and is not
-a prerequisite for demonstrating the M0 public visual method against public-source
-evidence.
+Real operational Case 001 remains a separately controlled private evidence path.
 
-## Website and Integration Status
+## Preserve
 
-The separately governed Bridge Node 7 website remains outside this repository. No
-BridgeNode7.com change is authorized by the visual-foundation gate. Website routing follows
-only after the browser experience passes its own release and deployment readback.
+No required next public gate remains for the v0.3.0 M0 Public Visual Experience.
+Future capability work requires a separately authorized evidence gate.
