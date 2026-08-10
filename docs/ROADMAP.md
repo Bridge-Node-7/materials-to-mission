@@ -15,8 +15,8 @@ milestone, not real-world qualification or product maturity.
    Decision Room.
 7. [x] Complete observed browser, accessibility, privacy, security, and performance UAT.
 8. [x] Verify exact production deployment and public provenance.
-9. [ ] Release the initial visual experience and then perform minimal website routing.
-10. [ ] Close remaining required work to zero.
+9. [x] Release the initial visual experience and then perform minimal website routing.
+10. [x] Close remaining required work to zero.
 
 ## Deferred Evidence Paths
 
@@ -29,7 +29,7 @@ readiness score, or new certification claim is not part of the current roadmap.
 
 ## Current Gate
 
-**Current public gate:** REL-03 initial visual release, followed by minimal website routing.
+**Current public gate:** CLOSED — required M0 public visual release work is complete.
 
 Current release state is recorded in `CURRENT_STATE.md`. M1 entry and acceptance
 conditions remain recorded separately in `M1_READINESS.md`.
