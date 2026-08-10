@@ -32,7 +32,7 @@ Canonical v0.1.0 schema identifiers remain unchanged.
 
 ## Current Public Gate
 
-The v0.3.0 public visual foundation is merged. GA-001 Gallium public-source evidence snapshot v1.0.0 is now frozen. The current public development gate is the **WEB-02 Golden Journey browser implementation**.
+The v0.3.0 public visual foundation is merged and GA-001 Gallium public-source evidence snapshot v1.0.0 is frozen. The **WEB-02 Golden Journey browser implementation is now implemented in source and merged only after its repository and hosted checks pass. The next gate is WEB-03 observed browser, accessibility, privacy, security, and performance UAT.**
 
 The browser is derived, read-only, and non-authoritative. Python semantic validation
 remains authoritative. The first real-world public demonstration uses the frozen GA-001 Gallium public-source evidence snapshot, not a real operational Case 001.
