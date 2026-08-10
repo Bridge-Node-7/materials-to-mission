@@ -44,3 +44,8 @@ not modify the website.
 The canonical-release prerequisite for a Frontier Decision Engine adapter remains
 complete. Adapter implementation remains deferred until real Case 001 evidence, stable
 mapping needs, and repeated user need justify a separately reviewed thin consumer adapter.
+## Program Register
+
+The public-safe ideas, evidence-gated options, private-only capabilities, and permanent
+no-go boundaries carried forward from the development journey are recorded in
+[`PROGRAM_REGISTER.md`](PROGRAM_REGISTER.md).

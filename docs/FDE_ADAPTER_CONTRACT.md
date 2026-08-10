@@ -10,8 +10,9 @@ BLOCKING EVIDENCE:              REAL CASE 001, STABLE MAPPING NEED, REPEATED USE
 ```
 
 The immutable `v0.1.0` release remains the canonical schema authority. Version `v0.1.1`
-is the current M0 maintenance release. Public release availability alone does not justify
-adapter implementation.
+is the first M0 assurance-maintenance release, and `v0.1.2` is the current authority and
+traceability closeout release. Public release availability alone does not justify adapter
+implementation.
 
 ## Authority
 

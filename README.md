@@ -96,6 +96,7 @@ These are evaluation audiences, not claims of adoption.
 **Maintaining or releasing?** Use [`docs/RELEASE_PROCESS.md`](docs/RELEASE_PROCESS.md) and [`docs/ACTION_PIN_PROVENANCE.md`](docs/ACTION_PIN_PROVENANCE.md).
 **Checking current maturity?** Read [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md) and [`docs/M1_READINESS.md`](docs/M1_READINESS.md).
 **Planning a protected case?** Use [`docs/M1_CASE_001_PLAYBOOK.md`](docs/M1_CASE_001_PLAYBOOK.md) and [`templates/private-case-readiness-checklist.md`](templates/private-case-readiness-checklist.md).
+**Reviewing future options and boundaries?** Read [`docs/PROGRAM_REGISTER.md`](docs/PROGRAM_REGISTER.md).
 
 ## Evaluate the Method
 
