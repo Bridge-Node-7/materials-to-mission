@@ -119,7 +119,7 @@ python -m pip install --no-deps --no-build-isolation -e .
 
 The public consumer/bootstrap lock includes the exact build backend required by the documented `--no-build-isolation` installation.
 
-Semantic validation uses an explicit profile. New validation defaults to `m0-strict-0.2.0`. Historical v0.1.0 compatibility may be evaluated explicitly with `--profile m0-baseline-0.1.0`. Machine-readable validation output states the profile and toolkit version actually used.
+Semantic validation uses an explicit profile. New validation defaults to `m0-strict-0.4.0`. Released `m0-strict-0.2.0` remains available for explicit compatibility evaluation, and historical v0.1.0 compatibility remains available with `--profile m0-baseline-0.1.0`. Machine-readable validation output states the profile and toolkit version actually used.
 
 Validate and render the synthetic reference:
 
@@ -223,10 +223,10 @@ export-controlled technical data, or other restricted content. See
 
 ## Repository Maturity
 
-`v0.3.1` is the bounded M0 UX/credibility maintenance release. It preserves immutable
-`v0.3.0` release history, immutable v0.1.0 structural schema authority, existing validation
-profile identifiers, GA-001 v1.0.0 evidence meaning, M0 maturity, and human consequential
-authority.
+`v0.4.0` is the bounded M0 validation-profile compatibility closeout. It preserves the
+immutable v0.3.1 public experience, immutable v0.1.0 structural schema authority, released
+validation-profile behavior under explicit identifiers, GA-001 v1.0.0 evidence meaning, M0
+maturity, and human consequential authority.
 
 The live public experience is
 [bridgenode7.com/materials-to-mission/](https://bridgenode7.com/materials-to-mission/).
