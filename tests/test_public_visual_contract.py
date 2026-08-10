@@ -34,7 +34,7 @@ def test_project_facts_keep_m0_and_canonical_schema_authority() -> None:
     assert facts["schema_authority"].endswith("/v0.1.0/schemas/")
     assert facts["public_view_semantic_authority"] is False
     assert facts["browser_writeback_authorized"] is False
-    assert facts["gallium_public_snapshot_status"] == "not-yet-frozen"
+    assert facts["gallium_public_snapshot_status"] == "frozen-ga-001-v1.0.0"
     assert facts["m1_real_workflow_proof_claimed"] is False
 
 
