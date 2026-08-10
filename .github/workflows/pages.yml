@@ -1,0 +1,84 @@
+name: Deploy Pages
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - name: Set up Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Validate and build deterministic public site
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install -r requirements-dev.lock
+          python -m pip install --no-deps --no-build-isolation -e .
+          python scripts/check_repo.py
+          git diff --exit-code
+          python scripts/build_web.py --output _site
+          python - <<'PY'
+          import hashlib
+          from pathlib import Path
+
+          root = Path("_site")
+          expected = {
+              "index.html",
+              "styles.css",
+              "app.js",
+              "data/ga001.json",
+              "WEB_MANIFEST.sha256",
+          }
+          observed = {
+              p.relative_to(root).as_posix()
+              for p in root.rglob("*")
+              if p.is_file()
+          }
+          assert observed == expected, (sorted(observed), sorted(expected))
+
+          manifest = {}
+          for line in (root / "WEB_MANIFEST.sha256").read_text(encoding="utf-8").splitlines():
+              digest, rel = line.split("  ", 1)
+              manifest[rel] = digest
+
+          assert set(manifest) == expected - {"WEB_MANIFEST.sha256"}
+          for rel, digest in manifest.items():
+              actual = hashlib.sha256((root / rel).read_bytes()).hexdigest()
+              assert actual == digest, (rel, actual, digest)
+
+          print("PASS - exact deterministic Pages artifact")
+          PY
+      - name: Setup Pages
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9
+        with:
+          path: _site
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128
