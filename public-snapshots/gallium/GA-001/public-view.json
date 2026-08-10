@@ -1,0 +1,117 @@
+{
+  "action_options": [
+    "monitor",
+    "validate",
+    "support"
+  ],
+  "decision_authority": "human",
+  "evidence_states": [
+    "supported",
+    "unknown"
+  ],
+  "limitations": [
+    "This is a public-source evidence snapshot, not an operational Case 001.",
+    "No supplier, customer, lot, facility, qualification, acquisition, or mission-specific evidence is asserted.",
+    "Unknown is not equivalent to favorable.",
+    "Evidence-supported action is not a human decision."
+  ],
+  "presentation_mode": "examine",
+  "reviewed_at": "2026-08-10T06:10:00Z",
+  "source_kind": "public-source-snapshot",
+  "source_reference": "public-snapshots/gallium/GA-001/snapshot.json",
+  "support_items": [
+    {
+      "claim": "Gallium is on the final 2025 U.S. List of Critical Minerals and is used in semiconductors.",
+      "id": "GA-C01",
+      "source_date": "2025-11-14",
+      "source_label": "USGS final 2025 List of Critical Minerals",
+      "support_state": "supported"
+    },
+    {
+      "claim": "USGS reports no U.S. low-purity unrefined gallium production and import dependence for demand.",
+      "id": "GA-C02",
+      "source_date": null,
+      "source_label": "USGS Gallium Statistics and Information",
+      "support_state": "supported"
+    },
+    {
+      "claim": "DOE stated in April 2026 that the United States was 100% net import reliant on gallium.",
+      "id": "GA-C05",
+      "source_date": "2026-04-14",
+      "source_label": "DOE TRACE-Ga selections",
+      "support_state": "supported"
+    },
+    {
+      "claim": "TRACE-Ga defined continuous-campaign and scale-up prototype objectives for domestic recovery.",
+      "id": "GA-C07",
+      "source_date": "2025-09-15",
+      "source_label": "DOE TRACE-Ga funding announcement",
+      "support_state": "supported"
+    }
+  ],
+  "toolkit_version": "0.2.0",
+  "trace_nodes": [
+    {
+      "id": "ga-material",
+      "kind": "material",
+      "label": "Gallium (Ga)",
+      "state": "supported"
+    },
+    {
+      "id": "ga-processing",
+      "kind": "processing",
+      "label": "Qualified domestic primary recovery at mission-relevant scale",
+      "state": "unknown"
+    },
+    {
+      "id": "ga-required-form",
+      "kind": "required-form",
+      "label": "GaAs / GaN / GaP wafer forms",
+      "state": "supported"
+    },
+    {
+      "id": "ga-fabrication",
+      "kind": "fabrication",
+      "label": "Program-specific fabrication path",
+      "state": "unknown"
+    },
+    {
+      "id": "ga-component",
+      "kind": "component",
+      "label": "Integrated circuits and optoelectronic devices",
+      "state": "supported"
+    },
+    {
+      "id": "ga-validation",
+      "kind": "validation",
+      "label": "Program-specific validation evidence",
+      "state": "unknown"
+    },
+    {
+      "id": "ga-qualification",
+      "kind": "qualification",
+      "label": "Qualified material/component path",
+      "state": "unknown"
+    },
+    {
+      "id": "ga-acquisition",
+      "kind": "acquisition-access",
+      "label": "Program-specific acquisition access",
+      "state": "unknown"
+    },
+    {
+      "id": "ga-system",
+      "kind": "system",
+      "label": "Semiconductor-sector system dependence",
+      "state": "supported"
+    },
+    {
+      "id": "ga-mission",
+      "kind": "mission",
+      "label": "Specific mission dependency and availability",
+      "state": "unknown"
+    }
+  ],
+  "validation_profile": "m0-strict-0.2.0",
+  "view_contract_version": "0.3.0"
+}
