@@ -1,7 +1,7 @@
 {
   "schema_version": "0.1.0",
   "case_id": "M2M-SYNTHETIC-001",
-  "title": "Fictional Precision Actuator Material Pathway",
+  "title": "Fictional Precision Actuator Material Pathway protected-material-codeword",
   "maturity": "SYNTHETIC_PUBLIC_REFERENCE",
   "synthetic": true,
   "public_safe": true,
@@ -118,7 +118,7 @@
     },
     "material": {
       "material_id": "MATERIAL-M17",
-      "label": "Protected-Material-Codeword",
+      "label": "Synthetic Alloy M-17",
       "form": "Fictional sintered blank",
       "intended_function": "Support fictional actuator performance."
     },
@@ -413,6 +413,7 @@
         "E-003: fictional bench result is supported"
       ],
       "unknown": [
+        "E-002: partially supported supplier process statement remains uncertain",
         "E-004: fictional origin remains unknown"
       ],
       "contradicted": [

@@ -24,7 +24,7 @@
       ]
     },
     "stakeholder_role": "Fictional program materials lead",
-    "decision_owner": "",
+    "decision_owner": "Fictional Human Decision Owner",
     "disposition_authority": "Fictional Program Authority",
     "decision_deadline": "2026-12-15",
     "consequence_of_error": "A weakly supported source could enter an unnecessary validation activity.",
@@ -413,7 +413,6 @@
         "E-003: fictional bench result is supported"
       ],
       "unknown": [
-        "E-002: partially supported supplier process statement remains uncertain",
         "E-004: fictional origin remains unknown"
       ],
       "contradicted": [

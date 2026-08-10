@@ -1,7 +1,6 @@
 {
   "schema_version": "0.1.0",
   "case_id": "M2M-SYNTHETIC-001",
-  "title": "Fictional Precision Actuator Material Pathway",
   "maturity": "SYNTHETIC_PUBLIC_REFERENCE",
   "synthetic": true,
   "public_safe": true,
@@ -316,6 +315,13 @@
         "owner": "Fictional Sourcing Lead"
       }
     ],
+    "weak_links": [
+      {
+        "weak_link_id": "WL-001",
+        "statement": "The governing weak link is missing independently reviewable origin evidence.",
+        "governing": true
+      }
+    ],
     "alternatives": [
       {
         "alternative_id": "ALT-001",
@@ -406,6 +412,7 @@
         "E-003: fictional bench result is supported"
       ],
       "unknown": [
+        "E-002: partially supported supplier process statement remains uncertain",
         "E-004: fictional origin remains unknown"
       ],
       "contradicted": [

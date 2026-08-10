@@ -14,6 +14,10 @@ from .release import build_deterministic_zip, sha256
 from .report import render_decision_passport
 from .resources import schema_dir
 from .validator import validate_case
+from .validation_profiles import (
+    DEFAULT_VALIDATION_PROFILE,
+    VALIDATION_PROFILE_IDS,
+)
 
 
 EXAMPLES = """examples:
@@ -30,6 +34,12 @@ exit codes:
 """
 
 
+class _ArgumentParser(argparse.ArgumentParser):
+    def error(self, message: str) -> None:
+        self.print_usage(sys.stderr)
+        self.exit(3, f"{self.prog}: error: {message}\n")
+
+
 def _subparser(sub, name: str, *, help_text: str, example: str) -> argparse.ArgumentParser:
     return sub.add_parser(
         name,
@@ -41,14 +51,18 @@ def _subparser(sub, name: str, *, help_text: str, example: str) -> argparse.Argu
 
 
 def _parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(
+    parser = _ArgumentParser(
         prog="m2m",
         description="Materials-to-Mission public reference toolkit",
         epilog=EXAMPLES,
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
-    parser.add_argument("--version", action="version", version=__version__)
-    sub = parser.add_subparsers(dest="command", required=True)
+    parser.add_argument(
+        "--version", action="version", version="%(prog)s " + __version__
+    )
+    sub = parser.add_subparsers(
+        dest="command", required=True, parser_class=_ArgumentParser
+    )
 
     validate = _subparser(
         sub,
@@ -59,6 +73,12 @@ def _parser() -> argparse.ArgumentParser:
     validate.add_argument("case", help="path to a Materials-to-Mission case JSON file")
     validate.add_argument("--public", action="store_true", help="enforce the public synthetic boundary")
     validate.add_argument("--json", action="store_true", help="emit machine-readable findings")
+    validate.add_argument(
+        "--profile",
+        choices=VALIDATION_PROFILE_IDS,
+        default=DEFAULT_VALIDATION_PROFILE,
+        help=f"semantic validation profile; default: {DEFAULT_VALIDATION_PROFILE}",
+    )
 
     render = _subparser(
         sub,
@@ -68,6 +88,12 @@ def _parser() -> argparse.ArgumentParser:
     )
     render.add_argument("case", help="path to a Materials-to-Mission case JSON file")
     render.add_argument("--output", "-o", help="write Markdown to this path instead of standard output")
+    render.add_argument(
+        "--profile",
+        choices=VALIDATION_PROFILE_IDS,
+        default=DEFAULT_VALIDATION_PROFILE,
+        help=f"semantic validation profile; default: {DEFAULT_VALIDATION_PROFILE}",
+    )
 
     scan = _subparser(
         sub,
@@ -105,9 +131,24 @@ def main(argv: list[str] | None = None) -> int:
     try:
         if args.command == "validate":
             case = read_json(args.case)
-            result = validate_case(case, public=args.public)
+            result = validate_case(
+                case,
+                public=args.public,
+                profile=args.profile,
+            )
             if args.json:
-                print(json.dumps({"valid": result.valid, "findings": [asdict(f) for f in result.findings]}, indent=2))
+                print(
+                    json.dumps(
+                        {
+                            "valid": result.valid,
+                            "schema_version": case.get("schema_version"),
+                            "validation_profile": result.validation_profile,
+                            "toolkit_version": __version__,
+                            "findings": [asdict(f) for f in result.findings],
+                        },
+                        indent=2,
+                    )
+                )
             elif result.valid:
                 print("PASS - case is structurally and semantically valid")
             else:
@@ -118,7 +159,11 @@ def main(argv: list[str] | None = None) -> int:
 
         if args.command == "render":
             case = read_json(args.case)
-            result = validate_case(case, public=bool(case.get("public_safe")))
+            result = validate_case(
+                case,
+                public=bool(case.get("public_safe")),
+                profile=args.profile,
+            )
             if not result.valid:
                 for finding in result.findings:
                     print(f"ERROR {finding.code} {finding.path} - {finding.message}", file=sys.stderr)

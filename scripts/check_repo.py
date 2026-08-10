@@ -13,11 +13,15 @@ import tomllib
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
+from materials_to_mission import __version__  # noqa: E402
 from materials_to_mission.validation_evidence import (  # noqa: E402
     COVERAGE_FLOOR_PERCENT,
     parse_pytest_junit,
     render_validation_report,
     validate_pytest_summary,
+)
+from materials_to_mission.validation_profiles import (  # noqa: E402
+    DEFAULT_VALIDATION_PROFILE,
 )
 
 
@@ -166,6 +170,8 @@ def main(argv: list[str] | None = None) -> int:
         "validate",
         "examples/synthetic-critical-material-pathway/case.json",
         "--public",
+        "--profile",
+        DEFAULT_VALIDATION_PROFILE,
     )
 
     for workflow in sorted((ROOT / ".github/workflows").glob("*.yml")):
@@ -197,7 +203,31 @@ def main(argv: list[str] | None = None) -> int:
             "STOP - VERSION and pyproject.toml project.version differ: "
             f"{project_version!r} != {declared_version!r}"
         )
-    report = render_validation_report(test_count, project_version)
+    if __version__ != project_version:
+        raise SystemExit(
+            "STOP - installed/package version differs from VERSION: "
+            f"{__version__!r} != {project_version!r}"
+        )
+    project_facts = json.loads(
+        (ROOT / "PROJECT_FACTS.json").read_text(encoding="utf-8")
+    )
+    if str(project_facts.get("version", "")).strip() != project_version:
+        raise SystemExit("STOP - PROJECT_FACTS.json version differs from VERSION")
+    if project_facts.get("validation_profile_default") != DEFAULT_VALIDATION_PROFILE:
+        raise SystemExit(
+            "STOP - PROJECT_FACTS.json default validation profile differs "
+            "from the toolkit default"
+        )
+    citation = (ROOT / "CITATION.cff").read_text(encoding="utf-8")
+    match = re.search(r"(?m)^version:\s*([^\s]+)\s*$", citation)
+    citation_version = match.group(1) if match else ""
+    if citation_version != project_version:
+        raise SystemExit("STOP - CITATION.cff version differs from VERSION")
+    report = render_validation_report(
+        test_count,
+        project_version,
+        DEFAULT_VALIDATION_PROFILE,
+    )
     report_path = ROOT / "VALIDATION_REPORT.md"
     if args.update_evidence:
         report_path.write_text(report, encoding="utf-8")
