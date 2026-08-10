@@ -4,7 +4,8 @@ from dataclasses import dataclass
 
 BASELINE_PROFILE_ID = "m0-baseline-0.1.0"
 STRICT_PROFILE_ID = "m0-strict-0.2.0"
-DEFAULT_VALIDATION_PROFILE = STRICT_PROFILE_ID
+STRICT_V040_PROFILE_ID = "m0-strict-0.4.0"
+DEFAULT_VALIDATION_PROFILE = STRICT_V040_PROFILE_ID
 
 @dataclass(frozen=True, slots=True)
 class ValidationProfile:
@@ -23,8 +24,15 @@ _PROFILES = {
     STRICT_PROFILE_ID: ValidationProfile(
         profile_id=STRICT_PROFILE_ID,
         description=(
-            "Strengthened M0 semantic validation for the Consumer & Contract "
-            "Integrity release line."
+            "Released strengthened M0 semantic validation for the Consumer & "
+            "Contract Integrity release line."
+        ),
+    ),
+    STRICT_V040_PROFILE_ID: ValidationProfile(
+        profile_id=STRICT_V040_PROFILE_ID,
+        description=(
+            "M0 strict profile adding explicitly versioned automation-authority "
+            "alias rejection while preserving released profile behavior."
         ),
     ),
 }

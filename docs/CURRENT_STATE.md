@@ -2,8 +2,9 @@
 
 **As of August 10, 2026**
 
-Materials-to-Mission is an **M0 experimental public method**. Version `v0.3.1` is the
-current signed public release and the first complete M0 Public Visual Experience.
+Materials-to-Mission is an **M0 experimental public method**. Version `v0.4.0` is the
+current signed public release and the validation-profile compatibility closeout over the
+preserved v0.3.1 M0 Public Visual Experience.
 
 ## Release Lineage
 
@@ -11,12 +12,14 @@ The immutable `v0.1.0` release remains the canonical structural schema baseline.
 Versions `v0.1.1` and `v0.1.2` are assurance-maintenance releases. Version `v0.2.0`
 established Consumer & Contract Integrity and explicit validation-profile identity.
 Version `v0.3.0` added the derived browser experience and GA-001 public-source
-demonstration. Version `v0.3.1` is a bounded UX/credibility maintenance patch.
+demonstration. Version `v0.3.1` is the preserved UX/credibility maintenance patch.
+Version `v0.4.0` restores released validation-profile behavioral compatibility and adds the
+new default `m0-strict-0.4.0` profile.
 
 GitHub Releases, verified signed tags, release manifests, checksums, deterministic archives,
 and hosted validation govern release identity.
 
-## v0.3.1 M0 Public Experience
+## v0.4.0 M0 Profile Compatibility Closeout
 
 The released experience preserves:
 
