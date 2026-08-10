@@ -210,12 +210,15 @@ other restricted content. See [`docs/PUBLIC_BOUNDARY.md`](docs/PUBLIC_BOUNDARY.m
 
 ## Repository Maturity
 
-`v0.2.0` is the current **M0 Consumer & Contract Integrity release candidate**
-built on the immutable v0.1.0 structural schema authority. It explicitly versions
-semantic validation behavior through `m0-baseline-0.1.0` and `m0-strict-0.2.0`, repairs
-the documented consumer installation path, and makes toolkit/profile identity visible in
-validation evidence. Until the signed release gate passes, `v0.1.2` remains the latest
-published release.
+Version `v0.3.0` is the **M0 Public Visual Experience release line** built on the
+immutable v0.1.0 structural schema authority and the frozen `m0-strict-0.2.0`
+validation profile. It adds the derived, read-only Golden Journey browser and frozen
+GA-001 public-source demonstration without changing semantic authority.
+
+Remote release identity is governed by the verified signed GitHub tag, immutable GitHub
+Release, exact five-asset release set, checksums, and release manifest rather than by a
+source-text claim.
+
 The repository remains M0 until the real-workflow evidence in
 [`docs/M1_READINESS.md`](docs/M1_READINESS.md) is complete. It is not a validated
 cross-case commercial product or an authority for certification or qualification.
