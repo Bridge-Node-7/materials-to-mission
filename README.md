@@ -210,14 +210,12 @@ other restricted content. See [`docs/PUBLIC_BOUNDARY.md`](docs/PUBLIC_BOUNDARY.m
 
 ## Repository Maturity
 
-Version `v0.3.0` is the **M0 Public Visual Experience release line** built on the
-immutable v0.1.0 structural schema authority and the frozen `m0-strict-0.2.0`
-validation profile. It adds the derived, read-only Golden Journey browser and frozen
-GA-001 public-source demonstration without changing semantic authority.
+`v0.3.0` is the current signed **M0 Public Visual Experience release**. It preserves the
+immutable v0.1.0 structural schema authority and frozen validation-profile behavior while
+adding the derived, read-only Golden Journey browser and GA-001 public-source demonstration.
 
-Remote release identity is governed by the verified signed GitHub tag, immutable GitHub
-Release, exact five-asset release set, checksums, and release manifest rather than by a
-source-text claim.
+The live public experience is
+[bridgenode7.com/materials-to-mission/](https://bridgenode7.com/materials-to-mission/).
 
 The repository remains M0 until the real-workflow evidence in
 [`docs/M1_READINESS.md`](docs/M1_READINESS.md) is complete. It is not a validated
@@ -230,10 +228,10 @@ cross-case commercial product or an authority for certification or qualification
 - [Frontier Decision Engine](https://github.com/Bridge-Node-7/frontier-decision-engine) remains generic decision infrastructure and may later consume this released contract through a thin adapter.
 - Real operational cases and protected evidence remain in controlled private systems.
 
-The first website integration is complete and intentionally minimal. The existing
-Materials page presents one restrained **View Public Method** link to this repository.
-The Readiness page remains a narrative and inquiry surface; no duplicate repository link or
-new route is required. Future website changes remain separately governed.
+The website integration is complete and intentionally minimal. The existing Materials
+page presents one restrained **View Public Method** link to the live Materials-to-Mission
+experience. The Readiness page remains a narrative and inquiry surface; no duplicate method
+link is required. Future website changes remain separately governed.
 
 ## Security
 

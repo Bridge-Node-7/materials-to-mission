@@ -4,7 +4,7 @@ All notable changes are documented here.
 
 ## Unreleased
 
-No unreleased product changes are recorded beyond the v0.3.0 release line below.
+No unreleased product changes are recorded.
 
 ## [0.3.0] - 2026-08-10
 ### Added
