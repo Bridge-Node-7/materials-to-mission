@@ -213,7 +213,7 @@ def test_version_identity_is_singular(root: Path) -> None:
     facts = json.loads((root / "PROJECT_FACTS.json").read_text(encoding="utf-8"))
     citation = (root / "CITATION.cff").read_text(encoding="utf-8")
     citation_version = re.search(r"(?m)^version:\s*([^\s]+)\s*$", citation)
-    assert version == "0.2.0"
+    assert version == "0.3.0"
     assert __version__ == version
     assert pyproject["project"]["version"] == version
     assert facts["version"] == version

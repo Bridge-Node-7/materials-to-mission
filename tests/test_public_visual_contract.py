@@ -29,7 +29,7 @@ def test_visual_tokens_include_accessibility_and_reduced_motion() -> None:
 
 def test_project_facts_keep_m0_and_canonical_schema_authority() -> None:
     facts = load_json("PROJECT_FACTS.json")
-    assert facts["version"] == "0.2.0"
+    assert facts["version"] == "0.3.0"
     assert facts["current_public_maturity"] == "M0"
     assert facts["schema_authority"].endswith("/v0.1.0/schemas/")
     assert facts["public_view_semantic_authority"] is False
