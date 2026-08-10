@@ -46,7 +46,7 @@ through a reviewed recovery gate.
 
 ## Maintenance Releases
 
-After the initial repository publication, patch releases use a bounded source pull
+After the initial repository publication, maintenance and minor releases use a bounded source pull
 request followed by an exact signed annotated tag. The hosted `Release` workflow remains
 the sole GitHub Release creator.
 
@@ -64,3 +64,7 @@ Before tagging a maintenance release:
 
 Maintenance releases do not modify canonical schema identifiers unless a separately
 reviewed contract change explicitly authorizes that work.
+
+## Semantic Compatibility
+
+Canonical v0.1.0 schema identifiers remain independently versioned from semantic validation behavior. A released validation profile has a frozen compatibility corpus. New ERROR-level semantic requirements or severity promotions require a new validation-profile identifier before release.

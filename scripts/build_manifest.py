@@ -9,6 +9,12 @@ OUTPUT = ROOT / "REPO_FILE_MANIFEST.sha256"
 EXCLUDED = {".git", ".venv", "venv", "dist", "build", ".pytest_cache", "__pycache__", "htmlcov"}
 
 
+def _write_utf8_lf(path: Path, text: str) -> None:
+    path.write_bytes(
+        text.replace("\r\n", "\n").replace("\r", "\n").encode("utf-8")
+    )
+
+
 def include(path: Path) -> bool:
     rel = path.relative_to(ROOT)
     if path == OUTPUT or any(part in EXCLUDED or part.endswith(".egg-info") for part in rel.parts):
@@ -61,7 +67,7 @@ def main() -> int:
         print(f"PASS - {OUTPUT.name} matches {len(expected.splitlines())} entries")
         return 0
 
-    OUTPUT.write_text(expected, encoding="utf-8")
+    _write_utf8_lf(OUTPUT, expected)
     print(f"PASS - wrote {OUTPUT.name} with {len(expected.splitlines())} entries")
     return 0
 

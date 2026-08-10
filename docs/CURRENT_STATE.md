@@ -1,30 +1,33 @@
 # Current State
 
-**As of August 9, 2026**
+**As of August 10, 2026**
 
-Materials-to-Mission remains an **M0 experimental public method**. Version `v0.1.2`
-is the current authority and traceability closeout release. It preserves the immutable
-`v0.1.0` schema authority and the `v0.1.1` assurance-maintenance controls while closing
-the remaining M0 authority, requirement-identity, validation-evidence, renderer, and
-guided-evaluation gaps.
+Materials-to-Mission remains an **M0 experimental public method**. Version `v0.2.0`
+is the Consumer & Contract Integrity release candidate. It preserves the immutable
+`v0.1.0` structural schema authority while explicitly separating semantic validation
+behavior into versioned profiles and repairing the demonstrated consumer first-run and
+software-version identity gaps.
 
 ## Release Lineage
 
 The immutable `v0.1.0` release remains the original public method and canonical schema
-baseline. Version `v0.1.1` is the first assurance-maintenance release. Version `v0.1.2`
-is the current patch release and preserves all existing schema identifiers. The GitHub
-Releases page and signed release evidence govern public release identity.
+baseline. Versions `v0.1.1` and `v0.1.2` strengthened assurance and semantic validation
+while preserving the v0.1.0 structural schema identifiers. Candidate `v0.2.0`
+adds explicit validation-profile identity so historical semantics are not silently
+reinterpreted by newer toolkit code. The GitHub Releases page and signed release evidence
+govern public release identity after a candidate is actually released.
 
-## Version 0.1.2 Scope
+## Version 0.2.0 Scope
 
-- normalized rejection of demonstrated automation-only authority declarations;
-- preservation of clearly named humans working in AI, model-risk, and automation roles;
-- duplicate requirement-identifier enforcement across requirements and acceptance criteria;
-- validation-report identity derived from the reviewed project version;
-- controlled direct-renderer failure behavior;
-- guided one-command public evaluation;
-- focused scope, readiness-state, M1 Case 001, and private-case authoring guidance;
-- deterministic protected-content scanning and exact post-merge validation.
+- explicit `m0-baseline-0.1.0` historical semantic compatibility;
+- default `m0-strict-0.2.0` strengthened M0 semantic validation;
+- documented Python 3.12 consumer-install repair and matching hosted CI path;
+- singular toolkit/package/CLI version identity;
+- truthful evaluator installation diagnostics;
+- surgical teaching fixtures;
+- bounded authority, Unicode-confusable, synthetic-state, and Public Boundary hardening;
+- compatibility and release-documentation reconciliation;
+- no browser/frontend or Gallium public snapshot in this release candidate.
 
 ## M1 Status
 

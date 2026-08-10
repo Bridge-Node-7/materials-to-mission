@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "materials-to-mission"
-version = "0.1.2"
+version = "0.2.0"
 description = "Public-safe Materials-to-Mission evidence, validation, and human decision toolkit."
 readme = "README.md"
 requires-python = ">=3.11"

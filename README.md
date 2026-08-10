@@ -109,6 +109,10 @@ python -m pip install -r requirements.lock
 python -m pip install --no-deps --no-build-isolation -e .
 ```
 
+The public consumer/bootstrap lock includes the exact build backend required by the documented `--no-build-isolation` installation.
+
+Semantic validation uses an explicit profile. New validation defaults to `m0-strict-0.2.0`. Historical v0.1.0 compatibility may be evaluated explicitly with `--profile m0-baseline-0.1.0`. Machine-readable validation output states the profile and toolkit version actually used.
+
 Validate and render the synthetic reference:
 
 Run the guided five-minute evaluation:
@@ -172,8 +176,11 @@ Exit codes:
 3  input, filesystem, or controlled operational error
 ```
 
+CLI usage errors are treated as input errors and exit `3`.
+
 ## Core Artifacts
 
+- `schemas/common.schema.json`
 - `schemas/decision-charter.schema.json`
 - `schemas/evidence-record.schema.json`
 - `schemas/material-assurance-record.schema.json`
@@ -182,6 +189,7 @@ Exit codes:
 - `templates/`
 - `examples/synthetic-critical-material-pathway/`
 - `docs/`
+- `docs/VALIDATION_PROFILES.md`
 
 ## Decision Artifacts
 
@@ -202,10 +210,12 @@ other restricted content. See [`docs/PUBLIC_BOUNDARY.md`](docs/PUBLIC_BOUNDARY.m
 
 ## Repository Maturity
 
-`v0.1.2` is the current **M0 authority and traceability closeout release** built
-on the immutable v0.1.0 experimental public method baseline. It preserves the canonical
-schema contracts while hardening human-authority declarations, requirement identity,
-validation evidence, guided evaluation, and protected Case 001 preparation.
+`v0.2.0` is the current **M0 Consumer & Contract Integrity release candidate**
+built on the immutable v0.1.0 structural schema authority. It explicitly versions
+semantic validation behavior through `m0-baseline-0.1.0` and `m0-strict-0.2.0`, repairs
+the documented consumer installation path, and makes toolkit/profile identity visible in
+validation evidence. Until the signed release gate passes, `v0.1.2` remains the latest
+published release.
 The repository remains M0 until the real-workflow evidence in
 [`docs/M1_READINESS.md`](docs/M1_READINESS.md) is complete. It is not a validated
 cross-case commercial product or an authority for certification or qualification.
