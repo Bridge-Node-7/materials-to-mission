@@ -25,9 +25,10 @@ Historical records must be evaluated under an explicit compatible profile rather
 Current profiles:
 
 - `m0-baseline-0.1.0` — historical v0.1.0 semantic compatibility.
-- `m0-strict-0.2.0` — strengthened M0 semantic validation.
+- `m0-strict-0.2.0` — released strengthened M0 compatibility profile.
+- `m0-strict-0.4.0` — current M0 strict profile with explicitly versioned automation-authority alias rejection.
 
-The toolkit default is `m0-strict-0.2.0` and the applied profile is surfaced in machine-readable validation output and checked-in validation evidence.
+The toolkit default is `m0-strict-0.4.0`. Released earlier profiles remain behaviorally available under their explicit identifiers, and the applied profile is surfaced in machine-readable validation output and checked-in validation evidence.
 
 ## Toolkit releases
 

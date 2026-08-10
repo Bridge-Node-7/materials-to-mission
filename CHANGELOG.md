@@ -6,6 +6,20 @@ All notable changes are documented here.
 
 No unreleased product changes are recorded.
 
+## [0.4.0] - 2026-08-10
+
+### Corrected
+- Restored `m0-strict-0.2.0` to its released accept/reject behavior for the automation-owner aliases introduced during v0.3.1 maintenance.
+- Added `m0-strict-0.4.0` as the explicitly versioned profile carrying rejection for `Scoring Engine`, `Rules Engine`, and `Inference Service`.
+- Made `m0-strict-0.4.0` the default profile for new validation while preserving explicit historical evaluation under earlier profiles.
+
+### Preserved
+- Immutable v0.3.1 release history and public browser experience.
+- Canonical v0.1.0 schemas.
+- `m0-baseline-0.1.0` behavior and released `m0-strict-0.2.0` behavior.
+- Frozen GA-001 v1.0.0 evidence and public-view contract 0.3.0.
+- M0 maturity, no-score behavior, and human consequential authority.
+
 ## [0.3.1] - 2026-08-10
 
 ### Corrected

@@ -5,6 +5,10 @@ import re
 import tomllib
 from pathlib import Path
 
+from materials_to_mission.validation_profiles import (
+    STRICT_PROFILE_ID,
+    STRICT_V040_PROFILE_ID,
+)
 from materials_to_mission.validator import validate_case
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -14,22 +18,36 @@ def _case() -> dict:
     return json.loads((ROOT / "examples/synthetic-critical-material-pathway/case.json").read_text(encoding="utf-8"))
 
 
-def test_v031_version_identity() -> None:
-    assert (ROOT / "VERSION").read_text(encoding="utf-8").strip() == "0.3.1"
-    pyproject = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
-    assert pyproject["project"]["version"] == "0.3.1"
-    citation = (ROOT / "CITATION.cff").read_text(encoding="utf-8")
-    assert re.search(r"(?m)^version:\s*0\.3\.1\s*$", citation)
+def test_v031_release_record_is_preserved() -> None:
+    assert (ROOT / "RELEASE_NOTES_v0.3.1.md").is_file()
+    changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+    assert "## [0.3.1] - 2026-08-10" in changelog
 
 
-def test_automation_authority_aliases_fail_closed_under_current_strict_profile() -> None:
+def test_v031_aliases_do_not_rewrite_released_strict_020_behavior() -> None:
     for alias in ("Scoring Engine", "Rules Engine", "Inference Service"):
         case = _case()
         case["decision_charter"]["decision_owner"] = alias
         case["decision_passport"]["decision_owner"] = alias
-        result = validate_case(case, public=True)
+        result = validate_case(case, public=True, profile=STRICT_PROFILE_ID)
+        assert "HUMAN_AUTHORITY" not in {item.code for item in result.findings}, (
+            alias,
+            result.findings,
+        )
+
+
+def test_v040_aliases_fail_closed_under_new_strict_profile() -> None:
+    for alias in ("Scoring Engine", "Rules Engine", "Inference Service"):
+        case = _case()
+        case["decision_charter"]["decision_owner"] = alias
+        case["decision_passport"]["decision_owner"] = alias
+        result = validate_case(case, public=True, profile=STRICT_V040_PROFILE_ID)
         assert not result.valid
-        assert any(item.code == "HUMAN_AUTHORITY" and item.path == "$.decision_charter.decision_owner" for item in result.findings), (alias, result.findings)
+        assert any(
+            item.code == "HUMAN_AUTHORITY"
+            and item.path == "$.decision_charter.decision_owner"
+            for item in result.findings
+        ), (alias, result.findings)
 
 
 def test_ga001_display_wording_is_bounded() -> None:
