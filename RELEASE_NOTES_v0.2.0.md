@@ -18,6 +18,7 @@ This candidate preserves the immutable v0.1.0 schema authority while explicitly 
 - Synthetic-state coherence
 - High-value Public Boundary guardrail additions
 - Explicit compatibility erratum and version-axis documentation
+- Cross-platform LF-stable generated validation and repository-manifest evidence
 
 ## Contract and maturity
 

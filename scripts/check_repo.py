@@ -35,6 +35,12 @@ GENERATED = [
 ]
 
 
+def _write_utf8_lf(path: Path, text: str) -> None:
+    path.write_bytes(
+        text.replace("\r\n", "\n").replace("\r", "\n").encode("utf-8")
+    )
+
+
 def run(*args: str) -> None:
     print("WORKING -", " ".join(args))
     subprocess.run(args, cwd=ROOT, check=True)
@@ -230,7 +236,7 @@ def main(argv: list[str] | None = None) -> int:
     )
     report_path = ROOT / "VALIDATION_REPORT.md"
     if args.update_evidence:
-        report_path.write_text(report, encoding="utf-8")
+        _write_utf8_lf(report_path, report)
         run(PYTHON, "scripts/build_manifest.py")
     else:
         observed = (
