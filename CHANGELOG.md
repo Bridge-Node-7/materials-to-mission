@@ -4,14 +4,39 @@ All notable changes are documented here.
 
 ## Unreleased
 
-### v0.5.0 candidate — Precision Evidence Experience
-- Add the complete USGS 2025 critical-mineral field as a Strategic Constellation.
-- Derive Application Lenses and coordinates from controlled DOE application data.
-- Generate visible public HTML from one validated projection with a no-JavaScript fallback.
-- Preserve Gallium GA-001 as the only released reviewed pathway in this candidate.
-- Add public deep links, form search, precision Index, responsive detail behavior, and Evidence Horizon semantics.
-- Harden source authority, HTTPS/domain, ID/state, relationship, and lineage validation.
-- Preserve M0, no-score behavior, human consequential authority, and public/private boundaries.
+No changes recorded after v0.5.1.
+
+## [0.5.1] - 2026-08-11
+
+### Corrected
+- Reconciled repository truth records after the immutable v0.5.0 release.
+- Removed active candidate/not-released assertions from current-state metadata.
+- Delegated external publication status to verified signed GitHub tags and immutable GitHub Releases.
+- Added regression coverage preventing candidate-era release truth from surviving into a release source line.
+
+### Preserved
+- Exact v0.5.0 Precision Evidence Experience visual bytes.
+- Complete 60-mineral Strategic Constellation and separate engineered-material/material-system layer.
+- Gallium GA-001 as the only released Reviewed Pathway and YIG-001 as bounded Reviewed Public Context.
+- M0 maturity, human consequential authority, no-score behavior, and public/private boundaries.
+- Explicitly unevidenced human real-device and assistive-technology UAT states remain unevidenced rather than being promoted to PASS.
+
+## [0.5.0] - 2026-08-11
+
+### Added
+- Complete USGS 2025 critical-mineral field as a Strategic Constellation.
+- Application Lenses and coordinates derived from controlled DOE application data.
+- Visible public HTML generated from one validated projection with a no-JavaScript fallback.
+- Public deep links, form search, precision Index, responsive detail behavior, and Evidence Horizon semantics.
+- Separate engineered-material/material-system layer with bounded YIG public research context.
+
+### Preserved
+- Gallium GA-001 as the only released Reviewed Pathway.
+- M0 maturity, no-score behavior, human consequential authority, and public/private boundaries.
+
+### Hardened
+- Source authority, HTTPS/domain, ID/state, relationship, and lineage validation.
+- R6.3.3 synchronous live-region behavior, unknown-state evidence semantics, and bounded 2021 YIG research context.
 
 ## [0.4.0] - 2026-08-10
 

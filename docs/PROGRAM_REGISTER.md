@@ -13,11 +13,13 @@ an individual-scale public demonstration.
 
 ```text
 Repository:             Bridge-Node-7/materials-to-mission
-Current release:        v0.4.0
-Canonical schemas:      immutable v0.1.0 identifiers
-Validation profiles:    m0-baseline-0.1.0 / m0-strict-0.2.0 / m0-strict-0.4.0
-Public maturity:        M0
-Current public gate:    CLOSED
+Source version:          0.5.1
+Visual baseline:         v0.5.0 Precision Evidence Experience
+Release authority:       verified signed tag + immutable GitHub Release
+Canonical schemas:       immutable v0.1.0 identifiers
+Validation profiles:     m0-baseline-0.1.0 / m0-strict-0.2.0 / m0-strict-0.4.0
+Public maturity:         M0
+Current capability gate: CLOSED
 ```
 
 ## Integrated Public Doctrine
@@ -32,6 +34,7 @@ The public method preserves these durable decisions:
 - visible unknown, unsupported, contradicted, expired, revoked, and superseded evidence;
 - noncompensating critical conditions;
 - deterministic validation, rendering, packaging, and release evidence;
+- repository source records durable artifact truth while verified signed tags and immutable GitHub Releases govern external publication status;
 - protected-content scanning and fail-closed behavior;
 - named human ownership of every consequential disposition;
 - no qualification, certification, compliance, adoption, production, or commercial claim;

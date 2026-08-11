@@ -223,7 +223,9 @@ export-controlled technical data, or other restricted content. See
 
 ## Repository Maturity
 
-`v0.5.0` is the Precision Evidence Experience candidate. It expands the public browser from a Gallium-first demonstration into a controlled 60-mineral Strategic Constellation plus a separate engineered-material/material-system layer, including bounded YIG public research context. Gallium GA-001 remains the only released Reviewed Pathway; YIG-001 is Reviewed Public Context and does not establish qualification, certification, acquisition approval, mission readiness, scalable room-temperature quantum computing, or M1.
+`v0.5.0` established the Precision Evidence Experience baseline. It expanded the public browser from a Gallium-first demonstration into a controlled 60-mineral Strategic Constellation plus a separate engineered-material/material-system layer, including bounded YIG public research context.
+
+This `v0.5.1` source line reconciles release-truth records and adds regression protection without changing the public visual experience. Verified signed GitHub tags and immutable GitHub Releases govern external publication status; repository source records durable artifact truth. Gallium GA-001 remains the only released Reviewed Pathway; YIG-001 is Reviewed Public Context and does not establish qualification, certification, acquisition approval, mission readiness, scalable room-temperature quantum computing, or M1.
 
 The repository remains M0 until the real-workflow evidence in
 [`docs/M1_READINESS.md`](docs/M1_READINESS.md) is complete. It is not a validated
