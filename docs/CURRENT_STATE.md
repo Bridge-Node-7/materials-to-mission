@@ -1,58 +1,77 @@
 # Current State
 
-**As of August 10, 2026**
+**As of August 11, 2026**
 
-Materials-to-Mission is an **M0 experimental public method**. Version `v0.4.0` is the
-current signed public release and the validation-profile compatibility closeout over the
-preserved v0.3.1 M0 Public Visual Experience.
+Materials-to-Mission remains an **M0 experimental public method**.
 
-## Release Lineage
+This source line is version `0.5.1`. It preserves the `v0.5.0` Precision
+Evidence Experience baseline and performs release-truth reconciliation only.
+It does not change the public visual experience, canonical schema authority,
+validation-profile authority, or M0 boundary.
 
-The immutable `v0.1.0` release remains the canonical structural schema baseline.
-Versions `v0.1.1` and `v0.1.2` are assurance-maintenance releases. Version `v0.2.0`
-established Consumer & Contract Integrity and explicit validation-profile identity.
-Version `v0.3.0` added the derived browser experience and GA-001 public-source
-demonstration. Version `v0.3.1` is the preserved UX/credibility maintenance patch.
-Version `v0.4.0` restores released validation-profile behavioral compatibility and adds the
-new default `m0-strict-0.4.0` profile.
+## Release Identity
 
-GitHub Releases, verified signed tags, release manifests, checksums, deterministic archives,
-and hosted validation govern release identity.
+The immutable `v0.1.0` release remains the canonical structural schema
+baseline. Later versions add assurance, validation-profile, browser,
+public-source-evidence, and maintenance layers without changing that schema
+authority.
 
-## v0.4.0 M0 Profile Compatibility Closeout
+`v0.5.0` established the Precision Evidence Experience baseline: the complete
+USGS 2025 60-mineral Strategic Constellation, a separate engineered-material /
+material-system layer, Gallium GA-001 as the only released Reviewed Pathway,
+and YIG-001 as bounded Reviewed Public Context.
 
-The released experience preserves:
+This `v0.5.1` source line reconciles repository truth records and adds
+regression protection. External publication identity is not self-declared by
+repository metadata. Verified signed GitHub tags, immutable GitHub Releases,
+release manifests, checksums, deterministic archives, and hosted validation
+govern published-release identity.
 
-- the seven-stage Golden Journey;
-- GA-001 v1.0.0 as a public-source evidence snapshot, not a real operational Case 001;
+## Public Experience
+
+The public visual baseline preserves:
+
+- the Strategic Constellation across the 60-mineral field;
+- Gallium GA-001 as a public-source evidence snapshot, not a real Case 001;
+- YIG-001 as Reviewed Public Context, not qualification or mission readiness;
 - public view contract 0.3.0 as derived and non-authoritative;
 - Python semantic validation as authoritative;
 - no backend, telemetry, account system, remote persistence, or write-back;
-- visible evidence support, uncertainty, next proof, and named human authority;
-- production HTTPS deployment with exact public-byte provenance.
-
-## Public Gate
-
-**CLOSED.** Required M0 public visual release work is complete. Production deployment,
-signed v0.3.1 release, minimal website routing, exact public readback, hosted checks,
-and final closeout have been verified.
+- visible support, uncertainty, Evidence Horizon, next proof, and human authority.
 
 The live experience is:
 
 `https://bridgenode7.com/materials-to-mission/`
 
-The Bridge Node 7 Materials page routes to that live experience. The separately governed
-website release is `v1.1.4`.
+The separately governed Bridge Node 7 Materials page routes to that experience.
+
+## Validation State
+
+Automated repository validation, deterministic browser validation, hosted
+CI/CodeQL, Pages deployment, and exact public-byte readback have been
+demonstrated for the v0.5.0 baseline.
+
+Human real-device and assistive-technology UAT items not separately evidenced
+remain explicitly unevidenced. They are not silently converted to PASS.
+
+## Public Capability Gate
+
+**CLOSED for the current M0 capability baseline.**
+
+No additional public capability, visual redesign, schema expansion, or
+autonomous decision authority is required by this maintenance line.
 
 ## M1 Status
 
-M1 is **not achieved**. No approved real Case 001, private case evidence package,
-independent case review, human disposition, measured outcome, or authorized sanitized case
-study is present in this public repository.
+M1 is **not achieved**. No approved real Case 001, private case evidence
+package, independent case review, human disposition, measured outcome, or
+authorized sanitized case study is present in this public repository.
 
-Real operational Case 001 remains a separately controlled private evidence path.
+Real operational Case 001 remains a separately controlled private evidence
+path.
 
 ## Preserve
 
-No required next public gate remains for the v0.3.1 M0 maintenance line.
+The immutable v0.5.0 release remains historical evidence and is never rewritten.
+
 Future capability work requires a separately authorized evidence gate.
