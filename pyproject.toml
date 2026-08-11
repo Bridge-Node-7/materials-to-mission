@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "materials-to-mission"
-version = "0.5.1"
-description = "Public-safe Materials-to-Mission evidence, validation, and human decision toolkit."
+version = "0.5.2"
+description = "Evidence-backed materials decision toolkit with deterministic validation and human-owned decisions."
 readme = "README.md"
 requires-python = ">=3.11"
 license = {text = "MIT"}
