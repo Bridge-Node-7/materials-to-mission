@@ -4,10 +4,10 @@
 
 Materials-to-Mission remains an **M0 experimental public method**.
 
-This source line is version `0.5.1`. It preserves the `v0.5.0` Precision
-Evidence Experience baseline and performs release-truth reconciliation only.
-It does not change the public visual experience, canonical schema authority,
-validation-profile authority, or M0 boundary.
+This source line is version `0.5.3`. It preserves the `v0.5.0` Precision
+Evidence Experience baseline. `v0.5.1` reconciled release truth; `v0.5.2`
+simplified the current public repository surface without changing evidence
+semantics, canonical schema authority, validation-profile authority, or the M0 boundary.
 
 ## Release Identity
 
@@ -21,9 +21,13 @@ USGS 2025 60-mineral Strategic Constellation, a separate engineered-material /
 material-system layer, Gallium GA-001 as the only released Reviewed Pathway,
 and YIG-001 as bounded Reviewed Public Context.
 
-This `v0.5.1` source line reconciles repository truth records and adds
-regression protection. External publication identity is not self-declared by
-repository metadata. Verified signed GitHub tags, immutable GitHub Releases,
+`v0.5.1` reconciled repository truth records and added regression protection.
+`v0.5.2` then simplified the public source surface while preserving the same
+public visual and evidence baseline.
+`v0.5.3` adds production-readback capability, browser-security hardening, and
+institutional continuity without changing evidence semantics, schema authority,
+validation-profile behavior, or the M0 boundary. External publication identity is not
+self-declared by repository metadata. Verified signed GitHub tags, immutable GitHub Releases,
 release manifests, checksums, deterministic archives, and hosted validation
 govern published-release identity.
 

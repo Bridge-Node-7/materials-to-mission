@@ -165,3 +165,13 @@ html:not(.js-ready) .js-only{display:none!important}
 .frontier-context-card{padding:14px 16px;border:1px solid rgba(184,144,255,.22);border-radius:15px;background:rgba(184,144,255,.025)}
 .frontier-context-card p{margin:5px 0 7px;color:var(--muted);font-size:12px;line-height:1.55}
 .frontier-context-card a{min-height:30px;display:inline-flex;align-items:center;color:var(--gold2);font-size:11px}
+
+/* Gate 4 high-contrast hardening */
+@media(forced-colors:active){
+  .mineral,.lens,.search-result,.form-chip,.panel,.form-card,.source-card,.claim-register,.human-boundary{forced-color-adjust:auto;border-color:CanvasText}
+  .mineral.selected,.lens.active,.search-result[aria-selected="true"]{outline:2px solid Highlight;outline-offset:2px}
+  .connection-line{stroke:CanvasText!important;color:CanvasText!important}
+}
+@media(prefers-contrast:more){
+  .mineral,.panel,.form-card,.source-card,.claim-register,.human-boundary{border-width:2px}
+}

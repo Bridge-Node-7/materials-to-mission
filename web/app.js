@@ -297,7 +297,7 @@
   }));
 
   function drawConnections(material) {
-    svg.innerHTML = "";
+    svg.replaceChildren();
     if (!material) return;
     const node = document.querySelector(`.mineral[data-id="${CSS.escape(material.id)}"]`);
     if (!node) return;
@@ -388,9 +388,44 @@
       .slice(0,12)
       .map(entry => entry.item);
 
-    results.innerHTML = items.length
-      ? items.map(item => `<button type="button" class="search-result" role="option" aria-selected="false" data-result-type="${item.type}" data-result-id="${esc(item.id)}"><span class="r-symbol">${esc(item.symbol)}</span><span><strong>${esc(item.name)}</strong><small>${esc(entityKindLabel(item))}</small></span><span>${esc(entityShortLabel(item))}</span></button>`).join("")
-      : `<div class="search-result"><span class="r-symbol">0</span><span><strong>No public result</strong><small>Try another official mineral or material system.</small></span><span></span></div>`;
+    const renderSearchResult = item => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "search-result";
+      button.setAttribute("role", "option");
+      button.setAttribute("aria-selected", "false");
+      button.dataset.resultType = item.type;
+      button.dataset.resultId = item.id;
+      const symbol = document.createElement("span");
+      symbol.className = "r-symbol";
+      symbol.textContent = item.symbol;
+      const label = document.createElement("span");
+      const name = document.createElement("strong");
+      name.textContent = item.name;
+      const kind = document.createElement("small");
+      kind.textContent = entityKindLabel(item);
+      label.append(name, kind);
+      const short = document.createElement("span");
+      short.textContent = entityShortLabel(item);
+      button.append(symbol, label, short);
+      return button;
+    };
+    const renderNoResult = () => {
+      const row = document.createElement("div");
+      row.className = "search-result";
+      const symbol = document.createElement("span");
+      symbol.className = "r-symbol";
+      symbol.textContent = "0";
+      const label = document.createElement("span");
+      const name = document.createElement("strong");
+      name.textContent = "No public result";
+      const hint = document.createElement("small");
+      hint.textContent = "Try another official mineral or material system.";
+      label.append(name, hint);
+      row.append(symbol, label, document.createElement("span"));
+      return row;
+    };
+    results.replaceChildren(...(items.length ? items.map(renderSearchResult) : [renderNoResult()]));
 
     results.hidden = false;
     search.setAttribute("aria-expanded", "true");
