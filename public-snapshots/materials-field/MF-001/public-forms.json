@@ -1,0 +1,222 @@
+{
+  "snapshot_id": "MF-001",
+  "forms": [
+    {
+      "id": "gan",
+      "symbol": "GaN",
+      "name": "Gallium Nitride",
+      "kind": "engineered-material",
+      "relationships": [
+        {
+          "mineral": "Gallium",
+          "relation": "constituent-critical-mineral"
+        }
+      ],
+      "context": "Observed Gallium use form in the released public snapshot.",
+      "source_ids": [
+        "GA-001"
+      ]
+    },
+    {
+      "id": "gaas",
+      "symbol": "GaAs",
+      "name": "Gallium Arsenide",
+      "kind": "engineered-material",
+      "relationships": [
+        {
+          "mineral": "Gallium",
+          "relation": "constituent-critical-mineral"
+        },
+        {
+          "mineral": "Arsenic",
+          "relation": "constituent-critical-mineral"
+        }
+      ],
+      "context": "Observed Gallium use form in the released public snapshot.",
+      "source_ids": [
+        "GA-001"
+      ]
+    },
+    {
+      "id": "gap",
+      "symbol": "GaP",
+      "name": "Gallium Phosphide",
+      "kind": "engineered-material",
+      "relationships": [
+        {
+          "mineral": "Gallium",
+          "relation": "constituent-critical-mineral"
+        }
+      ],
+      "context": "Observed Gallium use form in the released public snapshot.",
+      "source_ids": [
+        "GA-001"
+      ]
+    },
+    {
+      "id": "ndfeb",
+      "symbol": "NdFeB",
+      "name": "Neodymium-Iron-Boron Magnet",
+      "kind": "engineered-material",
+      "relationships": [
+        {
+          "mineral": "Neodymium",
+          "relation": "constituent-critical-mineral"
+        },
+        {
+          "mineral": "Boron",
+          "relation": "constituent-critical-mineral"
+        }
+      ],
+      "context": "Covered-magnet policy context under DFARS 252.225-7052.",
+      "source_ids": [
+        "DFARS-252.225-7052"
+      ]
+    },
+    {
+      "id": "smco",
+      "symbol": "SmCo",
+      "name": "Samarium-Cobalt Magnet",
+      "kind": "engineered-material",
+      "relationships": [
+        {
+          "mineral": "Samarium",
+          "relation": "constituent-critical-mineral"
+        },
+        {
+          "mineral": "Cobalt",
+          "relation": "constituent-critical-mineral"
+        }
+      ],
+      "context": "Covered-magnet policy context under DFARS 252.225-7052.",
+      "source_ids": [
+        "DFARS-252.225-7052"
+      ]
+    },
+    {
+      "id": "sic",
+      "symbol": "SiC",
+      "name": "Silicon Carbide",
+      "kind": "engineered-critical-material",
+      "relationships": [
+        {
+          "mineral": "Silicon",
+          "relation": "constituent-critical-mineral"
+        }
+      ],
+      "context": "DOE engineered critical-material context.",
+      "source_ids": [
+        "DOE-CMM-APPLICATIONS"
+      ]
+    },
+    {
+      "id": "synthetic-graphite",
+      "symbol": "C*",
+      "name": "Synthetic Graphite",
+      "kind": "engineered-critical-material",
+      "relationships": [
+        {
+          "mineral": "Graphite",
+          "relation": "material-family"
+        }
+      ],
+      "context": "DOE non-elemental critical-material context.",
+      "source_ids": [
+        "DOE-CMM-APPLICATIONS"
+      ]
+    },
+    {
+      "id": "yig",
+      "symbol": "YIG",
+      "name": "Yttrium Iron Garnet",
+      "kind": "engineered-material-system",
+      "formula": "Y3Fe5O12",
+      "relationships": [
+        {
+          "mineral": "Yttrium",
+          "relation": "constituent-critical-mineral"
+        }
+      ],
+      "other_constituents": [
+        "Iron",
+        "Oxygen"
+      ],
+      "context": "Low-damping ferrimagnetic garnet used in magnonics, spintronics, microwave devices, and hybrid magnon-spin research.",
+      "source_ids": [
+        "USGS-Y-2026",
+        "APS-YIG-LPE-2020",
+        "APS-YIG-RT-HYBRID-2024",
+        "NATURE-YIG-GGG-DEVICE-2025",
+        "NATURE-YIG-SUBSTRATE-2026"
+      ],
+      "primary_example": true,
+      "review": {
+        "code": "reviewed-public-context",
+        "label": "Reviewed Public Context"
+      },
+      "pathway_id": "YIG-001"
+    },
+    {
+      "id": "ggg",
+      "symbol": "GGG",
+      "name": "Gadolinium Gallium Garnet",
+      "kind": "engineered-substrate",
+      "formula": "Gd3Ga5O12",
+      "relationships": [
+        {
+          "mineral": "Gadolinium",
+          "relation": "constituent-critical-mineral"
+        },
+        {
+          "mineral": "Gallium",
+          "relation": "constituent-critical-mineral"
+        }
+      ],
+      "other_constituents": [
+        "Oxygen"
+      ],
+      "context": "Common lattice-matched substrate for high-quality YIG films; low-temperature substrate magnetization may introduce additional damping.",
+      "source_ids": [
+        "NATURE-YIG-GGG-DEVICE-2025",
+        "NATURE-YIG-SUBSTRATE-2026"
+      ],
+      "review": {
+        "code": "reviewed-public-context",
+        "label": "Reviewed Public Context"
+      }
+    },
+    {
+      "id": "ysgag",
+      "symbol": "YSGAG",
+      "name": "Yttrium Scandium Gallium Aluminum Garnet",
+      "kind": "engineered-substrate",
+      "relationships": [
+        {
+          "mineral": "Yttrium",
+          "relation": "constituent-critical-mineral"
+        },
+        {
+          "mineral": "Scandium",
+          "relation": "constituent-critical-mineral"
+        },
+        {
+          "mineral": "Gallium",
+          "relation": "constituent-critical-mineral"
+        },
+        {
+          "mineral": "Aluminum",
+          "relation": "constituent-critical-mineral"
+        }
+      ],
+      "context": "Emerging diamagnetic substrate demonstrated with YIG as an alternative to GGG for low-temperature quantum-magnonics research.",
+      "source_ids": [
+        "NATURE-YIG-SUBSTRATE-2026"
+      ],
+      "review": {
+        "code": "frontier-public-context",
+        "label": "Frontier Public Context"
+      }
+    }
+  ],
+  "registry_note": "Engineered materials and material systems remain separate from official USGS critical-mineral designation."
+}

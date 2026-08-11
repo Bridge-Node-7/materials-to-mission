@@ -1,14 +1,22 @@
-# Local browser preview
+# Materials-to-Mission Public Experience
 
-Do not open `web/index.html` directly from the source tree. The controlled browser payload
-includes generated `data/ga001.json`, so preview the deterministic build:
+The public page is generated from controlled repository inputs.
 
-```bash
+Build locally:
+
+```text
 python scripts/build_web.py --output build/web-preview
 python -m http.server 8000 --directory build/web-preview
 ```
 
-Then open `http://127.0.0.1:8000/`.
+The generated Pages artifact remains exactly:
 
-The browser remains derived, read-only, and non-authoritative. Python semantic validation
-remains authoritative. No fallback source-data path is used.
+- `index.html`
+- `styles.css`
+- `app.js`
+- `data/ga001.json`
+- `WEB_MANIFEST.sha256`
+
+The base HTML contains the semantic journey before JavaScript. JavaScript progressively enhances the Strategic Constellation, search, Application Lenses, deep links, desktop/mobile detail, and view switching.
+
+The browser is derived, read-only, and non-authoritative. It does not mutate canonical evidence or replace Python semantic validation.
