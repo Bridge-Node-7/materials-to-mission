@@ -36,3 +36,10 @@ involvement, and human reviewer.
 - Unknown is not equivalent to favorable.
 - Expired evidence remains preserved but is not treated as current.
 - AI summaries link to underlying sources and remain reviewable.
+
+## Critical Distinctions
+
+- `UNKNOWN` and `CONTRADICTED` remain distinct evidence states.
+- Claim support is not pathway assessment.
+- Evidence-supported action is not human decision.
+- No composite readiness score is used; critical conditions do not average away.

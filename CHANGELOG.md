@@ -4,7 +4,28 @@ All notable changes are documented here.
 
 ## Unreleased
 
-No changes recorded after v0.5.1.
+
+No changes recorded after v0.5.2.
+
+## [0.5.2] - 2026-08-11
+
+### Simplified
+- Rebuilt the repository front door around the live experience, five-minute evaluation, method, evidence model, validation, and public-use boundaries.
+- Removed historical release-note copies from the current tree; immutable tags and Releases preserve release history.
+- Removed maintainer-only source-gate files and historical deployment, UAT, release-plan, private-case, and planning documents that did not serve the current public user.
+- Reduced current documentation to the active public method and technical reference set.
+
+### Refactored
+- Preserved hosted Release-workflow contract validation without exposing a maintainer-only GATES directory.
+- Replaced version-specific release-truth tests with durable repository-truth regression coverage.
+- Added public-surface regression checks to prevent process/history bloat from silently returning.
+
+### Preserved
+- Exact v0.5.0/v0.5.1 public visual experience.
+- 60-mineral Strategic Constellation and Engineered Materials & Systems layer.
+- Gallium GA-001 and bounded YIG-001 evidence meaning.
+- M0 maturity, human consequential authority, public/private evidence boundaries, canonical schema authority, and validation-profile behavior.
+- Explicitly unevidenced human real-device and assistive-technology UAT states.
 
 ## [0.5.1] - 2026-08-11
 
