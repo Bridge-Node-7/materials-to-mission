@@ -53,19 +53,22 @@ def test_candidate_manifest_fails_without_exact_identity(root):
 
 
 def test_archive_modes_are_platform_independent():
-    assert _archive_mode(Path("GATES/00_VALIDATE_CANONICAL_SOURCE.sh")) == 0o755
+    assert _archive_mode(Path("operator.sh")) == 0o755
     assert _archive_mode(Path("README.md")) == 0o644
 
 
-def test_archive_records_normalized_modes(root, tmp_path):
+def test_archive_records_normalized_modes(tmp_path):
+    fixture = tmp_path / "root"
+    fixture.mkdir()
+    (fixture / "operator.sh").write_text("#!/usr/bin/env bash\necho ok\n", encoding="utf-8")
+    (fixture / "README.md").write_text("example\n", encoding="utf-8")
     archive = tmp_path / "modes.zip"
-    build_deterministic_zip(root, archive)
+    build_deterministic_zip(fixture, archive)
     with zipfile.ZipFile(archive) as handle:
-        shell_mode = (handle.getinfo("GATES/00_VALIDATE_CANONICAL_SOURCE.sh").external_attr >> 16) & 0o777
+        shell_mode = (handle.getinfo("operator.sh").external_attr >> 16) & 0o777
         readme_mode = (handle.getinfo("README.md").external_attr >> 16) & 0o777
     assert shell_mode == 0o755
     assert readme_mode == 0o644
-
 
 def test_release_excludes_coverage_file(tmp_path):
     coverage_file = tmp_path / ".coverage"
