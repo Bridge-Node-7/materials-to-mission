@@ -1,0 +1,119 @@
+{
+  "snapshot_id": "MF-001",
+  "reviewed_at": "2026-08-11T01:31:00Z",
+  "source_policy": "Official U.S. Government public sources control official designation, application mapping, commodity and policy context. GA-001 remains the separately governed Bridge Node 7 reviewed public-source snapshot for Gallium.",
+  "sources": [
+    {
+      "source_id": "USGS-CM-2025",
+      "authority_class": "official-government-primary",
+      "publisher": "U.S. Geological Survey",
+      "title": "2025 List of Critical Minerals",
+      "source_date": "2025-11-06",
+      "verified_at": "2026-08-11T01:31:00Z",
+      "url": "https://www.usgs.gov/media/images/2025-list-critical-minerals",
+      "role": "official-field"
+    },
+    {
+      "source_id": "DOE-CMM-APPLICATIONS",
+      "authority_class": "official-government-primary",
+      "publisher": "U.S. Department of Energy",
+      "title": "What Are Critical Minerals and Materials?",
+      "source_date": null,
+      "verified_at": "2026-08-11T01:31:00Z",
+      "url": "https://www.energy.gov/cmm/what-are-critical-minerals-and-materials",
+      "role": "application-mapping"
+    },
+    {
+      "source_id": "DOE-TRACE-GA-2026",
+      "authority_class": "official-government-primary",
+      "publisher": "U.S. Department of Energy, Office of Critical Minerals and Energy Innovation",
+      "title": "DOE Selects Five Organizations to Restart Domestic Primary Gallium Recovery",
+      "source_date": "2026-04-14",
+      "verified_at": "2026-08-11T01:31:00Z",
+      "url": "https://www.energy.gov/cmei/articles/does-office-critical-minerals-and-energy-innovation-selects-five-organizations",
+      "role": "gallium-public-context"
+    },
+    {
+      "source_id": "DFARS-252.225-7052",
+      "authority_class": "official-government-primary",
+      "publisher": "Acquisition.gov / U.S. Department of Defense",
+      "title": "DFARS 252.225-7052 Restriction on the Acquisition of Certain Magnets, Tantalum, and Tungsten",
+      "source_date": "2026-05-07",
+      "effective_date": "2026-05-07",
+      "change_number": "DFARS Change 5/7/2026",
+      "verified_at": "2026-08-11T01:31:00Z",
+      "url": "https://www.acquisition.gov/dfars/252.225-7052-restriction-acquisition-certain-magnets-tantalum-and-tungsten.",
+      "role": "policy-context"
+    },
+    {
+      "source_id": "GA-001",
+      "authority_class": "bn7-reviewed-public-snapshot",
+      "publisher": "Bridge Node 7",
+      "title": "GA-001 v1.0.0 Reviewed Public-Source Evidence Snapshot",
+      "source_date": "2026-08-10",
+      "verified_at": "2026-08-11T01:31:00Z",
+      "url": "https://github.com/Bridge-Node-7/materials-to-mission/tree/v0.4.0/public-snapshots/gallium/GA-001",
+      "role": "reviewed-pathway"
+    },
+    {
+      "source_id": "USGS-Y-2026",
+      "authority_class": "official-government-primary",
+      "publisher": "U.S. Geological Survey",
+      "title": "Mineral Commodity Summaries 2026 — Yttrium",
+      "source_date": "2026",
+      "verified_at": "2026-08-11T02:55:00Z",
+      "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-yttrium.pdf",
+      "role": "yttrium-supply-context"
+    },
+    {
+      "source_id": "APS-YIG-LPE-2020",
+      "authority_class": "peer-reviewed-primary",
+      "publisher": "American Physical Society",
+      "title": "Low damping and microstructural perfection of sub-40nm-thin yttrium iron garnet films grown by liquid phase epitaxy",
+      "source_date": "2020-02-27",
+      "verified_at": "2026-08-11T02:55:00Z",
+      "url": "https://journals.aps.org/prmaterials/abstract/10.1103/PhysRevMaterials.4.024416",
+      "role": "yig-thin-film-growth"
+    },
+    {
+      "source_id": "APS-YIG-RT-HYBRID-2024",
+      "authority_class": "peer-reviewed-primary",
+      "publisher": "American Physical Society",
+      "title": "Room-temperature experimental implementation of quantum logic on a hybrid magnon-spin system",
+      "source_date": "2024-11-18",
+      "verified_at": "2026-08-11T02:55:00Z",
+      "url": "https://journals.aps.org/prapplied/abstract/10.1103/PhysRevApplied.22.054048",
+      "role": "room-temperature-yig-hybrid-research"
+    },
+    {
+      "source_id": "NATURE-YIG-GGG-DEVICE-2025",
+      "authority_class": "peer-reviewed-primary",
+      "publisher": "Nature Electronics",
+      "title": "High-performance magnetostatic wave resonators based on deep anisotropic etching of gadolinium gallium garnet substrates",
+      "source_date": "2025-02-27",
+      "verified_at": "2026-08-11T02:55:00Z",
+      "url": "https://www.nature.com/articles/s41928-025-01345-x",
+      "role": "yig-ggg-device-fabrication"
+    },
+    {
+      "source_id": "NATURE-YIG-SUBSTRATE-2026",
+      "authority_class": "peer-reviewed-primary",
+      "publisher": "Communications Materials",
+      "title": "The ideal substrate for yttrium iron garnet films in quantum magnonics",
+      "source_date": "2026-03-30",
+      "verified_at": "2026-08-11T02:55:00Z",
+      "url": "https://www.nature.com/articles/s43246-026-01146-5",
+      "role": "yig-substrate-temperature-context"
+    },
+    {
+      "source_id": "APS-YIG-MAGNON-JOSEPHSON-2021",
+      "authority_class": "peer-reviewed-primary",
+      "publisher": "American Physical Society",
+      "title": "Experimental observation of Josephson oscillations in a room-temperature Bose-Einstein magnon condensate",
+      "source_date": "2021-10-14",
+      "verified_at": "2026-08-11T04:05:00Z",
+      "url": "https://journals.aps.org/prb/abstract/10.1103/PhysRevB.104.144414",
+      "role": "room-temperature-magnon-josephson-context"
+    }
+  ]
+}

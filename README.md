@@ -223,13 +223,8 @@ export-controlled technical data, or other restricted content. See
 
 ## Repository Maturity
 
-`v0.4.0` is the bounded M0 validation-profile compatibility closeout. It preserves the
-immutable v0.3.1 public experience, immutable v0.1.0 structural schema authority, released
-validation-profile behavior under explicit identifiers, GA-001 v1.0.0 evidence meaning, M0
-maturity, and human consequential authority.
+`v0.5.0` is the Precision Evidence Experience candidate. It expands the public browser from a Gallium-first demonstration into a controlled 60-mineral Strategic Constellation plus a separate engineered-material/material-system layer, including bounded YIG public research context. Gallium GA-001 remains the only released Reviewed Pathway; YIG-001 is Reviewed Public Context and does not establish qualification, certification, acquisition approval, mission readiness, scalable room-temperature quantum computing, or M1.
 
-The live public experience is
-[bridgenode7.com/materials-to-mission/](https://bridgenode7.com/materials-to-mission/).
 The repository remains M0 until the real-workflow evidence in
 [`docs/M1_READINESS.md`](docs/M1_READINESS.md) is complete. It is not a validated
 cross-case commercial product or an authority for certification or qualification.

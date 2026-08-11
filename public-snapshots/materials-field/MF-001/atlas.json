@@ -1,0 +1,851 @@
+{
+  "snapshot_id": "MF-001",
+  "snapshot_version": "1.0.0",
+  "public_maturity": "M0",
+  "reviewed_at": "2026-08-11T01:31:00Z",
+  "official_field": {
+    "count": 60,
+    "rare_earth_count": 15,
+    "source_id": "USGS-CM-2025"
+  },
+  "surface": {
+    "title": "Strategic Constellation",
+    "clarifier": "A visual map of critical minerals by application connection.",
+    "breadth_note": "The official field is broad. Reviewed pathway evidence remains intentionally narrow."
+  },
+  "layout": {
+    "algorithm_id": "bn7-constellation-layout-r6",
+    "authority": "BN7 presentation ontology",
+    "source_id": "DOE-CMM-APPLICATIONS",
+    "statement": "Position is derived from controlled DOE application memberships and deterministic collision handling. Position is not an official taxonomy, importance rank, risk score, readiness score, or investment recommendation."
+  },
+  "lenses": {
+    "electronics": {
+      "label": "Electronics, Optics & Timing",
+      "short": "Electronics & Optics",
+      "color": "#58c7ff",
+      "anchor": {
+        "x": 18,
+        "y": 23
+      },
+      "doe_rows": [
+        "displays_optics",
+        "semiconductors",
+        "general_electronics",
+        "lasers",
+        "timing_gps",
+        "lighting"
+      ]
+    },
+    "magnets": {
+      "label": "Magnets & Motion",
+      "short": "Magnets & Motion",
+      "color": "#b890ff",
+      "anchor": {
+        "x": 49,
+        "y": 15
+      },
+      "doe_rows": [
+        "magnets_motors"
+      ]
+    },
+    "energy": {
+      "label": "Energy & Storage",
+      "short": "Energy & Storage",
+      "color": "#9edb69",
+      "anchor": {
+        "x": 81,
+        "y": 23
+      },
+      "doe_rows": [
+        "batteries",
+        "nuclear_energy",
+        "fuel_cells",
+        "solar_cells"
+      ]
+    },
+    "aerospace": {
+      "label": "Aerospace & Defense",
+      "short": "Aerospace & Defense",
+      "color": "#ff824e",
+      "anchor": {
+        "x": 18,
+        "y": 79
+      },
+      "doe_rows": [
+        "aerospace_defense"
+      ]
+    },
+    "catalysts": {
+      "label": "Catalysts",
+      "short": "Catalysts",
+      "color": "#52d4cf",
+      "anchor": {
+        "x": 50,
+        "y": 83
+      },
+      "doe_rows": [
+        "catalysts"
+      ]
+    },
+    "steel": {
+      "label": "Steel & Structural Materials",
+      "short": "Steel & Structure",
+      "color": "#e9b34c",
+      "anchor": {
+        "x": 82,
+        "y": 79
+      },
+      "doe_rows": [
+        "steel"
+      ]
+    }
+  },
+  "materials": [
+    {
+      "id": "aluminum",
+      "symbol": "Al",
+      "name": "Aluminum",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "antimony",
+      "symbol": "Sb",
+      "name": "Antimony",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "arsenic",
+      "symbol": "As",
+      "name": "Arsenic",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "barite",
+      "symbol": "BaSO₄",
+      "name": "Barite",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "beryllium",
+      "symbol": "Be",
+      "name": "Beryllium",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "bismuth",
+      "symbol": "Bi",
+      "name": "Bismuth",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "boron",
+      "symbol": "B",
+      "name": "Boron",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "cerium",
+      "symbol": "Ce",
+      "name": "Cerium",
+      "rare_earth": true,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "cesium",
+      "symbol": "Cs",
+      "name": "Cesium",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "chromium",
+      "symbol": "Cr",
+      "name": "Chromium",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "cobalt",
+      "symbol": "Co",
+      "name": "Cobalt",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "copper",
+      "symbol": "Cu",
+      "name": "Copper",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "dysprosium",
+      "symbol": "Dy",
+      "name": "Dysprosium",
+      "rare_earth": true,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "erbium",
+      "symbol": "Er",
+      "name": "Erbium",
+      "rare_earth": true,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "europium",
+      "symbol": "Eu",
+      "name": "Europium",
+      "rare_earth": true,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "fluorspar",
+      "symbol": "CaF₂",
+      "name": "Fluorspar",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "gadolinium",
+      "symbol": "Gd",
+      "name": "Gadolinium",
+      "rare_earth": true,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "gallium",
+      "symbol": "Ga",
+      "name": "Gallium",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "reviewed-pathway",
+        "label": "Reviewed Pathway",
+        "snapshot_id": "GA-001"
+      },
+      "context": []
+    },
+    {
+      "id": "germanium",
+      "symbol": "Ge",
+      "name": "Germanium",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "graphite",
+      "symbol": "C",
+      "name": "Graphite",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "hafnium",
+      "symbol": "Hf",
+      "name": "Hafnium",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "holmium",
+      "symbol": "Ho",
+      "name": "Holmium",
+      "rare_earth": true,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "indium",
+      "symbol": "In",
+      "name": "Indium",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "iridium",
+      "symbol": "Ir",
+      "name": "Iridium",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "lanthanum",
+      "symbol": "La",
+      "name": "Lanthanum",
+      "rare_earth": true,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "lead",
+      "symbol": "Pb",
+      "name": "Lead",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "lithium",
+      "symbol": "Li",
+      "name": "Lithium",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "lutetium",
+      "symbol": "Lu",
+      "name": "Lutetium",
+      "rare_earth": true,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "magnesium",
+      "symbol": "Mg",
+      "name": "Magnesium",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "manganese",
+      "symbol": "Mn",
+      "name": "Manganese",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "metallurgical-coal",
+      "symbol": "Coal",
+      "name": "Metallurgical Coal",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "neodymium",
+      "symbol": "Nd",
+      "name": "Neodymium",
+      "rare_earth": true,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "nickel",
+      "symbol": "Ni",
+      "name": "Nickel",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "niobium",
+      "symbol": "Nb",
+      "name": "Niobium",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "palladium",
+      "symbol": "Pd",
+      "name": "Palladium",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "phosphate",
+      "symbol": "Phos",
+      "name": "Phosphate",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "platinum",
+      "symbol": "Pt",
+      "name": "Platinum",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "potash",
+      "symbol": "K",
+      "name": "Potash",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "praseodymium",
+      "symbol": "Pr",
+      "name": "Praseodymium",
+      "rare_earth": true,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "rhenium",
+      "symbol": "Re",
+      "name": "Rhenium",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "rhodium",
+      "symbol": "Rh",
+      "name": "Rhodium",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "rubidium",
+      "symbol": "Rb",
+      "name": "Rubidium",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "ruthenium",
+      "symbol": "Ru",
+      "name": "Ruthenium",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "samarium",
+      "symbol": "Sm",
+      "name": "Samarium",
+      "rare_earth": true,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "scandium",
+      "symbol": "Sc",
+      "name": "Scandium",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "silicon",
+      "symbol": "Si",
+      "name": "Silicon",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "silver",
+      "symbol": "Ag",
+      "name": "Silver",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "tantalum",
+      "symbol": "Ta",
+      "name": "Tantalum",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": [
+        {
+          "type": "policy",
+          "label": "DFARS covered-material context",
+          "detail": "Tantalum metals and alloys",
+          "source_id": "DFARS-252.225-7052"
+        }
+      ]
+    },
+    {
+      "id": "tellurium",
+      "symbol": "Te",
+      "name": "Tellurium",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "terbium",
+      "symbol": "Tb",
+      "name": "Terbium",
+      "rare_earth": true,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "thulium",
+      "symbol": "Tm",
+      "name": "Thulium",
+      "rare_earth": true,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "tin",
+      "symbol": "Sn",
+      "name": "Tin",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "titanium",
+      "symbol": "Ti",
+      "name": "Titanium",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "tungsten",
+      "symbol": "W",
+      "name": "Tungsten",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": [
+        {
+          "type": "policy",
+          "label": "DFARS covered-material context",
+          "detail": "Tungsten metal powder and tungsten heavy alloy",
+          "source_id": "DFARS-252.225-7052"
+        }
+      ]
+    },
+    {
+      "id": "uranium",
+      "symbol": "U",
+      "name": "Uranium",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "vanadium",
+      "symbol": "V",
+      "name": "Vanadium",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "ytterbium",
+      "symbol": "Yb",
+      "name": "Ytterbium",
+      "rare_earth": true,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "yttrium",
+      "symbol": "Y",
+      "name": "Yttrium",
+      "rare_earth": true,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "zinc",
+      "symbol": "Zn",
+      "name": "Zinc",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    },
+    {
+      "id": "zirconium",
+      "symbol": "Zr",
+      "name": "Zirconium",
+      "rare_earth": false,
+      "official_designation": "USGS 2025 Critical Mineral",
+      "review": {
+        "code": "listed",
+        "label": "USGS 2025 Listed"
+      },
+      "context": []
+    }
+  ],
+  "human_authority_required": true,
+  "no_claims": [
+    "qualification",
+    "certification",
+    "compliance determination",
+    "mission readiness",
+    "acquisition approval",
+    "investment recommendation",
+    "automated consequential decision"
+  ]
+}

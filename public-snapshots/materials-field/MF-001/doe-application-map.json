@@ -1,0 +1,199 @@
+{
+  "source_id": "DOE-CMM-APPLICATIONS",
+  "normalization_notes": [
+    "DOE battery table lists Fluorine. R5 does not infer that row onto USGS Fluorspar.",
+    "DOE semiconductor and steel tables explicitly use Fluorspar/Fluorine; those rows are normalized to the USGS Fluorspar node.",
+    "BN7 lenses aggregate exact DOE application rows for navigation and are not DOE taxonomy."
+  ],
+  "rows": {
+    "batteries": {
+      "label": "Batteries",
+      "materials": [
+        "Aluminum",
+        "Antimony",
+        "Cobalt",
+        "Copper",
+        "Graphite",
+        "Lanthanum",
+        "Lead",
+        "Lithium",
+        "Manganese",
+        "Nickel",
+        "Phosphate",
+        "Silver",
+        "Vanadium"
+      ]
+    },
+    "nuclear_energy": {
+      "label": "Nuclear Energy",
+      "materials": [
+        "Boron",
+        "Europium",
+        "Graphite",
+        "Hafnium",
+        "Holmium",
+        "Lithium",
+        "Samarium",
+        "Thulium",
+        "Uranium",
+        "Zirconium"
+      ]
+    },
+    "fuel_cells": {
+      "label": "Fuel Cells",
+      "materials": [
+        "Graphite",
+        "Platinum",
+        "Scandium"
+      ]
+    },
+    "solar_cells": {
+      "label": "Solar Cells",
+      "materials": [
+        "Aluminum",
+        "Gallium",
+        "Indium",
+        "Silicon",
+        "Silver",
+        "Tellurium"
+      ]
+    },
+    "displays_optics": {
+      "label": "Displays & Optics",
+      "materials": [
+        "Erbium",
+        "Germanium",
+        "Indium",
+        "Terbium",
+        "Yttrium"
+      ]
+    },
+    "catalysts": {
+      "label": "Catalysts",
+      "materials": [
+        "Cerium",
+        "Iridium",
+        "Lanthanum",
+        "Palladium",
+        "Rhenium",
+        "Rhodium",
+        "Ruthenium",
+        "Ytterbium"
+      ]
+    },
+    "semiconductors": {
+      "label": "Semiconductors & Microconductors",
+      "materials": [
+        "Arsenic",
+        "Boron",
+        "Copper",
+        "Fluorspar",
+        "Gallium",
+        "Germanium",
+        "Hafnium",
+        "Silicon",
+        "Terbium"
+      ]
+    },
+    "magnets_motors": {
+      "label": "Magnets & Motors",
+      "materials": [
+        "Aluminum",
+        "Copper",
+        "Dysprosium",
+        "Gadolinium",
+        "Gallium",
+        "Holmium",
+        "Neodymium",
+        "Praseodymium",
+        "Samarium",
+        "Terbium"
+      ]
+    },
+    "steel": {
+      "label": "Steel Production & Strengthening",
+      "materials": [
+        "Boron",
+        "Chromium",
+        "Fluorspar",
+        "Gadolinium",
+        "Manganese",
+        "Metallurgical Coal",
+        "Nickel",
+        "Niobium",
+        "Silicon",
+        "Vanadium"
+      ]
+    },
+    "aerospace_defense": {
+      "label": "Alloys for Aerospace, Defense, & High Performance",
+      "materials": [
+        "Aluminum",
+        "Beryllium",
+        "Cobalt",
+        "Copper",
+        "Hafnium",
+        "Lead",
+        "Lithium",
+        "Magnesium",
+        "Nickel",
+        "Platinum",
+        "Praseodymium",
+        "Rhenium",
+        "Scandium",
+        "Tellurium",
+        "Thulium",
+        "Titanium",
+        "Tungsten",
+        "Yttrium",
+        "Zinc",
+        "Zirconium"
+      ]
+    },
+    "lighting": {
+      "label": "Lighting",
+      "materials": [
+        "Gallium",
+        "Scandium",
+        "Yttrium"
+      ]
+    },
+    "general_electronics": {
+      "label": "General Electronics Components",
+      "materials": [
+        "Aluminum",
+        "Copper",
+        "Lutetium",
+        "Magnesium",
+        "Palladium",
+        "Rhodium",
+        "Ruthenium",
+        "Silver",
+        "Tantalum",
+        "Tellurium",
+        "Terbium",
+        "Tin"
+      ]
+    },
+    "lasers": {
+      "label": "Lasers",
+      "materials": [
+        "Dysprosium",
+        "Erbium",
+        "Holmium",
+        "Neodymium",
+        "Tellurium",
+        "Terbium",
+        "Thulium",
+        "Ytterbium"
+      ]
+    },
+    "timing_gps": {
+      "label": "Atomic Clocks & GPS",
+      "materials": [
+        "Cesium",
+        "Rubidium"
+      ]
+    }
+  }
+}
