@@ -12,7 +12,7 @@ Materials-to-Mission is **M0 only**.
 No real Case 001 or M1 outcome evidence is present in this public repository.
 
 See [`CURRENT_STATE.md`](CURRENT_STATE.md) for the current repository and release state.
-See [`M1_READINESS.md`](M1_READINESS.md) for the evidence required before an M1 claim.
+See `M1_READINESS.md` for the evidence required before an M1 claim.
 
 ## M0 — Experimental Public Method
 

@@ -9,9 +9,10 @@ ROOT = Path(__file__).resolve().parents[1]
 def _case() -> dict:
     return json.loads((ROOT / "examples/synthetic-critical-material-pathway/case.json").read_text(encoding="utf-8"))
 
-def test_v031_release_record_is_preserved() -> None:
-    assert (ROOT / "RELEASE_NOTES_v0.3.1.md").is_file()
-    assert "## [0.3.1] - 2026-08-10" in (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+def test_v031_release_history_is_preserved_in_changelog() -> None:
+    changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+    assert "## [0.3.1] - 2026-08-10" in changelog
+    assert "Immutable v0.3.1 release history" in changelog
 
 def test_released_profile_behavior_remains_preserved() -> None:
     case = _case()
