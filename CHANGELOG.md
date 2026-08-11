@@ -4,7 +4,14 @@ All notable changes are documented here.
 
 ## Unreleased
 
-No unreleased product changes are recorded.
+### v0.5.0 candidate — Precision Evidence Experience
+- Add the complete USGS 2025 critical-mineral field as a Strategic Constellation.
+- Derive Application Lenses and coordinates from controlled DOE application data.
+- Generate visible public HTML from one validated projection with a no-JavaScript fallback.
+- Preserve Gallium GA-001 as the only released reviewed pathway in this candidate.
+- Add public deep links, form search, precision Index, responsive detail behavior, and Evidence Horizon semantics.
+- Harden source authority, HTTPS/domain, ID/state, relationship, and lineage validation.
+- Preserve M0, no-score behavior, human consequential authority, and public/private boundaries.
 
 ## [0.4.0] - 2026-08-10
 

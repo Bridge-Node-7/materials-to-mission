@@ -1,0 +1,227 @@
+{
+  "pathway_id": "YIG-001",
+  "pathway_version": "1.0.0",
+  "name": "YIG Material-System Pathway",
+  "material_system": "Yttrium Iron Garnet",
+  "symbol": "YIG",
+  "formula": "Y3Fe5O12",
+  "classification": "engineered-material-system",
+  "official_critical_mineral": false,
+  "review_state": "reviewed-public-context",
+  "review_label": "Reviewed Public Context",
+  "public_maturity": "M0",
+  "human_authority_required": true,
+  "public_summary": "YIG is a real engineered magnetic garnet used in magnonics and related microwave/spin research. The public evidence supports technical relevance and multiple laboratory/device demonstrations. It does not establish a qualified supply chain, repeatable mission-scale manufacturing, acquisition approval, or mission readiness.",
+  "critical_mineral_dependencies": [
+    {
+      "mineral": "Yttrium",
+      "role": "YIG constituent",
+      "source_ids": [
+        "USGS-Y-2026"
+      ]
+    },
+    {
+      "mineral": "Gadolinium",
+      "role": "GGG substrate constituent",
+      "source_ids": [
+        "NATURE-YIG-GGG-DEVICE-2025",
+        "NATURE-YIG-SUBSTRATE-2026"
+      ]
+    },
+    {
+      "mineral": "Gallium",
+      "role": "GGG/YSGAG substrate constituent",
+      "source_ids": [
+        "NATURE-YIG-GGG-DEVICE-2025",
+        "NATURE-YIG-SUBSTRATE-2026"
+      ]
+    },
+    {
+      "mineral": "Scandium",
+      "role": "YSGAG alternative-substrate constituent",
+      "source_ids": [
+        "NATURE-YIG-SUBSTRATE-2026"
+      ]
+    },
+    {
+      "mineral": "Aluminum",
+      "role": "YSGAG alternative-substrate constituent",
+      "source_ids": [
+        "NATURE-YIG-SUBSTRATE-2026"
+      ]
+    }
+  ],
+  "noncritical_constituents": [
+    {
+      "name": "Iron",
+      "role": "YIG constituent"
+    },
+    {
+      "name": "Oxygen",
+      "role": "oxide/garnet constituent"
+    }
+  ],
+  "substrate_context": [
+    {
+      "name": "GGG",
+      "summary": "Established lattice-matched substrate for high-quality YIG films; low-temperature paramagnetism may increase damping.",
+      "source_ids": [
+        "NATURE-YIG-GGG-DEVICE-2025",
+        "NATURE-YIG-SUBSTRATE-2026"
+      ]
+    },
+    {
+      "name": "YSGAG",
+      "summary": "Emerging diamagnetic alternative demonstrated with low YIG damping from room temperature to millikelvin temperatures.",
+      "source_ids": [
+        "NATURE-YIG-SUBSTRATE-2026"
+      ]
+    }
+  ],
+  "stages": [
+    {
+      "id": "yig-inputs",
+      "stage": "Critical Materials",
+      "state": "supported",
+      "summary": "Yttrium is the critical-mineral anchor for YIG. Common YIG substrate systems introduce additional critical-mineral dependencies through GGG or YSGAG.",
+      "source_ids": [
+        "USGS-Y-2026",
+        "NATURE-YIG-SUBSTRATE-2026"
+      ]
+    },
+    {
+      "id": "yig-qualified-stack",
+      "stage": "Qualified Material Stack",
+      "state": "unknown",
+      "summary": "Public evidence reviewed here does not establish BN7-specific qualified precursor form, purity, processor, substrate lot, repeatability, or assured supply for a mission-relevant YIG stack.",
+      "source_ids": [],
+      "context_source_ids": [
+        "USGS-Y-2026"
+      ],
+      "evidence_basis": "No qualifying public evidence was identified in the reviewed corpus for a BN7-specific precursor form, purity, processor, substrate lot, repeatability, or assured mission-relevant YIG material stack."
+    },
+    {
+      "id": "yig-growth",
+      "stage": "Thin-Film / Crystal Growth",
+      "state": "supported-context",
+      "summary": "Peer-reviewed work demonstrates low-damping YIG thin films, including liquid-phase epitaxy and high-quality YIG on garnet substrates.",
+      "source_ids": [
+        "APS-YIG-LPE-2020",
+        "NATURE-YIG-SUBSTRATE-2026"
+      ]
+    },
+    {
+      "id": "yig-fabrication",
+      "stage": "Device Fabrication",
+      "state": "supported-context",
+      "summary": "Peer-reviewed device work demonstrates YIG-on-GGG resonators and microfabrication approaches; this establishes feasibility context, not a qualified production line.",
+      "source_ids": [
+        "NATURE-YIG-GGG-DEVICE-2025"
+      ]
+    },
+    {
+      "id": "yig-room-temp",
+      "stage": "Room-Temperature Research",
+      "state": "supported-context",
+      "summary": "A 2024 peer-reviewed experiment implemented quantum logic on a room-temperature hybrid magnon-spin system using a YIG film and NV centers. This is a research demonstration, not proof of scalable room-temperature quantum computing.",
+      "source_ids": [
+        "APS-YIG-RT-HYBRID-2024"
+      ]
+    },
+    {
+      "id": "yig-validation",
+      "stage": "Testing & Validation",
+      "state": "unknown",
+      "summary": "Mission-relevant proof would require independent acceptable ranges for damping/linewidth, propagation loss, temperature and field behavior, substrate effects, repeatability, yield, interfaces, and device-level performance.",
+      "source_ids": [],
+      "context_source_ids": [
+        "APS-YIG-LPE-2020",
+        "NATURE-YIG-SUBSTRATE-2026"
+      ],
+      "evidence_basis": "The reviewed literature identifies relevant material and substrate performance variables, but it does not provide a BN7 mission-specific acceptance range, independent qualification protocol, repeatability baseline, or production-yield criterion."
+    },
+    {
+      "id": "yig-transition",
+      "stage": "Acquisition & Transition",
+      "state": "unknown",
+      "summary": "No program-specific qualified supplier path, acquisition route, transition sponsor, demand commitment, or acceptance baseline is established by this public snapshot.",
+      "source_ids": [],
+      "evidence_basis": "No program-specific public evidence was identified in the reviewed corpus for a qualified supplier path, acquisition route, transition sponsor, demand commitment, or acceptance baseline.",
+      "context_source_ids": []
+    },
+    {
+      "id": "yig-mission",
+      "stage": "Deployment & Sustainment",
+      "state": "unknown",
+      "summary": "Specific mission availability, sustainment, security, reliability, and operational performance remain outside the public evidence reviewed here.",
+      "source_ids": [],
+      "evidence_basis": "No mission-specific public evidence was identified in the reviewed corpus for availability, sustainment, security, reliability, or operational performance.",
+      "context_source_ids": []
+    }
+  ],
+  "evidence_horizon": {
+    "first_unresolved_stage_id": "yig-qualified-stack",
+    "label": "The evidence narrows here.",
+    "meaning": "Later peer-reviewed demonstrations remain useful context, but they do not reconnect a continuous source-to-mission chain across the unresolved qualified material-stack and supply condition."
+  },
+  "public_applications": [
+    {
+      "label": "Magnonics / spin-wave transport",
+      "source_ids": [
+        "APS-YIG-LPE-2020"
+      ]
+    },
+    {
+      "label": "Microwave / magnetostatic resonators",
+      "source_ids": [
+        "NATURE-YIG-GGG-DEVICE-2025"
+      ]
+    },
+    {
+      "label": "Hybrid magnon-spin quantum research",
+      "source_ids": [
+        "APS-YIG-RT-HYBRID-2024"
+      ]
+    },
+    {
+      "label": "Quantum magnonics research",
+      "source_ids": [
+        "NATURE-YIG-SUBSTRATE-2026"
+      ]
+    },
+    {
+      "label": "Room-temperature magnon Josephson research",
+      "source_ids": [
+        "APS-YIG-MAGNON-JOSEPHSON-2021"
+      ]
+    }
+  ],
+  "next_proof": [
+    "Define the required YIG form, film thickness, substrate, interfaces, operating temperature, field, and device performance for one bounded use case.",
+    "Verify precursor and substrate provenance, purity, processor identity, and lot-to-lot repeatability.",
+    "Establish an independent FMR/spin-wave characterization protocol and acceptable manufacturing range.",
+    "Demonstrate repeatable fabrication and device performance across multiple samples before any scale claim.",
+    "Only then evaluate acquisition, integration, sustainment, and mission-specific acceptance."
+  ],
+  "no_claims": [
+    "YIG is a USGS critical mineral",
+    "qualification",
+    "certification",
+    "mission readiness",
+    "acquisition approval",
+    "scalable room-temperature quantum computing",
+    "investment recommendation",
+    "government endorsement",
+    "automated consequential decision"
+  ],
+  "frontier_research_context": [
+    {
+      "id": "yig-josephson-2021",
+      "label": "Room-temperature magnon Josephson context",
+      "summary": "A 2021 peer-reviewed experiment reported Josephson oscillations in a room-temperature magnon Bose-Einstein condensate in a YIG film grown on GGG. This establishes relevant physical context, not validation of any specific proposed device architecture or scalable room-temperature quantum computer.",
+      "source_ids": [
+        "APS-YIG-MAGNON-JOSEPHSON-2021"
+      ]
+    }
+  ]
+}
