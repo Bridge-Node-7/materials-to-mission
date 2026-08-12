@@ -29,13 +29,13 @@ def test_ga001_wording_and_versions_remain_frozen() -> None:
     assert view["toolkit_version"] == "0.2.0"
     assert view["view_contract_version"] == "0.3.0"
 
-def test_v050_precision_experience_contract() -> None:
+def test_precision_experience_contract() -> None:
     html = (ROOT / "web/index.html").read_text(encoding="utf-8")
     css = (ROOT / "web/styles.css").read_text(encoding="utf-8")
     assert "Strategic Constellation" in html
     assert "Evidence Horizon" in html
     assert "Evidence informs." in html
-    assert "View Public Method" in html
-    assert "Back to Materials" in html
+    assert "Method &amp; Source on GitHub" in html
+    assert "https://bridgenode7.com/materials/" in html
     assert "width:44px" in css.replace(" ", "")
     assert "min-width:820px" in css.replace(" ", "")

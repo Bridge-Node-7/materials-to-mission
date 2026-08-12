@@ -49,3 +49,25 @@ def test_visual_baseline_identity_is_preserved() -> None:
     assert facts["visual_experience_baseline_version"] == "0.5.0"
     assert facts["visual_experience_status"] == "production-validated-r6-3-3-baseline"
     assert facts["production_deployment_readback"] == "PASS_V050_EXACT_PUBLIC_BYTES"
+
+def test_public_safe_scope_is_machine_unambiguous() -> None:
+    facts = json.loads((ROOT / "PROJECT_FACTS.json").read_text(encoding="utf-8"))
+    assert facts["public_safe_examples_only"] is True
+    assert facts["public_safe_examples_scope"] == "examples-directory-only"
+    assert facts["public_source_snapshots_authorized"] is True
+    assert facts["restricted_case_data_present"] is False
+    assert facts["browser_uat_required_for_current_m0_gate"] is False
+
+
+def test_codeql_covers_python_and_browser_javascript() -> None:
+    workflow = (ROOT / ".github/workflows/codeql.yml").read_text(encoding="utf-8")
+    assert "language: [python, javascript-typescript]" in workflow
+    assert "languages: ${{ matrix.language }}" in workflow
+
+
+def test_pages_requires_post_deploy_anonymous_readback() -> None:
+    workflow = (ROOT / ".github/workflows/pages.yml").read_text(encoding="utf-8")
+    assert "verify-production:" in workflow
+    assert "needs: deploy" in workflow
+    assert "scripts/verify_production.py" in workflow
+    assert "https://bridgenode7.com/materials-to-mission/" in workflow
