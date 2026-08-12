@@ -76,3 +76,12 @@ def test_web_build_is_deterministic_and_keeps_current_pages_shape(tmp_path: Path
     assert "Evidence Horizon" in built
     assert "Reviewed Pathway" in built
     assert "<!-- R6:" not in built
+
+
+def test_search_and_svg_dynamic_paths_avoid_innerhtml() -> None:
+    js = (ROOT / "web/app.js").read_text(encoding="utf-8")
+    assert "results.innerHTML" not in js
+    assert "results.replaceChildren" in js
+    assert 'document.createElement("button")' in js
+    assert "svg.innerHTML" not in js
+    assert "svg.replaceChildren()" in js

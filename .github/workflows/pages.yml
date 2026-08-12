@@ -84,3 +84,44 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128
+  verify-production:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    needs: deploy
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - name: Set up Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Build expected deterministic public bytes
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install -r requirements-dev.lock
+          python -m pip install --no-deps --no-build-isolation -e .
+          python scripts/build_web.py --output _site
+      - name: Verify anonymous production bytes
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/verify_production.py \
+            --expected-dir _site \
+            --base-url "https://bridgenode7.com/materials-to-mission/" \
+            --output production-attestation.json \
+            --github-sha "$GITHUB_SHA" \
+            --attempts 12 \
+            --delay-seconds 10 \
+            --timeout-seconds 10
+      - name: Preserve production attestation in job summary
+        if: always()
+        shell: bash
+        run: |
+          if [ -f production-attestation.json ]; then
+            printf "%s\n" "## Production Readback Attestation" >> "$GITHUB_STEP_SUMMARY"
+            printf "%s\n" "```json" >> "$GITHUB_STEP_SUMMARY"
+            cat production-attestation.json >> "$GITHUB_STEP_SUMMARY"
+            printf "%s\n" "```" >> "$GITHUB_STEP_SUMMARY"
+          fi

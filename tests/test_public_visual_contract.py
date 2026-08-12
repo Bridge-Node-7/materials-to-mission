@@ -44,3 +44,40 @@ def test_evidence_model_preserves_key_distinctions() -> None:
     assert "Claim support is not pathway assessment." in model
     assert "Evidence-supported action is not human decision." in model
     assert "No composite readiness score" in model
+
+
+def test_public_experience_has_institutional_continuity_without_replacing_product_nav() -> None:
+    page = (ROOT / "web/index.html").read_text(encoding="utf-8")
+    assert "Method &amp; Source on GitHub" in page
+    for target in (
+        "https://bridgenode7.com/materials/",
+        "https://bridgenode7.com/readiness/",
+        "https://bridgenode7.com/privacy/",
+        "https://bridgenode7.com/privacy/#security",
+        "Strategic Inquiry",
+    ):
+        assert target in page
+
+
+def test_csp_is_restrictive_and_compatible_with_current_runtime() -> None:
+    html = (ROOT / "web/index.html").read_text(encoding="utf-8")
+    assert "Content-Security-Policy" in html
+    assert "default-src 'none'" in html
+    assert "script-src 'self';" in html
+    assert "script-src 'self' 'unsafe-inline'" not in html
+    assert "style-src 'self' 'unsafe-inline';" in html
+    assert "connect-src 'none';" in html
+    assert "base-uri 'none';" in html
+    assert "form-action 'none'" in html
+    assert "frame-ancestors" not in html
+
+
+def test_high_contrast_modes_have_explicit_support() -> None:
+    css = (ROOT / "web/styles.css").read_text(encoding="utf-8").replace(" ", "")
+    assert "@media(forced-colors:active)" in css
+    assert "@media(prefers-contrast:more)" in css
+    assert "outline:2pxsolidHighlight" in css
+
+def test_csp_image_sources_are_explicitly_tokenized() -> None:
+    html = (ROOT / "web/index.html").read_text(encoding="utf-8")
+    assert "img-src 'self' data:;" in html
