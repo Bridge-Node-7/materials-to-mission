@@ -209,85 +209,105 @@ html:not(.js-ready) .js-only{display:none!important}
 }
 @media(prefers-reduced-motion:reduce){.depth-chevron{transition:none}}
 
-/* V070:DISCOVERABLE_DEPTH_DOORWAY */
-.atlas-depth-signpost{
-  display:inline-flex;align-items:center;gap:7px;margin-top:11px;
-  color:#8092a5;font-size:9px;font-weight:700;letter-spacing:.035em;
+/* V070:SELECTED_PATHWAYS */
+
+/* Keep the desktop identity on one line without making compact layouts tiny. */
+@media(min-width:561px){
+  .title-row h1{
+    font-size:clamp(40px,4vw,54px);
+    white-space:nowrap;
+  }
+}
+@media(max-width:1160px) and (min-width:561px){
+  .title-row{grid-template-columns:1fr;align-items:start}
+  .atlas-tools{justify-content:flex-start;flex-wrap:wrap;margin-top:14px}
+}
+
+/* Quiet information scent: concrete, low-choice, non-promotional. */
+.atlas-pathway-signpost{
+  display:inline-flex;align-items:center;gap:7px;margin-top:10px;
+  color:#8193a6;font-size:9px;font-weight:700;letter-spacing:.025em;
   text-decoration:none;border-bottom:1px solid transparent;
 }
-.atlas-depth-signpost:hover,.atlas-depth-signpost:focus-visible{
-  color:#c7d2de;border-bottom-color:#53677b;
+.atlas-pathway-signpost:hover,.atlas-pathway-signpost:focus-visible{
+  color:#c9d4df;border-bottom-color:#53677a;
 }
-.explore-deeper-doorway{
-  margin:clamp(46px,7vw,86px) 0 clamp(52px,8vw,96px);
-  padding:clamp(26px,4vw,44px) 0 0;
-  border-top:1px solid var(--line);
+
+/* The pathway index uses the same page frame as the Atlas. */
+.selected-pathways{
+  max-width:var(--max);
+  margin:clamp(42px,6vw,72px) auto clamp(54px,7vw,82px);
+  padding:clamp(30px,4vw,44px) 34px 0;
+  border-top:1px solid rgba(255,255,255,.075);
 }
-.explore-deeper-head{max-width:720px;margin-bottom:clamp(26px,4vw,42px)}
-.explore-deeper-kicker{
-  margin:0 0 10px;color:#8fa1b4;font-size:9px;font-weight:850;
-  letter-spacing:.18em;
+.selected-pathways-head{
+  display:grid;grid-template-columns:minmax(0,.72fr) minmax(260px,.6fr);
+  column-gap:34px;align-items:end;max-width:980px;margin-bottom:24px;
 }
-.explore-deeper-head h2{
-  margin:0;color:#edf3f8;font-size:clamp(22px,3vw,34px);
-  font-weight:620;letter-spacing:-.025em;line-height:1.12;
+.selected-pathways-kicker{
+  grid-column:1/-1;margin:0 0 8px;color:#8ea0b3;
+  font-size:9px;font-weight:850;letter-spacing:.17em;
 }
-.explore-deeper-head>p:last-child{
-  margin:12px 0 0;max-width:640px;color:#8799aa;
-  font-size:11px;line-height:1.65;
+.selected-pathways-head h2{
+  margin:0;color:#edf3f8;font:400 clamp(24px,2.5vw,34px)/1.12 Georgia,"Times New Roman",serif;
+  letter-spacing:-.035em;
 }
-.deep-example-grid{
-  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:clamp(18px,3vw,34px);
+.selected-pathways-head>p:last-child{
+  margin:0;color:#8294a6;font-size:10px;line-height:1.6;
 }
-.deep-example{
-  min-width:0;padding:24px 0 22px;border-top:1px solid #344353;
+.selected-pathway-list{border-top:1px solid #344353}
+.selected-pathway-row{
+  display:grid;grid-template-columns:52px minmax(230px,1.1fr) minmax(210px,.8fr) auto;
+  gap:18px;align-items:center;min-height:92px;padding:16px 0;
   border-bottom:1px solid var(--line);
 }
-.deep-example-top{
-  display:flex;align-items:center;justify-content:space-between;gap:18px;
-  margin-bottom:18px;
+.selected-pathway-symbol{
+  width:38px;height:38px;display:grid;place-items:center;
+  border:1px solid #47596c;border-radius:50%;
+  color:#dce5ef;font-size:10px;font-weight:850;
 }
-.deep-example-symbol{
-  display:inline-flex;align-items:center;justify-content:center;
-  min-width:34px;height:34px;padding:0 7px;border:1px solid #47596c;
-  border-radius:50%;color:#d9e3ed;font-size:10px;font-weight:800;
-  letter-spacing:.02em;
+.selected-pathway-symbol-wide{border-radius:19px}
+.selected-pathway-type{
+  display:block;margin-bottom:3px;color:#9b8b64;
+  font-size:8px;font-weight:850;letter-spacing:.09em;
 }
-.deep-example-symbol-wide{border-radius:18px}
-.deep-example-state{
-  color:#9e8f68;font-size:8px;font-weight:850;letter-spacing:.11em;
-  white-space:nowrap;
+.selected-pathway-identity h3{
+  margin:0;color:#e6eef6;font-size:13px;font-weight:650;
 }
-.deep-example h3{
-  margin:0 0 9px;color:#e8eff6;font-size:16px;font-weight:650;
-  letter-spacing:-.015em;
+.selected-pathway-row>p{
+  margin:0;color:#788b9e;font-size:9px;line-height:1.5;
 }
-.deep-example>p{
-  margin:0;max-width:500px;color:#8fa0b1;font-size:10px;line-height:1.65;
+.selected-pathway-row>a{
+  min-height:38px;display:inline-flex;align-items:center;gap:8px;
+  color:#cad5df;font-size:9px;font-weight:750;white-space:nowrap;
 }
-.deep-example-meta{
-  margin-top:16px;color:#6f8295;font-size:9px;letter-spacing:.025em;
+.selected-pathway-row>a:hover,.selected-pathway-row>a:focus-visible{color:var(--gold2)}
+.selected-pathways-secondary{
+  display:flex;gap:14px 28px;flex-wrap:wrap;margin-top:18px;
 }
-.deep-example-action{
-  display:inline-flex;align-items:center;gap:8px;margin-top:22px;
-  color:#d7e1eb;font-size:10px;font-weight:750;text-decoration:none;
+.selected-pathways-secondary a{
+  color:#788b9e;font-size:9px;font-weight:700;
 }
-.deep-example-action:hover,.deep-example-action:focus-visible{color:var(--gold2)}
-.deep-secondary-links{
-  display:flex;flex-wrap:wrap;gap:12px 28px;margin-top:24px;
-  padding-top:2px;
+.selected-pathways-secondary a:hover,.selected-pathways-secondary a:focus-visible{color:#c8d4df}
+
+@media(max-width:900px){
+  .selected-pathways{padding-left:14px;padding-right:14px}
+  .selected-pathways-head{grid-template-columns:1fr;gap:8px}
+  .selected-pathways-head>p:last-child{max-width:580px}
+  .selected-pathway-row{
+    grid-template-columns:46px minmax(0,1fr) auto;
+    gap:12px;min-height:88px;
+  }
+  .selected-pathway-row>p{grid-column:2/-1}
 }
-.deep-secondary-links a{
-  color:#7e91a4;font-size:9px;font-weight:700;text-decoration:none;
-}
-.deep-secondary-links a:hover,.deep-secondary-links a:focus-visible{color:#c8d4df}
-@media(max-width:760px){
-  .deep-example-grid{grid-template-columns:1fr;gap:8px}
-  .deep-example{padding:21px 0 20px}
-  .explore-deeper-doorway{margin-top:44px}
-}
-@media(max-width:420px){
-  .deep-example-top{align-items:flex-start}
-  .deep-secondary-links{display:grid;gap:12px}
+@media(max-width:560px){
+  .title-row h1{white-space:normal}
+  .selected-pathway-row{
+    grid-template-columns:42px minmax(0,1fr);
+    align-items:start;
+  }
+  .selected-pathway-row>p,
+  .selected-pathway-row>a{grid-column:2}
+  .selected-pathway-row>a{justify-self:start}
+  .selected-pathways-secondary{display:grid;gap:10px}
 }
