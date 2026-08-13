@@ -91,6 +91,26 @@ const esc = value => String(value).replace(/[&<>"']/g, char => ({
     .map(source => `<a href="${esc(source.url)}" target="_blank" rel="noopener noreferrer">${esc(source.source_id)} ↗</a>`)
     .join("");
 
+  // V070:DISCOVERABLE_DEPTH
+  function depthDrawer(layer, title, status, body, tone="baseline") {
+    return `<details class="depth-drawer" data-layer="${esc(layer)}">
+      <summary>
+        <span class="depth-name">${esc(title)}</span>
+        <small class="depth-status depth-${esc(tone)}">${esc(status)}</small>
+        <span class="depth-chevron" aria-hidden="true">⌄</span>
+      </summary>
+      <div class="depth-drawer-body">${body}</div>
+    </details>`;
+  }
+  function depthRail(kind, drawers) {
+    return `<div class="depth-rail" data-depth-rail="${esc(kind)}">
+      <div class="depth-rail-head">
+        <span>MORE TO EXPLORE</span>
+        <small>4 deeper layers</small>
+      </div>
+      ${drawers.join("")}
+    </div>`;
+  }
   function materialDetail(material, sheetMode=false) {
     const related = linkedForms(material.name);
     const contexts = (material.context || []).map(context =>
@@ -102,24 +122,43 @@ const esc = value => String(value).replace(/[&<>"']/g, char => ({
           `<button type="button" class="form-chip" data-form-id="${esc(form.id)}">${esc(form.symbol)} · ${esc(form.name)}</button>`
         ).join("")
       : `<span>No public material system linked in this release.</span>`;
-    const action = material.review?.code === "reviewed-pathway"
-      ? `<a class="detail-action" data-depth="trace" href="#trace">Reviewed pathway available →</a><small class="review-boundary">Public-source review · not qualification</small>`
-      : "";
+
+    const reviewed = material.review?.code === "reviewed-pathway";
+    const pathwayBody = reviewed
+      ? `<p class="depth-copy">A reviewed public-source pathway is available for this material.</p>
+         <a class="detail-action" data-depth="trace" href="#trace">Reviewed pathway available →</a>
+         <small class="review-boundary">Public-source review · not qualification</small>`
+      : `<p class="depth-copy"><strong>Baseline context.</strong> No reviewed end-to-end pathway has been released for this material. Available public context remains visible in the other layers.</p>`;
+
+    const connectionBody = `<span class="depth-body-label">Applications</span><div class="chips">${lensChips(material)}</div>
+      ${contexts ? `<div class="depth-context"><span class="depth-body-label">Public context</span><div class="context-list">${contexts}</div></div>` : ""}`;
+    const systemBody = `<div class="chips">${formHtml}</div>`;
+    const evidenceBody = `<div class="depth-evidence-state">
+        <span class="depth-body-label">Evidence review</span>
+        <strong class="review-state review-${esc(material.review.code)}">${esc(material.review.label)}</strong>
+      </div>
+      <div class="depth-context"><span class="depth-body-label">Sources & provenance</span><div class="source-links">${sourceLinks(material)}</div></div>`;
+
+    const connectionStatus = material.lenses.length ? `${material.lenses.length} ${material.lenses.length === 1 ? "CONNECTION" : "CONNECTIONS"}` : "BASELINE";
+    const systemStatus = related.length ? `${related.length} ${related.length === 1 ? "SYSTEM" : "SYSTEMS"}` : "NONE RELEASED";
+    const sourceStatus = `${material.source_ids.length} ${material.source_ids.length === 1 ? "SOURCE" : "SOURCES"}`;
+
+    const rail = depthRail("material", [
+      depthDrawer("connections", "Connections", connectionStatus, connectionBody),
+      depthDrawer("systems", "Material systems", systemStatus, systemBody),
+      depthDrawer("evidence", "Evidence basis", sourceStatus, evidenceBody),
+      depthDrawer("pathway", "Pathway & proof", reviewed ? "REVIEWED" : "BASELINE", pathwayBody, reviewed ? "reviewed" : "baseline"),
+    ]);
+
     return `<div class="material-detail">
       <div class="detail-title">
         <span class="big-symbol">${esc(material.symbol)}</span>
         <div><p class="eyebrow">${material.rare_earth ? "RARE EARTH · " : ""}USGS 2025</p>
         <h2${titleId}>${esc(material.name)}</h2><p>${esc(material.official_designation)}</p></div>
       </div>
-      <section><span class="detail-label">Where it is used</span><div class="chips">${lensChips(material)}</div></section>
-      <section><span class="detail-label">Evidence review</span><strong class="review-state review-${esc(material.review.code)}">${esc(material.review.label)}</strong></section>
-      ${contexts ? `<section><span class="detail-label">Policy context</span><div class="context-list">${contexts}</div></section>` : ""}
-      <section><span class="detail-label">Related Material Systems</span><div class="chips">${formHtml}</div></section>
-      <section><span class="detail-label">Sources & provenance</span><div class="source-links">${sourceLinks(material)}</div></section>
-      ${action}
+      ${rail}
     </div>`;
   }
-
   function formDetail(form, sheetMode=false) {
     const relationships = form.relationships.map(rel => {
       const material = byName[rel.mineral];
@@ -134,19 +173,27 @@ const esc = value => String(value).replace(/[&<>"']/g, char => ({
       .join("");
     const titleId = sheetMode ? ' id="sheetTitle"' : "";
     const review = form.review?.label || "Public Context";
-    const primary = "";
     const displayFormula = form.id === "yig" ? "Y₃Fe₅O₁₂" : form.formula;
     const formula = displayFormula ? ` · ${esc(displayFormula)}` : "";
-    const action = form.pathway_id
+    const hasPathway = Boolean(form.pathway_id);
+    const action = hasPathway
       ? `<a class="detail-action" data-depth="${esc(form.pathway_id === "YIG-001" ? "yig" : "forms")}" href="${form.pathway_id === "YIG-001" ? "#yig-pathway" : "#forms"}">Reviewed context available →</a>`
       : "";
+    const pathwayBody = hasPathway
+      ? `<p class="depth-copy">Reviewed public context extends beyond the baseline for this engineered system.</p>${action}`
+      : `<p class="depth-copy"><strong>Baseline context.</strong> No deeper reviewed pathway has been released for this engineered system.</p>`;
+
+    const rail = depthRail("form", [
+      depthDrawer("connections", "Connections", `${form.relationships.length} ${form.relationships.length === 1 ? "MINERAL" : "MINERALS"}`, `<div class="chips">${relationships || "<span>No public critical-mineral relationship released.</span>"}</div>`),
+      depthDrawer("context", "System context", displayFormula ? "FORMULA + CONTEXT" : "PUBLIC CONTEXT", `<p class="depth-copy">${esc(form.context)}${formula}</p>`),
+      depthDrawer("evidence", "Evidence basis", `${form.source_ids.length} ${form.source_ids.length === 1 ? "SOURCE" : "SOURCES"}`, `<div class="depth-evidence-state"><span class="depth-body-label">Evidence review</span><strong class="review-state">${esc(review)}</strong></div><div class="depth-context"><span class="depth-body-label">Source basis</span><div class="source-links">${src}</div></div>`),
+      depthDrawer("pathway", "Pathway & proof", hasPathway ? "REVIEWED CONTEXT" : "BASELINE", pathwayBody, hasPathway ? "reviewed" : "baseline"),
+    ]);
+
     return `<div class="material-detail">
       <div class="detail-title"><span class="big-symbol">${esc(form.symbol)}</span>
-      <div>${primary}<p class="eyebrow">ENGINEERED MATERIAL / SYSTEM</p><h2${titleId}>${esc(form.name)}</h2><p>${esc(form.context)}${formula}</p></div></div>
-      <section><span class="detail-label">Evidence review</span><strong class="review-state">${esc(review)}</strong></section>
-      <section><span class="detail-label">Related critical minerals</span><div class="chips">${relationships}</div></section>
-      <section><span class="detail-label">Source basis</span><div class="source-links">${src}</div></section>
-      ${action}
+      <div><p class="eyebrow">ENGINEERED MATERIAL / SYSTEM</p><h2${titleId}>${esc(form.name)}</h2><p>${esc(form.context)}${formula}</p></div></div>
+      ${rail}
     </div>`;
   }
 
