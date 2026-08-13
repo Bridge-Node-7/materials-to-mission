@@ -4,8 +4,8 @@ message: "Cite this repository as the Bridge Node 7 Materials-to-Mission public 
 type: software
 authors:
   - name: Bridge Node 7
-version: 0.6.1
-date-released: 2026-08-12
+version: 0.7.0
+date-released: 2026-08-13
 license: MIT
 repository-code: https://github.com/Bridge-Node-7/materials-to-mission
 url: https://bridgenode7.com/
