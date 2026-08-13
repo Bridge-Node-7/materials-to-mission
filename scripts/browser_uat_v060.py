@@ -47,6 +47,13 @@ def assert_core_arrival(page,checks):
     record(checks,'09-no-gallium-arrival-privilege',visual[:3]==visual[3:])
     no_horizontal_overflow(page); record(checks,'10-no-horizontal-overflow-arrival')
 
+def assert_material_system_accessible_names(page):
+    buttons=page.locator('#forms .form-card button[data-form-id]')
+    assert buttons.count()==10, buttons.count()
+    labels=buttons.evaluate_all("els => els.map(e => e.getAttribute(\'aria-label\'))")
+    assert len(labels)==10 and all(labels), labels
+    assert len(set(labels))==10, labels
+    assert all(label.startswith('Open detail: ') for label in labels), labels
 def exercise_search(page,checks):
     search=page.locator('#globalSearch')
     search.fill('Gallium'); search.press('ArrowDown')
@@ -196,7 +203,7 @@ def main():
             context=browser.new_context(viewport={'width':width,'height':height},reduced_motion='reduce')
             page=context.new_page(); page.on('console',lambda m: errors.append(f'console:{m.type}:{m.text}') if m.type=='error' else None); page.on('pageerror',lambda e: errors.append(f'pageerror:{e}'))
             page.goto(args.base_url,wait_until='networkidle',timeout=60000)
-            assert_core_arrival(page,checks); exercise_search(page,checks); exercise_filter(page,checks); exercise_list_and_nonreviewed(page,width,checks); sources=exercise_gallium_proof(page,width,checks); exercise_yig_parent(page,width,checks); exercise_legacy_hashes(page,width,checks); assert_csp_and_navigation(page)
+            assert_core_arrival(page,checks); assert_material_system_accessible_names(page); exercise_search(page,checks); exercise_filter(page,checks); exercise_list_and_nonreviewed(page,width,checks); sources=exercise_gallium_proof(page,width,checks); exercise_yig_parent(page,width,checks); exercise_legacy_hashes(page,width,checks); assert_csp_and_navigation(page)
             no_horizontal_overflow(page)
             assert len(set(checks))==42, (len(checks),checks)
             if errors: raise AssertionError(errors)
@@ -214,9 +221,24 @@ def main():
         context=browser.new_context(viewport={'width':375,'height':812},is_mobile=True,has_touch=True,reduced_motion='reduce'); page=context.new_page(); page.goto(args.base_url,wait_until='networkidle',timeout=60000); checks=[]; assert_core_arrival(page,checks); page.locator('.mineral[data-id="gallium"]').tap(); sheet=page.locator('#materialSheet'); assert sheet.get_attribute('open') is not None and 'Gallium' in sheet.inner_text(); results.append({'profile':'mobile-touch','status':'PASS'}); context.close()
         # Grayscale / non-color selected state
         context=browser.new_context(viewport={'width':1280,'height':720},reduced_motion='reduce'); page=context.new_page(); page.goto(args.base_url,wait_until='networkidle',timeout=60000); page.evaluate("document.documentElement.style.filter='grayscale(1)'"); gallium=page.locator('.mineral[data-id="gallium"]'); cobalt=page.locator('.mineral[data-id="cobalt"]'); gallium.click(); assert gallium.get_attribute('aria-current')=='true'; assert 'selected' in (gallium.get_attribute('class') or '').split(); page.wait_for_function("""() => {const ga=document.querySelector('.mineral[data-id="gallium"]'); const co=document.querySelector('.mineral[data-id="cobalt"]'); if(!ga||!co) return false; const a=new DOMMatrixReadOnly(getComputedStyle(ga).transform); const b=new DOMMatrixReadOnly(getComputedStyle(co).transform); return Math.abs(a.a-b.a)>.15;}""",timeout=3000); state=page.evaluate("""() => {const ga=document.querySelector('.mineral[data-id="gallium"]'); const co=document.querySelector('.mineral[data-id="cobalt"]'); const a=getComputedStyle(ga); const b=getComputedStyle(co); const aspan=getComputedStyle(ga.querySelector('span')); const bspan=getComputedStyle(co.querySelector('span')); return {selected:{transform:a.transform,borderWidth:a.borderWidth,fontSize:aspan.fontSize},peer:{transform:b.transform,borderWidth:b.borderWidth,fontSize:bspan.fontSize}};}"""); assert state['selected']['borderWidth']!=state['peer']['borderWidth'], state; assert state['selected']['transform']!=state['peer']['transform'], state; assert state['selected']['fontSize']!=state['peer']['fontSize'], state; results.append({'profile':'grayscale-noncolor-state','status':'PASS','state':state}); context.close()
+        # Programmatic reduced-motion behavior
+        context=browser.new_context(viewport={'width':1280,'height':720},reduced_motion='reduce')
+        context.add_init_script("window.__m2mScrollBehaviors = []; const __m2mOriginalScrollIntoView = Element.prototype.scrollIntoView; Element.prototype.scrollIntoView = function(options) { if (options && typeof options === 'object') window.__m2mScrollBehaviors.push(options.behavior || null); return __m2mOriginalScrollIntoView.call(this, options); };")
+        page=context.new_page(); page.goto(args.base_url,wait_until='networkidle',timeout=60000)
+        page.wait_for_function("Array.isArray(window.__m2mScrollBehaviors)")
+        page.locator('.mineral[data-id=\"gallium\"]').click()
+        page.locator('#desktopDetail [data-depth=\"trace\"]').click()
+        page.wait_for_function("document.body.dataset.depth === 'trace'")
+        page.wait_for_timeout(100)
+        behaviors=page.evaluate("window.__m2mScrollBehaviors")
+        assert behaviors and set(behaviors)=={'auto'}, behaviors
+        results.append({'profile':'reduced-motion-programmatic-scroll','status':'PASS','behaviors':behaviors})
+        context.close()
         # No JS evidence contract
         context=browser.new_context(viewport={'width':375,'height':812},java_script_enabled=False); page=context.new_page(); page.goto(args.base_url,wait_until='domcontentloaded',timeout=60000); assert page.locator('h1').inner_text().strip()=='Materials-to-Mission Atlas'; assert page.locator('.mineral').count()==60; assert page.locator('.ga-claim').count()==7; assert page.locator('.ga-source-card').count()==4; assert_csp_and_navigation(page); no_horizontal_overflow(page); results.append({'profile':'no-js','status':'PASS'}); context.close()
         browser.close()
+    expected_profiles=len(VIEWPORTS)+7
+    assert len(results)==expected_profiles, (len(results),expected_profiles)
     (out/'browser-uat.json').write_text(json.dumps({'status':'PASS','results':results,'release_gate':'A1-A9 plus automated browser/accessibility contract','human_device_at_attestation':'OPEN_NOT_ASSERTED'},indent=2)+'\n',encoding='utf-8')
     print(f'PASS - browser UAT {len(results)} profiles; 42-contract exercised at {len(VIEWPORTS)} viewports')
     return 0

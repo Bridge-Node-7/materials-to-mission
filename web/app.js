@@ -37,6 +37,8 @@
   let activeLens = "all";
   let selectedId = null;
   let activeResult = -1;
+  const preferredScrollBehavior = () =>
+    matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
 
   function announce(message) {
     if (!experienceStatus) return;
@@ -56,7 +58,7 @@
     }[state] || [];
     depthSections.forEach(section => section.classList.toggle("is-revealed", visible.includes(section.id)));
     document.body.dataset.depth = state;
-    if (scrollId) requestAnimationFrame(() => document.getElementById(scrollId)?.scrollIntoView({block:"start", behavior:"smooth"}));
+    if (scrollId) requestAnimationFrame(() => document.getElementById(scrollId)?.scrollIntoView({block:"start", behavior:preferredScrollBehavior()}));
   }
   function clearSelection({announceState=false}={}) {
     selectedId = null;
@@ -466,7 +468,7 @@ const esc = value => String(value).replace(/[&<>"']/g, char => ({
     index.classList.toggle("is-active", showIndex);
     constellationBtn.setAttribute("aria-pressed", String(!showIndex));
     indexBtn.setAttribute("aria-pressed", String(showIndex));
-    if (showIndex && scroll) index.scrollIntoView({block:"start",behavior:"smooth"});
+    if (showIndex && scroll) index.scrollIntoView({block:"start",behavior:preferredScrollBehavior()});
     announce(showIndex ? "List view." : "Materials-to-Mission Atlas map view.");
     if (showIndex && focus) {
       const title = document.getElementById("index-title");
