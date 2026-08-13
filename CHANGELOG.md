@@ -4,7 +4,25 @@ All notable changes are documented here.
 
 ## Unreleased
 
-No changes recorded after v0.6.1.
+No changes recorded after v0.7.0.
+
+## [0.7.0] - 2026-08-13
+### Added
+- Added a universal four-layer progressive-disclosure grammar for selected materials: Connections, Material systems, Evidence basis, and Pathway & proof.
+- Added a compact **Selected pathways** index with exactly two bounded public deeper examples: Gallium and YIG.
+- Added direct, intentional routes from the pathway index to Gallium Trace and YIG Source-to-Mission context.
+
+### Refined
+- Kept `Materials-to-Mission Atlas` on one rendered line at release-tested desktop widths while preserving responsive wrapping on compact screens.
+- Constrained the selected-pathways experience to the same visual frame as the Atlas.
+- Clarified Gallium as a **critical mineral / reviewed pathway** and YIG as an **engineered material system / reviewed context**.
+- Preserved ordinary-material usefulness without implying reviewed depth where none is released.
+
+### Assurance
+- Human desktop visual UX/UAT accepted the selected-pathways interaction model on August 13, 2026.
+- Release closeout requires the existing browser contract plus an external 72×72 deterministic UAT matrix: 72 scenario configurations × 72 acceptance probes = 5,184 evaluated cells.
+- Frozen GA-001, MF-001, and YIG-001 evidence is unchanged. M0 remains M0.
+
 ## [0.6.1] - 2026-08-12
 ### Corrected
 - Made programmatic Atlas scrolling honor `prefers-reduced-motion: reduce`.
