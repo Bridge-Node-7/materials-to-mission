@@ -1,7 +1,7 @@
 # Validation Report
 
 **Project:** Materials-to-Mission
-**Version:** 0.6.0
+**Version:** 0.6.1
 **Validation profile:** m0-strict-0.4.0
 **Status:** PASS within the stated public synthetic scope
 

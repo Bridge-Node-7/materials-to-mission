@@ -18,7 +18,7 @@ The method keeps uncertainty visible and stops a continuous evidence path at the
 
 ## What You Can Do
 
-- Explore the 60-mineral Strategic Constellation and engineered-material systems.
+- Explore the 60-mineral Materials-to-Mission Atlas and engineered-material systems.
 - Inspect Gallium GA-001 as a bounded reviewed public-source pathway.
 - Examine YIG as bounded public research context without turning research into readiness.
 - Validate synthetic or public-safe records against explicit evidence rules.
