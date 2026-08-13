@@ -72,7 +72,7 @@ jobs:
             echo "Release already exists" >&2
             exit 1
           fi
-          gh release create "${GITHUB_REF_NAME}" --draft --verify-tag             --title "Materials-to-Mission ${GITHUB_REF_NAME} — M0 Public Visual Experience"             --notes-file "$notes_file"
+          gh release create "${GITHUB_REF_NAME}" --draft --verify-tag             --title "Materials-to-Mission ${GITHUB_REF_NAME} — FIELD → FOCUS → PROOF"             --notes-file "$notes_file"
           gh release upload "${GITHUB_REF_NAME}"             "$archive"             dist/SHA256SUMS             dist/release-manifest.json             REPO_FILE_MANIFEST.sha256             VALIDATION_REPORT.md
           expected="$(printf '%s\n' REPO_FILE_MANIFEST.sha256 SHA256SUMS VALIDATION_REPORT.md "materials-to-mission-${GITHUB_REF_NAME}.zip" release-manifest.json | sort)"
           observed="$(gh release view "${GITHUB_REF_NAME}" --json assets --jq '.assets[].name' | sort)"

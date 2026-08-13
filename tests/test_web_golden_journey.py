@@ -9,8 +9,8 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def test_strategic_constellation_is_first_public_experience() -> None:
     html = (ROOT / "web/index.html").read_text(encoding="utf-8")
-    assert "Strategic Constellation" in html
-    assert "A visual map of critical minerals by application connection." in html
+    assert "Materials-to-Mission Atlas" in html
+    assert "Explore critical minerals, their application connections, and reviewed pathways where public evidence is available." in html
     assert 'id="atlas"' in html
     assert 'id="trace"' in html
     assert 'id="examine"' in html
@@ -50,7 +50,8 @@ def test_accessibility_and_reduced_motion_contract() -> None:
 
 def test_mobile_default_does_not_auto_open_material_sheet() -> None:
     js = (ROOT / "web/app.js").read_text(encoding="utf-8")
-    assert 'selectMaterial("gallium", {pushHash:false, openSheet:false})' in js
+    assert 'let selectedId = null' in js
+    assert 'selectMaterial("gallium", {pushHash:false, openSheet:false})' not in js
     assert 'openSheet && matchMedia("(max-width:1160px)").matches' in js
 
     assert 'centerMaterialInViewport(material.id)' in js

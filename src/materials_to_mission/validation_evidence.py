@@ -90,7 +90,7 @@ def render_validation_report(
 - Semantic validation: PASS
 - Public-boundary validation: PASS
 - Adversarial fixtures: PASS
-- Unit and integration tests: {test_count} collected; all runnable tests PASS
+- Unit and integration tests: all runnable tests PASS
 - Platform-dependent test policy: only the three documented symlink-unavailable cases may skip
 - Combined statement and branch coverage: PASS at or above the 95 percent floor
 - Markdown relative links: PASS

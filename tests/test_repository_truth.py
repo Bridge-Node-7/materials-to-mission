@@ -35,8 +35,9 @@ def test_external_release_authority_remains_durable() -> None:
 
 def test_unevidenced_human_uat_is_not_promoted() -> None:
     facts = json.loads((ROOT / "PROJECT_FACTS.json").read_text(encoding="utf-8"))
-    assert facts["browser_uat_status"] == "automated-browser-validated-human-device-uat-not-recorded"
+    assert facts["browser_uat_status"] == "v0.6.0-browser-gate-required-before-release; A1-A9 automated closeout plus browser contract; human-device-AT not separately attested"
     assert facts["browser_uat_profile_count"] == 0
+    assert facts["browser_uat_configured_profile_count"] == 12
     for key in (
         "browser_uat_accessibility", "browser_uat_narrow_320", "browser_uat_performance",
         "browser_uat_primary", "browser_uat_reduced_motion", "browser_uat_security",
@@ -47,6 +48,8 @@ def test_unevidenced_human_uat_is_not_promoted() -> None:
 def test_visual_baseline_identity_is_preserved() -> None:
     facts = json.loads((ROOT / "PROJECT_FACTS.json").read_text(encoding="utf-8"))
     assert facts["visual_experience_baseline_version"] == "0.5.0"
+    assert facts["visual_experience_candidate_version"] == "0.6.0"
+    assert facts["visual_experience_candidate_status"] == "release-gated-field-focus-proof"
     assert facts["visual_experience_status"] == "production-validated-r6-3-3-baseline"
     assert facts["production_deployment_readback"] == "PASS_V050_EXACT_PUBLIC_BYTES"
 
@@ -56,7 +59,7 @@ def test_public_safe_scope_is_machine_unambiguous() -> None:
     assert facts["public_safe_examples_scope"] == "examples-directory-only"
     assert facts["public_source_snapshots_authorized"] is True
     assert facts["restricted_case_data_present"] is False
-    assert facts["browser_uat_required_for_current_m0_gate"] is False
+    assert facts["browser_uat_required_for_current_m0_gate"] is True
 
 
 def test_codeql_covers_python_and_browser_javascript() -> None:

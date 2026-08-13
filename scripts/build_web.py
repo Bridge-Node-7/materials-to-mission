@@ -309,9 +309,9 @@ def detail_html(material, forms, sources, sheet=False):
     title_id = ' id="sheetTitle"' if sheet else ""
     rare = "RARE EARTH · " if material["rare_earth"] else ""
     action = (
-        '<a class="detail-action" href="#trace">Follow reviewed pathway →</a>'
-        if material["id"] == "gallium"
-        else '<a class="detail-action" href="#sources">View source basis →</a>'
+        '<a class="detail-action" href="#trace" data-depth="trace">Reviewed pathway available →</a>'
+        if material["review"]["code"] == "reviewed-pathway"
+        else ""
     )
     context_section = (
         '<section><span class="detail-label">Policy context</span>'
@@ -347,6 +347,9 @@ def render(template, payload):
     sources = payload["sources"]
     view = payload["ga001"]["view"]
     snapshot = payload["ga001"]["snapshot"]
+    ga_source_register = payload["ga001"]["sources"]
+    ga_sources = ga_source_register["sources"]
+    ga_source_by = {source["source_id"]: source for source in ga_sources}
     yig_pathway = payload["yig001"]
 
     lens_buttons = "".join(
@@ -364,8 +367,7 @@ def render(template, payload):
         f'<a class="mineral{" rare" if material["rare_earth"] else ""}" '
         f'href="#material-{esc(material["id"])}" data-id="{esc(material["id"])}" '
         f'style="--x:{material["position"]["x"]}%;--y:{material["position"]["y"]}%" '
-        f'aria-label="{esc(material["name"])}{", rare earth" if material["rare_earth"] else ""}, '
-        f'{esc(material["review"]["label"])}"><span>{esc(material["symbol"])}</span></a>'
+        f'aria-label="{esc(material["name"])}{", rare earth" if material["rare_earth"] else ""}, USGS 2025 critical mineral"><span>{esc(material["symbol"])}</span></a>'
         for material in atlas["materials"]
     )
 
@@ -411,12 +413,20 @@ def render(template, payload):
     )
 
     claim_by = {claim["claim_id"]: claim for claim in snapshot["claims"]}
+    def ga_source_ref(source_id):
+        if source_id not in ga_source_by:
+            raise SystemExit("STOP - unresolved GA-001 claim source during render")
+        return (
+            f'<a class="ga-source-ref" href="#ga-source-{esc(source_id)}" '
+            f'data-ga-source-id="{esc(source_id)}">{esc(source_id)} →</a>'
+        )
     ga_claim_items = "".join(
         '<li class="ga-claim">'
         f'<span class="claim-id">{esc(claim["claim_id"])}</span>'
         f'<p>{esc(claim["claim"])}</p>'
-        f'<small>{esc(claim["support_state"].title())} · {esc(", ".join(claim["source_ids"]))}</small>'
-        '</li>'
+        f'<small>{esc(claim["support_state"].title())} · '
+        + " ".join(ga_source_ref(source_id) for source_id in claim["source_ids"])
+        + '</small></li>'
         for claim in snapshot["claims"]
     )
     support_items = []
@@ -429,14 +439,16 @@ def render(template, payload):
             '</summary><div class="support-body"><div class="support-meta">'
             f'<div><span>Source label</span><b>{esc(item["source_label"])}</b></div>'
             f'<div><span>Source date</span><b>{esc(item["source_date"] or "Undated")}</b></div>'
-            f'<div><span>Validation profile</span><b>{esc(view["validation_profile"])}</b></div>'
-            f'<div><span>Claim source IDs</span><b>{esc(", ".join(claim["source_ids"]))}</b></div>'
+            f'<div><span>GA-001 snapshot validation profile</span><b>{esc(view["validation_profile"])}</b></div>'
+            '<div><span>Claim source IDs</span><b class="claim-source-links">'
+            + " ".join(ga_source_ref(source_id) for source_id in claim["source_ids"])
+            + '</b></div>'
             '</div></div></details>'
         )
 
     action_copy = {
         "monitor": "Keep the evidence state visible and reassess when material conditions change.",
-        "validate": "Target the highest-consequence unknown with a defined proof request before advancing the pathway.",
+        "validate": "Target the first unresolved link with a defined proof request before advancing the pathway.",
         "support": "Direct bounded support toward evidence or capability that closes a named pathway gap without implying qualification.",
     }
     actions = "".join(
@@ -548,17 +560,39 @@ def render(template, payload):
         for source in sources
     )
 
-    gallium = next(material for material in atlas["materials"] if material["id"] == "gallium")
+    source_claim_ids = {
+        source["source_id"]: [
+            claim["claim_id"] for claim in snapshot["claims"]
+            if source["source_id"] in claim["source_ids"]
+        ]
+        for source in ga_sources
+    }
+    ga_source_cards = "".join(
+        f'<article id="ga-source-{esc(source["source_id"])}" class="ga-source-card">'
+        f'<span class="source-id">{esc(source["source_id"])}</span>'
+        f'<h4>{esc(source["title"])}</h4>'
+        f'<p>{esc(source["publisher"])}</p>'
+        f'<small>{esc(source.get("source_date") or "Undated source page")} · accessed {esc(source["accessed_date"])}</small>'
+        f'<p class="source-authority">{esc(source["authority"].replace("-", " "))}</p>'
+        f'<p class="source-scope">Supports: {esc(", ".join(source_claim_ids[source["source_id"]]))}</p>'
+        f'<a href="{esc(source["url"])}" target="_blank" rel="noopener noreferrer">View official source ↗</a>'
+        '</article>'
+        for source in ga_sources
+    )
+    neutral_detail = (
+        '<div class="neutral-detail"><p class="eyebrow">EXPLORE</p><h2>Choose a material</h2>'
+        '<p>Explore its applications, related material systems, public sources, and reviewed pathways where available.</p></div>'
+    )
     embedded = json.dumps(
-        {"atlas": atlas, "forms": forms, "sources": sources, "yig001": yig_pathway},
+        {"atlas": atlas, "forms": forms, "sources": sources, "yig001": yig_pathway, "ga001": payload["ga001"]},
         separators=(",", ":"), ensure_ascii=False
-    ).replace("<", "\\u003c")
+    ).replace("<", "\u003c")
 
     replacements = {
         "<!-- R6:LENSES -->": lens_buttons,
         "<!-- R6:ZONES -->": zones,
         "<!-- R6:MINERALS -->": mineral_nodes,
-        "<!-- R6:INITIAL_DETAIL -->": detail_html(gallium, forms, sources, False),
+        "<!-- R6:INITIAL_DETAIL -->": neutral_detail,
         "<!-- R6:INDEX -->": "".join(index_rows),
         "<!-- R6:TRACE -->": "".join(trace_nodes),
         "<!-- R6:SUPPORTED -->": supported,
@@ -569,6 +603,7 @@ def render(template, payload):
         "<!-- R6:FORMS -->": "".join(form_cards),
         "<!-- R6:YIG_PATHWAY -->": yig_pathway_html,
         "<!-- R6:SOURCES -->": source_cards,
+        "<!-- R6:GA_SOURCES -->": ga_source_cards,
         "<!-- R6:DATA -->": embedded,
     }
     rendered = template

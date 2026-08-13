@@ -45,9 +45,10 @@ def test_yig_sources_are_public_primary_sources() -> None:
 def test_r63_interaction_contracts_are_in_source() -> None:
     js=(ROOT/"web/app.js").read_text(encoding="utf-8")
     assert "enableConstellationKeyboard()" in js
-    assert 'node.tabIndex = on ? 0 : -1' in js
+    assert 'node.tabIndex = on ? 0 : (!id && index === 0 ? 0 : -1)' in js
     assert "directionalNeighbor" in js
     assert 'if (!hash.startsWith("#material-") && !hash.startsWith("#form-") && sheet.open)' in js
-    assert 'href="#yig-pathway"' in js
+    assert 'if (hash === "#yig-pathway")' in js
+    assert 'setDepthState("yig"' in js
     assert 'related-parent' in js
     assert 'form-mode' in js
