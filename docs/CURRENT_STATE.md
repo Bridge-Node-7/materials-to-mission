@@ -1,10 +1,10 @@
 # Current State
 
-**As of August 11, 2026**
+**As of August 12, 2026**
 
 Materials-to-Mission remains an **M0 experimental public method**.
 
-This source line is version `0.5.3`. It preserves the `v0.5.0` Precision
+This source line is version `0.6.0`. It preserves the `v0.5.0` Precision
 Evidence Experience baseline. `v0.5.1` reconciled release truth; `v0.5.2`
 simplified the current public repository surface without changing evidence
 semantics, canonical schema authority, validation-profile authority, or the M0 boundary.
@@ -26,7 +26,8 @@ and YIG-001 as bounded Reviewed Public Context.
 public visual and evidence baseline.
 `v0.5.3` adds production-readback capability, browser-security hardening, and
 institutional continuity without changing evidence semantics, schema authority,
-validation-profile behavior, or the M0 boundary. External publication identity is not
+validation-profile behavior, or the M0 boundary.
+`v0.6.0` changes public presentation/state orchestration to FIELD → FOCUS → PROOF, adds human-executable GA-001 provenance and durable browser regression, and preserves the same evidence, maturity, schema, and authority boundaries. External publication identity is not
 self-declared by repository metadata. Verified signed GitHub tags, immutable GitHub Releases,
 release manifests, checksums, deterministic archives, and hosted validation
 govern published-release identity.
@@ -35,7 +36,7 @@ govern published-release identity.
 
 The public visual baseline preserves:
 
-- the Strategic Constellation across the 60-mineral field;
+- the Materials-to-Mission Atlas across the exact 60-mineral USGS 2025 field;
 - Gallium GA-001 as a public-source evidence snapshot, not a real Case 001;
 - YIG-001 as Reviewed Public Context, not qualification or mission readiness;
 - public view contract 0.3.0 as derived and non-authoritative;
@@ -62,8 +63,7 @@ remain explicitly unevidenced. They are not silently converted to PASS.
 
 **CLOSED for the current M0 capability baseline.**
 
-No additional public capability, visual redesign, schema expansion, or
-autonomous decision authority is required by this maintenance line.
+The v0.6.0 presentation update is complete only when repository validation, browser UAT, production readback, and release controls pass. No M1, schema expansion, or autonomous decision authority is implied.
 
 ## M1 Status
 

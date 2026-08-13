@@ -4,8 +4,28 @@ All notable changes are documented here.
 
 ## Unreleased
 
+No changes recorded after v0.6.0.
 
-No changes recorded after v0.5.2.
+## [0.6.0] - 2026-08-12
+### Changed
+- Reframed the public experience around **FIELD → FOCUS → PROOF** progressive disclosure while preserving M0 evidence meaning and human consequential authority.
+- Replaced the public `Strategic Constellation` title with **Materials-to-Mission Atlas**, simplified first-contact language, removed default Gallium selection, and made deeper pathway/evidence content contextual.
+- Preserved deterministic application-derived atlas geometry while making selected material, related material systems, reviewed pathways, and proof depth respond to user intent.
+### Corrected
+- Made all seven GA-001 claim source references navigate to the dedicated controlled GA-001 source registry and authoritative USGS/DOE URLs.
+- Kept general Materials Field Sources and GA-001 Reviewed Sources visibly separate without aliasing identifiers or normalizing distinct source dates.
+- Clarified the historical `m0-strict-0.2.0` value as the **GA-001 snapshot validation profile** while retaining `m0-strict-0.4.0` as the current default profile.
+- Added combobox `aria-activedescendant`, result-count announcements, neutral keyboard entry, legacy hash compatibility, and deterministic selection/filter behavior.
+- Restored the missing v0.5.3 history in this changelog.
+### Assurance
+- Added v0.6.0 public-surface regression coverage and durable multi-viewport Chromium UAT in CI.
+- Preserved the exact 60-mineral USGS 2025 field, 15 rare earth elements, frozen GA-001 v1.0.0 evidence, YIG engineered-system classification, no-score behavior, public/private boundary, and canonical v0.1.0 schema authority.
+
+## [0.5.3] - 2026-08-12
+### Hardened
+- Added post-deploy anonymous production byte readback and preserved deterministic Pages publication.
+- Added CSP/browser-security hardening, forced-colors and increased-contrast support, safer search-result DOM construction, and public continuity checks.
+- Preserved GA-001 evidence meaning, schema authority, M0 maturity, and human consequential authority.
 
 ## [0.5.2] - 2026-08-11
 

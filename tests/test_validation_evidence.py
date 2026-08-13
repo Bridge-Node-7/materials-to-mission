@@ -11,13 +11,15 @@ from materials_to_mission.validation_evidence import (
 
 
 def test_validation_report_is_host_independent():
-    report = render_validation_report(70, "0.1.1")
-    assert "70 collected; all runnable tests PASS" in report
-    assert "**Version:** 0.1.1" in report
-    assert "95 percent floor" in report
-    assert "96.88" not in report
-    assert "96.40" not in report
-
+    windows_like = render_validation_report(test_count=226, version="0.6.0")
+    linux_like = render_validation_report(test_count=227, version="0.6.0")
+    assert windows_like == linux_like
+    assert "Unit and integration tests: all runnable tests PASS" in windows_like
+    assert "226 collected" not in windows_like
+    assert "227 collected" not in windows_like
+    assert "95 percent floor" in windows_like
+    assert "96.88" not in windows_like
+    assert "96.40" not in windows_like
 
 def test_parse_and_validate_junit_without_skips(tmp_path: Path):
     path = tmp_path / "pytest.xml"
