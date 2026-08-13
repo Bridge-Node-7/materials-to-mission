@@ -8,6 +8,7 @@
   const forms = payload.forms;
   const sources = payload.sources;
   const yigPathway = payload.yig001;
+  const ga001 = payload.ga001;
   const materials = atlas.materials;
   const byId = Object.fromEntries(materials.map(item => [item.id, item]));
   const byName = Object.fromEntries(materials.map(item => [item.name, item]));
@@ -31,9 +32,10 @@
   const constellationBtn = document.getElementById("constellationView");
   const indexBtn = document.getElementById("indexView");
   const experienceStatus = document.getElementById("experienceStatus");
-
+  const workspace = document.getElementById("constellationPanel");
+  const depthSections = [...document.querySelectorAll(".contextual-depth")];
   let activeLens = "all";
-  let selectedId = "gallium";
+  let selectedId = null;
   let activeResult = -1;
 
   function announce(message) {
@@ -41,7 +43,35 @@
     experienceStatus.textContent = message;
   }
 
-  const esc = value => String(value).replace(/[&<>"']/g, char => ({
+  function clearActiveDescendant() {
+    search.removeAttribute("aria-activedescendant");
+    activeResult = -1;
+  }
+  function setDepthState(state, {scrollId=null}={}) {
+    const visible = {
+      arrival: [], explore: [], trace: ["gallium", "trace"],
+      "trace-next": ["gallium", "trace", "decision"],
+      proof: ["gallium", "trace", "examine", "decision", "sources"],
+      forms: ["forms"], yig: ["forms", "yig-pathway", "sources"], sources: ["sources"]
+    }[state] || [];
+    depthSections.forEach(section => section.classList.toggle("is-revealed", visible.includes(section.id)));
+    document.body.dataset.depth = state;
+    if (scrollId) requestAnimationFrame(() => document.getElementById(scrollId)?.scrollIntoView({block:"start", behavior:"smooth"}));
+  }
+  function clearSelection({announceState=false}={}) {
+    selectedId = null;
+    field.classList.remove("form-mode");
+    nodes.forEach((node,index) => {
+      node.classList.remove("selected", "related-parent", "selected-exception");
+      node.removeAttribute("aria-current");
+      node.tabIndex = index === 0 ? 0 : -1;
+    });
+    svg.replaceChildren(); workspace.classList.remove("has-selection");
+    detail.innerHTML = '<div class="neutral-detail"><p class="eyebrow">EXPLORE</p><h2>Choose a material</h2><p>Explore its applications, related material systems, public sources, and reviewed pathways where available.</p></div>';
+    setDepthState("arrival"); if (sheet.open) sheet.close();
+    if (announceState) announce("Materials-to-Mission Atlas. No material selected.");
+  }
+const esc = value => String(value).replace(/[&<>"']/g, char => ({
     "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
   })[char]);
 
@@ -70,10 +100,9 @@
           `<button type="button" class="form-chip" data-form-id="${esc(form.id)}">${esc(form.symbol)} · ${esc(form.name)}</button>`
         ).join("")
       : `<span>No public material system linked in this release.</span>`;
-    const action = material.id === "gallium"
-      ? `<a class="detail-action" href="#trace">Follow reviewed pathway →</a>`
-      : `<a class="detail-action" href="#sources">View source basis →</a>`;
-
+    const action = material.review?.code === "reviewed-pathway"
+      ? `<a class="detail-action" data-depth="trace" href="#trace">Reviewed pathway available →</a><small class="review-boundary">Public-source review · not qualification</small>`
+      : "";
     return `<div class="material-detail">
       <div class="detail-title">
         <span class="big-symbol">${esc(material.symbol)}</span>
@@ -103,12 +132,12 @@
       .join("");
     const titleId = sheetMode ? ' id="sheetTitle"' : "";
     const review = form.review?.label || "Public Context";
-    const primary = form.primary_example ? `<span class="primary-badge">Primary example</span>` : "";
+    const primary = "";
     const displayFormula = form.id === "yig" ? "Y₃Fe₅O₁₂" : form.formula;
     const formula = displayFormula ? ` · ${esc(displayFormula)}` : "";
-    const action = form.pathway_id === "YIG-001"
-      ? `<a class="detail-action" href="#yig-pathway">Trace YIG source-to-mission path →</a>`
-      : `<a class="detail-action" href="#forms">Explore material systems →</a>`;
+    const action = form.pathway_id
+      ? `<a class="detail-action" data-depth="${esc(form.pathway_id === "YIG-001" ? "yig" : "forms")}" href="${form.pathway_id === "YIG-001" ? "#yig-pathway" : "#forms"}">Reviewed context available →</a>`
+      : "";
     return `<div class="material-detail">
       <div class="detail-title"><span class="big-symbol">${esc(form.symbol)}</span>
       <div>${primary}<p class="eyebrow">ENGINEERED MATERIAL / SYSTEM</p><h2${titleId}>${esc(form.name)}</h2><p>${esc(form.context)}${formula}</p></div></div>
@@ -126,15 +155,21 @@
     root.querySelectorAll(".parent-link").forEach(button =>
       button.addEventListener("click", () => selectMaterial(button.dataset.parentId, {pushHash:true, openSheet:true}))
     );
+    root.querySelectorAll("[data-depth]").forEach(link => link.addEventListener("click", event => {
+      event.preventDefault(); const target = link.dataset.depth;
+      if (target === "trace") { setDepthState("trace", {scrollId:"trace"}); setHash("#trace", true); }
+      else if (target === "yig") { setDepthState("yig", {scrollId:"yig-pathway"}); setHash("#yig-pathway", true); }
+      else if (target === "forms") { setDepthState("forms", {scrollId:"forms"}); setHash("#forms", true); }
+    }));
   }
 
   function updateNodeState(id) {
-    selectedId = id;
-    nodes.forEach(node => {
-      const on = node.dataset.id === id;
+    selectedId = id; workspace.classList.toggle("has-selection", Boolean(id));
+    nodes.forEach((node,index) => {
+      const on = Boolean(id) && node.dataset.id === id;
       node.classList.toggle("selected", on);
-      node.setAttribute("aria-current", on ? "true" : "false");
-      node.tabIndex = on ? 0 : -1;
+      if (on) node.setAttribute("aria-current", "true"); else node.removeAttribute("aria-current");
+      node.tabIndex = on ? 0 : (!id && index === 0 ? 0 : -1);
     });
   }
 
@@ -161,8 +196,8 @@
   }
 
   function enableConstellationKeyboard() {
-    nodes.forEach(node => {
-      node.tabIndex = node.dataset.id === selectedId ? 0 : -1;
+    nodes.forEach((node,index) => {
+      node.tabIndex = selectedId ? (node.dataset.id === selectedId ? 0 : -1) : (index === 0 ? 0 : -1);
       node.addEventListener("keydown", event => {
         if (!["ArrowRight","ArrowLeft","ArrowDown","ArrowUp"].includes(event.key)) return;
         event.preventDefault();
@@ -195,15 +230,15 @@
     field.classList.remove("form-mode");
     nodes.forEach(node => node.classList.remove("related-parent"));
     updateNodeState(id);
+    setDepthState("explore");
     detail.innerHTML = materialDetail(material, false);
     bindDetail(detail);
     drawConnections(material);
     requestAnimationFrame(() => centerMaterialInViewport(material.id));
-
     if (openSheet && matchMedia("(max-width:1160px)").matches) {
       sheetContent.innerHTML = materialDetail(material, true);
       bindDetail(sheetContent);
-      if (!sheet.open) sheet.showModal();
+      if (!sheet.open) sheet.show();
     }
     announce(`${material.name}. ${material.review.label}.`);
     if (pushHash) setHash(`#material-${material.id}`, true);
@@ -213,21 +248,19 @@
     const {pushHash=false, openSheet=true} = options;
     const form = formById[id];
     if (!form) return;
-
-    const parentIds = form.relationships
-      .map(rel => byName[rel.mineral]?.id)
-      .filter(Boolean);
+    const parentIds = form.relationships.map(rel => byName[rel.mineral]?.id).filter(Boolean);
     field.classList.add("form-mode");
+    setDepthState("explore");
+    workspace.classList.add("has-selection");
     nodes.forEach(node => node.classList.toggle("related-parent", parentIds.includes(node.dataset.id)));
     if (parentIds.length) updateNodeState(parentIds[0]);
-
     if (matchMedia("(min-width:1161px)").matches) {
       detail.innerHTML = formDetail(form, false);
       bindDetail(detail);
     } else if (openSheet) {
       sheetContent.innerHTML = formDetail(form, true);
       bindDetail(sheetContent);
-      if (!sheet.open) sheet.showModal();
+      if (!sheet.open) sheet.show();
     }
     announce(`${form.name}. ${form.review?.label || "Public context"}.`);
     if (pushHash) setHash(`#form-${form.id}`, true);
@@ -235,39 +268,18 @@
 
   function restoreFromHash({initial=false}={}) {
     const hash = location.hash;
-
-    if (!hash.startsWith("#material-") && !hash.startsWith("#form-") && sheet.open) {
-      sheet.close();
-    }
-    if (hash === "#indexPanel") {
-      setAtlasView("index", {focus:false, scroll:false});
-    } else if (!hash.startsWith("#indexPanel")) {
-      setAtlasView("constellation", {focus:false, scroll:false});
-    }
-
-    if (hash.startsWith("#material-")) {
-      const id = hash.slice(10);
-      if (byId[id]) {
-        selectMaterial(id, {pushHash:false, openSheet:true});
-        return;
-      }
-    }
-
-    if (hash.startsWith("#form-")) {
-      const id = hash.slice(6);
-      if (formById[id]) {
-        selectForm(id, {pushHash:false, openSheet:true});
-        return;
-      }
-    }
-
-    // Critical R6.2 correction:
-    // populate the default Gallium context without covering the first mobile viewport.
-    if (!hash || hash === "#atlas") {
-      selectMaterial("gallium", {pushHash:false, openSheet:false});
-    } else if (initial) {
-      selectMaterial("gallium", {pushHash:false, openSheet:false});
-    }
+    if (!hash.startsWith("#material-") && !hash.startsWith("#form-") && sheet.open) sheet.close();
+    if (hash === "#indexPanel") setAtlasView("index", {focus:false, scroll:false}); else setAtlasView("constellation", {focus:false, scroll:false});
+    if (hash.startsWith("#material-")) { const id=hash.slice(10); if (byId[id]) { selectMaterial(id,{pushHash:false,openSheet:true}); return; } }
+    if (hash.startsWith("#form-")) { const id=hash.slice(6); if (formById[id]) { selectForm(id,{pushHash:false,openSheet:true}); return; } }
+    if (hash === "#gallium") { selectMaterial("gallium",{pushHash:false,openSheet:true}); return; }
+    if (["#trace","#examine","#decision"].includes(hash)) { selectMaterial("gallium",{pushHash:false,openSheet:false}); const state=hash==="#trace"?"trace":(hash==="#decision"?"trace-next":"proof"); setDepthState(state,{scrollId:hash.slice(1)}); return; }
+    if (hash === "#yig-pathway") { selectForm("yig",{pushHash:false,openSheet:false}); setDepthState("yig",{scrollId:"yig-pathway"}); return; }
+    if (hash === "#forms") { clearSelection(); setDepthState("forms",{scrollId:"forms"}); return; }
+    if (hash === "#sources") { clearSelection(); setDepthState("sources",{scrollId:"sources"}); return; }
+    if (hash.startsWith("#ga-source-")) { selectMaterial("gallium",{pushHash:false,openSheet:false}); setDepthState("proof",{scrollId:hash.slice(1)}); return; }
+    if (!hash || hash === "#atlas" || initial) { clearSelection({announceState:initial}); return; }
+    clearSelection();
   }
 
   function applyLens() {
@@ -277,13 +289,17 @@
       const material = byId[node.dataset.id];
       const hit = !active || material.lenses.includes(activeLens);
       if (hit) count += 1;
-      node.classList.toggle("dim", Boolean(active) && !hit);
+      const selectedException = Boolean(active) && !hit && node.dataset.id === selectedId;
+      node.classList.toggle("dim", Boolean(active) && !hit && !selectedException);
+      node.classList.toggle("selected-exception", selectedException);
       node.classList.toggle("lens-hit", Boolean(active) && hit);
       if (active) node.style.setProperty("--active-lens", active.color);
       else node.style.removeProperty("--active-lens");
     });
-    lensCount.textContent = active ? `${count} connected materials` : "60 materials";
-    drawConnections(byId[selectedId]);
+    lensCount.textContent = active ? `${count} of 60 · ${active.label}` : "60 minerals · USGS 2025";
+    field.classList.toggle("lens-filtered", Boolean(active));
+    if (selectedId && active && !byId[selectedId].lenses.includes(activeLens)) announce(`${byId[selectedId].name}. Selected, outside current filter.`);
+    drawConnections(selectedId ? byId[selectedId] : null);
   }
 
   lensButtons.forEach(button => button.addEventListener("click", () => {
@@ -371,97 +387,44 @@
 
   function searchItems() {
     const query = search.value.trim().toLowerCase();
-    activeResult = -1;
-    if (!query) {
-      results.hidden = true;
-      search.setAttribute("aria-expanded", "false");
-      return;
-    }
-
-    const items = [
-      ...materials.map(item => ({...item, type:"mineral"})),
-      ...forms.map(item => ({...item, type:"form"}))
-    ]
-      .map(item => ({item, score:score(item, query)}))
-      .filter(entry => entry.score < 99)
-      .sort((a,b) => a.score - b.score || a.item.name.localeCompare(b.item.name))
-      .slice(0,12)
-      .map(entry => entry.item);
-
+    clearActiveDescendant();
+    if (!query) { results.hidden = true; search.setAttribute("aria-expanded", "false"); return; }
+    const items = [...materials.map(item => ({...item, type:"mineral"})), ...forms.map(item => ({...item, type:"form"}))]
+      .map(item => ({item, score:score(item, query)})).filter(entry => entry.score < 99)
+      .sort((a,b) => a.score - b.score || a.item.name.localeCompare(b.item.name)).slice(0,12).map(entry => entry.item);
     const renderSearchResult = item => {
-      const button = document.createElement("button");
-      button.type = "button";
-      button.className = "search-result";
-      button.setAttribute("role", "option");
-      button.setAttribute("aria-selected", "false");
-      button.dataset.resultType = item.type;
-      button.dataset.resultId = item.id;
-      const symbol = document.createElement("span");
-      symbol.className = "r-symbol";
-      symbol.textContent = item.symbol;
-      const label = document.createElement("span");
-      const name = document.createElement("strong");
-      name.textContent = item.name;
-      const kind = document.createElement("small");
-      kind.textContent = entityKindLabel(item);
-      label.append(name, kind);
-      const short = document.createElement("span");
-      short.textContent = entityShortLabel(item);
-      button.append(symbol, label, short);
-      return button;
+      const button = document.createElement("button"); button.type="button"; button.className="search-result";
+      button.setAttribute("role","option"); button.setAttribute("aria-selected","false");
+      button.id = `search-option-${item.type}-${item.id}`; button.dataset.resultType=item.type; button.dataset.resultId=item.id;
+      const symbol=document.createElement("span"); symbol.className="r-symbol"; symbol.textContent=item.symbol;
+      const label=document.createElement("span"); const name=document.createElement("strong"); name.textContent=item.name;
+      const kind=document.createElement("small"); kind.textContent=entityKindLabel(item); label.append(name,kind);
+      const short=document.createElement("span"); short.textContent=entityShortLabel(item); button.append(symbol,label,short); return button;
     };
     const renderNoResult = () => {
-      const row = document.createElement("div");
-      row.className = "search-result";
-      const symbol = document.createElement("span");
-      symbol.className = "r-symbol";
-      symbol.textContent = "0";
-      const label = document.createElement("span");
-      const name = document.createElement("strong");
-      name.textContent = "No public result";
-      const hint = document.createElement("small");
-      hint.textContent = "Try another official mineral or material system.";
-      label.append(name, hint);
-      row.append(symbol, label, document.createElement("span"));
-      return row;
+      const row=document.createElement("div"); row.className="search-result"; const symbol=document.createElement("span"); symbol.className="r-symbol"; symbol.textContent="0";
+      const label=document.createElement("span"); const name=document.createElement("strong"); name.textContent="No public result";
+      const hint=document.createElement("small"); hint.textContent="Try another official mineral or material system."; label.append(name,hint); row.append(symbol,label,document.createElement("span")); return row;
     };
     results.replaceChildren(...(items.length ? items.map(renderSearchResult) : [renderNoResult()]));
-
-    results.hidden = false;
-    search.setAttribute("aria-expanded", "true");
-    results.querySelectorAll("button").forEach(button =>
-      button.addEventListener("click", () => activateResult(button))
-    );
+    results.hidden=false; search.setAttribute("aria-expanded","true");
+    announce(items.length ? `${items.length} results available.` : "No public result.");
+    results.querySelectorAll("button").forEach(button => button.addEventListener("click", () => activateResult(button)));
   }
 
   function activateResult(button) {
-    results.hidden = true;
-    search.setAttribute("aria-expanded", "false");
-    search.value = "";
-
-    activeLens = "all";
-    lensButtons.forEach(item => {
-      const on = item.dataset.lens === "all";
-      item.classList.toggle("active", on);
-      item.setAttribute("aria-pressed", String(on));
-    });
+    results.hidden=true; search.setAttribute("aria-expanded","false"); clearActiveDescendant(); search.value=""; activeLens="all";
+    lensButtons.forEach(item => { const on=item.dataset.lens === "all"; item.classList.toggle("active",on); item.setAttribute("aria-pressed",String(on)); });
     applyLens();
-
-    if (button.dataset.resultType === "mineral") {
-      selectMaterial(button.dataset.resultId, {pushHash:true, openSheet:true});
-    } else {
-      selectForm(button.dataset.resultId, {pushHash:true, openSheet:true});
-    }
+    if (button.dataset.resultType === "mineral") selectMaterial(button.dataset.resultId,{pushHash:true,openSheet:true});
+    else selectForm(button.dataset.resultId,{pushHash:true,openSheet:true});
   }
 
   function moveResult(delta) {
-    const options = [...results.querySelectorAll("button[role=option]")];
-    if (!options.length) return;
-    activeResult = (activeResult + delta + options.length) % options.length;
-    options.forEach((option,index) =>
-      option.setAttribute("aria-selected", String(index === activeResult))
-    );
-    options[activeResult].scrollIntoView({block:"nearest"});
+    const options=[...results.querySelectorAll("button[role=option]")]; if (!options.length) return;
+    activeResult=(activeResult+delta+options.length)%options.length;
+    options.forEach((option,index)=>option.setAttribute("aria-selected",String(index===activeResult)));
+    options[activeResult].scrollIntoView({block:"nearest"}); search.setAttribute("aria-activedescendant",options[activeResult].id);
   }
 
   search.addEventListener("input", searchItems);
@@ -477,7 +440,7 @@
     } else if (event.key === "Escape") {
       results.hidden = true;
       search.setAttribute("aria-expanded", "false");
-      activeResult = -1;
+      clearActiveDescendant();
     }
   });
 
@@ -487,6 +450,10 @@
       selectForm(button.dataset.formId, {pushHash:true, openSheet:true});
     })
   );
+  const showNextProof = document.getElementById("showNextProof");
+  if (showNextProof) showNextProof.addEventListener("click", () => { setDepthState("trace-next", {scrollId:"decision"}); setHash("#decision", true); });
+  const showProof = document.getElementById("showProof");
+  if (showProof) showProof.addEventListener("click", () => { setDepthState("proof", {scrollId:"examine"}); setHash("#examine", true); });
 
   document.getElementById("sheetClose").addEventListener("click", () => sheet.close());
   sheet.addEventListener("click", event => {
@@ -500,7 +467,7 @@
     constellationBtn.setAttribute("aria-pressed", String(!showIndex));
     indexBtn.setAttribute("aria-pressed", String(showIndex));
     if (showIndex && scroll) index.scrollIntoView({block:"start",behavior:"smooth"});
-    announce(showIndex ? "Precision Index view." : "Strategic Constellation view.");
+    announce(showIndex ? "List view." : "Materials-to-Mission Atlas map view.");
     if (showIndex && focus) {
       const title = document.getElementById("index-title");
       title.setAttribute("tabindex","-1");
@@ -531,9 +498,12 @@
   );
 
   addEventListener("hashchange", () => restoreFromHash({initial:false}));
+
+  addEventListener("popstate", () => restoreFromHash({initial:false}));
   addEventListener("resize", () => requestAnimationFrame(() => drawConnections(byId[selectedId])));
 
   document.documentElement.classList.add("js-ready");
+  clearSelection();
   bindDetail(detail);
   applyLens();
   restoreFromHash({initial:true});

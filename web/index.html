@@ -7,9 +7,9 @@
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#020712">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; font-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
-<meta name="description" content="Bridge Node 7 Materials-to-Mission: explore the current U.S. critical-mineral field by application connection and follow reviewed evidence without turning uncertainty into a score.">
+<meta name="description" content="Bridge Node 7 Materials-to-Mission Atlas: explore the USGS 2025 critical-mineral field, application connections, and reviewed pathways where public evidence is available.">
 <meta property="og:title" content="Bridge Node 7 | Materials-to-Mission">
-<meta property="og:description" content="Strategic Constellation: see the field, follow the evidence, keep uncertainty visible.">
+<meta property="og:description" content="Materials-to-Mission Atlas: explore critical minerals, application connections, and reviewed pathways where public evidence is available.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Bridge Node 7">
 <meta property="og:url" content="https://bridgenode7.com/materials-to-mission/">
@@ -18,7 +18,7 @@
 <meta name="twitter:image" content="https://bridgenode7.com/assets/images/social-preview.png">
 <link rel="canonical" href="https://bridgenode7.com/materials-to-mission/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%23F1C86B'/%3E%3Ctext x='50' y='64' font-size='54' font-weight='900' fill='%23020712' text-anchor='middle'%3E7%3C/text%3E%3C/svg%3E">
-<title>Strategic Constellation | Bridge Node 7</title>
+<title>Materials-to-Mission Atlas | Bridge Node 7</title>
 <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
@@ -31,33 +31,34 @@
     <span><strong>BRIDGE NODE 7</strong><small>MATERIALS-TO-MISSION</small></span>
   </a>
   <nav aria-label="Materials-to-Mission">
-    <a href="#atlas" aria-current="page">Atlas</a>
-    <a href="#forms">Material Systems</a>
-    <a href="#trace">Pathways</a>
-    <a href="#sources">Sources</a>
+    <a href="#atlas" aria-current="page">Explore</a>
+    <a href="#how-this-map-works">How this map works</a>
   </nav>
   <a class="method-link" href="https://github.com/Bridge-Node-7/materials-to-mission">Public Method ↗</a>
 </header>
 
 <main>
+<p class="sr-only journey-contract">See the pathway. Verify the constraint. Direct the next move.</p>
 <section id="atlas" class="atlas-shell" aria-labelledby="atlas-title">
+  <span id="arrival" class="sr-only" aria-hidden="true">Arrival</span>
   <div class="title-row">
     <div>
-      <h1 id="atlas-title">Strategic Constellation</h1>
-      <p>A visual map of critical minerals by application connection.</p>
+      <p class="atlas-kicker">USGS 2025 · 60 critical minerals</p>
+      <h1 id="atlas-title">Materials-to-Mission Atlas</h1>
+      <p>Explore critical minerals, their application connections, and reviewed pathways where public evidence is available.</p>
     </div>
     <div class="atlas-tools js-only">
       <div class="search-wrap">
         <label class="searchbox">
-          <span aria-hidden="true">⌕</span>
+          <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"></circle><path d="M16 16l4 4"></path></svg>
           <input id="globalSearch" type="search" role="combobox" aria-autocomplete="list" aria-haspopup="listbox"
                  aria-controls="searchResults" aria-expanded="false" autocomplete="off"
-                 placeholder="Find a mineral or material system" aria-label="Find a mineral or material system">
+                 placeholder="Search minerals or material systems…" aria-label="Search minerals or material systems">
         </label>
         <div id="searchResults" class="search-results" role="listbox" hidden></div>
       </div>
-      <details class="read-guide">
-        <summary>How to read this</summary>
+      <details id="how-this-map-works" class="read-guide">
+        <summary>How this map works</summary>
         <div class="guide-grid">
           <p><strong>Official field.</strong> Every mineral node is on the final USGS 2025 Critical Minerals List.</p>
           <p><strong>Position.</strong> DOE application rows influence location. Position is connection, not ranking.</p>
@@ -68,15 +69,21 @@
     </div>
   </div>
 
-  <div class="lensbar js-only" role="group" aria-label="Application Lenses">
-    <button type="button" class="lens all active" data-lens="all" aria-pressed="true">All 60</button>
+  <div class="lensbar js-only" role="group" aria-label="Filter by application">
+    <button type="button" class="lens all active" data-lens="all" aria-pressed="true">All</button>
     <!-- R6:LENSES -->
   </div>
   <div class="lens-status" aria-live="polite">
     <span id="lensCount">60 materials</span>
-    <span>Application Lenses highlight connection. They do not rank importance.</span>
+    <span>Position shows application connection, not ranking.</span>
   </div>
 
+  <div class="map-toolbar js-only">
+    <div class="view-switch" aria-label="Atlas view">
+      <button id="constellationView" type="button" aria-pressed="true">Map</button>
+      <button id="indexView" type="button" aria-pressed="false">List</button>
+    </div>
+  </div>
   <div id="constellationPanel" class="atlas-workspace">
     <aside class="field-stats" aria-label="Atlas summary">
       <div><strong>60</strong><span>Critical Minerals<br>USGS 2025</span></div>
@@ -85,8 +92,8 @@
       <div><strong>M0</strong><span>Public Method<br>Human Authority</span></div>
     </aside>
 
-    <div class="field-viewport" aria-label="Scrollable Strategic Constellation viewport">
-      <div id="field" class="field" aria-label="Strategic Constellation">
+    <div class="field-viewport" aria-label="Scrollable Materials-to-Mission Atlas viewport">
+      <div id="field" class="field" aria-label="Materials-to-Mission Atlas">
         <div class="field-stars" aria-hidden="true"></div>
         <div class="field-rings" aria-hidden="true"></div>
         <svg id="connectionLayer" class="connection-layer" aria-hidden="true"></svg>
@@ -100,24 +107,16 @@
     </aside>
   </div>
 
-  <div class="view-row js-only">
-    <div class="view-switch" aria-label="Atlas view">
-      <button id="constellationView" type="button" aria-pressed="true">Constellation</button>
-      <button id="indexView" type="button" aria-pressed="false">Index</button>
-    </div>
-    <p><strong>Position means connection, not ranking.</strong> Geometry is a reproducible Bridge Node 7 presentation derivation from DOE application memberships.</p>
-  </div>
-
   <section id="indexPanel" class="index-panel" aria-labelledby="index-title">
     <header>
-      <div><p class="eyebrow">PRECISION VIEW</p><h2 id="index-title">Browse All Minerals</h2><p>Search, scan, and open the complete official field.</p></div>
+      <div><p class="eyebrow">LIST VIEW</p><h2 id="index-title">Mineral List</h2><p>Scan and open the complete official field.</p></div>
       <span>60 materials</span>
     </header>
     <div class="index-grid"><!-- R6:INDEX --></div>
   </section>
 </section>
 
-<section class="dashboard-row" aria-label="Materials-to-Mission overview">
+<section class="dashboard-row contextual-depth" data-depth="legacy-overview" aria-label="Materials-to-Mission overview">
   <article class="panel browse-panel">
     <p class="eyebrow">BROWSE</p>
     <h2>Browse All Minerals</h2>
@@ -148,7 +147,7 @@
   </article>
 </section>
 
-<section id="gallium" class="section focus-section" aria-labelledby="gallium-title">
+<section id="gallium" class="section focus-section contextual-depth" data-depth="gallium" aria-labelledby="gallium-title">
   <div class="section-head">
     <div><p class="eyebrow">02 · FOCUS</p><h2 id="gallium-title">Gallium</h2></div>
     <p>The official field is broad. Reviewed pathway evidence remains intentionally narrow.</p>
@@ -160,7 +159,7 @@
   </div>
 </section>
 
-<section id="trace" class="section trace-section" aria-labelledby="trace-title">
+<section id="trace" class="section trace-section contextual-depth" data-depth="trace" aria-labelledby="trace-title">
   <div class="section-head">
     <div><p class="eyebrow">03 · FOLLOW</p><h2 id="trace-title">Trace to Mission</h2></div>
     <p>The continuous bridge stops where the reviewed evidence stops.</p>
@@ -170,9 +169,10 @@
     <span aria-hidden="true"></span>
     <div><strong>Evidence Horizon</strong><p>Downstream facts may remain independently supported, but they do not reconnect the pathway across an unresolved link.</p></div>
   </div>
+  <div class="depth-actions js-only"><button id="showNextProof" type="button" class="panel-action depth-button">What would change this?</button><button id="showProof" type="button" class="panel-action depth-button">Show evidence →</button></div>
 </section>
 
-<section id="examine" class="section examine-section" aria-labelledby="examine-title">
+<section id="examine" class="section examine-section contextual-depth" data-depth="proof" aria-labelledby="examine-title">
   <div class="section-head">
     <div><p class="eyebrow">04 · UNDERSTAND</p><h2 id="examine-title">What the evidence establishes</h2></div>
     <p>Supported facts stay supported. Unknowns stay visible.</p>
@@ -181,6 +181,7 @@
     <article><span class="state supported">Supported</span><h3>What we know</h3><ul><!-- R6:SUPPORTED --></ul></article>
     <article><span class="state unknown">Unknown</span><h3>What we do not know</h3><ul><!-- R6:UNKNOWN --></ul></article>
   </div>
+  <p id="support" class="support-summary-note">Selected support summaries · complete seven-claim register below.</p>
   <div class="support-grid"><!-- R6:SUPPORT --></div>
   <details class="claim-register">
     <summary><span>Reviewed Gallium claim register</span><small>7 source-linked claims · GA-001</small></summary>
@@ -188,7 +189,7 @@
   </details>
 </section>
 
-<section id="decision" class="section decision-section" aria-labelledby="decision-title">
+<section id="decision" class="section decision-section contextual-depth" data-depth="proof" aria-labelledby="decision-title">
   <div class="section-head">
     <div><p class="eyebrow">05 · MOVE FORWARD</p><h2 id="decision-title">What should be proven next?</h2></div>
     <p>Evidence-supported options are not automated decisions.</p>
@@ -200,7 +201,7 @@
   </aside>
 </section>
 
-<section id="forms" class="section forms-section" aria-labelledby="forms-title">
+<section id="forms" class="section forms-section contextual-depth" data-depth="forms" aria-labelledby="forms-title">
   <div class="section-head">
     <div><p class="eyebrow">06 · RELATED FORMS</p><h2 id="forms-title">Engineered Materials & Systems</h2></div>
     <p>Real material systems remain separate from official critical-mineral designation and link back to their critical-mineral dependencies.</p>
@@ -208,7 +209,7 @@
   <div class="forms-grid"><!-- R6:FORMS --></div>
 </section>
 
-<section id="yig-pathway" class="section yig-section" aria-labelledby="yig-pathway-title">
+<section id="yig-pathway" class="section yig-section contextual-depth" data-depth="yig" aria-labelledby="yig-pathway-title">
   <div class="section-head">
     <div><p class="eyebrow">07 · PRIMARY MATERIAL SYSTEM</p><h2 id="yig-pathway-title">YIG · Source to Mission</h2></div>
     <p>A discreet primary example showing why engineered material systems need their own upstream, fabrication, validation, and downstream pathway.</p>
@@ -216,15 +217,16 @@
   <!-- R6:YIG_PATHWAY -->
 </section>
 
-<section id="sources" class="section sources-section" aria-labelledby="sources-title">
+<section id="sources" class="section sources-section contextual-depth" data-depth="sources" aria-labelledby="sources-title">
   <div class="section-head">
     <div><p class="eyebrow">08 · VERIFY</p><h2 id="sources-title">Evidence & Sources</h2></div>
     <p>Official designation, application mapping, policy context, and Bridge Node 7 review remain source-separated.</p>
   </div>
-  <div class="source-grid"><!-- R6:SOURCES --></div>
+  <div class="source-family"><p class="eyebrow">ATLAS BASIS</p><h3>Materials Field Sources</h3><div class="source-grid"><!-- R6:SOURCES --></div></div>
+  <div class="source-family ga-source-family"><p class="eyebrow">REVIEWED EVIDENCE</p><h3>GA-001 Reviewed Sources</h3><div class="ga-source-grid"><!-- R6:GA_SOURCES --></div></div>
 </section>
 
-<section class="architecture-strip" aria-label="Evidence architecture">
+<section class="architecture-strip contextual-depth" data-depth="method" aria-label="Evidence architecture">
   <div><strong>Evidence-First. Mission-Aligned.</strong><span>Source identity and pathway logic stay visible beneath the experience.</span></div>
   <ol>
     <li>USGS 2025<small>Official Field</small></li>

@@ -27,7 +27,7 @@ def test_no_js_enhancement_controls_are_authoritatively_hidden() -> None:
 def test_search_uses_material_system_ontology() -> None:
     html=(ROOT/"web/index.html").read_text(encoding="utf-8")
     js=(ROOT/"web/app.js").read_text(encoding="utf-8")
-    assert "Find a mineral or material system" in html
+    assert "Search minerals or material systems" in html
     assert "Engineered Material System" in js
     assert "Engineered Substrate" in js
     assert "Public engineered form" not in js

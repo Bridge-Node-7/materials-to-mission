@@ -32,7 +32,7 @@ def test_ga001_wording_and_versions_remain_frozen() -> None:
 def test_precision_experience_contract() -> None:
     html = (ROOT / "web/index.html").read_text(encoding="utf-8")
     css = (ROOT / "web/styles.css").read_text(encoding="utf-8")
-    assert "Strategic Constellation" in html
+    assert "Materials-to-Mission Atlas" in html
     assert "Evidence Horizon" in html
     assert "Evidence informs." in html
     assert "Method &amp; Source on GitHub" in html
