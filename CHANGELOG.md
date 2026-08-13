@@ -4,7 +4,19 @@ All notable changes are documented here.
 
 ## Unreleased
 
-No changes recorded after v0.6.0.
+No changes recorded after v0.6.1.
+## [0.6.1] - 2026-08-12
+### Corrected
+- Made programmatic Atlas scrolling honor `prefers-reduced-motion: reduce`.
+- Added unique accessible names to all ten material-system `Open detail` controls while preserving their restrained visible label.
+- Reconciled repository browser-UAT truth with the successful v0.6.0 hosted automated evidence while keeping human real-device / assistive-technology UAT explicitly NOT ATTESTED.
+- Reconciled production truth with the reviewed v0.6.0 Pages `verify-production` result without authorizing CI writeback.
+- Updated the separately governed website integration reference to verified website release v1.2.1.
+- Replaced remaining README `Strategic Constellation` front-door wording with **Materials-to-Mission Atlas**.
+### Assurance
+- Added a behavioral reduced-motion browser profile. The current source browser contract yields 14 result profiles: seven 42-contract viewports plus seven specialized profiles.
+- Added repository-truth regression coverage for UAT state, production-attestation authority, website integration, accessibility names, and reduced-motion behavior.
+- Preserved the exact USGS 2025 60-mineral field, 15 rare earth elements, frozen GA-001 v1.0.0 evidence, YIG engineered-system classification, M0 maturity, unknown-as-non-favorable semantics, and human consequential authority.
 
 ## [0.6.0] - 2026-08-12
 ### Changed

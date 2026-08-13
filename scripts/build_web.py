@@ -477,7 +477,7 @@ def render(template, payload):
             f'<small class="form-state">{esc(review)}</small>'
             '<span class="detail-label">Related critical minerals</span>'
             f'<div class="relationship-links">{relationships}'
-            f'<button type="button" class="js-only" data-form-id="{esc(form["id"])}">Open detail</button>'
+            f'<button type="button" class="js-only" data-form-id="{esc(form["id"])}" aria-label="Open detail: {esc(form["name"])}">Open detail</button>'
             '</div></div></article>'
         )
 
