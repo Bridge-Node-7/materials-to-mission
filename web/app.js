@@ -558,3 +558,125 @@ const esc = value => String(value).replace(/[&<>"']/g, char => ({
   restoreFromHash({initial:true});
   enableConstellationKeyboard();
 })();
+
+// V070:DISCOVERABLE_DEPTH_DOORWAY
+(() => {
+  const text = (node) => (node?.textContent || "").replace(/\s+/g, " ").trim();
+
+  function findLink(href, pattern) {
+    return [...document.querySelectorAll(`a[href="${href}"]`)]
+      .find((a) => pattern.test(text(a))) || null;
+  }
+
+  function findLegacyOverview() {
+    const trace = findLink("#trace", /pathway/i);
+    const sources = findLink("#sources", /evidence|source/i);
+    const forms = findLink("#forms", /material system|forms/i);
+    if (!trace || !sources || !forms) return null;
+
+    let node = trace.parentElement;
+    while (node && node !== document.body && node !== document.documentElement) {
+      const copy = text(node);
+      if (
+        node.contains(sources) &&
+        node.contains(forms) &&
+        /Gallium Pathway/i.test(copy) &&
+        /Evidence\s*&\s*Sources/i.test(copy) &&
+        /Material Systems/i.test(copy)
+      ) {
+        return node;
+      }
+      node = node.parentElement;
+    }
+    return null;
+  }
+
+  function commonParent(a, b) {
+    if (!a || !b) return null;
+    let node = a.parentElement;
+    while (node && node !== document.body) {
+      if (node.contains(b)) return node;
+      node = node.parentElement;
+    }
+    return null;
+  }
+
+  function buildDoorway() {
+    const section = document.createElement("section");
+    section.id = "explore-deeper";
+    section.className = "explore-deeper-doorway";
+    section.setAttribute("aria-labelledby", "exploreDeeperTitle");
+    section.innerHTML = `
+      <div class="explore-deeper-head">
+        <p class="explore-deeper-kicker">EXPLORE DEEPER</p>
+        <h2 id="exploreDeeperTitle">See where the evidence goes further.</h2>
+        <p>Selected examples where additional public evidence has been reviewed beyond the Atlas baseline.</p>
+      </div>
+
+      <div class="deep-example-grid">
+        <article class="deep-example" data-example="gallium">
+          <div class="deep-example-top">
+            <span class="deep-example-symbol" aria-hidden="true">Ga</span>
+            <span class="deep-example-state">REVIEWED PATHWAY</span>
+          </div>
+          <h3>Gallium</h3>
+          <p>Follow reviewed public evidence from material context to the first unresolved link.</p>
+          <div class="deep-example-meta">Evidence Horizon · Sources · Next proof</div>
+          <a class="deep-example-action" href="#gallium">Explore Gallium <span aria-hidden="true">→</span></a>
+        </article>
+
+        <article class="deep-example" data-example="yig">
+          <div class="deep-example-top">
+            <span class="deep-example-symbol deep-example-symbol-wide" aria-hidden="true">YIG</span>
+            <span class="deep-example-state">REVIEWED CONTEXT</span>
+          </div>
+          <h3>Yttrium Iron Garnet</h3>
+          <p>See how an engineered material system connects critical-mineral dependencies to technical and pathway context.</p>
+          <div class="deep-example-meta">Material relationships · Source-to-Mission</div>
+          <a class="deep-example-action" href="#yig-pathway">Explore YIG <span aria-hidden="true">→</span></a>
+        </article>
+      </div>
+
+      <nav class="deep-secondary-links" aria-label="Additional Materials-to-Mission depth">
+        <a href="#forms">Browse all material systems <span aria-hidden="true">→</span></a>
+        <a href="#sources">Evidence &amp; sources <span aria-hidden="true">→</span></a>
+      </nav>
+    `;
+    return section;
+  }
+
+  function installDoorway() {
+    if (document.getElementById("explore-deeper")) return;
+
+    const legacy = findLegacyOverview();
+    if (!legacy) {
+      console.error("M2M discoverable-depth doorway: legacy overview not found");
+      return;
+    }
+
+    const doorway = buildDoorway();
+    legacy.parentNode.insertBefore(doorway, legacy);
+    legacy.hidden = true;
+    legacy.setAttribute("aria-hidden", "true");
+    legacy.dataset.v070SupersededOverview = "true";
+
+    const buttons = [...document.querySelectorAll("button")];
+    const map = buttons.find((b) => text(b) === "Map");
+    const list = buttons.find((b) => text(b) === "List");
+    const switcher = commonParent(map, list);
+
+    if (switcher && !document.querySelector(".atlas-depth-signpost")) {
+      const signpost = document.createElement("a");
+      signpost.className = "atlas-depth-signpost";
+      signpost.href = "#explore-deeper";
+      signpost.innerHTML = `Deeper reviewed examples available below <span aria-hidden="true">↓</span>`;
+      switcher.insertAdjacentElement("afterend", signpost);
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", installDoorway, { once: true });
+  } else {
+    installDoorway();
+  }
+})();
