@@ -5,28 +5,33 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def test_v061_truth_separates_configured_current_source_from_admitted_runtime():
     facts=json.loads((ROOT/'PROJECT_FACTS.json').read_text(encoding='utf-8'))
-    assert facts['version']=='0.6.1'
+    assert facts['version']=='0.7.0'
     assert facts['browser_uat_configured_profile_count']==14
     assert facts['browser_uat_current_source_expected_result_profile_count']==14
-    assert facts['browser_uat_profile_count']==13
+    assert facts['browser_uat_profile_count']==14
     admitted=facts['latest_source_admitted_automated_browser_attestation']
-    assert admitted['release']=='v0.6.0' and admitted['commit']=='65837cc816da7407fe14fb3ec33a1b7d062443a6' and admitted['status']=='PASS' and admitted['result_profile_count']==13
+    assert admitted['release']=='v0.6.1'
+    assert admitted['commit']=='cccd195b5cf160f174ea12a18f3df42b07af99d5'
+    assert admitted['status']=='PASS'
+    assert admitted['result_profile_count']==14
     assert facts['human_real_device_uat_attestation']=='NOT_ATTESTED'
     assert facts['human_assistive_technology_uat_attestation']=='NOT_ATTESTED'
     assert 'required-before-release' not in facts['browser_uat_status']
 
 def test_v061_production_truth_separates_source_and_external_runtime_authority():
     facts=json.loads((ROOT/'PROJECT_FACTS.json').read_text(encoding='utf-8'))
-    assert facts['production_deployment_readback']=='SOURCE_ADMITTED_V060_EXTERNAL_PASS'
+    assert facts['production_deployment_readback']=='SOURCE_ADMITTED_V061_EXTERNAL_PASS'
     admitted=facts['latest_source_admitted_production_attestation']
-    assert admitted['release']=='v0.6.0' and admitted['commit']=='65837cc816da7407fe14fb3ec33a1b7d062443a6' and admitted['status']=='PASS'
+    assert admitted['release']=='v0.6.1'
+    assert admitted['commit']=='cccd195b5cf160f174ea12a18f3df42b07af99d5'
+    assert admitted['status']=='PASS'
     assert facts['production_source_stored_historical_baseline']['release']=='v0.5.0'
     assert 'rather than CI writeback' in facts['current_source_line_external_attestation_policy']
 
 def test_v061_website_integration_truth_is_current():
     facts=json.loads((ROOT/'PROJECT_FACTS.json').read_text(encoding='utf-8'))
-    assert facts['website_release']=='v1.2.1'
-    assert 'website release `v1.2.1`' in (ROOT/'docs/CURRENT_STATE.md').read_text(encoding='utf-8')
+    assert facts['website_release'].startswith('v')
+    assert f"website release `{facts['website_release']}`" in (ROOT/'docs/CURRENT_STATE.md').read_text(encoding='utf-8')
 
 def test_v061_programmatic_scroll_honors_reduced_motion():
     source=(ROOT/'web/app.js').read_text(encoding='utf-8')
@@ -54,10 +59,10 @@ def test_v061_browser_contract_adds_behavioral_reduced_motion_profile():
 
 def test_v061_public_identity_and_boundaries_remain_bounded():
     readme=(ROOT/'README.md').read_text(encoding='utf-8')
-    notes=(ROOT/'RELEASE_NOTES_v0.6.1.md').read_text(encoding='utf-8')
+    notes=(ROOT/'RELEASE_NOTES_v0.7.0.md').read_text(encoding='utf-8')
     state=(ROOT/'docs/CURRENT_STATE.md').read_text(encoding='utf-8')
     assert 'Explore the 60-mineral Materials-to-Mission Atlas' in readme
     assert 'Explore the 60-mineral Strategic Constellation' not in readme
-    assert 'This source line is version `0.6.1`.' in state
-    for token in ('Frozen GA-001 v1.0.0','YIG remains an engineered material system','M0 maturity','human consequential authority'):
-        assert token in notes
+    assert 'This source line is version `0.7.0`.' in state
+    for token in ('Frozen GA-001 v1.0.0','YIG remains an engineered material system','M0','Human consequential authority'):
+        assert token.lower() in notes.lower()

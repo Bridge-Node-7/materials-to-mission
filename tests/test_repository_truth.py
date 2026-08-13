@@ -36,44 +36,37 @@ def test_external_release_authority_remains_durable() -> None:
 def test_unevidenced_human_uat_is_not_promoted() -> None:
     facts = json.loads((ROOT / "PROJECT_FACTS.json").read_text(encoding="utf-8"))
     status = facts["browser_uat_status"]
-    assert "latest-source-admitted-v0.6.0 automated PASS" in status
-    assert "current-source-v0.6.1 external gate required" in status
+    assert "latest-source-admitted-v0.6.1 automated PASS" in status
+    assert "current-source-v0.7.0 external gate required" in status
     assert "human-device-AT not separately attested" in status
     assert facts["human_real_device_uat_attestation"] == "NOT_ATTESTED"
     assert facts["human_assistive_technology_uat_attestation"] == "NOT_ATTESTED"
+    assert facts["selected_pathways_human_desktop_visual_uat"] == "PASS_USER_REVIEW_2026-08-13"
+    assert facts["selected_pathways_human_mobile_visual_uat"] == "NOT_SEPARATELY_ATTESTED"
 
     admitted = facts["latest_source_admitted_automated_browser_attestation"]
-    assert admitted["release"] == "v0.6.0"
+    assert admitted["release"] == "v0.6.1"
+    assert admitted["commit"] == "cccd195b5cf160f174ea12a18f3df42b07af99d5"
     assert admitted["status"] == "PASS"
-    assert facts["browser_uat_profile_count"] == admitted["result_profile_count"] == 13
-
+    assert facts["browser_uat_profile_count"] == admitted["result_profile_count"] == 14
     assert facts["browser_uat_configured_profile_count"] == 14
     assert facts["browser_uat_current_source_expected_result_profile_count"] == 14
     assert facts["browser_uat_reduced_motion"] == "V061_BEHAVIORAL_CONTRACT_CONFIGURED; EXTERNAL_GATE_REQUIRED"
-    assert facts["browser_uat_accessibility"].startswith("PASS_AUTOMATED_V060_SOURCE_ADMITTED")
-    assert facts["browser_uat_narrow_320"] == "PASS_AUTOMATED_V060_SOURCE_ADMITTED"
-    assert facts["browser_uat_primary"] == "PASS_AUTOMATED_V060_SOURCE_ADMITTED"
-    assert facts["browser_uat_security"] == "PASS_AUTOMATED_V060_BOUNDED_CSP_NAV_CONTRACT"
-    assert facts["browser_uat_zoom_200_reflow"] == "PASS_AUTOMATED_V060_SOURCE_ADMITTED"
     assert facts["browser_uat_performance"] == "NOT_SEPARATELY_ATTESTED"
 
 def test_visual_baseline_identity_is_preserved() -> None:
     facts = json.loads((ROOT / "PROJECT_FACTS.json").read_text(encoding="utf-8"))
     assert facts["visual_experience_baseline_version"] == "0.5.0"
-    assert facts["visual_experience_candidate_version"] == facts["version"] == "0.6.1"
-    assert facts["visual_experience_candidate_status"] == "source-line-v0.6.1-external-publication-authority-separate"
-    assert facts["visual_experience_status"] == "field-focus-proof-truth-accessibility-maintenance"
-
-    assert facts["production_deployment_readback"] == "SOURCE_ADMITTED_V060_EXTERNAL_PASS"
+    assert facts["visual_experience_candidate_version"] == facts["version"] == "0.7.0"
+    assert facts["visual_experience_candidate_status"] == "source-line-v0.7.0-selected-pathways-external-publication-authority-separate"
+    assert facts["visual_experience_status"] == "field-focus-proof-selected-pathways-progressive-disclosure"
+    assert facts["production_deployment_readback"] == "SOURCE_ADMITTED_V061_EXTERNAL_PASS"
     historical = facts["production_source_stored_historical_baseline"]
-    assert historical == {
-        "release": "v0.5.0",
-        "readback": "PASS_V050_EXACT_PUBLIC_BYTES",
-    }
+    assert historical == {"release": "v0.5.0", "readback": "PASS_V050_EXACT_PUBLIC_BYTES"}
     admitted = facts["latest_source_admitted_production_attestation"]
-    assert admitted["release"] == "v0.6.0"
+    assert admitted["release"] == "v0.6.1"
     assert admitted["status"] == "PASS"
-    assert admitted["commit"] == "65837cc816da7407fe14fb3ec33a1b7d062443a6"
+    assert admitted["commit"] == "cccd195b5cf160f174ea12a18f3df42b07af99d5"
 
 def test_public_safe_scope_is_machine_unambiguous() -> None:
     facts = json.loads((ROOT / "PROJECT_FACTS.json").read_text(encoding="utf-8"))

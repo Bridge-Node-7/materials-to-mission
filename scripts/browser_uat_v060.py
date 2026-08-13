@@ -96,6 +96,12 @@ def exercise_gallium_proof(page,width,checks):
     detail=active_detail(page,width)
     record(checks,'22-gallium-explore','Gallium' in detail.inner_text())
     action=detail.locator('[data-depth="trace"]'); record(checks,'23-reviewed-trace-door',action.count()>=1)
+    if not action.first.is_visible():
+        drawer=action.first.locator('xpath=ancestor::details[1]')
+        assert drawer.count()==1
+        if drawer.get_attribute('open') is None:
+            drawer.locator('summary').click()
+        action.first.wait_for(state='visible')
     action.first.click(); page.locator('#trace.is-revealed').wait_for()
     trace=page.locator('#trace').inner_text()
     record(checks,'24-trace-evidence-horizon','Evidence Horizon' in trace)
@@ -156,8 +162,20 @@ def exercise_yig_parent(page,width,checks):
     page.locator('.mineral[data-id="yttrium"]').click()
     detail=active_detail(page,width)
     yig=detail.locator('[data-form-id="yig"]'); record(checks,'38-yig-discoverable-from-yttrium',yig.count()==1)
+    if not yig.is_visible():
+        drawer=yig.locator('xpath=ancestor::details[1]')
+        assert drawer.count()==1
+        if drawer.get_attribute('open') is None:
+            drawer.locator('summary').click()
+        yig.wait_for(state='visible')
     yig.click(); record(checks,'39-yig-not-critical-mineral','Yttrium Iron Garnet' in detail.inner_text() and 'USGS 2025 Critical Mineral' not in detail.inner_text())
     parent=detail.locator('.parent-link[data-parent-id="yttrium"]'); record(checks,'40-related-system-parent-return',parent.count()==1)
+    if not parent.is_visible():
+        drawer=parent.locator('xpath=ancestor::details[1]')
+        assert drawer.count()==1
+        if drawer.get_attribute('open') is None:
+            drawer.locator('summary').click()
+        parent.wait_for(state='visible')
     parent.click(); record(checks,'41-parent-return-restores-yttrium','Yttrium' in detail.inner_text())
 
 def exercise_legacy_hashes(page,width,checks):
@@ -227,7 +245,14 @@ def main():
         page=context.new_page(); page.goto(args.base_url,wait_until='networkidle',timeout=60000)
         page.wait_for_function("Array.isArray(window.__m2mScrollBehaviors)")
         page.locator('.mineral[data-id=\"gallium\"]').click()
-        page.locator('#desktopDetail [data-depth=\"trace\"]').click()
+        special_trace=page.locator('#desktopDetail [data-depth=\"trace\"]')
+        if not special_trace.is_visible():
+            drawer=special_trace.locator('xpath=ancestor::details[1]')
+            assert drawer.count()==1
+            if drawer.get_attribute('open') is None:
+                drawer.locator('summary').click()
+            special_trace.wait_for(state='visible')
+        special_trace.click()
         page.wait_for_function("document.body.dataset.depth === 'trace'")
         page.wait_for_timeout(100)
         behaviors=page.evaluate("window.__m2mScrollBehaviors")
