@@ -4,6 +4,8 @@ from pathlib import Path
 from playwright.sync_api import sync_playwright
 
 VIEWPORTS=[(320,760),(375,812),(768,1024),(1024,768),(1280,720),(1440,900),(1920,1080)]
+ROOT=Path(__file__).resolve().parents[1]
+SELECTED_PATHWAYS=json.loads((ROOT/'web/selected-pathways.json').read_text(encoding='utf-8'))['pathways']
 
 def no_horizontal_overflow(page):
     overflow=page.evaluate("Math.max(document.documentElement.scrollWidth,document.body.scrollWidth)-document.documentElement.clientWidth")
@@ -264,7 +266,7 @@ def main():
         results.append({'profile':'reduced-motion-programmatic-scroll','status':'PASS','behaviors':behaviors})
         context.close()
         # No JS evidence contract
-        context=browser.new_context(viewport={'width':375,'height':812},java_script_enabled=False); page=context.new_page(); page.goto(args.base_url,wait_until='domcontentloaded',timeout=60000); assert page.locator('h1').inner_text().strip()=='Materials-to-Mission Atlas'; assert page.locator('.mineral').count()==60; assert page.locator('.ga-claim').count()==7; assert page.locator('.ga-source-card').count()==4; assert_csp_and_navigation(page); no_horizontal_overflow(page); results.append({'profile':'no-js','status':'PASS'}); context.close()
+        context=browser.new_context(viewport={'width':375,'height':812},java_script_enabled=False); page=context.new_page(); page.goto(args.base_url,wait_until='domcontentloaded',timeout=60000); assert page.locator('h1').inner_text().strip()=='Materials-to-Mission Atlas'; assert page.locator('.mineral').count()==60; assert page.locator('.selected-pathway-row').count()==len(SELECTED_PATHWAYS); assert all(page.locator(f'.selected-pathway-row[data-pathway="{item["source_id"]}"]').count()==1 for item in SELECTED_PATHWAYS); assert page.locator('.ga-claim').count()==7; assert page.locator('.ga-source-card').count()==4; assert_csp_and_navigation(page); no_horizontal_overflow(page); results.append({'profile':'no-js','status':'PASS'}); context.close()
         browser.close()
     expected_profiles=len(VIEWPORTS)+7
     assert len(results)==expected_profiles, (len(results),expected_profiles)
