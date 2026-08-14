@@ -30,8 +30,10 @@ def test_v061_production_truth_separates_source_and_external_runtime_authority()
 
 def test_v061_website_integration_truth_is_current():
     facts=json.loads((ROOT/'PROJECT_FACTS.json').read_text(encoding='utf-8'))
-    assert facts['website_release'].startswith('v')
-    assert f"website release `{facts['website_release']}`" in (ROOT/'docs/CURRENT_STATE.md').read_text(encoding='utf-8')
+    state=(ROOT/'docs/CURRENT_STATE.md').read_text(encoding='utf-8')
+    assert facts['website_integration_reference']=='historical-v1.2.1'
+    assert 'current-signed-release-not-asserted' in facts['website_integration_status']
+    assert 'does not assert a current signed corporate website release' in state
 
 def test_v061_programmatic_scroll_honors_reduced_motion():
     source=(ROOT/'web/app.js').read_text(encoding='utf-8')
