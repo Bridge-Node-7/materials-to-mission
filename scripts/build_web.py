@@ -8,6 +8,8 @@ import shutil
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
+
+from jsonschema import Draft202012Validator
 from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -15,6 +17,8 @@ WEB = ROOT / "web"
 GA001 = ROOT / "public-snapshots/gallium/GA-001"
 FIELD = ROOT / "public-snapshots/materials-field/MF-001"
 YIG001 = ROOT / "public-snapshots/material-systems/YIG-001"
+SELECTED_PATHWAYS = WEB / "selected-pathways.json"
+SELECTED_PATHWAYS_SCHEMA = WEB / "selected-pathways.schema.json"
 
 sys.path.insert(0, str(ROOT / "scripts"))
 from generate_atlas_layout import derive_positions, coordinate_digest  # noqa: E402
@@ -157,6 +161,11 @@ def project():
     forms = load(FIELD / "public-forms.json")["forms"]
     field_sources = load(FIELD / "source-register.json")
     yig_pathway = load(YIG001 / "pathway.json")
+    selected_registry = load(SELECTED_PATHWAYS)
+    selected_schema = load(SELECTED_PATHWAYS_SCHEMA)
+    errors = sorted(Draft202012Validator(selected_schema).iter_errors(selected_registry), key=lambda error: list(error.path))
+    if errors:
+        raise SystemExit(f"STOP - invalid selected-pathways registry: {errors[0].message}")
 
     view = load(GA001 / "public-view.json")
     snapshot = load(GA001 / "snapshot.json")
@@ -242,6 +251,28 @@ def project():
         if not context.get("source_ids") or any(source_id not in field_source_by for source_id in context["source_ids"]):
             raise SystemExit("STOP - unresolved YIG frontier-research source")
 
+    selected_pathways = []
+    selected_ids = set()
+    for entry in selected_registry["pathways"]:
+        record_id = entry["record_id"]
+        if record_id in selected_ids:
+            raise SystemExit("STOP - duplicate selected pathway record ID")
+        selected_ids.add(record_id)
+        item = dict(entry)
+        if entry["record_type"] == "critical-mineral-reviewed-pathway":
+            material = next((candidate for candidate in reviewed if candidate["id"] == entry["source_id"]), None)
+            if material is None or material["review"].get("snapshot_id") != record_id:
+                raise SystemExit("STOP - selected critical-mineral pathway does not resolve to reviewed evidence")
+            item.update(name=material["name"], symbol=material["symbol"])
+        else:
+            form = next((candidate for candidate in forms if candidate["id"] == entry["source_id"]), None)
+            if form is None or form.get("pathway_id") != record_id:
+                raise SystemExit("STOP - selected material-system pathway does not resolve to controlled context")
+            if form.get("kind") != "engineered-material-system" or yig_pathway.get("pathway_id") != record_id:
+                raise SystemExit("STOP - selected material-system pathway classification changed")
+            item.update(name=form["name"], symbol=form["symbol"])
+        selected_pathways.append(item)
+
     positions, exact_rows, lens_members = derive_positions(atlas, applications)
     enriched = []
     for material in materials:
@@ -269,6 +300,7 @@ def project():
         "forms": forms,
         "sources": field_sources["sources"],
         "yig001": yig_pathway,
+        "selected_pathways": selected_pathways,
         "ga001": {
             "view": view,
             "snapshot": snapshot,
@@ -351,6 +383,27 @@ def render(template, payload):
     ga_sources = ga_source_register["sources"]
     ga_source_by = {source["source_id"]: source for source in ga_sources}
     yig_pathway = payload["yig001"]
+    selected_pathways = payload["selected_pathways"]
+
+    selected_pathway_rows = "".join(
+        '<article class="selected-pathway-row" data-pathway="' + esc(item["source_id"]) + '">'
+        f'<span class="selected-pathway-symbol{" selected-pathway-symbol-wide" if len(item["symbol"]) > 2 else ""}" aria-hidden="true">{esc(item["symbol"])}</span>'
+        '<div class="selected-pathway-identity">'
+        f'<span class="selected-pathway-type">{esc(item["type_label"])}</span><h3>{esc(item["name"])}</h3></div>'
+        f'<p>{esc(item["summary"])}</p><a href="{esc(item["href"])}">{esc(item["action_label"])} <span aria-hidden="true">→</span></a>'
+        '</article>'
+        for item in selected_pathways
+    )
+    selected_pathways_html = (
+        '<section id="selected-pathways" class="selected-pathways" aria-labelledby="selectedPathwaysTitle">'
+        '<header class="selected-pathways-head"><p class="selected-pathways-kicker">GO DEEPER</p>'
+        '<h2 id="selectedPathwaysTitle">Selected pathways</h2>'
+        f'<p>{len(selected_pathways)} public examples currently shared with deeper reviewed context. Explore only when useful.</p></header>'
+        f'<div class="selected-pathway-list">{selected_pathway_rows}</div>'
+        '<nav class="selected-pathways-secondary" aria-label="Additional Materials-to-Mission depth">'
+        '<a href="#forms">Browse material systems <span aria-hidden="true">→</span></a>'
+        '<a href="#sources">Evidence &amp; sources <span aria-hidden="true">→</span></a></nav></section>'
+    )
 
     lens_buttons = "".join(
         f'<button type="button" class="lens" data-lens="{esc(lens_id)}" aria-pressed="false" '
@@ -594,6 +647,7 @@ def render(template, payload):
         "<!-- R6:MINERALS -->": mineral_nodes,
         "<!-- R6:INITIAL_DETAIL -->": neutral_detail,
         "<!-- R6:INDEX -->": "".join(index_rows),
+        "<!-- R6:SELECTED_PATHWAYS -->": selected_pathways_html,
         "<!-- R6:TRACE -->": "".join(trace_nodes),
         "<!-- R6:SUPPORTED -->": supported,
         "<!-- R6:UNKNOWN -->": unknown,

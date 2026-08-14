@@ -51,7 +51,8 @@ def test_v060_release_and_browser_dependency_contract() -> None:
     assert 'playwright==1.55.0' in browser_lock
     assert 'pip install -r requirements-browser.lock' in browser_workflow
     assert 'pip install playwright' not in browser_workflow
-    assert 'FIELD → FOCUS → PROOF' in release_workflow
+    assert '--title "$release_title"' in release_workflow
+    assert 'expected_title_prefix="Materials-to-Mission ${GITHUB_REF_NAME}"' in release_workflow
 
 
 def test_v060_mobile_deep_links_restore_visible_detail() -> None:
@@ -61,7 +62,7 @@ def test_v060_mobile_deep_links_restore_visible_detail() -> None:
     assert 'if (hash === "#gallium") { selectMaterial("gallium",{pushHash:false,openSheet:true}); return; }' in js
 
 def test_v060_focus_uat_uses_keyboard_not_programmatic_focus() -> None:
-    uat=(ROOT/"scripts/browser_uat_v060.py").read_text(encoding="utf-8")
+    uat=(ROOT/"scripts/browser_uat.py").read_text(encoding="utf-8")
     assert "def tab_to_selector(page,selector,steps=160):" in uat
     assert "tab_to_selector(page,'.mineral')" in uat
     assert "style['focusVisible']" in uat
@@ -78,7 +79,7 @@ def test_v060_selected_material_has_noncolor_geometry() -> None:
     css=(ROOT/"web/styles.css").read_text(encoding="utf-8")
     assert "a.mineral.selected{border-width:2px;transform:translate(-50%,-50%) scale(1.18)}" in css
     assert ".mineral.selected span{font:14px Georgia,serif;font-weight:700}" in css
-    uat=(ROOT/"scripts/browser_uat_v060.py").read_text(encoding="utf-8")
+    uat=(ROOT/"scripts/browser_uat.py").read_text(encoding="utf-8")
     assert "grayscale-noncolor-state" in uat
     assert "aria-current" in uat
     assert "borderWidth" in uat and "transform" in uat and "fontSize" in uat
@@ -91,7 +92,7 @@ def test_v060_mineral_node_element_matches_structural_selector() -> None:
     assert "button.mineral.selected{" not in css
 
 def test_v060_grayscale_uat_eliminates_transition_race() -> None:
-    uat=(ROOT/"scripts/browser_uat_v060.py").read_text(encoding="utf-8")
+    uat=(ROOT/"scripts/browser_uat.py").read_text(encoding="utf-8")
     assert "# Grayscale / non-color selected state\n        context=browser.new_context(viewport={'width':1280,'height':720},reduced_motion='reduce');" in uat
     assert "DOMMatrixReadOnly(getComputedStyle(ga).transform)" in uat
     assert "Math.abs(a.a-b.a)>.15" in uat

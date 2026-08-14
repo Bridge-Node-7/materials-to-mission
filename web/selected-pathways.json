@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "pathways": [
+    {
+      "record_type": "critical-mineral-reviewed-pathway",
+      "record_id": "GA-001",
+      "source_id": "gallium",
+      "type_label": "CRITICAL MINERAL · REVIEWED PATHWAY",
+      "summary": "Evidence Horizon · Sources · Next proof",
+      "href": "#trace",
+      "action_label": "Open pathway"
+    },
+    {
+      "record_type": "engineered-material-system-reviewed-context",
+      "record_id": "YIG-001",
+      "source_id": "yig",
+      "type_label": "ENGINEERED MATERIAL SYSTEM · REVIEWED CONTEXT",
+      "summary": "Related to Yttrium · Source-to-Mission",
+      "href": "#yig-pathway",
+      "action_label": "Open system"
+    }
+  ]
+}

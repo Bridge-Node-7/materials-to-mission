@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -15,10 +16,18 @@ def test_public_surface_is_lean() -> None:
         assert forbidden not in readme
     assert len(readme.splitlines()) <= 150
 
-def test_only_current_release_notes_live_at_repository_root() -> None:
+def test_release_notes_are_self_contained_and_versioned() -> None:
     version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
-    observed = sorted(path.name for path in ROOT.glob("RELEASE_NOTES_v*.md"))
-    assert observed == [f"RELEASE_NOTES_v{version}.md"]
+    notes = sorted(ROOT.glob("RELEASE_NOTES_v*.md"))
+    changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+    assert ROOT / f"RELEASE_NOTES_v{version}.md" in notes
+    for path in notes:
+        match = re.fullmatch(r"RELEASE_NOTES_v(\d+\.\d+\.\d+)\.md", path.name)
+        assert match, path.name
+        note_version = match.group(1)
+        first_line = path.read_text(encoding="utf-8").splitlines()[0]
+        assert first_line.startswith(f"# Materials-to-Mission v{note_version}")
+        assert f"## [{note_version}]" in changelog
 
 def test_docs_surface_is_bounded() -> None:
     docs = sorted(path.relative_to(ROOT).as_posix() for path in (ROOT / "docs").glob("*") if path.is_file())
