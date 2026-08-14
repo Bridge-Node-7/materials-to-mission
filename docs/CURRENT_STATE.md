@@ -4,7 +4,7 @@
 
 Materials-to-Mission remains an **M0 experimental public method**.
 
-This source line is version `0.7.0`.
+`VERSION` identifies source line `0.7.1`, the Foundation Hardening source/release line.
 
 ## Release Identity
 
@@ -12,9 +12,13 @@ The immutable `v0.1.0` release remains the canonical structural schema baseline.
 
 `v0.5.0` established the public 60-mineral field, separate engineered-material/system layer, Gallium GA-001 Reviewed Pathway, and YIG-001 Reviewed Public Context. `v0.6.0` established FIELD → FOCUS → PROOF. `v0.6.1` closed truth/accessibility maintenance, including reduced-motion behavior and unique material-system accessible names.
 
-`v0.7.0` adds **Selected pathways** as a restrained discovery layer. It preserves the neutral Atlas, keeps deeper material detail optional, and makes two bounded public examples easier to find: Gallium as a **critical mineral / reviewed pathway** and Yttrium Iron Garnet (YIG) as an **engineered material system / reviewed context**. It does not add or upgrade underlying evidence.
+The immediate prior immutable release is `v0.7.0`. Its verified signed tag resolves to commit `8210af0362b32baf3f4e30c2ccb5ca7d8643b838`. That release added **Selected pathways** as a restrained discovery layer with two bounded public examples: Gallium as a **critical mineral / reviewed pathway** and Yttrium Iron Garnet (YIG) as an **engineered material system / reviewed context**. It does not add or upgrade underlying evidence.
 
-External publication identity is not self-declared by repository metadata. Verified signed GitHub tags, immutable Releases, deterministic archives, checksums, hosted CI/CodeQL/Browser UAT, and Pages verification govern published-release identity.
+The `v0.7.1` foundation baseline is commit `12e80d232c59e5221747353f963e71aba2df51d4`, tree `0114df565bd87d8c0b55b0988b3a200970aba8c2`. It contains the accepted experience-continuity and repository-truth follow-up from PR #27 and is preserved as historical foundation provenance.
+
+The `v0.7.1` Foundation Hardening source/release line is based on that foundation commit. It moves Selected Pathways to schema-validated, controlled-record-resolved, deterministic build-time HTML; makes Browser UAT and preview infrastructure version-neutral; and hardens workflow reporting and credential persistence. It adds no pathway or evidence claim and does not change the accepted Atlas journey.
+
+External publication status is not self-declared by repository metadata. GitHub verified signed tags, immutable Releases, workflow evidence, and Pages production verification authoritatively govern external publication state. Deterministic archives and checksums bind released content without predicting mutable GitHub identifiers.
 
 ## Public Experience
 
@@ -36,13 +40,13 @@ The separately governed Bridge Node 7 corporate website has advanced beyond the 
 
 ## Validation State
 
-The latest source-admitted external automated browser and production attestations are for released `v0.6.1` at commit `cccd195b5cf160f174ea12a18f3df42b07af99d5`. The current `v0.7.0` source line requires fresh external PR/main/Pages/release gates before publication.
+The historical foundation-baseline attestation covers commit `12e80d232c59e5221747353f963e71aba2df51d4`: CI, CodeQL, Chromium Browser UAT, Deploy Pages, and anonymous production-byte verification passed on August 14, 2026. Production verification confirmed deterministic deployed bytes. GA-001, MF-001, and YIG-001 remained unchanged, and maturity remained M0.
 
-The founder/operator completed a live desktop visual UX/UAT review of the selected-pathways candidate on August 13, 2026 and accepted the interaction model. Human mobile visual UAT and human assistive-technology UAT remain separately unevidenced unless independently executed and recorded.
+Historical attestation records remain valid historical evidence; GitHub is authoritative for current workflow and deployment state. Human desktop visual UX/UAT accepted the `v0.7.0` Selected Pathways interaction model on August 13, 2026. Human mobile visual UAT and human assistive-technology UAT remain separately unevidenced unless independently executed and recorded.
 
 ## Public Capability Gate
 
-**CLOSED for the current M0 capability baseline; v0.7.0 publication remains externally gated until release closeout.**
+**CLOSED for the M0 capability baseline.** Source line `0.7.1` adds no capability beyond that boundary. External publication and release status must be determined from GitHub's verified signed tags, immutable Releases, workflow evidence, and Pages production verification.
 
 No M1, schema expansion, supplier/material qualification, acquisition approval, mission-readiness conclusion, commercial validation, or autonomous consequential authority is implied.
 

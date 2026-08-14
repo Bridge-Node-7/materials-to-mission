@@ -1,4 +1,4 @@
-name: M2M v0.6.0 Browser UAT
+name: Materials-to-Mission Browser UAT
 on:
   pull_request:
   push:
@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
       - name: Set up Python 3.12
         uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
         with:
@@ -35,7 +37,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python -m http.server 8765 --directory build/web >build/http.log 2>&1 &
+          python scripts/serve_preview.py --directory build/web --port 8765 >build/http.log 2>&1 &
           server_pid=$!
           trap 'kill "$server_pid" 2>/dev/null || true' EXIT
           ready=0
@@ -44,12 +46,12 @@ jobs:
             sleep 1
           done
           test "$ready" = 1
-          python scripts/browser_uat_v060.py --base-url http://127.0.0.1:8765/ --evidence build/browser-uat
+          python scripts/browser_uat.py --base-url http://127.0.0.1:8765/ --evidence build/browser-uat
       - name: Upload browser evidence
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
-          name: m2m-v060-browser-uat
+          name: m2m-browser-uat
           path: |
             build/browser-uat/
             build/http.log

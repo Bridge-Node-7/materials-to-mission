@@ -17,6 +17,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
+          persist-credentials: false
       - name: Set up Python
         uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
@@ -66,13 +67,17 @@ jobs:
           archive="dist/materials-to-mission-${GITHUB_REF_NAME}.zip"
           test -f "$notes_file"
           test -f "$archive"
+          release_title="$(sed -n '1s/^# //p' "$notes_file")"
+          expected_title_prefix="Materials-to-Mission ${GITHUB_REF_NAME}"
+          test -n "$release_title"
+          [[ "$release_title" == "$expected_title_prefix" || "$release_title" == "$expected_title_prefix — "* ]]
           manifest_tag="$(python -c 'import json; print(json.load(open("dist/release-manifest.json"))["tag"])')"
           test "$manifest_tag" = "$GITHUB_REF_NAME"
           if gh release view "${GITHUB_REF_NAME}" >/dev/null 2>&1; then
             echo "Release already exists" >&2
             exit 1
           fi
-          gh release create "${GITHUB_REF_NAME}" --draft --verify-tag             --title "Materials-to-Mission ${GITHUB_REF_NAME} — FIELD → FOCUS → PROOF"             --notes-file "$notes_file"
+          gh release create "${GITHUB_REF_NAME}" --draft --verify-tag             --title "$release_title"             --notes-file "$notes_file"
           gh release upload "${GITHUB_REF_NAME}"             "$archive"             dist/SHA256SUMS             dist/release-manifest.json             REPO_FILE_MANIFEST.sha256             VALIDATION_REPORT.md
           expected="$(printf '%s\n' REPO_FILE_MANIFEST.sha256 SHA256SUMS VALIDATION_REPORT.md "materials-to-mission-${GITHUB_REF_NAME}.zip" release-manifest.json | sort)"
           observed="$(gh release view "${GITHUB_REF_NAME}" --json assets --jq '.assets[].name' | sort)"

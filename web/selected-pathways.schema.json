@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Bridge-Node-7/materials-to-mission/blob/main/web/selected-pathways.schema.json",
+  "title": "Selected Pathways Presentation Registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "pathways"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "pathways": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["record_type", "record_id", "source_id", "type_label", "summary", "href", "action_label"],
+        "properties": {
+          "record_type": {"enum": ["critical-mineral-reviewed-pathway", "engineered-material-system-reviewed-context"]},
+          "record_id": {"type": "string", "minLength": 1},
+          "source_id": {"type": "string", "minLength": 1},
+          "type_label": {"type": "string", "minLength": 1},
+          "summary": {"type": "string", "minLength": 1},
+          "href": {"type": "string", "pattern": "^#[a-z0-9-]+$"},
+          "action_label": {"type": "string", "minLength": 1}
+        }
+      }
+    }
+  }
+}

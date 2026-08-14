@@ -563,30 +563,8 @@ const esc = value => String(value).replace(/[&<>"']/g, char => ({
 (() => {
   const text = (node) => (node?.textContent || "").replace(/\s+/g, " ").trim();
 
-  function findLink(href, pattern) {
-    return [...document.querySelectorAll(`a[href="${href}"]`)]
-      .find((a) => pattern.test(text(a))) || null;
-  }
-
   function findLegacyOverview() {
-    const trace = findLink("#trace", /pathway/i);
-    const sources = findLink("#sources", /evidence|source/i);
-    const forms = findLink("#forms", /material system|forms/i);
-    if (!trace || !sources || !forms) return null;
-
-    let node = trace.parentElement;
-    while (node && node !== document.body && node !== document.documentElement) {
-      const copy = text(node);
-      if (
-        node.contains(sources) &&
-        node.contains(forms) &&
-        /Gallium Pathway/i.test(copy) &&
-        /Evidence\s*&\s*Sources/i.test(copy) &&
-        /Material Systems/i.test(copy)
-      ) return node;
-      node = node.parentElement;
-    }
-    return null;
+    return document.querySelector('[data-depth="legacy-overview"]');
   }
 
   function commonParent(a, b) {
@@ -599,59 +577,10 @@ const esc = value => String(value).replace(/[&<>"']/g, char => ({
     return null;
   }
 
-  function buildPathways() {
-    const section = document.createElement("section");
-    section.id = "selected-pathways";
-    section.className = "selected-pathways";
-    section.setAttribute("aria-labelledby", "selectedPathwaysTitle");
-    section.innerHTML = `
-      <header class="selected-pathways-head">
-        <p class="selected-pathways-kicker">GO DEEPER</p>
-        <h2 id="selectedPathwaysTitle">Selected pathways</h2>
-        <p>Two public examples currently shared with deeper reviewed context. Explore only when useful.</p>
-      </header>
-
-      <div class="selected-pathway-list">
-        <article class="selected-pathway-row" data-pathway="gallium">
-          <span class="selected-pathway-symbol" aria-hidden="true">Ga</span>
-          <div class="selected-pathway-identity">
-            <span class="selected-pathway-type">CRITICAL MINERAL · REVIEWED PATHWAY</span>
-            <h3>Gallium</h3>
-          </div>
-          <p>Evidence Horizon · Sources · Next proof</p>
-          <a href="#trace">Open pathway <span aria-hidden="true">→</span></a>
-        </article>
-
-        <article class="selected-pathway-row" data-pathway="yig">
-          <span class="selected-pathway-symbol selected-pathway-symbol-wide" aria-hidden="true">YIG</span>
-          <div class="selected-pathway-identity">
-            <span class="selected-pathway-type">ENGINEERED MATERIAL SYSTEM · REVIEWED CONTEXT</span>
-            <h3>Yttrium Iron Garnet</h3>
-          </div>
-          <p>Related to Yttrium · Source-to-Mission</p>
-          <a href="#yig-pathway">Open system <span aria-hidden="true">→</span></a>
-        </article>
-      </div>
-
-      <nav class="selected-pathways-secondary" aria-label="Additional Materials-to-Mission depth">
-        <a href="#forms">Browse material systems <span aria-hidden="true">→</span></a>
-        <a href="#sources">Evidence &amp; sources <span aria-hidden="true">→</span></a>
-      </nav>
-    `;
-    return section;
-  }
-
-  function installSelectedPathways() {
-    if (document.getElementById("selected-pathways")) return;
-
+  function enhanceSelectedPathways() {
+    const section = document.getElementById("selected-pathways");
     const legacy = findLegacyOverview();
-    if (!legacy) {
-      console.error("M2M selected pathways: legacy overview not found");
-      return;
-    }
-
-    const section = buildPathways();
-    legacy.parentNode.insertBefore(section, legacy);
+    if (!section || !legacy) return;
     legacy.hidden = true;
     legacy.setAttribute("aria-hidden", "true");
     legacy.dataset.v070SupersededOverview = "true";
@@ -665,14 +594,15 @@ const esc = value => String(value).replace(/[&<>"']/g, char => ({
       const cue = document.createElement("a");
       cue.className = "atlas-pathway-signpost";
       cue.href = "#selected-pathways";
-      cue.innerHTML = `2 deeper public examples available <span aria-hidden="true">↓</span>`;
+      const pathwayCount = section.querySelectorAll(".selected-pathway-row").length;
+      cue.innerHTML = `${pathwayCount} deeper public examples available <span aria-hidden="true">↓</span>`;
       switcher.insertAdjacentElement("afterend", cue);
     }
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", installSelectedPathways, { once: true });
+    document.addEventListener("DOMContentLoaded", enhanceSelectedPathways, { once: true });
   } else {
-    installSelectedPathways();
+    enhanceSelectedPathways();
   }
 })();

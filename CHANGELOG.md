@@ -4,7 +4,17 @@ All notable changes are documented here.
 
 ## Unreleased
 
-No changes recorded after v0.7.0.
+No changes recorded after v0.7.1.
+
+## [0.7.1] - 2026-08-14
+### Foundation
+- Hardened Selected Pathways into validated, build-time progressive HTML derived from controlled records and a public-safe presentation registry.
+- Made Browser UAT and local preview infrastructure version-neutral and standardized preview transport on repo-owned HTTP/1.1.
+- Reconciled immediate-prior immutable `v0.7.0`, foundation-baseline provenance, automated attestation, and the `v0.7.1` source/release identity.
+- Hardened Actions checkout credentials and Pages production-attestation summary rendering.
+
+### Assurance
+- Preserved the accepted Atlas journey, exactly two selected pathways, frozen GA-001/MF-001/YIG-001 evidence, M0 maturity, fail-closed unknowns, and human consequential authority.
 
 ## [0.7.0] - 2026-08-13
 ### Added
