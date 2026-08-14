@@ -3,25 +3,18 @@ import json
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 
-def test_v070_selected_pathways_identity_and_scope():
-    app=(ROOT/'web/app.js').read_text(encoding='utf-8')
-    css=(ROOT/'web/styles.css').read_text(encoding='utf-8')
-    assert '// V070:SELECTED_PATHWAYS' in app
-    assert 'id = "selected-pathways"' in app
-    assert 'CRITICAL MINERAL · REVIEWED PATHWAY' in app
-    assert 'ENGINEERED MATERIAL SYSTEM · REVIEWED CONTEXT' in app
-    assert '2 deeper public examples available' in app
-    assert 'href="#trace"' in app
-    assert 'href="#yig-pathway"' in app
-    assert '/* V070:SELECTED_PATHWAYS */' in css
-    assert 'max-width:var(--max)' in css
-    assert 'white-space:nowrap' in css
-    assert '// V070:DISCOVERABLE_DEPTH_DOORWAY' not in app
+def test_v070_historical_selected_pathways_release_contract():
+    changelog=(ROOT/'CHANGELOG.md').read_text(encoding='utf-8')
+    assert '## [0.7.0] - 2026-08-13' in changelog
+    assert 'exactly two bounded public deeper examples: Gallium and YIG' in changelog
+    assert 'Frozen GA-001, MF-001, and YIG-001 evidence is unchanged' in changelog
 
 def test_v070_truth_and_uat_scope():
     facts=json.loads((ROOT/'PROJECT_FACTS.json').read_text(encoding='utf-8'))
-    assert facts['version']=='0.7.0'
-    assert facts['selected_pathways_public_example_count']==2
+    registry=json.loads((ROOT/'web/selected-pathways.json').read_text(encoding='utf-8'))
+    assert facts['immediate_prior_immutable_release']['tag']=='v0.7.0'
+    assert facts['historical_v070_selected_pathways_release_matrix']=='72_SCENARIO_CONFIGURATIONS_X_72_ACCEPTANCE_PROBES_EXTERNAL_GATE'
+    assert facts['selected_pathways_public_example_count']==len(registry['pathways'])
     assert facts['selected_pathways_public_examples']==['Gallium','Yttrium Iron Garnet (YIG)']
     assert facts['selected_pathways_gallium_status']=='CRITICAL_MINERAL_REVIEWED_PATHWAY'
     assert facts['selected_pathways_yig_status']=='ENGINEERED_MATERIAL_SYSTEM_REVIEWED_CONTEXT'
@@ -30,7 +23,8 @@ def test_v070_truth_and_uat_scope():
     assert facts['selected_pathways_human_assistive_technology_uat']=='NOT_ATTESTED'
 
 def test_v070_release_boundaries_are_explicit():
-    notes=(ROOT/'RELEASE_NOTES_v0.7.0.md').read_text(encoding='utf-8')
+    facts=json.loads((ROOT/'PROJECT_FACTS.json').read_text(encoding='utf-8'))
+    notes=(ROOT/facts['release_notes']).read_text(encoding='utf-8')
     state=(ROOT/'docs/CURRENT_STATE.md').read_text(encoding='utf-8')
     assert 'does not add or upgrade underlying evidence' in state
     assert 'YIG remains an engineered material system, not a USGS critical mineral' in notes
@@ -38,7 +32,7 @@ def test_v070_release_boundaries_are_explicit():
         assert token.lower() in notes.lower()
 
 def test_v070_browser_uat_respects_progressive_disclosure_before_trace():
-    source=(ROOT/'scripts/browser_uat_v060.py').read_text(encoding='utf-8')
+    source=(ROOT/'scripts/browser_uat.py').read_text(encoding='utf-8')
     assert "if not action.first.is_visible():" in source
     assert "ancestor::details[1]" in source
     assert "drawer.locator('summary').click()" in source
@@ -46,7 +40,7 @@ def test_v070_browser_uat_respects_progressive_disclosure_before_trace():
     assert "action.first.click(); page.locator('#trace.is-revealed').wait_for()" in source
 
 def test_v070_browser_uat_respects_progressive_disclosure_before_yig():
-    source=(ROOT/'scripts/browser_uat_v060.py').read_text(encoding='utf-8')
+    source=(ROOT/'scripts/browser_uat.py').read_text(encoding='utf-8')
     assert "if not yig.is_visible():" in source
     assert "drawer=yig.locator('xpath=ancestor::details[1]')" in source
     assert "drawer.locator('summary').click()" in source
@@ -54,7 +48,7 @@ def test_v070_browser_uat_respects_progressive_disclosure_before_yig():
     assert "yig.click(); record(checks,'39-yig-not-critical-mineral'" in source
 
 def test_v070_browser_uat_respects_progressive_disclosure_before_parent_return():
-    source=(ROOT/'scripts/browser_uat_v060.py').read_text(encoding='utf-8')
+    source=(ROOT/'scripts/browser_uat.py').read_text(encoding='utf-8')
     assert "if not parent.is_visible():" in source
     assert "drawer=parent.locator('xpath=ancestor::details[1]')" in source
     assert "drawer.locator('summary').click()" in source
@@ -64,7 +58,7 @@ def test_v070_browser_uat_respects_progressive_disclosure_before_parent_return()
 def test_v070_special_trace_profile_respects_progressive_disclosure():
     import ast
 
-    source=(ROOT/'scripts/browser_uat_v060.py').read_text(encoding='utf-8')
+    source=(ROOT/'scripts/browser_uat.py').read_text(encoding='utf-8')
     tree=ast.parse(source)
 
     assignments=[]
