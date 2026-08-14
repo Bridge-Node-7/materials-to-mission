@@ -48,13 +48,16 @@ def test_evidence_model_preserves_key_distinctions() -> None:
 
 def test_public_experience_has_institutional_continuity_without_replacing_product_nav() -> None:
     page = (ROOT / "web/index.html").read_text(encoding="utf-8")
-    assert "Method &amp; Source on GitHub" in page
+    assert '>Public Method ↗</a>' in page
+    assert 'href="https://github.com/Bridge-Node-7/materials-to-mission"' in page
     for target in (
-        "https://bridgenode7.com/materials/",
-        "https://bridgenode7.com/readiness/",
+        "https://bridgenode7.com/golden-age/",
+        "https://bridgenode7.com/materials-to-mission/",
+        "https://bridgenode7.com/partner/",
+        "https://bridgenode7.com/frontier-decision-engine/start.html",
         "https://bridgenode7.com/privacy/",
         "https://bridgenode7.com/privacy/#security",
-        "Strategic Inquiry",
+        "Contact",
     ):
         assert target in page
 
