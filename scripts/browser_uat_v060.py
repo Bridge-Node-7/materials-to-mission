@@ -208,8 +208,12 @@ def assert_csp_and_navigation(page):
     assert "default-src 'none'" in csp and "script-src 'self'" in csp and "connect-src 'none'" in csp
     assert page.locator('a.method-link').get_attribute('href')=='https://github.com/Bridge-Node-7/materials-to-mission'
     footer=page.locator('footer')
-    for text in ['Materials','Readiness','Privacy','Security','Strategic Inquiry']:
+    for text in ['Golden Age','Materials-to-Mission','Partner','Privacy','Security','Contact','© 2026 Bridge Node 7']:
         assert text in footer.inner_text()
+    continuation=page.locator('.continuation')
+    assert continuation.locator('a').count()==2
+    assert continuation.locator('a').nth(0).get_attribute('href')=='https://bridgenode7.com/frontier-decision-engine/start.html'
+    assert continuation.locator('a').nth(1).get_attribute('href')=='https://bridgenode7.com/partner/'
 
 def main():
     ap=argparse.ArgumentParser(); ap.add_argument('--base-url',required=True); ap.add_argument('--evidence',required=True); args=ap.parse_args()

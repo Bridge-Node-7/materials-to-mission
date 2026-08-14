@@ -1,6 +1,6 @@
 # Current State
 
-**As of August 13, 2026**
+**As of August 14, 2026**
 
 Materials-to-Mission remains an **M0 experimental public method**.
 
@@ -32,7 +32,7 @@ Live experience:
 
 `https://bridgenode7.com/materials-to-mission/`
 
-The separately governed Bridge Node 7 website release `v1.2.1` routes to that experience.
+The separately governed Bridge Node 7 corporate website has advanced beyond the historical `v1.2.1` integration reference. This repository does not assert a current signed corporate website release. The current institutional journey is Home → Materials-to-Mission → Partner → Golden Age, with Frontier Decision Engine as contextual decision support.
 
 ## Validation State
 
