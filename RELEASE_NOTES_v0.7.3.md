@@ -7,9 +7,9 @@ v0.7.3 makes the existing public method easier to enter and understand without c
 ## Clarity and orientation
 
 - A first-screen support line explains the journey from one material to the next proof.
-- A compact Start Here disclosure presents Choose, Follow, Understand, and Move.
+- How this map works keeps evidence and M0 boundaries available through progressive disclosure.
 - The canonical boundary remains explicit: Supported facts stay supported. Unknowns stay visible.
-- Gallium is identified as the preferred first pathway for a new visitor.
+- New visitors can start with Gallium.
 - YIG remains the deeper engineered-material-system example.
 - Reviewed does not mean qualified.
 - M0 is identified as a public evidence method, not qualification, certification, acquisition approval, or mission readiness.

@@ -27,7 +27,10 @@ def test_release_notes_are_self_contained_and_versioned() -> None:
         note_version = match.group(1)
         first_line = path.read_text(encoding="utf-8").splitlines()[0]
         assert first_line.startswith(f"# Materials-to-Mission v{note_version}")
-        assert f"## [{note_version}]" in changelog
+        if note_version == version:
+            assert f"## [{note_version}]" in changelog or "## Unreleased" in changelog
+        else:
+            assert f"## [{note_version}]" in changelog
 
 def test_docs_surface_is_bounded() -> None:
     docs = sorted(path.relative_to(ROOT).as_posix() for path in (ROOT / "docs").glob("*") if path.is_file())

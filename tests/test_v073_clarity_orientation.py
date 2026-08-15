@@ -27,8 +27,9 @@ def test_v073_first_use_orientation_is_exact_and_bounded(tmp_path: Path) -> None
     assert html.count("Reviewed does not mean qualified.") == 1
     text = re.sub(r"<[^>]+>", "", html)
     assert text.count("M0 is a public evidence method. It is not qualification, certification, acquisition approval, or mission readiness.") == 1
-    for step in ("Choose", "Follow", "Understand", "Move"):
-        assert f"<strong>{step}</strong>" in html
+    assert 'class="start-here"' not in html
+    assert "<strong>Evidence boundary.</strong> Supported facts stay supported. Unknowns stay visible." in html
+    assert "<strong>Public method.</strong> M0 is a public evidence method." in html
 
 
 def test_v073_pathway_cues_preserve_exact_two_examples(tmp_path: Path) -> None:
@@ -46,6 +47,7 @@ def test_v073_truth_preserves_human_and_evidence_boundaries() -> None:
     assert facts["human_decision_authority_required"] is True
     assert facts["human_first_time_comprehension_uat_attestation"] == "NOT_ATTESTED"
     assert facts["clarity_orientation_v073"]["scope"] == "FIRST_USE_COPY_AND_PROGRESSIVE_ORIENTATION_ONLY"
+    assert facts["clarity_orientation_v073"]["product_owner_direction"] == "ACCEPTED"
     assert facts["clarity_orientation_v073"]["dependency_security"] == "PASS_NO_CHANGE"
     assert facts["clarity_orientation_v073"]["first_time_human_comprehension_uat"] == "NOT_ATTESTED"
     assert facts["clarity_orientation_v073"]["anti_framing"] == "KNOWN_HOSTING_LAYER_LIMITATION"
@@ -54,3 +56,13 @@ def test_v073_truth_preserves_human_and_evidence_boundaries() -> None:
 def test_v073_release_concept_uses_exact_ascii_hyphen() -> None:
     title = (ROOT / "RELEASE_NOTES_v0.7.3.md").read_text(encoding="utf-8").splitlines()[0]
     assert title == "# Materials-to-Mission v0.7.3 - Clarity and Orientation"
+
+
+def test_v073_candidate_truth_is_not_prematurely_released() -> None:
+    citation = (ROOT / "CITATION.cff").read_text(encoding="utf-8")
+    changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+    notes = (ROOT / "RELEASE_NOTES_v0.7.3.md").read_text(encoding="utf-8")
+    assert "date-released:" not in citation
+    assert "## [0.7.3]" not in changelog
+    assert "New visitors can start with Gallium." in notes
+    assert "preferred first pathway" not in notes

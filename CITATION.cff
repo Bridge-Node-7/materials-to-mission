@@ -5,7 +5,6 @@ type: software
 authors:
   - name: Bridge Node 7
 version: 0.7.3
-date-released: 2026-08-14
 license: MIT
 repository-code: https://github.com/Bridge-Node-7/materials-to-mission
 url: https://bridgenode7.com/
