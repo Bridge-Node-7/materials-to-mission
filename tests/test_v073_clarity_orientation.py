@@ -48,6 +48,7 @@ def test_v073_truth_preserves_human_and_evidence_boundaries() -> None:
     assert facts["human_first_time_comprehension_uat_attestation"] == "NOT_ATTESTED"
     assert facts["clarity_orientation_v073"]["scope"] == "FIRST_USE_COPY_AND_PROGRESSIVE_ORIENTATION_ONLY"
     assert facts["clarity_orientation_v073"]["product_owner_direction"] == "ACCEPTED"
+    assert facts["clarity_orientation_v073"]["product_owner_final_visual_acceptance"] == "ACCEPTED"
     assert facts["clarity_orientation_v073"]["dependency_security"] == "PASS_NO_CHANGE"
     assert facts["clarity_orientation_v073"]["first_time_human_comprehension_uat"] == "NOT_ATTESTED"
     assert facts["clarity_orientation_v073"]["anti_framing"] == "KNOWN_HOSTING_LAYER_LIMITATION"
@@ -58,11 +59,12 @@ def test_v073_release_concept_uses_exact_ascii_hyphen() -> None:
     assert title == "# Materials-to-Mission v0.7.3 - Clarity and Orientation"
 
 
-def test_v073_candidate_truth_is_not_prematurely_released() -> None:
+def test_v073_release_preparation_truth_is_exact() -> None:
     citation = (ROOT / "CITATION.cff").read_text(encoding="utf-8")
     changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
     notes = (ROOT / "RELEASE_NOTES_v0.7.3.md").read_text(encoding="utf-8")
-    assert "date-released:" not in citation
-    assert "## [0.7.3]" not in changelog
+    assert "date-released: 2026-08-14" in citation
+    assert "## Unreleased\n\nNo changes recorded after v0.7.3." in changelog
+    assert "## [0.7.3] - 2026-08-14" in changelog
     assert "New visitors can start with Gallium." in notes
     assert "preferred first pathway" not in notes

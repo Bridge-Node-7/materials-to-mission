@@ -189,6 +189,7 @@
   "clarity_orientation_v073": {
     "scope": "FIRST_USE_COPY_AND_PROGRESSIVE_ORIENTATION_ONLY",
     "product_owner_direction": "ACCEPTED",
+    "product_owner_final_visual_acceptance": "ACCEPTED",
     "dependency_security": "PASS_NO_CHANGE",
     "physical_device_mobile_uat": "NOT_ATTESTED",
     "human_assistive_technology_uat": "NOT_ATTESTED",
