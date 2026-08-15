@@ -56,7 +56,7 @@ def test_visual_baseline_identity_is_preserved() -> None:
     facts = json.loads((ROOT / "PROJECT_FACTS.json").read_text(encoding="utf-8"))
     assert facts["visual_experience_baseline_version"] == "0.5.0"
     assert facts["source_version"] == facts["version"]
-    assert facts["visual_experience_source_status"] == "v0.7.1-foundation-hardening-external-publication-authority-is-GitHub"
+    assert facts["visual_experience_source_status"] == "v0.7.2-corrective-maintenance-external-publication-authority-is-GitHub"
     assert facts["visual_experience_status"] == "field-focus-proof-selected-pathways-progressive-disclosure"
     historical = facts["production_source_stored_historical_baseline"]
     assert historical == {"release": "v0.5.0", "readback": "PASS_V050_EXACT_PUBLIC_BYTES"}
