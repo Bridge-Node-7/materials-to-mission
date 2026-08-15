@@ -4,7 +4,7 @@
 
 Materials-to-Mission remains an **M0 experimental public method**.
 
-`VERSION` identifies source line `0.7.1`, the Foundation Hardening source/release line.
+`VERSION` identifies source line `0.7.2`, the Corrective Maintenance source/release line.
 
 ## Release Identity
 
@@ -12,11 +12,13 @@ The immutable `v0.1.0` release remains the canonical structural schema baseline.
 
 `v0.5.0` established the public 60-mineral field, separate engineered-material/system layer, Gallium GA-001 Reviewed Pathway, and YIG-001 Reviewed Public Context. `v0.6.0` established FIELD → FOCUS → PROOF. `v0.6.1` closed truth/accessibility maintenance, including reduced-motion behavior and unique material-system accessible names.
 
-The immediate prior immutable release is `v0.7.0`. Its verified signed tag resolves to commit `8210af0362b32baf3f4e30c2ccb5ca7d8643b838`. That release added **Selected pathways** as a restrained discovery layer with two bounded public examples: Gallium as a **critical mineral / reviewed pathway** and Yttrium Iron Garnet (YIG) as an **engineered material system / reviewed context**. It does not add or upgrade underlying evidence.
+The immediate prior immutable release is `v0.7.1`. Its verified signed tag resolves to production merge commit `2699783e1404fd1e6b01ae81451c29ecf9fcef27`. That release hardened Selected Pathways, preview infrastructure, workflows, and durable repository truth without adding or upgrading underlying evidence.
 
 The `v0.7.1` foundation baseline is commit `12e80d232c59e5221747353f963e71aba2df51d4`, tree `0114df565bd87d8c0b55b0988b3a200970aba8c2`. It contains the accepted experience-continuity and repository-truth follow-up from PR #27 and is preserved as historical foundation provenance.
 
 The `v0.7.1` Foundation Hardening source/release line is based on that foundation commit. It moves Selected Pathways to schema-validated, controlled-record-resolved, deterministic build-time HTML; makes Browser UAT and preview infrastructure version-neutral; and hardens workflow reporting and credential persistence. It adds no pathway or evidence claim and does not change the accepted Atlas journey.
+
+The `v0.7.2` Corrective Maintenance source/release line makes narrow-screen details genuine native modal dialogs, repairs lifecycle-safe dialog naming, explains the controlled 15-count rare-earth convention, and improves stale editable-install diagnostics. It records target-size and hosting-layer anti-framing dispositions without redesigning the Atlas and does not add or upgrade underlying evidence.
 
 External publication status is not self-declared by repository metadata. GitHub verified signed tags, immutable Releases, workflow evidence, and Pages production verification authoritatively govern external publication state. Deterministic archives and checksums bind released content without predicting mutable GitHub identifiers.
 
@@ -46,7 +48,7 @@ Historical attestation records remain valid historical evidence; GitHub is autho
 
 ## Public Capability Gate
 
-**CLOSED for the M0 capability baseline.** Source line `0.7.1` adds no capability beyond that boundary. External publication and release status must be determined from GitHub's verified signed tags, immutable Releases, workflow evidence, and Pages production verification.
+**CLOSED for the M0 capability baseline.** Source line `0.7.2` adds no capability beyond that boundary. External publication and release status must be determined from GitHub's verified signed tags, immutable Releases, workflow evidence, and Pages production verification.
 
 No M1, schema expansion, supplier/material qualification, acquisition approval, mission-readiness conclusion, commercial validation, or autonomous consequential authority is implied.
 

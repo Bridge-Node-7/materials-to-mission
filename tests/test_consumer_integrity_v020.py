@@ -217,7 +217,10 @@ def test_version_identity_is_singular(root: Path) -> None:
     citation = (root / "CITATION.cff").read_text(encoding="utf-8")
     citation_version = re.search(r"(?m)^version:\s*([^\s]+)\s*$", citation)
     assert re.fullmatch(r"\d+\.\d+\.\d+", version)
-    assert __version__ == version
+    assert __version__ == version, (
+        f"installed materials-to-mission metadata is {__version__}, but VERSION is {version}; "
+        "reinstall the current checkout with `python -m pip install --no-build-isolation -e .`"
+    )
     assert pyproject["project"]["version"] == version
     assert facts["version"] == version
     assert citation_version

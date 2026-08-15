@@ -13,6 +13,11 @@ integrity.
 5. Update documentation and changelog when public behavior changes.
 6. Explain evidence, compatibility, limitations, and public-boundary impact.
 
+If a version-identity test reports installed metadata that differs from
+`VERSION`, the editable installation is stale. Reinstall the current checkout
+in the active environment (for example, `python -m pip install --no-build-isolation -e .`)
+and rerun the gate; do not weaken the identity assertion.
+
 Do not submit real supplier, customer, laboratory, sample, lot, price, capacity,
 vulnerability, patent-sensitive, classified, controlled, or confidential data.
 All consequential decisions remain human-owned.
