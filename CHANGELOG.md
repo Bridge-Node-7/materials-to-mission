@@ -4,6 +4,10 @@ All notable changes are documented here.
 
 ## Unreleased
 
+No changes recorded after v0.7.3.
+
+## [0.7.3] - 2026-08-14
+
 ### Clarified
 - Added a compact first-use orientation path from one material through evidence limits to the next proof.
 - Added restrained Gallium and YIG entry cues without changing either reviewed record or pathway.
