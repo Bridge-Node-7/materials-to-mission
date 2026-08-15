@@ -37,12 +37,27 @@
   let activeLens = "all";
   let selectedId = null;
   let activeResult = -1;
+  let sheetReturnFocus = null;
   const preferredScrollBehavior = () =>
     matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
 
   function announce(message) {
     if (!experienceStatus) return;
     experienceStatus.textContent = message;
+  }
+
+  function setSheetContent(content) {
+    sheet.removeAttribute("aria-labelledby");
+    sheetContent.innerHTML = content;
+    const title = sheetContent.querySelector("#sheetTitle");
+    if (title) sheet.setAttribute("aria-labelledby", title.id);
+  }
+
+  function showModalSheet() {
+    if (sheet.open) return;
+    const active = document.activeElement;
+    sheetReturnFocus = active instanceof HTMLElement && active !== document.body && !sheet.contains(active) ? active : null;
+    sheet.showModal();
   }
 
   function clearActiveDescendant() {
@@ -206,6 +221,7 @@ const esc = value => String(value).replace(/[&<>"']/g, char => ({
     );
     root.querySelectorAll("[data-depth]").forEach(link => link.addEventListener("click", event => {
       event.preventDefault(); const target = link.dataset.depth;
+      if (sheet.open && sheet.contains(link)) sheet.close();
       if (target === "trace") { setDepthState("trace", {scrollId:"trace"}); setHash("#trace", true); }
       else if (target === "yig") { setDepthState("yig", {scrollId:"yig-pathway"}); setHash("#yig-pathway", true); }
       else if (target === "forms") { setDepthState("forms", {scrollId:"forms"}); setHash("#forms", true); }
@@ -285,9 +301,9 @@ const esc = value => String(value).replace(/[&<>"']/g, char => ({
     drawConnections(material);
     requestAnimationFrame(() => centerMaterialInViewport(material.id));
     if (openSheet && matchMedia("(max-width:1160px)").matches) {
-      sheetContent.innerHTML = materialDetail(material, true);
+      setSheetContent(materialDetail(material, true));
       bindDetail(sheetContent);
-      if (!sheet.open) sheet.show();
+      showModalSheet();
     }
     announce(`${material.name}. ${material.review.label}.`);
     if (pushHash) setHash(`#material-${material.id}`, true);
@@ -307,9 +323,9 @@ const esc = value => String(value).replace(/[&<>"']/g, char => ({
       detail.innerHTML = formDetail(form, false);
       bindDetail(detail);
     } else if (openSheet) {
-      sheetContent.innerHTML = formDetail(form, true);
+      setSheetContent(formDetail(form, true));
       bindDetail(sheetContent);
-      if (!sheet.open) sheet.show();
+      showModalSheet();
     }
     announce(`${form.name}. ${form.review?.label || "Public context"}.`);
     if (pushHash) setHash(`#form-${form.id}`, true);
@@ -507,6 +523,11 @@ const esc = value => String(value).replace(/[&<>"']/g, char => ({
   document.getElementById("sheetClose").addEventListener("click", () => sheet.close());
   sheet.addEventListener("click", event => {
     if (event.target === sheet) sheet.close();
+  });
+  sheet.addEventListener("close", () => {
+    const returnFocus = sheetReturnFocus;
+    sheetReturnFocus = null;
+    if (returnFocus?.isConnected) returnFocus.focus({preventScroll:true});
   });
 
   function setAtlasView(mode, {focus=false, scroll=false}={}) {

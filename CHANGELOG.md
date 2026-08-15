@@ -4,7 +4,18 @@ All notable changes are documented here.
 
 ## Unreleased
 
-No changes recorded after v0.7.1.
+No changes recorded after v0.7.2.
+
+## [0.7.2] - 2026-08-14
+### Corrected
+- Made narrow-screen material and material-system details genuine native modal dialogs with lifecycle-safe accessible naming and focus restoration.
+- Added a restrained orientation note explaining the Atlas 15-count rare-earth convention while preserving scandium as a separately listed controlled record.
+- Added stale editable-install diagnostic guidance without weakening version identity.
+
+### Assurance
+- Recorded the 24px dense-node target-size disposition as accepted/no-change with larger List-view alternatives preserved.
+- Recorded the verified GitHub Pages anti-framing header limitation without adding an ineffective meta-CSP `frame-ancestors` directive.
+- Preserved exactly two Selected Pathways, frozen GA-001/MF-001/YIG-001 evidence, M0 maturity, and human consequential authority.
 
 ## [0.7.1] - 2026-08-14
 ### Foundation

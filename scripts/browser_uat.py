@@ -56,6 +56,52 @@ def assert_material_system_accessible_names(page):
     assert len(labels)==10 and all(labels), labels
     assert len(set(labels))==10, labels
     assert all(label.startswith('Open detail: ') for label in labels), labels
+
+def assert_mobile_modal_detail_lifecycle(page,width):
+    if width>1160: return
+    base=page.url.split('#')[0]
+    sheet=page.locator('#materialSheet')
+    assert sheet.get_attribute('aria-label')=='Material detail'
+    assert sheet.get_attribute('aria-labelledby') is None
+    assert page.locator('#sheetTitle').count()==0
+
+    gallium=page.locator('.mineral[data-id="gallium"]')
+    gallium.click()
+    assert sheet.evaluate("el => el.matches(':modal')")
+    assert page.locator('dialog:modal').count()==1
+    assert sheet.get_attribute('aria-labelledby')=='sheetTitle'
+    assert sheet.locator('#sheetTitle').inner_text().strip()=='Gallium'
+    page.evaluate("document.querySelector('#globalSearch').focus()")
+    assert sheet.evaluate("el => el.contains(document.activeElement)")
+    for _ in range(12):
+        page.keyboard.press('Tab')
+        assert sheet.evaluate("el => el.contains(document.activeElement) || document.activeElement === document.body")
+        assert not page.evaluate("document.activeElement?.matches('#globalSearch, .mineral, .form-card button') === true")
+    page.keyboard.press('Escape')
+    assert not sheet.evaluate("el => el.matches(':modal')")
+    assert gallium.evaluate("el => el === document.activeElement")
+
+    gallium.click()
+    page.locator('#sheetClose').click()
+    assert not sheet.evaluate("el => el.matches(':modal')")
+    assert gallium.evaluate("el => el === document.activeElement")
+
+    yttrium=page.locator('.mineral[data-id="yttrium"]')
+    yttrium.click()
+    detail=sheet
+    yig=detail.locator('[data-form-id="yig"]')
+    if not yig.is_visible():
+        drawer=yig.locator('xpath=ancestor::details[1]')
+        if drawer.get_attribute('open') is None: drawer.locator('summary').click()
+        yig.wait_for(state='visible')
+    yig.click()
+    assert sheet.evaluate("el => el.matches(':modal')")
+    assert page.locator('dialog:modal').count()==1
+    assert sheet.locator('#sheetTitle').inner_text().strip()=='Yttrium Iron Garnet'
+    page.locator('#sheetClose').click()
+    assert yttrium.evaluate("el => el === document.activeElement")
+    page.goto(base,wait_until='domcontentloaded')
+
 def exercise_search(page,checks):
     search=page.locator('#globalSearch')
     search.fill('Gallium'); search.press('ArrowDown')
@@ -105,6 +151,8 @@ def exercise_gallium_proof(page,width,checks):
             drawer.locator('summary').click()
         action.first.wait_for(state='visible')
     action.first.click(); page.locator('#trace.is-revealed').wait_for()
+    if width<=1160:
+        assert not page.locator('#materialSheet').evaluate("el => el.matches(':modal')")
     trace=page.locator('#trace').inner_text()
     record(checks,'24-trace-evidence-horizon','Evidence Horizon' in trace)
     record(checks,'25-first-unresolved-link','Qualified domestic primary recovery at mission-relevant scale' in trace)
@@ -227,7 +275,7 @@ def main():
             context=browser.new_context(viewport={'width':width,'height':height},reduced_motion='reduce')
             page=context.new_page(); page.on('console',lambda m: errors.append(f'console:{m.type}:{m.text}') if m.type=='error' else None); page.on('pageerror',lambda e: errors.append(f'pageerror:{e}'))
             page.goto(args.base_url,wait_until='networkidle',timeout=60000)
-            assert_core_arrival(page,checks); assert_material_system_accessible_names(page); exercise_search(page,checks); exercise_filter(page,checks); exercise_list_and_nonreviewed(page,width,checks); sources=exercise_gallium_proof(page,width,checks); exercise_yig_parent(page,width,checks); exercise_legacy_hashes(page,width,checks); assert_csp_and_navigation(page)
+            assert_core_arrival(page,checks); assert_material_system_accessible_names(page); assert_mobile_modal_detail_lifecycle(page,width); exercise_search(page,checks); exercise_filter(page,checks); exercise_list_and_nonreviewed(page,width,checks); sources=exercise_gallium_proof(page,width,checks); exercise_yig_parent(page,width,checks); exercise_legacy_hashes(page,width,checks); assert_csp_and_navigation(page)
             no_horizontal_overflow(page)
             assert len(set(checks))==42, (len(checks),checks)
             if errors: raise AssertionError(errors)
@@ -242,7 +290,7 @@ def main():
         # 200%-equivalent reflow
         context=browser.new_context(viewport={'width':640,'height':900},reduced_motion='reduce'); page=context.new_page(); page.goto(args.base_url,wait_until='networkidle',timeout=60000); checks=[]; assert_core_arrival(page,checks); no_horizontal_overflow(page); page.screenshot(path=str(out/'zoom-200-equivalent-reflow.png'),full_page=True); results.append({'profile':'zoom-200-equivalent-reflow','status':'PASS'}); context.close()
         # Mobile touch
-        context=browser.new_context(viewport={'width':375,'height':812},is_mobile=True,has_touch=True,reduced_motion='reduce'); page=context.new_page(); page.goto(args.base_url,wait_until='networkidle',timeout=60000); checks=[]; assert_core_arrival(page,checks); page.locator('.mineral[data-id="gallium"]').tap(); sheet=page.locator('#materialSheet'); assert sheet.get_attribute('open') is not None and 'Gallium' in sheet.inner_text(); results.append({'profile':'mobile-touch','status':'PASS'}); context.close()
+        context=browser.new_context(viewport={'width':375,'height':812},is_mobile=True,has_touch=True,reduced_motion='reduce'); page=context.new_page(); page.goto(args.base_url,wait_until='networkidle',timeout=60000); checks=[]; assert_core_arrival(page,checks); page.locator('.mineral[data-id="gallium"]').tap(); sheet=page.locator('#materialSheet'); assert sheet.evaluate("el => el.matches(':modal')") and 'Gallium' in sheet.inner_text(); results.append({'profile':'mobile-touch','status':'PASS'}); context.close()
         # Grayscale / non-color selected state
         context=browser.new_context(viewport={'width':1280,'height':720},reduced_motion='reduce'); page=context.new_page(); page.goto(args.base_url,wait_until='networkidle',timeout=60000); page.evaluate("document.documentElement.style.filter='grayscale(1)'"); gallium=page.locator('.mineral[data-id="gallium"]'); cobalt=page.locator('.mineral[data-id="cobalt"]'); gallium.click(); assert gallium.get_attribute('aria-current')=='true'; assert 'selected' in (gallium.get_attribute('class') or '').split(); page.wait_for_function("""() => {const ga=document.querySelector('.mineral[data-id="gallium"]'); const co=document.querySelector('.mineral[data-id="cobalt"]'); if(!ga||!co) return false; const a=new DOMMatrixReadOnly(getComputedStyle(ga).transform); const b=new DOMMatrixReadOnly(getComputedStyle(co).transform); return Math.abs(a.a-b.a)>.15;}""",timeout=3000); state=page.evaluate("""() => {const ga=document.querySelector('.mineral[data-id="gallium"]'); const co=document.querySelector('.mineral[data-id="cobalt"]'); const a=getComputedStyle(ga); const b=getComputedStyle(co); const aspan=getComputedStyle(ga.querySelector('span')); const bspan=getComputedStyle(co.querySelector('span')); return {selected:{transform:a.transform,borderWidth:a.borderWidth,fontSize:aspan.fontSize},peer:{transform:b.transform,borderWidth:b.borderWidth,fontSize:bspan.fontSize}};}"""); assert state['selected']['borderWidth']!=state['peer']['borderWidth'], state; assert state['selected']['transform']!=state['peer']['transform'], state; assert state['selected']['fontSize']!=state['peer']['fontSize'], state; results.append({'profile':'grayscale-noncolor-state','status':'PASS','state':state}); context.close()
         # Programmatic reduced-motion behavior

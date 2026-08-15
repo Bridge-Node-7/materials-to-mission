@@ -39,11 +39,16 @@ def test_no_javascript_baseline_is_semantic() -> None:
 def test_accessibility_and_reduced_motion_contract() -> None:
     html = (ROOT / "web/index.html").read_text(encoding="utf-8")
     css = (ROOT / "web/styles.css").read_text(encoding="utf-8")
+    js = (ROOT / "web/app.js").read_text(encoding="utf-8")
     assert 'class="skip-link"' in html
     assert ':focus-visible' in css
     assert '[hidden]{display:none!important}' in css.replace(" ", "")
     assert 'prefers-reduced-motion:reduce' in css.replace(" ", "")
-    assert 'aria-labelledby="sheetTitle"' in html
+    assert '<dialog id="materialSheet" class="material-sheet" aria-label="Material detail">' in html
+    assert 'aria-labelledby="sheetTitle"' not in html
+    assert 'sheet.setAttribute("aria-labelledby", title.id)' in js
+    assert "sheet.showModal()" in js
+    assert "sheet.show()" not in js
     assert 'role="combobox"' in html
     assert 'aria-controls="searchResults"' in html
     assert 'viewport-fit=cover' in html
@@ -55,6 +60,12 @@ def test_mobile_default_does_not_auto_open_material_sheet() -> None:
     assert 'openSheet && matchMedia("(max-width:1160px)").matches' in js
 
     assert 'centerMaterialInViewport(material.id)' in js
+
+
+def test_rare_earth_convention_is_precise_and_orientation_only() -> None:
+    html = (ROOT / "web/index.html").read_text(encoding="utf-8")
+    assert "The Atlas 15-count follows the controlled USGS commodity grouping used here; scandium remains separately listed." in html
+    assert html.count("Rare-earth convention.") == 1
 
 def test_typography_floor() -> None:
     css = (ROOT / "web/styles.css").read_text(encoding="utf-8")
