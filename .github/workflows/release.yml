@@ -70,7 +70,14 @@ jobs:
           release_title="$(sed -n '1s/^# //p' "$notes_file")"
           expected_title_prefix="Materials-to-Mission ${GITHUB_REF_NAME}"
           test -n "$release_title"
-          [[ "$release_title" == "$expected_title_prefix" || "$release_title" == "$expected_title_prefix — "* ]]
+          case "$release_title" in
+            "$expected_title_prefix"|"$expected_title_prefix — "*|"$expected_title_prefix - "*)
+              ;;
+            *)
+              echo "Unsupported release title: $release_title" >&2
+              exit 1
+              ;;
+          esac
           manifest_tag="$(python -c 'import json; print(json.load(open("dist/release-manifest.json"))["tag"])')"
           test "$manifest_tag" = "$GITHUB_REF_NAME"
           if gh release view "${GITHUB_REF_NAME}" >/dev/null 2>&1; then

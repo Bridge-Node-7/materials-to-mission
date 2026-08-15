@@ -125,5 +125,7 @@ def test_release_title_is_derived_from_version_matched_notes_h1() -> None:
     assert notes_h1 == "# Materials-to-Mission v0.7.3 - Clarity and Orientation"
     assert "release_title=\"$(sed -n '1s/^# //p' \"$notes_file\")\"" in workflow
     assert 'expected_title_prefix="Materials-to-Mission ${GITHUB_REF_NAME}"' in workflow
+    assert '"$expected_title_prefix"|"$expected_title_prefix — "*|"$expected_title_prefix - "*)' in workflow
+    assert 'echo "Unsupported release title: $release_title" >&2' in workflow
     assert '--title "$release_title"' in workflow
     assert '--title "Materials-to-Mission ${GITHUB_REF_NAME}' not in workflow
