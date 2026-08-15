@@ -48,6 +48,13 @@ def assert_core_arrival(page,checks):
     visual=page.evaluate("""() => { const a=getComputedStyle(document.querySelector('.mineral[data-id="gallium"]')); const b=getComputedStyle(document.querySelector('.mineral[data-id="cobalt"]')); return [a.borderColor,a.backgroundImage,a.boxShadow,b.borderColor,b.backgroundImage,b.boxShadow]; }""")
     record(checks,'09-no-gallium-arrival-privilege',visual[:3]==visual[3:])
     no_horizontal_overflow(page); record(checks,'10-no-horizontal-overflow-arrival')
+    assert page.locator('.atlas-orientation-line').inner_text().strip() == 'Start with one material. Follow the pathway. Stop where evidence stops. See what should be proven next.'
+    assert page.locator('.start-here').count() == 1
+    assert page.locator('body').inner_text().count('Supported facts stay supported. Unknowns stay visible.') == 1
+    assert 'M0 is a public evidence method. It is not qualification, certification, acquisition approval, or mission readiness.' in page.locator('.method-boundary').inner_text()
+    assert page.locator('body').inner_text().count('Reviewed does not mean qualified.') == 1
+    assert page.locator('#selected-pathways').inner_text().count('New here? Start with Gallium.') == 1
+    assert page.locator('#selected-pathways').inner_text().count('Explore deeper: YIG shows how an engineered material system adds substrate, processing, characterization, and validation questions.') == 1
 
 def assert_material_system_accessible_names(page):
     buttons=page.locator('#forms .form-card button[data-form-id]')

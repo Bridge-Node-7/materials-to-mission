@@ -39,6 +39,7 @@ def test_unevidenced_human_uat_is_not_promoted() -> None:
     assert facts["browser_uat_contract"] == "version-neutral-14-profile-automated-contract-including-seven-42-contract-viewports"
     assert facts["human_real_device_uat_attestation"] == "NOT_ATTESTED"
     assert facts["human_assistive_technology_uat_attestation"] == "NOT_ATTESTED"
+    assert facts["human_first_time_comprehension_uat_attestation"] == "NOT_ATTESTED"
     assert facts["selected_pathways_human_desktop_visual_uat"] == "PASS_USER_REVIEW_2026-08-13"
     assert facts["selected_pathways_human_mobile_visual_uat"] == "NOT_SEPARATELY_ATTESTED"
 
@@ -56,7 +57,7 @@ def test_visual_baseline_identity_is_preserved() -> None:
     facts = json.loads((ROOT / "PROJECT_FACTS.json").read_text(encoding="utf-8"))
     assert facts["visual_experience_baseline_version"] == "0.5.0"
     assert facts["source_version"] == facts["version"]
-    assert facts["visual_experience_source_status"] == "v0.7.2-corrective-maintenance-external-publication-authority-is-GitHub"
+    assert facts["visual_experience_source_status"] == "v0.7.3-clarity-orientation-candidate-external-publication-authority-is-GitHub"
     assert facts["visual_experience_status"] == "field-focus-proof-selected-pathways-progressive-disclosure"
     historical = facts["production_source_stored_historical_baseline"]
     assert historical == {"release": "v0.5.0", "readback": "PASS_V050_EXACT_PUBLIC_BYTES"}
