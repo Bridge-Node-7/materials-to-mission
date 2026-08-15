@@ -4,7 +4,18 @@ All notable changes are documented here.
 
 ## Unreleased
 
-No changes recorded after v0.7.2.
+No changes recorded after v0.7.3.
+
+## [0.7.3] - 2026-08-14
+### Clarified
+- Added a compact first-use orientation path from one material through evidence limits to the next proof.
+- Added restrained Gallium and YIG entry cues without changing either reviewed record or pathway.
+- Made the M0 boundary, reviewed-versus-qualified distinction, and human decision authority easier to find.
+
+### Assurance
+- Preserved the Atlas architecture, exact 60-mineral field, six lenses, and exactly two Selected Pathways.
+- Preserved frozen GA-001, MF-001, and YIG-001 evidence, M0 maturity, visible unknowns, and human consequential authority.
+- Added no dependency, external runtime, evidence, pathway, qualification, or product capability.
 
 ## [0.7.2] - 2026-08-14
 ### Corrected

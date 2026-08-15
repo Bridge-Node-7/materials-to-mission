@@ -4,7 +4,7 @@
 
 Materials-to-Mission remains an **M0 experimental public method**.
 
-`VERSION` identifies source line `0.7.2`, the Corrective Maintenance source/release line.
+`VERSION` identifies source line `0.7.3`, the Clarity and Orientation candidate source line.
 
 ## Release Identity
 
@@ -19,6 +19,8 @@ The `v0.7.1` foundation baseline is commit `12e80d232c59e5221747353f963e71aba2df
 The `v0.7.1` Foundation Hardening source/release line is based on that foundation commit. It moves Selected Pathways to schema-validated, controlled-record-resolved, deterministic build-time HTML; makes Browser UAT and preview infrastructure version-neutral; and hardens workflow reporting and credential persistence. It adds no pathway or evidence claim and does not change the accepted Atlas journey.
 
 The `v0.7.2` Corrective Maintenance source/release line makes narrow-screen details genuine native modal dialogs, repairs lifecycle-safe dialog naming, explains the controlled 15-count rare-earth convention, and improves stale editable-install diagnostics. It records target-size and hosting-layer anti-framing dispositions without redesigning the Atlas and does not add or upgrade underlying evidence.
+
+The `v0.7.3` Clarity and Orientation candidate adds only first-use guidance, concise Gallium and YIG entry cues, and explicit M0 and review boundaries. It preserves the Atlas architecture and changes no evidence, pathway, maturity, or consequential authority.
 
 External publication status is not self-declared by repository metadata. GitHub verified signed tags, immutable Releases, workflow evidence, and Pages production verification authoritatively govern external publication state. Deterministic archives and checksums bind released content without predicting mutable GitHub identifiers.
 
@@ -48,7 +50,7 @@ Historical attestation records remain valid historical evidence; GitHub is autho
 
 ## Public Capability Gate
 
-**CLOSED for the M0 capability baseline.** Source line `0.7.2` adds no capability beyond that boundary. External publication and release status must be determined from GitHub's verified signed tags, immutable Releases, workflow evidence, and Pages production verification.
+**CLOSED for the M0 capability baseline.** Source line `0.7.3` adds no capability beyond that boundary. External publication and release status must be determined from GitHub's verified signed tags, immutable Releases, workflow evidence, and Pages production verification.
 
 No M1, schema expansion, supplier/material qualification, acquisition approval, mission-readiness conclusion, commercial validation, or autonomous consequential authority is implied.
 
@@ -58,4 +60,4 @@ M1 is **not achieved**. Real operational Case 001 remains a separately controlle
 
 ## Preserve
 
-Historical immutable releases are never rewritten. Frozen GA-001, MF-001, and YIG-001 evidence remains unchanged by this presentation release.
+Historical immutable releases are never rewritten. Frozen GA-001, MF-001, and YIG-001 evidence remains unchanged by this presentation candidate.
