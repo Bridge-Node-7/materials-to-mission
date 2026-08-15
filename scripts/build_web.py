@@ -385,12 +385,22 @@ def render(template, payload):
     yig_pathway = payload["yig001"]
     selected_pathways = payload["selected_pathways"]
 
+    orientation_by_source = {
+        "gallium": (
+            '<span class="pathway-orientation"><strong>New here? Start with Gallium.</strong> '
+            'An official critical mineral can still have an unresolved pathway.</span>'
+        ),
+        "yig": (
+            '<span class="pathway-orientation"><strong>Explore deeper:</strong> YIG shows how an engineered material system '
+            'adds substrate, processing, characterization, and validation questions.</span>'
+        ),
+    }
     selected_pathway_rows = "".join(
         '<article class="selected-pathway-row" data-pathway="' + esc(item["source_id"]) + '">'
         f'<span class="selected-pathway-symbol{" selected-pathway-symbol-wide" if len(item["symbol"]) > 2 else ""}" aria-hidden="true">{esc(item["symbol"])}</span>'
         '<div class="selected-pathway-identity">'
         f'<span class="selected-pathway-type">{esc(item["type_label"])}</span><h3>{esc(item["name"])}</h3></div>'
-        f'<p>{esc(item["summary"])}</p><a href="{esc(item["href"])}">{esc(item["action_label"])} <span aria-hidden="true">→</span></a>'
+        f'<p>{esc(item["summary"])}{orientation_by_source[item["source_id"]]}</p><a href="{esc(item["href"])}">{esc(item["action_label"])} <span aria-hidden="true">→</span></a>'
         '</article>'
         for item in selected_pathways
     )
@@ -398,7 +408,7 @@ def render(template, payload):
         '<section id="selected-pathways" class="selected-pathways" aria-labelledby="selectedPathwaysTitle">'
         '<header class="selected-pathways-head"><p class="selected-pathways-kicker">GO DEEPER</p>'
         '<h2 id="selectedPathwaysTitle">Selected pathways</h2>'
-        f'<p>{len(selected_pathways)} public examples currently shared with deeper reviewed context. Explore only when useful.</p></header>'
+        f'<p>{len(selected_pathways)} public examples currently shared with deeper reviewed context. Reviewed does not mean qualified.</p></header>'
         f'<div class="selected-pathway-list">{selected_pathway_rows}</div>'
         '<nav class="selected-pathways-secondary" aria-label="Additional Materials-to-Mission depth">'
         '<a href="#forms">Browse material systems <span aria-hidden="true">→</span></a>'

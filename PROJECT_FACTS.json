@@ -4,7 +4,7 @@
   "browser_backend_required": false,
   "browser_build_command": "python scripts/build_web.py",
   "browser_entrypoint": "web/index.html",
-  "browser_implementation_status": "v0.7.2-corrective-maintenance-native-modal-and-lifecycle-safe-accessible-name",
+  "browser_implementation_status": "v0.7.3-clarity-orientation-over-v0.7.2-corrective-foundation",
   "browser_telemetry_enabled": false,
   "browser_uat_accessibility_contract": "AUTOMATED_KEYBOARD_FOCUS_FORCED_COLORS_REDUCED_MOTION_REFLOW; HUMAN_ASSISTIVE_TECHNOLOGY_NOT_SEPARATELY_ATTESTED",
   "browser_uat_configured_profile_count": 14,
@@ -54,7 +54,7 @@
     "Trace",
     "Proof"
   ],
-  "golden_journey_status": "v0.7.2-corrective-maintenance-field-focus-proof-selected-pathways",
+  "golden_journey_status": "v0.7.3-clarity-orientation-field-focus-proof-selected-pathways",
   "human_decision_authority_required": true,
   "license": "MIT",
   "m1_real_workflow_proof_claimed": false,
@@ -79,9 +79,9 @@
   "real_case_count": 0,
   "real_world_qualification_claimed": false,
   "reference_case": "examples/synthetic-critical-material-pathway/case.json",
-  "release_artifact": "materials-to-mission-v0.7.2.zip",
+  "release_artifact": "materials-to-mission-v0.7.3.zip",
   "release_creation_authority": "tag-triggered GitHub Actions Release workflow",
-  "release_notes": "RELEASE_NOTES_v0.7.2.md",
+  "release_notes": "RELEASE_NOTES_v0.7.3.md",
   "release_publication_authority": "GitHub verified signed tags and immutable Releases",
   "release_truth_policy": "repository source records durable artifact truth; external GitHub authorities govern publication status",
   "restricted_case_data_present": false,
@@ -105,10 +105,10 @@
     "m0-strict-0.2.0",
     "m0-strict-0.4.0"
   ],
-  "version": "0.7.2",
+  "version": "0.7.3",
   "visual_experience_baseline_version": "0.5.0",
-  "visual_experience_source_status": "v0.7.2-corrective-maintenance-external-publication-authority-is-GitHub",
-  "source_version": "0.7.2",
+  "visual_experience_source_status": "v0.7.3-clarity-orientation-candidate-external-publication-authority-is-GitHub",
+  "source_version": "0.7.3",
   "visual_experience_status": "field-focus-proof-selected-pathways-progressive-disclosure",
   "website_integration": "Home -> Materials-to-Mission -> Partner -> Golden Age; Frontier Decision Engine is contextual decision support; inbound website routes governed separately",
   "website_integration_status": "corporate-site-advanced-beyond-historical-v1.2.1-reference-current-signed-release-not-asserted",
@@ -116,6 +116,7 @@
   "browser_uat_current_source_expected_result_profile_count": 14,
   "human_real_device_uat_attestation": "NOT_ATTESTED",
   "human_assistive_technology_uat_attestation": "NOT_ATTESTED",
+  "human_first_time_comprehension_uat_attestation": "NOT_ATTESTED",
   "historical_foundation_baseline_browser_attestation": {
     "source_identity": "v0.7.1-foundation-baseline",
     "commit": "12e80d232c59e5221747353f963e71aba2df51d4",
@@ -139,8 +140,8 @@
     "evidence_storage": "external GitHub Actions job evidence"
   },
   "immediate_prior_immutable_release": {
-    "tag": "v0.7.1",
-    "verified_signed_tag_target": "2699783e1404fd1e6b01ae81451c29ecf9fcef27",
+    "tag": "v0.7.2",
+    "verified_signed_tag_target": "47c4efa2530e0d4d9516bb3f170ca2decd4afcb3",
     "status": "PUBLISHED_IMMUTABLE"
   },
   "foundation_baseline": {
@@ -184,5 +185,13 @@
       "via": "1.1 varnish",
       "meta_csp_frame_ancestors_effective": false
     }
+  },
+  "clarity_orientation_v073": {
+    "scope": "FIRST_USE_COPY_AND_PROGRESSIVE_ORIENTATION_ONLY",
+    "dependency_security": "PASS_NO_CHANGE",
+    "physical_device_mobile_uat": "NOT_ATTESTED",
+    "human_assistive_technology_uat": "NOT_ATTESTED",
+    "first_time_human_comprehension_uat": "NOT_ATTESTED",
+    "anti_framing": "KNOWN_HOSTING_LAYER_LIMITATION"
   }
 }

@@ -12,11 +12,11 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def test_current_durable_source_identity_preserves_foundation_provenance() -> None:
     facts = json.loads((ROOT / "PROJECT_FACTS.json").read_text(encoding="utf-8"))
-    assert (ROOT / "VERSION").read_text(encoding="utf-8").strip() == "0.7.2"
-    assert facts["version"] == facts["source_version"] == "0.7.2"
+    assert (ROOT / "VERSION").read_text(encoding="utf-8").strip() == "0.7.3"
+    assert facts["version"] == facts["source_version"] == "0.7.3"
     assert facts["immediate_prior_immutable_release"] == {
-        "tag": "v0.7.1",
-        "verified_signed_tag_target": "2699783e1404fd1e6b01ae81451c29ecf9fcef27",
+        "tag": "v0.7.2",
+        "verified_signed_tag_target": "47c4efa2530e0d4d9516bb3f170ca2decd4afcb3",
         "status": "PUBLISHED_IMMUTABLE",
     }
     assert facts["foundation_baseline"]["commit"] == "12e80d232c59e5221747353f963e71aba2df51d4"
@@ -27,11 +27,11 @@ def test_current_durable_source_identity_preserves_foundation_provenance() -> No
 def test_release_bound_source_does_not_self_declare_mutable_github_state() -> None:
     active_source = "\n".join(
         (ROOT / relative).read_text(encoding="utf-8").lower()
-        for relative in ("docs/CURRENT_STATE.md", "PROJECT_FACTS.json", "RELEASE_NOTES_v0.7.2.md")
+        for relative in ("docs/CURRENT_STATE.md", "PROJECT_FACTS.json", "RELEASE_NOTES_v0.7.3.md")
     )
     for volatile in (
         "local release candidate only",
-        "no v0.7.2 tag",
+        "no v0.7.3 tag",
         "no github release",
         "latest immutable release is `v0.7.0`",
         "current post-release `main`",
@@ -121,8 +121,8 @@ def test_pages_summary_fences_are_literal_and_verification_remains_fail_closed()
 
 def test_release_title_is_derived_from_version_matched_notes_h1() -> None:
     workflow = (ROOT / ".github/workflows/release.yml").read_text(encoding="utf-8")
-    notes_h1 = (ROOT / "RELEASE_NOTES_v0.7.2.md").read_text(encoding="utf-8").splitlines()[0]
-    assert notes_h1 == "# Materials-to-Mission v0.7.2 — Corrective Maintenance"
+    notes_h1 = (ROOT / "RELEASE_NOTES_v0.7.3.md").read_text(encoding="utf-8").splitlines()[0]
+    assert notes_h1 == "# Materials-to-Mission v0.7.3 - Clarity and Orientation"
     assert "release_title=\"$(sed -n '1s/^# //p' \"$notes_file\")\"" in workflow
     assert 'expected_title_prefix="Materials-to-Mission ${GITHUB_REF_NAME}"' in workflow
     assert '--title "$release_title"' in workflow
