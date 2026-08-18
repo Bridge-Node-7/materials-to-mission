@@ -63,7 +63,7 @@ jobs:
           set -euo pipefail
           version="$(cat VERSION)"
           test "${GITHUB_REF_NAME}" = "v${version}"
-          notes_file="RELEASE_NOTES_${GITHUB_REF_NAME}.md"
+          notes_file="RELEASE_NOTES.md"
           archive="dist/materials-to-mission-${GITHUB_REF_NAME}.zip"
           test -f "$notes_file"
           test -f "$archive"

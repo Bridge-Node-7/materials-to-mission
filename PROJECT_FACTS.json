@@ -78,7 +78,7 @@
   "reference_case": "examples/synthetic-critical-material-pathway/case.json",
   "release_artifact": "materials-to-mission-v0.7.3.zip",
   "release_creation_authority": "tag-triggered GitHub Actions Release workflow",
-  "release_notes": "RELEASE_NOTES_v0.7.3.md",
+  "release_notes": "RELEASE_NOTES.md",
   "release_publication_authority": "GitHub verified signed tags and immutable Releases",
   "release_truth_policy": "repository source records durable artifact truth; external GitHub authorities govern publication status",
   "restricted_case_data_present": false,

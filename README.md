@@ -91,9 +91,9 @@ Public maturity remains **M0 experimental public method**.
 
 ## Public Boundary
 
-Do not place real customer records, nonpublic supplier intelligence, protected facility details, samples, lots, prices, capacities, vulnerabilities, protected laboratory results, patent-sensitive methods, classified information, CUI, or export-controlled technical data in this public repository.
+This repository contains material approved for public release. Public examples are synthetic or explicitly identified public-source records.
 
-Use [`SECURITY.md`](SECURITY.md) for vulnerability reporting.
+Use [`SECURITY.md`](SECURITY.md) for private vulnerability reporting.
 
 ## Open Source
 
