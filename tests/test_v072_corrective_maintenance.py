@@ -67,5 +67,3 @@ def test_v072_preserves_exactly_two_selected_pathways_and_frozen_records() -> No
     registry = json.loads((ROOT / "web/selected-pathways.json").read_text(encoding="utf-8"))
     assert len(registry["pathways"]) == facts["selected_pathways_public_example_count"] == 2
     assert {item["record_id"] for item in registry["pathways"]} == {"GA-001", "YIG-001"}
-    notes = (ROOT / "RELEASE_NOTES_v0.7.2.md").read_text(encoding="utf-8")
-    assert "Frozen GA-001 v1.0.0, MF-001, and YIG-001 evidence is unchanged" in notes

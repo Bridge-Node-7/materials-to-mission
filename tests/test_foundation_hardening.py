@@ -27,7 +27,7 @@ def test_current_durable_source_identity_preserves_foundation_provenance() -> No
 def test_release_bound_source_does_not_self_declare_mutable_github_state() -> None:
     active_source = "\n".join(
         (ROOT / relative).read_text(encoding="utf-8").lower()
-        for relative in ("docs/CURRENT_STATE.md", "PROJECT_FACTS.json", "RELEASE_NOTES_v0.7.3.md")
+        for relative in ("docs/CURRENT_STATE.md", "PROJECT_FACTS.json", "RELEASE_NOTES.md")
     )
     for volatile in (
         "local release candidate only",
@@ -121,7 +121,7 @@ def test_pages_summary_fences_are_literal_and_verification_remains_fail_closed()
 
 def test_release_title_is_derived_from_version_matched_notes_h1() -> None:
     workflow = (ROOT / ".github/workflows/release.yml").read_text(encoding="utf-8")
-    notes_h1 = (ROOT / "RELEASE_NOTES_v0.7.3.md").read_text(encoding="utf-8").splitlines()[0]
+    notes_h1 = (ROOT / "RELEASE_NOTES.md").read_text(encoding="utf-8").splitlines()[0]
     assert notes_h1 == "# Materials-to-Mission v0.7.3 - Clarity and Orientation"
     assert "release_title=\"$(sed -n '1s/^# //p' \"$notes_file\")\"" in workflow
     assert 'expected_title_prefix="Materials-to-Mission ${GITHUB_REF_NAME}"' in workflow

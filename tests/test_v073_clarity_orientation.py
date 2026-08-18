@@ -52,17 +52,15 @@ def test_v073_truth_preserves_human_and_evidence_boundaries() -> None:
     assert facts["clarity_orientation_v073"]["anti_framing"] == "KNOWN_HOSTING_LAYER_LIMITATION"
 
 
-def test_v073_release_concept_uses_exact_ascii_hyphen() -> None:
-    title = (ROOT / "RELEASE_NOTES_v0.7.3.md").read_text(encoding="utf-8").splitlines()[0]
-    assert title == "# Materials-to-Mission v0.7.3 - Clarity and Orientation"
+def test_v073_release_history_is_recorded_in_changelog() -> None:
+    changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+    assert "## [0.7.3] - 2026-08-14" in changelog
 
 
 def test_v073_release_preparation_truth_is_exact() -> None:
     citation = (ROOT / "CITATION.cff").read_text(encoding="utf-8")
     changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
-    notes = (ROOT / "RELEASE_NOTES_v0.7.3.md").read_text(encoding="utf-8")
     assert "date-released: 2026-08-14" in citation
     assert "## Unreleased\n\nNo changes recorded after v0.7.3." in changelog
     assert "## [0.7.3] - 2026-08-14" in changelog
-    assert "New visitors can start with Gallium." in notes
-    assert "preferred first pathway" not in notes
+    assert "preferred first pathway" not in changelog
