@@ -53,7 +53,6 @@ No changes recorded after v0.7.3.
 
 ### Assurance
 - Human desktop visual UX/UAT accepted the selected-pathways interaction model on August 13, 2026.
-- Release closeout requires the existing browser contract plus an external 72×72 deterministic UAT matrix: 72 scenario configurations × 72 acceptance probes = 5,184 evaluated cells.
 - Frozen GA-001, MF-001, and YIG-001 evidence is unchanged. M0 remains M0.
 
 ## [0.6.1] - 2026-08-12
@@ -249,7 +248,6 @@ Candidate 0.2.0 resolves that ambiguity by keeping schema authority unchanged wh
 ### Added
 
 - Guided one-command public evaluation with calm fail-closed output.
-- Focused scope, M1 Case 001, readiness-state, and private-case template guidance.
 - Deterministic exact-diff protected-content verification before the corrective merge.
 
 ### Documentation
@@ -328,27 +326,26 @@ Candidate 0.2.0 resolves that ambiguity by keeping schema authority unchanged wh
 ### Reliability and release hardening
 
 - Corrected invalid `--json` validation output for slots-based findings.
-- Added CLI failure-path, help, release-mode, and gate-contract regression tests.
+- Added CLI failure-path, help, release-mode, and release-contract regression tests.
 - Added progressive onboarding, audience paths, and a five-minute evaluation.
 - Updated setup-python to v7.0.0 and CodeQL Action to v4.37.6 using full commit pins.
-- Separated source-maintainer gates from generated public-write gates.
-- Added isolated-environment validation, exact-404 target checks, workflow-ID readback,
-  partial-creation evidence, release-asset attestation, exact allowlists, and archive-to-tree closeout.
+- Separated source validation from publication validation.
+- Added isolated-environment validation, exact-404 checks, and stronger release-integrity verification.
 - Preserved MIT, the M0 public-method boundary, canonical standalone schemas, minimal website
-  linkage, and FDE as a later consumer.
+  linkage, and FDE integration outside this release.
 
 ### Final Public-Release Hardening
 
-- Aligned the configured coverage threshold with the 95 percent repository gate.
+- Aligned the configured coverage threshold with the 95 percent repository validation.
 - Made packaged-resource validation fail closed without rewriting tracked files.
 - Added generated-state cleanup before every complete validation run.
 - Preserved canonical-source validation evidence on failure.
-- Renamed the second source gate to describe its publication-kit boundary function.
+- Renamed the second source validation stage to describe its publication-kit boundary function.
 - Added a separate publication-kit contract validator and regression coverage.
-- Clarified source, publication-kit, hosted Release, and recovery responsibilities.
+- Clarified source, publication-kit, hosted Release, and release responsibilities.
 - Added a concise record-relationship diagram for first-time readers.
 
-### Final Packaging Safety Closeout
+### Packaging Safety
 
 - Rejected symbolic links in included package paths to prevent out-of-tree file capture.
 - Rejected repository-root and other nonexcluded internal package destinations.
@@ -356,17 +353,17 @@ Candidate 0.2.0 resolves that ambiguity by keeping schema authority unchanged wh
 - Added CLI and release regression tests for symlink, output-location, and repeat-build behavior.
 - Corrected the website follow-on kit to match the actual v1.1.2 repository, which has no root `VERSION` file.
 
-### Publication Identity Integrity Closeout
+### Publication Identity Integrity
 
 - Added strict candidate timestamp, predecessor, release-manifest, and environment consistency checks.
 - Required complete publication-kit manifest coverage and rejected symbolic links or unlisted files.
 - Verified bundle author and committer timestamps against the candidate identity.
 - Added regression tests for contradictory predecessor metadata, timestamp drift, environment drift, and manifest gaps.
 
-### Cross-Platform Validation Evidence Closeout
+### Cross-Platform Validation Evidence
 
 - Made the checked-in validation report host-independent while preserving the strict 95 percent local coverage floor.
-- Required all runnable tests to pass on every operator machine.
+- Required all runnable tests to pass on every supported environment.
 - Permitted only the three documented symlink-unavailable skips on hosts that cannot create symbolic links.
 - Added JUnit evidence parsing and regression tests for allowed and unexpected skips.
-- Preserved canonical Linux symlink coverage while allowing Windows Gate 00 to reproduce the approved evidence contract.
+- Preserved canonical Linux symlink coverage while supporting documented Windows symlink limitations.

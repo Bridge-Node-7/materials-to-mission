@@ -17,7 +17,7 @@
 | Release archive is deterministic | Release builder | `test_deterministic_release` |
 | Transient content is excluded | Release builder | `test_release_excludes_transient_directories` |
 | Actions are immutable | Complete local gate | Full-SHA pin check |
-| Public release is review-gated | GitHub workflows and operator gates | Bash syntax and hosted CI after publication |
+| Public release is review-gated | GitHub workflows and release validation | Bash syntax and hosted CI after publication |
 
 ## v0.1.1 assurance-hardening traceability
 
@@ -38,7 +38,7 @@ The maintenance candidate adds semantic checks that the M0 schemas alone cannot 
 These checks remain public-method validation. They do not establish material qualification,
 compliance, source ownership, laboratory validity, production capacity, or mission authorization.
 
-## v0.1.2 candidate closeout traceability
+## v0.1.2 validation traceability
 
 - Automation-only authority aliases are normalized and rejected; clearly named humans in
   AI, model-risk, and automation roles remain valid declarations.

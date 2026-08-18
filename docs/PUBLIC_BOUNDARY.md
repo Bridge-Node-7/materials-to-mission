@@ -24,7 +24,7 @@
 - Nonpublic test data, agreements, partner discussions, or source relationships
 - Unsupported certification, qualification, compliance, government, production, adoption,
   or commercial-readiness claims
-- Private operational Case 001 records
+- Non-public operational records and evidence
 - Browser write-back that mutates canonical records
 - Autonomous consequential decisions
 
