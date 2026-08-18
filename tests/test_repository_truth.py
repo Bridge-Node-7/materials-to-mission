@@ -18,7 +18,7 @@ def test_release_identity_axes_align() -> None:
     assert facts["version"] == version
     assert match and match.group(1) == version
     assert facts["release_artifact"] == f"materials-to-mission-v{version}.zip"
-    assert facts["release_notes"] == f"RELEASE_NOTES_v{version}.md"
+    assert facts["release_notes"] == "RELEASE_NOTES.md"
 
 def test_public_maturity_and_human_authority_remain_bounded() -> None:
     facts = json.loads((ROOT / "PROJECT_FACTS.json").read_text(encoding="utf-8"))

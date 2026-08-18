@@ -16,21 +16,15 @@ def test_public_surface_is_lean() -> None:
         assert forbidden not in readme
     assert len(readme.splitlines()) <= 150
 
-def test_release_notes_are_self_contained_and_versioned() -> None:
+def test_release_notes_use_one_stable_current_record() -> None:
     version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
-    notes = sorted(ROOT.glob("RELEASE_NOTES_v*.md"))
+    notes_path = ROOT / "RELEASE_NOTES.md"
     changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
-    assert ROOT / f"RELEASE_NOTES_v{version}.md" in notes
-    for path in notes:
-        match = re.fullmatch(r"RELEASE_NOTES_v(\d+\.\d+\.\d+)\.md", path.name)
-        assert match, path.name
-        note_version = match.group(1)
-        first_line = path.read_text(encoding="utf-8").splitlines()[0]
-        assert first_line.startswith(f"# Materials-to-Mission v{note_version}")
-        if note_version == version:
-            assert f"## [{note_version}]" in changelog or "## Unreleased" in changelog
-        else:
-            assert f"## [{note_version}]" in changelog
+    assert notes_path.is_file()
+    assert not list(ROOT.glob("RELEASE_NOTES_v*.md"))
+    first_line = notes_path.read_text(encoding="utf-8").splitlines()[0]
+    assert first_line.startswith(f"# Materials-to-Mission v{version}")
+    assert f"## [{version}]" in changelog
 
 def test_docs_surface_is_bounded() -> None:
     docs = sorted(path.relative_to(ROOT).as_posix() for path in (ROOT / "docs").glob("*") if path.is_file())
