@@ -1,2 +1,2 @@
--r requirements-dev.lock
+-r requirements-dev.txt
 playwright==1.55.0

@@ -1,8 +1,8 @@
--r requirements.lock
+-r requirements.txt
 colorama==0.4.6; sys_platform == "win32"
 coverage==7.13.3
 iniconfig==2.3.0
 packaging==25.0
 pluggy==1.6.0
 Pygments==2.20.0
-pytest==9.0.2
+pytest==9.0.3

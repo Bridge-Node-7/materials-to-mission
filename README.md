@@ -33,7 +33,7 @@ Requires Python 3.11 or newer.
 
     python -m venv .venv
     source .venv/bin/activate        # Windows Git Bash: source .venv/Scripts/activate
-    python -m pip install -r requirements.lock
+    python -m pip install -r requirements.txt
     python -m pip install --no-deps --no-build-isolation -e .
     python scripts/evaluate_public_method.py
 
