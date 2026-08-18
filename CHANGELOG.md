@@ -4,7 +4,20 @@ All notable changes are documented here.
 
 ## Unreleased
 
-No changes recorded after v0.7.3.
+No changes recorded after v0.7.4.
+
+## [0.7.4] - 2026-08-18
+
+### Maintained
+- Updated exact setuptools and pytest authorities to patched maintenance versions.
+- Normalized exact pip dependency inputs to `requirements.txt` and `requirements-dev.txt`.
+- Reconciled current dependency consumers and regression contracts without adding a bespoke advisory subsystem.
+
+### Preserved
+- M0 evidence semantics and human consequential authority.
+- Frozen GA-001, MF-001, and YIG-001 evidence.
+- Gallium/YIG pathway meaning, schemas, qualification boundaries, and public product behavior.
+- Historical release records and immutable GitHub release history.
 
 ## [0.7.3] - 2026-08-14
 
