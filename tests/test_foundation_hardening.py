@@ -12,11 +12,11 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def test_current_durable_source_identity_preserves_foundation_provenance() -> None:
     facts = json.loads((ROOT / "PROJECT_FACTS.json").read_text(encoding="utf-8"))
-    assert (ROOT / "VERSION").read_text(encoding="utf-8").strip() == "0.7.3"
-    assert facts["version"] == facts["source_version"] == "0.7.3"
+    assert (ROOT / "VERSION").read_text(encoding="utf-8").strip() == "0.7.4"
+    assert facts["version"] == facts["source_version"] == "0.7.4"
     assert facts["immediate_prior_immutable_release"] == {
-        "tag": "v0.7.2",
-        "verified_signed_tag_target": "47c4efa2530e0d4d9516bb3f170ca2decd4afcb3",
+        "tag": "v0.7.3",
+        "verified_signed_tag_target": "b63ed45c3d4abb477402f40b264d00d4e0c5bc50",
         "status": "PUBLISHED_IMMUTABLE",
     }
     assert facts["foundation_baseline"]["commit"] == "12e80d232c59e5221747353f963e71aba2df51d4"
@@ -31,7 +31,7 @@ def test_release_bound_source_does_not_self_declare_mutable_github_state() -> No
     )
     for volatile in (
         "local release candidate only",
-        "no v0.7.3 tag",
+        "no v0.7.4 tag",
         "no github release",
         "latest immutable release is `v0.7.0`",
         "current post-release `main`",
@@ -122,7 +122,7 @@ def test_pages_summary_fences_are_literal_and_verification_remains_fail_closed()
 def test_release_title_is_derived_from_version_matched_notes_h1() -> None:
     workflow = (ROOT / ".github/workflows/release.yml").read_text(encoding="utf-8")
     notes_h1 = (ROOT / "RELEASE_NOTES.md").read_text(encoding="utf-8").splitlines()[0]
-    assert notes_h1 == "# Materials-to-Mission v0.7.3 - Clarity and Orientation"
+    assert notes_h1 == "# Materials-to-Mission v0.7.4 - Dependency Security and Manifest Visibility"
     assert "release_title=\"$(sed -n '1s/^# //p' \"$notes_file\")\"" in workflow
     assert 'expected_title_prefix="Materials-to-Mission ${GITHUB_REF_NAME}"' in workflow
     assert '"$expected_title_prefix"|"$expected_title_prefix — "*|"$expected_title_prefix - "*)' in workflow

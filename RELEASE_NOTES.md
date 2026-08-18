@@ -1,22 +1,26 @@
-# Materials-to-Mission v0.7.3 - Clarity and Orientation
+# Materials-to-Mission v0.7.4 - Dependency Security and Manifest Visibility
 
 ## Purpose
 
-v0.7.3 makes the public method easier to enter and understand without changing the evidence model, maturity, pathways, or accepted Atlas architecture.
+v0.7.4 publishes the current source line with narrow dependency-security and dependency-manifest maintenance.
 
-## Current release
+## Maintained
 
-- New visitors can start with Gallium.
-- YIG remains the deeper engineered-material-system example.
-- Supported facts stay supported. Unknowns stay visible.
-- Reviewed does not mean qualified.
+- Updated the exact setuptools build/runtime authority to 83.0.0.
+- Updated the exact pytest development authority to 9.0.3.
+- Normalized the authoritative pip inputs to `requirements.txt` and `requirements-dev.txt` for standard dependency-tool visibility.
+- Reconciled all live consumers and regression contracts to those exact authorities.
+
+## Preserved
+
+- M0 remains M0; no M1 capability is claimed.
 - Frozen GA-001 v1.0.0, MF-001, and YIG-001 evidence is unchanged.
 - YIG remains an engineered material system, not a USGS critical mineral.
-- M0 remains M0; no M1 capability is claimed.
 - Unknown remains non-favorable and Evidence Horizon remains explicit.
 - Human consequential authority remains required.
-- No dependency or external runtime is added.
+- No schema, pathway, qualification, readiness, supplier, mission, or public product-behavior claim changes.
+- Historical source/release records remain historical and are not rewritten.
 
-## Validation status
+## Validation
 
-Automated repository and browser checks cover the current public method. Human or device-specific attestations are stated only where separately evidenced.
+The complete repository gate, deterministic packaging, hosted CI/CodeQL/browser checks, signed annotated tag verification, exact release-asset allowlist, and immutable GitHub Release boundary remain authoritative.
