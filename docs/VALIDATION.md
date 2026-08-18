@@ -3,7 +3,7 @@
 ## Local Gate
 
 ```bash
-python -m pip install -r requirements-dev.lock
+python -m pip install -r requirements-dev.txt
 python -m pip install --no-deps --no-build-isolation -e .
 python scripts/check_repo.py
 ```
