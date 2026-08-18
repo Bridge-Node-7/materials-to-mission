@@ -194,18 +194,18 @@ def test_guided_evaluator_has_truthful_install_preflight(root: Path, monkeypatch
 
 
 def test_consumer_lock_contains_exact_build_backend(root: Path) -> None:
-    runtime = (root / "requirements.lock").read_text(encoding="utf-8")
-    dev = (root / "requirements-dev.lock").read_text(encoding="utf-8")
-    assert "setuptools==82.0.1" in runtime
-    assert dev.count("setuptools==82.0.1") == 0
-    assert "-r requirements.lock" in dev
+    runtime = (root / "requirements.txt").read_text(encoding="utf-8")
+    dev = (root / "requirements-dev.txt").read_text(encoding="utf-8")
+    assert "setuptools==83.0.0" in runtime
+    assert dev.count("setuptools==83.0.0") == 0
+    assert "-r requirements.txt" in dev
 
 
 def test_hosted_ci_contains_documented_consumer_journey(root: Path) -> None:
     workflow = (root / ".github/workflows/ci.yml").read_text(encoding="utf-8")
     assert 'python-version: "3.12"' in workflow
     assert "python -m venv .consumer-venv" in workflow
-    assert "python -m pip install -r requirements.lock" in workflow
+    assert "python -m pip install -r requirements.txt" in workflow
     assert "--no-build-isolation -e ." in workflow
     assert "python scripts/evaluate_public_method.py" in workflow
 
