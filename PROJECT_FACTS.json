@@ -39,9 +39,6 @@
   "current_public_maturity": "M0",
   "current_release_maturity": "M0 experimental public method",
   "current_state_record": "docs/CURRENT_STATE.md",
-  "fde_adapter_status": "deferred-pending-case-evidence",
-  "fde_integration": "deferred thin consumer adapter pending real case evidence and repeated user need",
-  "final_closeout_status": "SOURCE_TRUTH_RECONCILED_EXTERNAL_RELEASE_AUTHORITY_SEPARATE",
   "gallium_public_snapshot_status": "frozen-ga-001-v1.0.0",
   "gallium_snapshot_kind": "public-source-evidence-snapshot",
   "gallium_snapshot_path": "public-snapshots/gallium/GA-001/snapshot.json",
@@ -188,8 +185,6 @@
   },
   "clarity_orientation_v073": {
     "scope": "FIRST_USE_COPY_AND_PROGRESSIVE_ORIENTATION_ONLY",
-    "product_owner_direction": "ACCEPTED",
-    "product_owner_final_visual_acceptance": "ACCEPTED",
     "dependency_security": "PASS_NO_CHANGE",
     "physical_device_mobile_uat": "NOT_ATTESTED",
     "human_assistive_technology_uat": "NOT_ATTESTED",

@@ -47,8 +47,6 @@ def test_v073_truth_preserves_human_and_evidence_boundaries() -> None:
     assert facts["human_decision_authority_required"] is True
     assert facts["human_first_time_comprehension_uat_attestation"] == "NOT_ATTESTED"
     assert facts["clarity_orientation_v073"]["scope"] == "FIRST_USE_COPY_AND_PROGRESSIVE_ORIENTATION_ONLY"
-    assert facts["clarity_orientation_v073"]["product_owner_direction"] == "ACCEPTED"
-    assert facts["clarity_orientation_v073"]["product_owner_final_visual_acceptance"] == "ACCEPTED"
     assert facts["clarity_orientation_v073"]["dependency_security"] == "PASS_NO_CHANGE"
     assert facts["clarity_orientation_v073"]["first_time_human_comprehension_uat"] == "NOT_ATTESTED"
     assert facts["clarity_orientation_v073"]["anti_framing"] == "KNOWN_HOSTING_LAYER_LIMITATION"
