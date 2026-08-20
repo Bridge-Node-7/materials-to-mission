@@ -6,7 +6,7 @@ Thu Aug 20 08:42:36 UTC 2026
 ## Repository
 
 Path:
-/c/redactedredacted/Documents/GitHub/materials-to-mission
+repository-local materials-to-mission workspace path
 
 Branch:
 m2m/reference-baseline-completion
