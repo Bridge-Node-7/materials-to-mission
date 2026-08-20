@@ -93,7 +93,7 @@
       "id": "yig-qualified-stack",
       "stage": "Qualified Material Stack",
       "state": "unknown",
-      "summary": "Public evidence reviewed here does not establish BN7-specific qualified precursor form, purity, processor, substrate lot, repeatability, or assured supply for a mission-relevant YIG stack.",
+      "summary": "Public evidence reviewed here does not establish qualified precursor form, purity, processor, substrate lot, repeatability, or assured supply for a mission-relevant YIG stack.",
       "source_ids": [],
       "context_source_ids": [
         "USGS-Y-2026"
@@ -138,7 +138,7 @@
         "APS-YIG-LPE-2020",
         "NATURE-YIG-SUBSTRATE-2026"
       ],
-      "evidence_basis": "The reviewed literature identifies relevant material and substrate performance variables, but it does not provide a BN7 mission-specific acceptance range, independent qualification protocol, repeatability baseline, or production-yield criterion."
+      "evidence_basis": "The reviewed literature identifies relevant material and substrate performance variables, but it does not provide a mission-specific acceptance range, independent qualification protocol, repeatability baseline, or production-yield criterion."
     },
     {
       "id": "yig-transition",
