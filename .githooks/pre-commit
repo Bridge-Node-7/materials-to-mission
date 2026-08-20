@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+FAIL=0
+
+echo "=== BN7 PRE-COMMIT SECURITY CHECK ==="
+
+STAGED="$(git diff --cached -- . ":(exclude).githooks/pre-commit")"
+
+if echo "$STAGED" | grep -E "^\+" | grep -E "(/c)?/Users/|C:\\\\Users\\\\|/home/" ; then
+    echo "BLOCKED: absolute machine path detected"
+    FAIL=1
+fi
+
+EMAIL="$(git config user.email || true)"
+
+if [[ "$EMAIL" != *"users.noreply.github.com" ]]; then
+    echo "WARNING: non GitHub noreply email:"
+    echo "$EMAIL"
+fi
+
+if [ -f scripts/build_manifest.py ]; then
+    python scripts/build_manifest.py --check || FAIL=1
+fi
+
+exit $FAIL
