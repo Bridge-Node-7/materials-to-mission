@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "materials-to-mission"
-version = "0.7.4"
+version = "0.7.5"
 description = "Evidence-backed materials decision toolkit with deterministic validation and human-owned decisions."
 readme = "README.md"
 requires-python = ">=3.11"

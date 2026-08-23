@@ -22,9 +22,5 @@
     "(?i)\\bITAR\\b",
     "(?i)\\bCUI\\b",
     "(?i)\\bexport[- ]controlled\\b"
-  ],
-  "required_synthetic_markers": [
-    "synthetic",
-    "fictional"
   ]
 }

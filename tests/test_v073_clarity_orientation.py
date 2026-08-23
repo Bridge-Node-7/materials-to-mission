@@ -42,7 +42,7 @@ def test_v073_pathway_cues_preserve_exact_two_examples(tmp_path: Path) -> None:
 
 def test_v073_truth_preserves_human_and_evidence_boundaries() -> None:
     facts = json.loads((ROOT / "PROJECT_FACTS.json").read_text(encoding="utf-8"))
-    assert facts["version"] == facts["source_version"] == "0.7.4"
+    assert facts["version"] == facts["source_version"] == "0.7.5"
     assert facts["current_public_maturity"] == "M0"
     assert facts["human_decision_authority_required"] is True
     assert facts["human_first_time_comprehension_uat_attestation"] == "NOT_ATTESTED"
@@ -60,7 +60,7 @@ def test_v073_release_history_is_recorded_in_changelog() -> None:
 def test_v073_release_preparation_truth_is_exact() -> None:
     citation = (ROOT / "CITATION.cff").read_text(encoding="utf-8")
     changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
-    assert "date-released: 2026-08-18" in citation
-    assert "## Unreleased\n\nNo changes recorded after v0.7.4." in changelog
+    assert "date-released: 2026-08-22" in citation
+    assert "## Unreleased\n\nNo changes recorded after v0.7.5." in changelog
     assert "## [0.7.3] - 2026-08-14" in changelog
     assert "preferred first pathway" not in changelog

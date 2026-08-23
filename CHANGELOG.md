@@ -4,7 +4,26 @@ All notable changes are documented here.
 
 ## Unreleased
 
-No changes recorded after v0.7.4.
+No changes recorded after v0.7.5.
+
+## [0.7.5] - 2026-08-22
+
+### Hardened
+- Replaced the partial hand-maintained homoglyph guard with a version-pinned Unicode 17.0.0 confusables resource derived from Unicode Security Mechanisms data.
+- Added compound secret-key detection and narrowly scoped credential-shaped value detection to the public-boundary guardrail.
+- Scoped GitHub Pages write and OIDC permissions to the deploy job only.
+- Removed an inert synthetic-marker policy field rather than implying unenforced coverage.
+
+### Clarified
+- Distinguished machine-checked evidence consistency from human-owned evidence truth and sufficiency.
+- Clarified that manifests establish byte consistency while verified signed tags and immutable releases establish authenticity.
+- Documented the difference between forward cleanup and an explicitly authorized secret-history rewrite.
+
+### Preserved
+- M0 evidence semantics and human consequential authority.
+- Frozen GA-001, MF-001, and YIG-001 evidence meaning.
+- Gallium/YIG pathway meaning, schemas, qualification boundaries, and public product behavior.
+- Historical v0.7.4 tag/release identity without rewriting or retargeting it.
 
 ## [0.7.4] - 2026-08-18
 
