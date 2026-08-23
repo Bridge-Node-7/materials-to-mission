@@ -10,3 +10,5 @@ and private vulnerability reporting.
 The repository is not approved storage for controlled, confidential,
 export-controlled, procurement-sensitive, personally identifiable, or
 patent-sensitive information.
+
+Repository and release manifests establish byte consistency. Verified signed tags and immutable GitHub Releases establish release authenticity; a manifest alone is not an authenticity proof. The public-boundary scanner is a repository guardrail, not a substitute for credential revocation or dedicated secret scanning.

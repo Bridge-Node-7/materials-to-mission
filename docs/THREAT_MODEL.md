@@ -48,8 +48,9 @@ integration, compatibility tests.
 Reported, assumed, inferred, expired, unsupported, or contradictory evidence may be
 presented as tested or supported.
 
-**Controls:** separate evidence basis and claim state, visible contradictions, semantic
-validation, noncompensating critical conditions.
+**Machine-checked controls:** declared evidence-state consistency, visible contradictions, semantic validation, and noncompensating critical conditions.
+
+**Human-owned controls:** factual truth of evidence, source interpretation, sufficiency, and material significance. Automation can verify declared structure and consistency; it cannot certify that the underlying evidence is true or sufficient.
 
 
 ### Archive Path and Symlink Substitution

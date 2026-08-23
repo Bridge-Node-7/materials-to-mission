@@ -76,7 +76,7 @@
   "real_case_count": 0,
   "real_world_qualification_claimed": false,
   "reference_case": "examples/synthetic-critical-material-pathway/case.json",
-  "release_artifact": "materials-to-mission-v0.7.4.zip",
+  "release_artifact": "materials-to-mission-v0.7.5.zip",
   "release_creation_authority": "tag-triggered GitHub Actions Release workflow",
   "release_notes": "RELEASE_NOTES.md",
   "release_publication_authority": "GitHub verified signed tags and immutable Releases",
@@ -102,10 +102,10 @@
     "m0-strict-0.2.0",
     "m0-strict-0.4.0"
   ],
-  "version": "0.7.4",
+  "version": "0.7.5",
   "visual_experience_baseline_version": "0.5.0",
   "visual_experience_source_status": "v0.7.3-clarity-orientation-candidate-external-publication-authority-is-GitHub",
-  "source_version": "0.7.4",
+  "source_version": "0.7.5",
   "visual_experience_status": "field-focus-proof-selected-pathways-progressive-disclosure",
   "website_integration": "Home -> Materials-to-Mission -> Partner -> Golden Age; Frontier Decision Engine is contextual decision support; inbound website routes governed separately",
   "website_integration_status": "corporate-site-advanced-beyond-historical-v1.2.1-reference-current-signed-release-not-asserted",
@@ -137,8 +137,8 @@
     "evidence_storage": "external GitHub Actions job evidence"
   },
   "immediate_prior_immutable_release": {
-    "tag": "v0.7.3",
-    "verified_signed_tag_target": "b63ed45c3d4abb477402f40b264d00d4e0c5bc50",
+    "tag": "v0.7.4",
+    "verified_signed_tag_target": "f141a85cee9615a57582855e677450af7584cfd4",
     "status": "PUBLISHED_IMMUTABLE"
   },
   "foundation_baseline": {
@@ -199,6 +199,20 @@
       "requirements.txt",
       "requirements-dev.txt"
     ],
+    "evidence_model_changed": false,
+    "gallium_evidence_changed": false,
+    "yig_evidence_changed": false,
+    "schema_or_pathway_changed": false,
+    "public_product_behavior_changed": false
+  },
+  "maintenance_v075": {
+    "scope": "PUBLIC_BOUNDARY_AND_DEPLOYMENT_TRUST_HARDENING_ONLY",
+    "unicode_confusables": "Unicode-17.0.0-version-pinned-static-resource",
+    "credential_boundary_hardening": true,
+    "pages_least_privilege": true,
+    "dead_synthetic_marker_policy_removed": true,
+    "evidence_truth_boundary_clarified": true,
+    "release_authenticity_boundary_clarified": true,
     "evidence_model_changed": false,
     "gallium_evidence_changed": false,
     "yig_evidence_changed": false,

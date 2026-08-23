@@ -12,8 +12,8 @@ def test_v070_historical_selected_pathways_release_contract():
 def test_v070_truth_and_uat_scope():
     facts=json.loads((ROOT/'PROJECT_FACTS.json').read_text(encoding='utf-8'))
     registry=json.loads((ROOT/'web/selected-pathways.json').read_text(encoding='utf-8'))
-    assert facts['immediate_prior_immutable_release']['tag']=='v0.7.3'
-    assert facts['immediate_prior_immutable_release']['verified_signed_tag_target']=='b63ed45c3d4abb477402f40b264d00d4e0c5bc50'
+    assert facts['immediate_prior_immutable_release']['tag']=='v0.7.4'
+    assert facts['immediate_prior_immutable_release']['verified_signed_tag_target']=='f141a85cee9615a57582855e677450af7584cfd4'
     assert facts['historical_v070_selected_pathways_release_matrix']=='72_SCENARIO_CONFIGURATIONS_X_72_ACCEPTANCE_PROBES_EXTERNAL_GATE'
     assert facts['selected_pathways_public_example_count']==len(registry['pathways'])
     assert facts['selected_pathways_public_examples']==['Gallium','Yttrium Iron Garnet (YIG)']

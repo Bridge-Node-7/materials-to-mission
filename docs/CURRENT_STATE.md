@@ -2,9 +2,9 @@
 
 Materials-to-Mission is an **M0 experimental public method**.
 
-Current source version: **0.7.4**
+Current source version: **0.7.5**
 
-`VERSION` identifies source line `0.7.4`. v0.7.4 is a narrow dependency-security and manifest-visibility maintenance release. This maintenance release does not add or upgrade underlying evidence. It changes no M0 evidence model, Gallium or YIG evidence, schema/pathway semantics, qualification state, or public product behavior. This repository does not assert a current signed corporate website release; the website-integration reference is historical.
+`VERSION` identifies source line `0.7.5`. v0.7.5 is a bounded trust-hardening maintenance release. It closes verified public-boundary and deployment-permission gaps and does not add or upgrade underlying evidence. It changes no M0 evidence model, Gallium or YIG evidence, schema/pathway semantics, qualification state, or public product behavior. This repository does not assert a current signed corporate website release; the website-integration reference is historical.
 
 Live experience: https://bridgenode7.com/materials-to-mission/
 
