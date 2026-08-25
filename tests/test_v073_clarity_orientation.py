@@ -22,22 +22,23 @@ def build_html(tmp_path: Path) -> str:
 
 def test_v073_first_use_orientation_is_exact_and_bounded(tmp_path: Path) -> None:
     html = build_html(tmp_path)
-    assert html.count("Start with one material. Follow the pathway. Stop where evidence stops. See what should be proven next.") == 1
+    assert html.count("Start with one material. Follow the pathway. See how far the evidence carries. Identify what must be proven next.") == 1
     assert html.count("Supported facts stay supported. Unknowns stay visible.") >= 1
     assert html.count("Reviewed does not mean qualified.") == 1
     text = re.sub(r"<[^>]+>", "", html)
-    assert text.count("M0 is a public evidence method. It is not qualification, certification, acquisition approval, or mission readiness.") == 1
+    assert text.count("M0 identifies the experimental public evidence method used here. It does not indicate readiness, qualification, certification, or acquisition approval.") == 1
     assert 'class="start-here"' not in html
     assert "<strong>Evidence boundary.</strong> Supported facts stay supported. Unknowns stay visible." in html
-    assert "<strong>Public method.</strong> M0 is a public evidence method." in html
+    assert "<strong>Public method.</strong> M0 identifies the experimental public evidence method used here." in html
 
 
 def test_v073_pathway_cues_preserve_exact_two_examples(tmp_path: Path) -> None:
     html = build_html(tmp_path)
     assert html.count('class="selected-pathway-row"') == 2
-    assert html.count("New here? Start with Gallium.") == 1
-    assert "An official critical mineral can still have an unresolved pathway." in html
-    assert html.count("Explore deeper:</strong> YIG shows how an engineered material system adds substrate, processing, characterization, and validation questions.") == 1
+    assert html.count("Public evidence is continuous through Gallium; qualified domestic primary recovery remains unresolved.") == 1
+    assert html.count("Public evidence is continuous through critical materials; a qualified material stack remains unresolved.") == 1
+    assert 'href="#ga-pathway">View Gallium pathway' in html
+    assert 'href="#yig-pathway">View YIG pathway' in html
 
 
 def test_v073_truth_preserves_human_and_evidence_boundaries() -> None:

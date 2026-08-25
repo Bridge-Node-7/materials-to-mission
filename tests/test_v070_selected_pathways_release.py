@@ -23,6 +23,14 @@ def test_v070_truth_and_uat_scope():
     assert facts['selected_pathways_human_mobile_visual_uat']=='NOT_SEPARATELY_ATTESTED'
     assert facts['selected_pathways_human_assistive_technology_uat']=='NOT_ATTESTED'
 
+def test_v070_selected_pathway_entries_start_at_pathway_introductions():
+    registry=json.loads((ROOT/'web/selected-pathways.json').read_text(encoding='utf-8'))
+    entries={item['record_id']:(item['href'],item['action_label']) for item in registry['pathways']}
+    assert entries=={
+        'GA-001':('#ga-pathway','View Gallium pathway'),
+        'YIG-001':('#yig-pathway','View YIG pathway'),
+    }
+
 def test_v070_release_boundaries_are_explicit():
     facts=json.loads((ROOT/'PROJECT_FACTS.json').read_text(encoding='utf-8'))
     notes=(ROOT/facts['release_notes']).read_text(encoding='utf-8')
@@ -39,6 +47,7 @@ def test_v070_browser_uat_respects_progressive_disclosure_before_trace():
     assert "drawer.locator('summary').click()" in source
     assert "action.first.wait_for(state='visible')" in source
     assert "action.first.click(); page.locator('#trace.is-revealed').wait_for()" in source
+    assert "setHash(\"#ga-pathway\", true)" in (ROOT/'web/app.js').read_text(encoding='utf-8')
 
 def test_v070_browser_uat_respects_progressive_disclosure_before_yig():
     source=(ROOT/'scripts/browser_uat.py').read_text(encoding='utf-8')

@@ -21,8 +21,9 @@ def test_v060_field_focus_proof_contract(tmp_path: Path) -> None:
     assert 'Claim scope:' not in html
     assert 'Supports: GA-' in html
     assert '#ga-source-' in js and 'popstate' in js
-    assert 'id="showNextProof"' in html and 'What would change this?' in html
-    assert 'trace-next' in js and 'showNextProof' in js
+    assert 'id="showProof"' not in html and 'Review the Evidence Boundary' not in html
+    assert 'trace: ["gallium", "trace", "examine", "forms", "sources", "decision"]' in js
+    assert 'trace-next' not in js and 'showNextProof' not in js
 
 def test_v060_ga001_provenance_and_distinct_source_identity() -> None:
     ga=json.loads((ROOT/'public-snapshots/gallium/GA-001/source-register.json').read_text(encoding='utf-8'))

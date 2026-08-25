@@ -145,7 +145,9 @@ def validate_ga(view, snapshot, source_register, rights):
         if not basis or any(claim_id not in claim_by for claim_id in basis):
             raise SystemExit("STOP - interpretation has unresolved basis claim")
 
-    nodes = view["trace_nodes"]
+    nodes = view.get("trace_nodes")
+    if not isinstance(nodes, list) or not nodes:
+        raise SystemExit("STOP - GA MPI pathway stages are missing")
     unique(nodes, "id", "trace node ID")
     for node in nodes:
         if node.get("state") not in ALLOWED_STATES:
@@ -153,6 +155,417 @@ def validate_ga(view, snapshot, source_register, rights):
     if not any(node["state"] == "unknown" for node in nodes):
         raise SystemExit("STOP - Evidence Horizon missing")
     return claim_by, ga_source_by
+
+
+MPI_HUMAN_BOUNDARY = (
+    "Human decision authority remains required. This presentation organizes "
+    "public evidence and unresolved proof; it does not approve, qualify, "
+    "certify, select, waive, terminate, or close a consequential decision."
+)
+MPI_NO_CONSTRAINT = (
+    "No canonical governing constraint is established in this public record. "
+    "The first unresolved link is shown separately as the Evidence Horizon."
+)
+MPI_ACTION_COPY = {
+    "monitor": (
+        "Keep the evidence state visible and reassess when material "
+        "conditions change."
+    ),
+    "validate": (
+        "Target the first unresolved link with a defined proof request "
+        "before advancing the pathway."
+    ),
+    "support": (
+        "Direct bounded support toward evidence or capability that closes "
+        "a named pathway gap without implying qualification."
+    ),
+}
+MPI_PROHIBITED_PRESENTATION_PATTERNS = (
+    re.compile(r"(?i)\b(?:pathway|readiness|confidence)\s+(?:score|rating)\b"),
+    re.compile(r"(?i)\b\d+(?:\.\d+)?%\s+(?:pathway\s+)?confidence\b"),
+    re.compile(r"(?i)\btop[- ]ranked\b"),
+)
+
+
+def derive_governing_constraint(weak_links):
+    governing = [item for item in weak_links if item.get("governing") is True]
+    if len(governing) > 1:
+        raise SystemExit("STOP - multiple governing constraints are ambiguous")
+    if not governing:
+        return {"status": "not-established", "statement": MPI_NO_CONSTRAINT}
+    item = governing[0]
+    return {
+        "status": "explicit",
+        "constraint_id": item.get("weak_link_id", ""),
+        "statement": item.get("statement", ""),
+    }
+
+
+def _validate_mpi_copy(*values):
+    text = " ".join(str(value) for value in values)
+    for pattern in MPI_PROHIBITED_PRESENTATION_PATTERNS:
+        if pattern.search(text):
+            raise SystemExit("STOP - scoring or ranking language in MPI presentation")
+
+
+def derive_ga_mpi_view(selected, material, view, snapshot, source_register):
+    if selected.get("record_id") != "GA-001":
+        raise SystemExit("STOP - GA MPI record identity changed")
+    if selected.get("type_label") != "CRITICAL MINERAL · REVIEWED PATHWAY":
+        raise SystemExit("STOP - GA MPI pathway classification changed")
+    if material.get("id") != "gallium" or material.get("name") != "Gallium":
+        raise SystemExit("STOP - GA MPI material identity changed")
+    if material.get("review", {}).get("snapshot_id") != "GA-001":
+        raise SystemExit("STOP - GA MPI review identity changed")
+    if snapshot.get("public_maturity") != "M0":
+        raise SystemExit("STOP - GA MPI public maturity changed")
+    if view.get("decision_authority") != "human":
+        raise SystemExit("STOP - GA MPI human authority changed")
+
+    source_ids = {source["source_id"] for source in source_register["sources"]}
+    for claim in snapshot["claims"]:
+        if not claim.get("source_ids") or any(
+            source_id not in source_ids for source_id in claim["source_ids"]
+        ):
+            raise SystemExit("STOP - GA MPI claim provenance is unresolved")
+
+    nodes = view.get("trace_nodes")
+    if not isinstance(nodes, list) or not nodes:
+        raise SystemExit("STOP - GA MPI pathway stages are missing")
+    first_unknown = next(
+        (index for index, node in enumerate(nodes) if node.get("state") == "unknown"),
+        None,
+    )
+    if first_unknown is None:
+        raise SystemExit("STOP - GA MPI Evidence Horizon is not established")
+    stages = []
+    for index, node in enumerate(nodes):
+        if index < first_unknown and node.get("state") != "supported":
+            raise SystemExit("STOP - unsupported GA MPI continuity before horizon")
+        continuity = (
+            "continuous"
+            if index < first_unknown
+            else "horizon" if index == first_unknown else "post-horizon-context"
+        )
+        stages.append({**node, "display_state": node["state"], "continuity": continuity})
+
+    supported = [
+        item for item in snapshot["bounded_interpretations"]
+        if item.get("state") == "supported"
+    ]
+    unknown = [
+        item for item in snapshot["bounded_interpretations"]
+        if item.get("state") == "unknown"
+    ]
+    actions = []
+    for index, action in enumerate(view["action_options"]):
+        if action not in MPI_ACTION_COPY:
+            raise SystemExit("STOP - unsupported GA MPI action option")
+        actions.append(
+            {
+                "item_id": f"ga-next-{index + 1}",
+                "label": action.title(),
+                "statement": MPI_ACTION_COPY[action],
+            }
+        )
+
+    result = {
+        "identity": {
+            "record_id": snapshot["snapshot_id"],
+            "record_version": snapshot["snapshot_version"],
+            "subject_name": material["name"],
+            "symbol": material["symbol"],
+            "type_label": selected["type_label"],
+            "maturity": snapshot["public_maturity"],
+        },
+        "stages": stages,
+        "supported_labels": [stage["label"] for stage in stages if stage["continuity"] == "continuous"],
+        "horizon": {
+            "status": "established",
+            "stage_id": stages[first_unknown]["id"],
+            "label": stages[first_unknown]["label"],
+        },
+        "constraint": derive_governing_constraint([]),
+        "posture": {"supported": supported, "context": [], "unknown": unknown},
+        "posture_label": "Supported and unknown remain separate.",
+        "next_proof": actions,
+        "human_boundary": MPI_HUMAN_BOUNDARY,
+        "limitations": list(view["limitations"]),
+    }
+    _validate_mpi_copy(
+        result["identity"], result["supported_labels"], result["horizon"],
+        result["constraint"], result["posture_label"], result["human_boundary"],
+    )
+    return result
+
+
+def derive_yig_mpi_view(selected, form, pathway, source_by):
+    if selected.get("record_id") != "YIG-001":
+        raise SystemExit("STOP - YIG MPI record identity changed")
+    if selected.get("type_label") != "ENGINEERED MATERIAL SYSTEM · REVIEWED CONTEXT":
+        raise SystemExit("STOP - YIG MPI pathway classification changed")
+    if form.get("id") != "yig" or form.get("kind") != "engineered-material-system":
+        raise SystemExit("STOP - YIG MPI material-system identity changed")
+    if pathway.get("official_critical_mineral") is not False:
+        raise SystemExit("STOP - YIG MPI may not classify YIG as a critical mineral")
+    if pathway.get("public_maturity") != "M0":
+        raise SystemExit("STOP - YIG MPI public maturity changed")
+    if pathway.get("human_authority_required") is not True:
+        raise SystemExit("STOP - YIG MPI human authority changed")
+
+    stages = pathway.get("stages")
+    horizon = pathway.get("evidence_horizon")
+    if not isinstance(stages, list) or not stages or not isinstance(horizon, dict):
+        raise SystemExit("STOP - YIG MPI pathway stages or horizon are missing")
+    horizon_id = horizon.get("first_unresolved_stage_id")
+    horizon_index = next(
+        (index for index, stage in enumerate(stages) if stage.get("id") == horizon_id),
+        None,
+    )
+    if horizon_index is None or stages[horizon_index].get("state") != "unknown":
+        raise SystemExit("STOP - YIG MPI Evidence Horizon is invalid")
+
+    normalized = []
+    for index, stage in enumerate(stages):
+        state = stage.get("state")
+        if index < horizon_index and state != "supported":
+            raise SystemExit("STOP - unsupported YIG MPI continuity before horizon")
+        positive_sources = stage.get("source_ids", [])
+        context_sources = stage.get("context_source_ids", [])
+        if any(source_id not in source_by for source_id in positive_sources + context_sources):
+            raise SystemExit("STOP - YIG MPI stage provenance is unresolved")
+        if state in {"supported", "supported-context"} and not positive_sources:
+            raise SystemExit("STOP - YIG MPI supported stage lacks positive provenance")
+        if state == "unknown" and positive_sources:
+            raise SystemExit("STOP - YIG MPI unknown stage cites positive proof")
+        continuity = (
+            "continuous"
+            if index < horizon_index
+            else "horizon" if index == horizon_index else "post-horizon-context"
+        )
+        display_state = "context" if state == "supported-context" else state
+        normalized.append(
+            {**stage, "display_state": display_state, "continuity": continuity}
+        )
+
+    result = {
+        "identity": {
+            "record_id": pathway["pathway_id"],
+            "record_version": pathway["pathway_version"],
+            "subject_name": pathway["material_system"],
+            "symbol": pathway["symbol"],
+            "formula": pathway["formula"],
+            "type_label": selected["type_label"],
+            "maturity": pathway["public_maturity"],
+        },
+        "stages": normalized,
+        "supported_labels": [stage["stage"] for stage in normalized if stage["continuity"] == "continuous"],
+        "horizon": {
+            "status": "established",
+            "stage_id": horizon_id,
+            "label": stages[horizon_index]["stage"],
+            "meaning": pathway["evidence_horizon"]["meaning"],
+        },
+        "constraint": derive_governing_constraint([]),
+        "posture": {
+            "supported": [stage for stage in normalized if stage["display_state"] == "supported"],
+            "context": [stage for stage in normalized if stage["display_state"] == "context"],
+            "unknown": [stage for stage in normalized if stage["display_state"] == "unknown"],
+        },
+        "posture_label": "Supported, supported context, and unknown remain separate.",
+        "next_proof": [
+            {"item_id": f"yig-next-{index + 1}", "statement": statement}
+            for index, statement in enumerate(pathway["next_proof"])
+        ],
+        "human_boundary": MPI_HUMAN_BOUNDARY,
+        "limitations": list(pathway["no_claims"]),
+    }
+    _validate_mpi_copy(
+        result["identity"], result["supported_labels"], result["horizon"],
+        result["constraint"], result["posture_label"], result["human_boundary"],
+    )
+    return result
+
+
+def mpi_summary_html(mpi, *, title_id, links, heading_level=3):
+    if heading_level not in {3, 4}:
+        raise ValueError("MPI summary heading level must be 3 or 4")
+    identity = mpi["identity"]
+    formula = f' · {esc(identity["formula"])}' if identity.get("formula") else ""
+    supported = (
+        " · ".join(esc(label) for label in mpi["supported_labels"])
+        or "Continuous supported segment not established"
+    )
+    link_html = "".join(
+        f'<a href="{esc(href)}">{esc(label)} <span aria-hidden="true">→</span></a>'
+        for label, href in links
+    )
+    constraint_html = ""
+    if mpi["constraint"]["status"] == "explicit":
+        constraint_html = (
+            '<div data-mpi-output="governing-constraint"><dt>Governing constraint</dt>'
+            f'<dd><strong>Established</strong><span>{esc(mpi["constraint"]["statement"])}</span></dd></div>'
+        )
+    heading = f"h{heading_level}"
+    rendered = (
+        f'<section class="mpi-summary" data-mpi-record="{esc(identity["record_id"])}" '
+        f'aria-labelledby="{esc(title_id)}">'
+        '<header class="mpi-summary-head"><p class="eyebrow">DERIVED FROM REVIEWED PUBLIC EVIDENCE</p>'
+        f'<{heading} id="{esc(title_id)}">What evidence establishes</{heading}>'
+        '<p>Existing governed evidence is organized here without a score, rank, or automated decision.</p></header>'
+        '<dl class="mpi-summary-grid">'
+        '<div data-mpi-output="identity"><dt>Pathway identity</dt>'
+        f'<dd><strong>{esc(identity["subject_name"])} ({esc(identity["symbol"])}){formula}</strong>'
+        f'<span>{esc(identity["type_label"])} · {esc(identity["record_id"])} v{esc(identity["record_version"])} · {esc(identity["maturity"])}</span></dd></div>'
+        '<div data-mpi-output="supported-segment"><dt>Evidence supported through</dt>'
+        f'<dd><strong>{supported}</strong><span>Continuous public evidence before the first unresolved link.</span></dd></div>'
+        '<div data-mpi-output="evidence-horizon"><dt>Evidence Horizon · First unresolved link</dt>'
+        f'<dd><strong>{esc(mpi["horizon"]["label"])}</strong><span>Later context does not reconnect the pathway.</span></dd></div>'
+        f'{constraint_html}'
+        '<div data-mpi-output="evidence-posture"><dt>Evidence status</dt>'
+        f'<dd><strong>{esc(mpi["posture_label"])}</strong><span>Inspect the governed stages, claims, and sources below.</span></dd></div>'
+        '</dl>'
+        f'<nav class="mpi-summary-links" aria-label="{esc(identity["subject_name"])} pathway evidence">{link_html}</nav>'
+        f'<aside class="mpi-human-boundary" aria-label="Human decision boundary" data-mpi-output="human-decision-boundary"><strong>Human decision boundary</strong><p>{esc(mpi["human_boundary"])}</p></aside>'
+        '</section>'
+    )
+    _validate_mpi_copy(rendered)
+    return rendered
+
+
+def evidence_boundary_html(
+    *,
+    title_id,
+    heading_level,
+    known_html,
+    unknown_html,
+    horizon_label,
+    horizon_meaning,
+    mpi_html,
+    optional_governed_html="",
+):
+    """Render the shared Evidence Boundary shell around governed pathway content."""
+    if heading_level not in {2, 3}:
+        raise ValueError("Evidence Boundary heading level must be 2 or 3")
+    heading = f"h{heading_level}"
+    return (
+        '<div class="evidence-boundary-shell">'
+        '<header class="evidence-boundary-head">'
+        f'<div><p class="eyebrow">PATHWAY STEP</p><{heading} id="{esc(title_id)}">Evidence Boundary</{heading}></div>'
+        '<p>Supported facts stay supported. Unknowns stay visible.</p></header>'
+        '<div class="examine-grid evidence-findings">'
+        '<article><h3>What We Know</h3><span class="state supported">Supported evidence</span>'
+        f'{known_html}</article>'
+        '<article><h3>What We Don\'t Know</h3><span class="state unknown">Unknown</span>'
+        f'{unknown_html}</article></div>'
+        '<div class="evidence-horizon pathway-boundary-horizon">'
+        '<span aria-hidden="true"></span><div><small>Evidence Horizon</small>'
+        '<strong>First unresolved link</strong>'
+        f'<p><span class="boundary-horizon-label">{esc(horizon_label)}</span>{esc(horizon_meaning)}</p>'
+        '</div></div>'
+        f'{mpi_html}{optional_governed_html}</div>'
+    )
+
+
+def presentation_stage_label(label):
+    """Translate governed labels for display without changing governed records."""
+    return {
+        "Program-specific fabrication path": "Fabrication path for a specific program",
+        "Program-specific validation evidence": "Use-specific validation evidence",
+        "Program-specific acquisition access": "Program acquisition access",
+    }.get(label, label)
+
+
+def presentation_action_label(label):
+    """Translate governed action values for public display only."""
+    return {"Support": "Support Next Proof"}.get(label, label)
+
+
+def presentation_state_label(stage):
+    """Translate raw evidence state plus continuity into the shared public grammar."""
+    key = (stage.get("continuity"), stage.get("state"))
+    labels = {
+        ("continuous", "supported"): "Supported evidence",
+        ("horizon", "unknown"): "First unresolved link",
+        ("post-horizon-context", "supported"): "Later-stage context",
+        ("post-horizon-context", "supported-context"): "Later-stage context",
+        ("post-horizon-context", "unknown"): "Unresolved question",
+    }
+    if key not in labels:
+        raise SystemExit(
+            "STOP - unsupported evidence state and continuity presentation pair"
+        )
+    return labels[key]
+
+
+def pathway_stage_html(
+    stage,
+    index,
+    *,
+    title,
+    summary=None,
+    evidence_basis=None,
+    sources_html="",
+    variant_class,
+):
+    """Render one governed stage through the shared pathway presentation grammar."""
+    zone = {
+        "continuous": "connected",
+        "horizon": "horizon",
+        "post-horizon-context": "island",
+    }[stage["continuity"]]
+    presentation_label = presentation_state_label(stage)
+    state_key = presentation_label.lower().replace(" ", "-")
+    summary_html = (
+        f'<p class="pathway-stage-summary">{esc(summary)}</p>' if summary else ""
+    )
+    basis_html = (
+        '<p class="pathway-stage-basis"><strong>Evidence basis:</strong> '
+        f'{esc(evidence_basis)}</p>'
+        if evidence_basis else ""
+    )
+    sources = (
+        f'<div class="pathway-stage-sources yig-source-links">{sources_html}</div>'
+        if sources_html else ""
+    )
+    return (
+        f'<li class="pathway-stage {esc(variant_class)} {zone} state-{esc(stage["state"])}" '
+        f'data-stage-id="{esc(stage["id"])}" data-raw-evidence-state="{esc(stage["state"])}" '
+        f'data-continuity="{esc(stage["continuity"])}" data-presentation-state="{esc(state_key)}">'
+        f'<span class="pathway-stage-number">{index + 1:02d}</span>'
+        '<div class="pathway-stage-body">'
+        f'<small class="pathway-stage-state">{esc(presentation_label)}</small>'
+        f'<strong class="pathway-stage-title">{esc(title)}</strong>'
+        f'{summary_html}{basis_html}{sources}</div></li>'
+    )
+
+
+def pathway_ribbon_html(mpi, *, section_id, title_id, trace_href):
+    state_labels = {
+        "continuous": "Supported evidence",
+        "horizon": "First unresolved link",
+        "post-horizon-context": "Later-stage context",
+    }
+    groups = []
+    for continuity in ("continuous", "horizon", "post-horizon-context"):
+        stage_items = "".join(
+            f'<li><strong>{esc(presentation_stage_label(stage.get("label") or stage["stage"]))}</strong></li>'
+            for stage in mpi["stages"] if stage["continuity"] == continuity
+        )
+        if stage_items:
+            groups.append(
+                f'<li class="ribbon-{esc(continuity)}">'
+                f'<span>{esc(state_labels[continuity])}</span>'
+                f'<ul>{stage_items}</ul></li>'
+            )
+    return (
+        f'<section id="{esc(section_id)}" class="pathway-glance" aria-labelledby="{esc(title_id)}">'
+        f'<header><p class="eyebrow">PATHWAY AT A GLANCE</p><h3 id="{esc(title_id)}">Pathway Overview</h3>'
+        '<p>The first unresolved link marks the evidence boundary. Later-stage context remains separate.</p></header>'
+        f'<ol class="pathway-ribbon">{"".join(groups)}</ol>'
+        f'<a class="pathway-next" href="{esc(trace_href)}">Trace to Mission <span aria-hidden="true">→</span></a>'
+        '</section>'
+    )
 
 
 def project():
@@ -273,6 +686,26 @@ def project():
             item.update(name=form["name"], symbol=form["symbol"])
         selected_pathways.append(item)
 
+    ga_selected = next(
+        item for item in selected_pathways if item["record_id"] == "GA-001"
+    )
+    yig_selected = next(
+        item for item in selected_pathways if item["record_id"] == "YIG-001"
+    )
+    ga_mpi = derive_ga_mpi_view(
+        ga_selected,
+        reviewed[0],
+        view,
+        snapshot,
+        ga_sources,
+    )
+    yig_mpi = derive_yig_mpi_view(
+        yig_selected,
+        yig,
+        yig_pathway,
+        field_source_by,
+    )
+
     positions, exact_rows, lens_members = derive_positions(atlas, applications)
     enriched = []
     for material in materials:
@@ -300,6 +733,7 @@ def project():
         "forms": forms,
         "sources": field_sources["sources"],
         "yig001": yig_pathway,
+        "mpi": {"ga001": ga_mpi, "yig001": yig_mpi},
         "selected_pathways": selected_pathways,
         "ga001": {
             "view": view,
@@ -341,7 +775,7 @@ def detail_html(material, forms, sources, sheet=False):
     title_id = ' id="sheetTitle"' if sheet else ""
     rare = "RARE EARTH · " if material["rare_earth"] else ""
     action = (
-        '<a class="detail-action" href="#trace" data-depth="trace">Reviewed pathway available →</a>'
+        '<a class="detail-action" href="#ga-pathway" data-depth="trace">Reviewed pathway available →</a>'
         if material["review"]["code"] == "reviewed-pathway"
         else ""
     )
@@ -373,6 +807,15 @@ def detail_html(material, forms, sources, sheet=False):
     )
 
 
+def pathway_trace_html(items_html, *, aria_label, base_class, element_id=None):
+    """Render the shared presentation rail without changing governed stage content."""
+    id_attribute = f' id="{esc(element_id)}"' if element_id else ""
+    return (
+        f'<ol{id_attribute} class="{esc(base_class)} pathway-trace-sequence" '
+        f'aria-label="{esc(aria_label)}" tabindex="0">{items_html}</ol>'
+    )
+
+
 def render(template, payload):
     atlas = payload["atlas"]
     forms = payload["forms"]
@@ -383,36 +826,66 @@ def render(template, payload):
     ga_sources = ga_source_register["sources"]
     ga_source_by = {source["source_id"]: source for source in ga_sources}
     yig_pathway = payload["yig001"]
+    ga_mpi = payload["mpi"]["ga001"]
+    yig_mpi = payload["mpi"]["yig001"]
     selected_pathways = payload["selected_pathways"]
 
-    orientation_by_source = {
-        "gallium": (
-            '<span class="pathway-orientation"><strong>New here? Start with Gallium.</strong> '
-            'An official critical mineral can still have an unresolved pathway.</span>'
-        ),
-        "yig": (
-            '<span class="pathway-orientation"><strong>Explore deeper:</strong> YIG shows how an engineered material system '
-            'adds substrate, processing, characterization, and validation questions.</span>'
-        ),
+    mpi_by_record = {
+        ga_mpi["identity"]["record_id"]: ga_mpi,
+        yig_mpi["identity"]["record_id"]: yig_mpi,
     }
+    preview_contracts = {
+        "GA-001": {
+            "supported_labels": ("Gallium (Ga)",),
+            "horizon": "Qualified domestic primary recovery at mission-relevant scale",
+            "insight": "Public evidence is continuous through Gallium; qualified domestic primary recovery remains unresolved.",
+        },
+        "YIG-001": {
+            "supported_labels": ("Critical Materials",),
+            "horizon": "Qualified Material Stack",
+            "insight": "Public evidence is continuous through critical materials; a qualified material stack remains unresolved.",
+        },
+    }
+    for record_id, contract in preview_contracts.items():
+        mpi = mpi_by_record.get(record_id)
+        if (
+            mpi is None
+            or tuple(mpi["supported_labels"]) != contract["supported_labels"]
+            or mpi["horizon"]["label"] != contract["horizon"]
+        ):
+            raise SystemExit(f"STOP - {record_id} pathway preview copy is unsupported")
     selected_pathway_rows = "".join(
         '<article class="selected-pathway-row" data-pathway="' + esc(item["source_id"]) + '">'
+        '<header class="selected-pathway-preview-head">'
         f'<span class="selected-pathway-symbol{" selected-pathway-symbol-wide" if len(item["symbol"]) > 2 else ""}" aria-hidden="true">{esc(item["symbol"])}</span>'
         '<div class="selected-pathway-identity">'
-        f'<span class="selected-pathway-type">{esc(item["type_label"])}</span><h3>{esc(item["name"])}</h3></div>'
-        f'<p>{esc(item["summary"])}{orientation_by_source[item["source_id"]]}</p><a href="{esc(item["href"])}">{esc(item["action_label"])} <span aria-hidden="true">→</span></a>'
+        f'<span class="selected-pathway-type">{esc(item["type_label"])}</span><h3>{esc(item["name"])}</h3>'
+        f'<small>{esc(item["record_id"])} — Experimental public evidence method</small></div></header>'
+        '<div class="selected-pathway-signal" aria-hidden="true">'
+        + "".join(
+            f'<span class="signal-{esc(stage["continuity"])}"></span>'
+            for stage in mpi_by_record[item["record_id"]]["stages"]
+        )
+        + '</div><dl class="selected-pathway-preview-meta">'
+        '<div><dt>Evidence supported through</dt><dd>'
+        + esc(" · ".join(mpi_by_record[item["record_id"]]["supported_labels"]) or "Not established")
+        + '</dd></div><div><dt>Evidence Horizon · First unresolved link</dt><dd>'
+        + esc(mpi_by_record[item["record_id"]]["horizon"]["label"])
+        + '</dd></div></dl>'
+        f'<p class="selected-pathway-insight">{esc(preview_contracts[item["record_id"]]["insight"])}</p>'
+        f'<a href="{esc(item["href"])}">{esc(item["action_label"])} <span aria-hidden="true">→</span></a>'
         '</article>'
         for item in selected_pathways
     )
     selected_pathways_html = (
         '<section id="selected-pathways" class="selected-pathways" aria-labelledby="selectedPathwaysTitle">'
-        '<header class="selected-pathways-head"><p class="selected-pathways-kicker">GO DEEPER</p>'
-        '<h2 id="selectedPathwaysTitle">Selected pathways</h2>'
-        f'<p>{len(selected_pathways)} reviewed public examples with deeper reviewed context. Reviewed does not mean qualified.</p></header>'
-        f'<div class="selected-pathway-list">{selected_pathway_rows}</div>'
-        '<nav class="selected-pathways-secondary" aria-label="Additional Materials-to-Mission depth">'
-        '<a href="#forms">Browse material systems <span aria-hidden="true">→</span></a>'
-        '<a href="#sources">Evidence &amp; sources <span aria-hidden="true">→</span></a></nav></section>'
+        '<header class="selected-pathways-head"><p class="selected-pathways-kicker">PATHWAY PREVIEWS</p>'
+        '<h2 id="selectedPathwaysTitle">See how far the evidence carries.</h2>'
+        '<p>Two reviewed public examples. Reviewed does not mean qualified.</p></header>'
+        '<ul class="selected-pathways-legend" aria-label="Pathway preview legend">'
+        '<li class="legend-supported">Supported evidence</li><li class="legend-horizon">First unresolved link</li>'
+        '<li class="legend-context">Later-stage context</li></ul>'
+        f'<div class="selected-pathway-list">{selected_pathway_rows}</div></section>'
     )
 
     lens_buttons = "".join(
@@ -449,30 +922,25 @@ def render(template, payload):
             '</div></details>'
         )
 
-    first_unknown = next(
-        index for index, node in enumerate(view["trace_nodes"])
-        if node["state"] == "unknown"
-    )
     trace_nodes = []
-    for index, node in enumerate(view["trace_nodes"]):
-        zone = "connected" if index < first_unknown else ("horizon" if index == first_unknown else "island")
+    for index, node in enumerate(ga_mpi["stages"]):
         trace_nodes.append(
-            f'<li class="trace-node {zone} state-{esc(node["state"])}">'
-            f'<span class="trace-num">{index + 1:02d}</span><div>'
-            f'<small>{esc(node["kind"].replace("-", " "))}</small>'
-            f'<strong>{esc(node["label"])}</strong>'
-            f'<em>{esc(node["state"].title())}</em></div></li>'
+            pathway_stage_html(
+                node,
+                index,
+                title=presentation_stage_label(node["label"]),
+                summary=node["kind"].replace("-", " "),
+                variant_class="trace-node",
+            )
         )
 
     supported = "".join(
         f'<li>{esc(item["text"])}</li>'
-        for item in snapshot["bounded_interpretations"]
-        if item["state"] == "supported"
+        for item in ga_mpi["posture"]["supported"]
     )
     unknown = "".join(
         f'<li>{esc(item["text"])}</li>'
-        for item in snapshot["bounded_interpretations"]
-        if item["state"] == "unknown"
+        for item in ga_mpi["posture"]["unknown"]
     )
 
     claim_by = {claim["claim_id"]: claim for claim in snapshot["claims"]}
@@ -509,23 +977,35 @@ def render(template, payload):
             '</div></div></details>'
         )
 
-    action_copy = {
-        "monitor": "Keep the evidence state visible and reassess when material conditions change.",
-        "validate": "Target the first unresolved link with a defined proof request before advancing the pathway.",
-        "support": "Direct bounded support toward evidence or capability that closes a named pathway gap without implying qualification.",
-    }
     actions = "".join(
         f'<article class="action-card"><span>{index + 1:02d}</span>'
-        f'<h3>{esc(action.title())}</h3>'
-        f'<p>{esc(action_copy.get(action, "Human review required before any consequential action."))}</p>'
+        f'<h3>{esc(presentation_action_label(action["label"]))}</h3>'
+        f'<p>{esc(action["statement"])}</p>'
         '<small>Evidence-supported option · human decision required</small></article>'
-        for index, action in enumerate(view["action_options"])
+        for index, action in enumerate(ga_mpi["next_proof"])
     )
 
     material_id_by_name = {material["name"]: material["id"] for material in atlas["materials"]}
+    gallium_material = next(material for material in atlas["materials"] if material["id"] == "gallium")
+    yig_form = next(form for form in forms if form["id"] == "yig")
+    ga_connected_form_ids = {
+        form["id"] for form in forms
+        if any(relationship["mineral"] == "Gallium" for relationship in form["relationships"])
+    }
+    yig_connected_symbols = {"YIG"} | {
+        context["name"] for context in yig_pathway.get("substrate_context", [])
+    }
+    yig_connected_form_ids = {
+        form["id"] for form in forms if form["symbol"] in yig_connected_symbols
+    }
     form_cards = []
     ordered_forms = sorted(forms, key=lambda form: (0 if form.get("primary_example") else 1, form["name"]))
     for form in ordered_forms:
+        route_names = " ".join(
+            route for route, connected_ids in (
+                ("ga", ga_connected_form_ids), ("yig", yig_connected_form_ids)
+            ) if form["id"] in connected_ids
+        )
         relationships = "".join(
             f'<a href="#material-{esc(material_id_by_name[rel["mineral"]])}">'
             f'{esc(rel["mineral"])}</a>'
@@ -534,7 +1014,8 @@ def render(template, payload):
         primary = '<span class="primary-badge">Primary example</span>' if form.get("primary_example") else ""
         review = form.get("review", {}).get("label", "Public Context")
         form_cards.append(
-            f'<article id="form-{esc(form["id"])}" class="form-card{" primary-system" if form.get("primary_example") else ""}">'
+            f'<article id="form-{esc(form["id"])}" class="form-card{" primary-system" if form.get("primary_example") else ""}" '
+            f'data-pathway-routes="{esc(route_names)}">'
             f'<span class="form-symbol">{esc(form["symbol"])}</span><div>'
             f'{primary}<h3>{esc(form["name"])}</h3><p>{esc(form["context"])}</p>'
             f'<small class="form-state">{esc(review)}</small>'
@@ -544,17 +1025,8 @@ def render(template, payload):
             '</div></div></article>'
         )
 
-    yig_horizon_id = yig_pathway["evidence_horizon"]["first_unresolved_stage_id"]
-    horizon_seen = False
     yig_stage_cards = []
-    for index, stage in enumerate(yig_pathway["stages"]):
-        if stage["id"] == yig_horizon_id:
-            zone = "horizon"
-            horizon_seen = True
-        elif horizon_seen:
-            zone = "island"
-        else:
-            zone = "connected"
+    for index, stage in enumerate(yig_mpi["stages"]):
         source_links = "".join(
             f'<a href="{esc(next(source["url"] for source in sources if source["source_id"] == source_id))}" '
             f'target="_blank" rel="noopener noreferrer">{esc(source_id)} ↗</a>'
@@ -565,23 +1037,25 @@ def render(template, payload):
             f'target="_blank" rel="noopener noreferrer">Context · {esc(source_id)} ↗</a>'
             for source_id in stage.get("context_source_ids", [])
         )
-        basis = (
-            f'<p class="stage-basis"><strong>Evidence basis:</strong> {esc(stage["evidence_basis"])}</p>'
-            if stage.get("evidence_basis") else ""
-        )
         yig_stage_cards.append(
-            f'<article class="yig-stage {zone} state-{esc(stage["state"])}">'
-            f'<span class="yig-stage-num">{index + 1:02d}</span>'
-            f'<div><small>{esc(stage["state"].replace("-", " "))}</small>'
-            f'<h3>{esc(stage["stage"])}</h3><p>{esc(stage["summary"])}</p>{basis}'
-            f'<div class="yig-source-links">{source_links}{context_links}</div></div></article>'
+            pathway_stage_html(
+                stage,
+                index,
+                title=stage["stage"],
+                summary=stage["summary"],
+                evidence_basis=stage.get("evidence_basis"),
+                sources_html=source_links + context_links,
+                variant_class="yig-stage",
+            )
         )
 
     yig_dependencies = "".join(
         f'<span>{esc(item["mineral"])}<small>{esc(item["role"])}</small></span>'
         for item in yig_pathway["critical_mineral_dependencies"]
     )
-    yig_next = "".join(f'<li>{esc(item)}</li>' for item in yig_pathway["next_proof"])
+    yig_next = "".join(
+        f'<li>{esc(item["statement"])}</li>' for item in yig_mpi["next_proof"]
+    )
     frontier_context = "".join(
         '<article class="frontier-context-card">'
         f'<span class="detail-label">{esc(item["label"])}</span>'
@@ -594,25 +1068,88 @@ def render(template, payload):
         + '</article>'
         for item in yig_pathway.get("frontier_research_context", [])
     )
+    expected_yig_summary = (
+        "YIG is a real engineered magnetic garnet used in magnonics and related microwave/spin research. "
+        "The public evidence supports technical relevance and multiple laboratory/device demonstrations. "
+        "It does not establish a qualified supply chain, repeatable mission-scale manufacturing, "
+        "acquisition approval, or mission readiness."
+    )
+    if yig_pathway.get("public_summary") != expected_yig_summary:
+        raise SystemExit("STOP - YIG public orientation copy is unsupported")
     yig_pathway_html = (
         '<div class="yig-identity">'
-        '<span class="yig-mark">YIG</span><div><p class="eyebrow">PRIMARY ENGINEERED MATERIAL-SYSTEM EXAMPLE</p>'
-        f'<h2>{esc(yig_pathway["material_system"])} · Y₃Fe₅O₁₂</h2>'
-        f'<p>{esc(yig_pathway["public_summary"])}</p></div></div>'
+        '<span class="yig-mark" aria-hidden="true">YIG</span><div><p class="eyebrow">MATERIAL IDENTITY</p>'
+        '<h3 aria-label="Chemical formula for yttrium iron garnet: Y three F E five O twelve">Y₃Fe₅O₁₂</h3>'
+        '<p>Engineered magnetic material system. Reviewed public context.</p></div></div>'
+        '<dl class="yig-orientation yig-orientation-intro" aria-label="Yttrium Iron Garnet introduction">'
+        '<div><dt>What it is</dt><dd>YIG is an engineered magnetic material used in magnonics and related microwave and spin research.</dd></div>'
+        '<div><dt>Why it matters</dt><dd>YIG shows why an engineered material system cannot be understood from critical-mineral designation alone. Substrate choice, material growth, fabrication, and validation remain distinct parts of the pathway.</dd></div>'
+        '</dl>'
+        '<a class="pathway-next" href="#yig-overview">Explore the Pathway Overview <span aria-hidden="true">→</span></a>'
+        + pathway_ribbon_html(yig_mpi, section_id="yig-overview", title_id="yig-overview-title", trace_href="#yig-trace")
+        + '<section id="yig-trace" class="yig-journey-block" aria-labelledby="yig-trace-title">'
+        '<header class="journey-block-head"><p class="eyebrow">TRACE</p><h3 id="yig-trace-title">Trace to Mission</h3>'
+        '<p>Existing governed relationships show where the public pathway is supported and where continuity stops.</p></header>'
         '<div class="yig-dependencies"><span class="detail-label">Critical-Mineral Dependencies Across Common YIG Stacks</span>'
-        '<p class="dependency-note">Yttrium is the YIG critical-mineral constituent. Gadolinium, Gallium, Scandium, and Aluminum enter through common or emerging garnet substrate systems shown in this public pathway.</p>'
+        '<p class="dependency-note">Yttrium is the YIG critical-mineral constituent. Gadolinium gallium garnet (GGG) and yttrium scandium gallium aluminum garnet (YSGAG) introduce additional critical-mineral dependencies in common or emerging substrate systems.</p>'
         f'<div>{yig_dependencies}</div></div>'
-        f'<div class="yig-stage-grid">{"".join(yig_stage_cards)}</div>'
-        f'<div class="frontier-context-grid">{frontier_context}</div>'
-        '<div class="yig-proof-horizon"><span aria-hidden="true"></span><div>'
-        f'<strong>{esc(yig_pathway["evidence_horizon"]["label"])}</strong>'
-        f'<p>{esc(yig_pathway["evidence_horizon"]["meaning"])}</p></div></div>'
-        '<div class="yig-next-proof"><p class="eyebrow">NEXT PROOF</p><h3>What would have to be established next?</h3>'
-        f'<ol>{yig_next}</ol></div>'
+        + pathway_trace_html(
+            "".join(yig_stage_cards),
+            element_id="yig-stages",
+            base_class="yig-stage-grid",
+            aria_label="YIG trace to mission pathway",
+        )
+        + '</section>'
+        '<section id="yig-boundary" class="yig-journey-block yig-boundary" aria-labelledby="yig-boundary-title">'
+        + evidence_boundary_html(
+            title_id="yig-boundary-title",
+            heading_level=3,
+            known_html=(
+                '<p>Public sources support the identified critical-mineral inputs. '
+                'Peer-reviewed sources separately document technical relevance and '
+                'multiple laboratory and device demonstrations.</p>'
+            ),
+            unknown_html=(
+                '<p>The reviewed public evidence does not establish the required '
+                'precursor, purity, processor, substrate lot, and repeatability as one '
+                'qualified material stack. It also does not establish mission-scale '
+                'manufacturing, acquisition approval, or mission readiness.</p>'
+            ),
+            horizon_label=yig_mpi["horizon"]["label"],
+            horizon_meaning=yig_pathway["evidence_horizon"]["meaning"],
+            mpi_html=mpi_summary_html(
+                yig_mpi,
+                title_id="yig-mpi-title",
+                links=(("Consider Next Proof", "#yig-next-proof"),),
+                heading_level=4,
+            ),
+            optional_governed_html=(
+                '<div class="boundary-governed-region" '
+                'aria-label="YIG governed research context">'
+                f'<div class="frontier-context-grid">{frontier_context}</div></div>'
+            ),
+        )
+        + '</section>'
     )
 
+    field_source_ids = {source["source_id"] for source in sources}
+    ga_field_source_ids = set(gallium_material["source_ids"]) & field_source_ids
+    yig_field_source_ids = set(yig_form.get("source_ids", []))
+    for collection_name in (
+        "critical_mineral_dependencies", "substrate_context", "stages",
+        "public_applications", "frontier_research_context",
+    ):
+        for item in yig_pathway.get(collection_name, []):
+            yig_field_source_ids.update(item.get("source_ids", []))
+            yig_field_source_ids.update(item.get("context_source_ids", []))
     source_cards = "".join(
-        '<article class="source-card">'
+        '<article class="source-card" data-pathway-routes="'
+        + esc(" ".join(
+            route for route, source_ids in (
+                ("ga", ga_field_source_ids), ("yig", yig_field_source_ids)
+            ) if source["source_id"] in source_ids
+        ))
+        + '">'
         f'<span class="source-id">{esc(source["source_id"])}</span>'
         f'<h3>{esc(source["title"])}</h3>'
         f'<p>{esc(source["publisher"])}</p>'
@@ -644,7 +1181,7 @@ def render(template, payload):
     )
     neutral_detail = (
         '<div class="neutral-detail"><p class="eyebrow">EXPLORE</p><h2>Choose a material</h2>'
-        '<p>Explore its applications, related material systems, public sources, and reviewed pathways where available.</p></div>'
+        '<p>Explore its applications, connected material systems, public sources, and reviewed pathways where available.</p></div>'
     )
     embedded = json.dumps(
         {"atlas": atlas, "forms": forms, "sources": sources, "yig001": yig_pathway, "ga001": payload["ga001"]},
@@ -658,14 +1195,39 @@ def render(template, payload):
         "<!-- R6:INITIAL_DETAIL -->": neutral_detail,
         "<!-- R6:INDEX -->": "".join(index_rows),
         "<!-- R6:SELECTED_PATHWAYS -->": selected_pathways_html,
-        "<!-- R6:TRACE -->": "".join(trace_nodes),
-        "<!-- R6:SUPPORTED -->": supported,
-        "<!-- R6:UNKNOWN -->": unknown,
+        "<!-- R6:GA_RIBBON -->": pathway_ribbon_html(
+            ga_mpi,
+            section_id="ga-overview",
+            title_id="ga-overview-title",
+            trace_href="#trace",
+        ),
+        "<!-- R6:GA_BOUNDARY -->": evidence_boundary_html(
+            title_id="examine-title",
+            heading_level=2,
+            known_html=f"<ul>{supported}</ul>",
+            unknown_html=f"<ul>{unknown}</ul>",
+            horizon_label=ga_mpi["horizon"]["label"],
+            horizon_meaning=(
+                "Downstream facts may remain independently supported, but they do not "
+                "reconnect the pathway across this unresolved link."
+            ),
+            mpi_html=mpi_summary_html(
+                ga_mpi,
+                title_id="ga-mpi-title",
+                links=(("Consider Next Proof", "#decision"),),
+            ),
+        ),
+        "<!-- R6:TRACE -->": pathway_trace_html(
+            "".join(trace_nodes),
+            base_class="trace-list",
+            aria_label="Gallium trace to mission pathway",
+        ),
         "<!-- R6:SUPPORT -->": "".join(support_items),
         "<!-- R6:GA_CLAIMS -->": ga_claim_items,
         "<!-- R6:ACTIONS -->": actions,
         "<!-- R6:FORMS -->": "".join(form_cards),
         "<!-- R6:YIG_PATHWAY -->": yig_pathway_html,
+        "<!-- R6:YIG_NEXT_PROOF -->": f'<ol class="yig-next-proof-list">{yig_next}</ol>',
         "<!-- R6:SOURCES -->": source_cards,
         "<!-- R6:GA_SOURCES -->": ga_source_cards,
         "<!-- R6:DATA -->": embedded,
