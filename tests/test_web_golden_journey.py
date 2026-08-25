@@ -17,6 +17,14 @@ def test_strategic_constellation_is_first_public_experience() -> None:
     assert 'id="decision"' in html
     assert 'id="forms"' in html
     assert 'id="sources"' in html
+    assert 'id="ga-pathway"' in html
+    assert 'href="#ga-pathway">Follow the pathway →</a>' in html
+    assert "02 · FOCUS" not in html
+    assert "03 · FOLLOW" not in html
+    assert "Beyond the Evidence Map" in html
+    assert "Explore how evidence, uncertainty, and human judgment shape strategic choices." in html
+    assert ">Explore the Decision Experience</a>" in html
+    assert ">Strategic Partnership</a>" in html
     assert "See the field.<br>" not in html
 
 def test_browser_is_static_read_only_progressive_enhancement() -> None:
@@ -41,6 +49,9 @@ def test_accessibility_and_reduced_motion_contract() -> None:
     css = (ROOT / "web/styles.css").read_text(encoding="utf-8")
     js = (ROOT / "web/app.js").read_text(encoding="utf-8")
     assert 'class="skip-link"' in html
+    assert 'href="#atlas-title">Skip to Materials Atlas</a>' in html
+    assert html.count("<h1") == 1
+    assert '<h1 id="atlas-title">Materials-to-Mission Atlas</h1>' in html
     assert ':focus-visible' in css
     assert '[hidden]{display:none!important}' in css.replace(" ", "")
     assert 'prefers-reduced-motion:reduce' in css.replace(" ", "")
@@ -52,6 +63,7 @@ def test_accessibility_and_reduced_motion_contract() -> None:
     assert 'role="combobox"' in html
     assert 'aria-controls="searchResults"' in html
     assert 'viewport-fit=cover' in html
+    assert '<span id="ga-pathway" class="pathway-entry-anchor" aria-hidden="true"></span>' in html
 
 def test_mobile_default_does_not_auto_open_material_sheet() -> None:
     js = (ROOT / "web/app.js").read_text(encoding="utf-8")

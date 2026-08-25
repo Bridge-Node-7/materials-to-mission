@@ -7,8 +7,8 @@
       "source_id": "gallium",
       "type_label": "CRITICAL MINERAL · REVIEWED PATHWAY",
       "summary": "Evidence Horizon · Sources · Next proof",
-      "href": "#trace",
-      "action_label": "Open pathway"
+      "href": "#ga-pathway",
+      "action_label": "View Gallium pathway"
     },
     {
       "record_type": "engineered-material-system-reviewed-context",
@@ -17,7 +17,7 @@
       "type_label": "ENGINEERED MATERIAL SYSTEM · REVIEWED CONTEXT",
       "summary": "Related to Yttrium · Source-to-Mission",
       "href": "#yig-pathway",
-      "action_label": "Open system"
+      "action_label": "View YIG pathway"
     }
   ]
 }

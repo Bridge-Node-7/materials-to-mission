@@ -7,10 +7,13 @@ def test_visual_contract_preserves_bridge_node_7_family() -> None:
     css = (ROOT / "web/styles.css").read_text(encoding="utf-8")
     assert "Materials-to-Mission Atlas" in html
     assert "Evidence-First. Mission-Aligned." in html
-    assert "From Evidence to Decision" in html
-    assert "Experience a Decision" in html
+    assert "Beyond the Evidence Map" in html
+    assert "Explore the Decision Experience" in html
     assert "Human decision authority remains required." in html
-    assert "does not approve, qualify, certify, waive, terminate, or close" in html
+    assert (
+        "This map organizes public evidence and unresolved questions. It does not approve, qualify, "
+        "or certify a pathway. Decisions requiring judgment remain with responsible people and organizations."
+    ) in html
     assert "--bg:#020712" in css.replace(" ", "")
     assert "--gold:#e7ba52" in css.replace(" ", "")
     assert "background:#f7f3e8" not in css.lower()

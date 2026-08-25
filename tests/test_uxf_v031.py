@@ -34,7 +34,7 @@ def test_precision_experience_contract() -> None:
     css = (ROOT / "web/styles.css").read_text(encoding="utf-8")
     assert "Materials-to-Mission Atlas" in html
     assert "Evidence Horizon" in html
-    assert "From Evidence to Decision" in html
+    assert "Beyond the Evidence Map" in html
     assert "Public Method" in html
     assert "https://bridgenode7.com/partner/" in html
     assert "width:44px" in css.replace(" ", "")

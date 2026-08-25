@@ -64,16 +64,32 @@
     search.removeAttribute("aria-activedescendant");
     activeResult = -1;
   }
-  function setDepthState(state, {scrollId=null}={}) {
+  function setDepthState(state, {scrollId=null, focusId=null}={}) {
     const visible = {
-      arrival: [], explore: [], trace: ["gallium", "trace"],
-      "trace-next": ["gallium", "trace", "decision"],
-      proof: ["gallium", "trace", "examine", "decision", "sources"],
-      forms: ["forms"], yig: ["forms", "yig-pathway", "sources"], sources: ["sources"]
+      arrival: [], explore: [], trace: ["gallium", "trace", "examine", "forms", "sources", "decision"],
+      proof: ["gallium", "trace", "examine", "forms", "sources", "decision"],
+      forms: ["forms"], yig: ["yig-pathway", "forms", "sources", "yig-next-proof"], sources: ["sources"]
     }[state] || [];
+    const pathwayRoute = ["trace", "proof"].includes(state) ? "ga" : state === "yig" ? "yig" : "all";
     depthSections.forEach(section => section.classList.toggle("is-revealed", visible.includes(section.id)));
+    document.querySelectorAll("[data-pathway-routes]").forEach(element => {
+      const routes = element.dataset.pathwayRoutes.split(/\s+/).filter(Boolean);
+      element.hidden = pathwayRoute !== "all" && !routes.includes(pathwayRoute);
+    });
+    document.querySelectorAll("[data-pathway-only]").forEach(element => {
+      element.hidden = pathwayRoute === "all" || element.dataset.pathwayOnly !== pathwayRoute;
+    });
     document.body.dataset.depth = state;
-    if (scrollId) requestAnimationFrame(() => document.getElementById(scrollId)?.scrollIntoView({block:"start", behavior:preferredScrollBehavior()}));
+    document.body.dataset.pathway = pathwayRoute;
+    if (scrollId) requestAnimationFrame(() => {
+      document.getElementById(scrollId)?.scrollIntoView({block:"start", behavior:preferredScrollBehavior()});
+      const focusTarget = focusId ? document.getElementById(focusId) : null;
+      if (focusTarget) {
+        focusTarget.setAttribute("tabindex", "-1");
+        focusTarget.focus({preventScroll:true});
+        focusTarget.addEventListener("blur", () => focusTarget.removeAttribute("tabindex"), {once:true});
+      }
+    });
   }
   function clearSelection({announceState=false}={}) {
     selectedId = null;
@@ -84,7 +100,7 @@
       node.tabIndex = index === 0 ? 0 : -1;
     });
     svg.replaceChildren(); workspace.classList.remove("has-selection");
-    detail.innerHTML = '<div class="neutral-detail"><p class="eyebrow">EXPLORE</p><h2>Choose a material</h2><p>Explore its applications, related material systems, public sources, and reviewed pathways where available.</p></div>';
+    detail.innerHTML = '<div class="neutral-detail"><p class="eyebrow">EXPLORE</p><h2>Choose a material</h2><p>Explore its applications, connected material systems, public sources, and reviewed pathways where available.</p></div>';
     setDepthState("arrival"); if (sheet.open) sheet.close();
     if (announceState) announce("Materials-to-Mission Atlas. No material selected.");
   }
@@ -141,7 +157,7 @@ const esc = value => String(value).replace(/[&<>"']/g, char => ({
     const reviewed = material.review?.code === "reviewed-pathway";
     const pathwayBody = reviewed
       ? `<p class="depth-copy">A reviewed public-source pathway is available for this material.</p>
-         <a class="detail-action" data-depth="trace" href="#trace">Reviewed pathway available →</a>
+         <a class="detail-action" data-depth="trace" href="#ga-pathway">Reviewed pathway available →</a>
          <small class="review-boundary">Public-source review · not qualification</small>`
       : `<p class="depth-copy"><strong>Baseline context.</strong> No reviewed end-to-end pathway has been released for this material. Available public context remains visible in the other layers.</p>`;
 
@@ -222,8 +238,8 @@ const esc = value => String(value).replace(/[&<>"']/g, char => ({
     root.querySelectorAll("[data-depth]").forEach(link => link.addEventListener("click", event => {
       event.preventDefault(); const target = link.dataset.depth;
       if (sheet.open && sheet.contains(link)) sheet.close();
-      if (target === "trace") { setDepthState("trace", {scrollId:"trace"}); setHash("#trace", true); }
-      else if (target === "yig") { setDepthState("yig", {scrollId:"yig-pathway"}); setHash("#yig-pathway", true); }
+      if (target === "trace") { setDepthState("trace", {scrollId:"ga-pathway", focusId:"gallium-title"}); setHash("#ga-pathway", true); }
+      else if (target === "yig") { setDepthState("yig", {scrollId:"yig-pathway", focusId:"yig-pathway-title"}); setHash("#yig-pathway", true); }
       else if (target === "forms") { setDepthState("forms", {scrollId:"forms"}); setHash("#forms", true); }
     }));
   }
@@ -338,8 +354,10 @@ const esc = value => String(value).replace(/[&<>"']/g, char => ({
     if (hash.startsWith("#material-")) { const id=hash.slice(10); if (byId[id]) { selectMaterial(id,{pushHash:false,openSheet:true}); return; } }
     if (hash.startsWith("#form-")) { const id=hash.slice(6); if (formById[id]) { selectForm(id,{pushHash:false,openSheet:true}); return; } }
     if (hash === "#gallium") { selectMaterial("gallium",{pushHash:false,openSheet:true}); return; }
-    if (["#trace","#examine","#decision"].includes(hash)) { selectMaterial("gallium",{pushHash:false,openSheet:false}); const state=hash==="#trace"?"trace":(hash==="#decision"?"trace-next":"proof"); setDepthState(state,{scrollId:hash.slice(1)}); return; }
-    if (hash === "#yig-pathway") { selectForm("yig",{pushHash:false,openSheet:false}); setDepthState("yig",{scrollId:"yig-pathway"}); return; }
+    if (hash === "#ga-pathway") { selectMaterial("gallium",{pushHash:false,openSheet:false}); setDepthState("trace",{scrollId:"ga-pathway",focusId:"gallium-title"}); return; }
+    if (["#ga-overview","#trace","#examine","#decision","#ga-systems","#ga-sources"].includes(hash)) { selectMaterial("gallium",{pushHash:false,openSheet:false}); const state=["#ga-overview","#trace"].includes(hash)?"trace":"proof"; setDepthState(state,{scrollId:hash.slice(1)}); return; }
+    if (hash === "#yig-pathway") { selectForm("yig",{pushHash:false,openSheet:false}); setDepthState("yig",{scrollId:"yig-pathway",focusId:"yig-pathway-title"}); return; }
+    if (["#yig-overview","#yig-trace","#yig-boundary","#yig-systems","#yig-sources","#yig-next-proof"].includes(hash)) { selectForm("yig",{pushHash:false,openSheet:false}); setDepthState("yig",{scrollId:hash.slice(1)}); return; }
     if (hash === "#forms") { clearSelection(); setDepthState("forms",{scrollId:"forms"}); return; }
     if (hash === "#sources") { clearSelection(); setDepthState("sources",{scrollId:"sources"}); return; }
     if (hash.startsWith("#ga-source-")) { selectMaterial("gallium",{pushHash:false,openSheet:false}); setDepthState("proof",{scrollId:hash.slice(1)}); return; }
@@ -515,10 +533,6 @@ const esc = value => String(value).replace(/[&<>"']/g, char => ({
       selectForm(button.dataset.formId, {pushHash:true, openSheet:true});
     })
   );
-  const showNextProof = document.getElementById("showNextProof");
-  if (showNextProof) showNextProof.addEventListener("click", () => { setDepthState("trace-next", {scrollId:"decision"}); setHash("#decision", true); });
-  const showProof = document.getElementById("showProof");
-  if (showProof) showProof.addEventListener("click", () => { setDepthState("proof", {scrollId:"examine"}); setHash("#examine", true); });
 
   document.getElementById("sheetClose").addEventListener("click", () => sheet.close());
   sheet.addEventListener("click", event => {
