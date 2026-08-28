@@ -5,11 +5,8 @@ FAIL=0
 
 echo "=== BN7 PRE-COMMIT SECURITY CHECK ==="
 
-STAGED="$(git diff --cached -- . ":(exclude).githooks/pre-commit")"
-
-if echo "$STAGED" | grep -E "^\+" | grep -E "(/c)?/Users/|C:\\\\Users\\\\|/home/" ; then
-    echo "BLOCKED: absolute machine path detected"
-    FAIL=1
+if [ -f scripts/check_privacy.py ]; then
+    python scripts/check_privacy.py --staged || FAIL=1
 fi
 
 EMAIL="$(git config user.email || true)"
