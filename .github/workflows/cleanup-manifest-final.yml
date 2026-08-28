@@ -1,0 +1,31 @@
+name: Final cleanup manifest refresh
+
+on:
+  push:
+    branches:
+      - hardening/privacy-gates-20260828
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout cleanup branch
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: hardening/privacy-gates-20260828
+      - name: Self-remove then regenerate integrity manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          git rm .github/workflows/cleanup-manifest-final.yml
+          python scripts/build_manifest.py
+          git add REPO_FILE_MANIFEST.sha256
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: finalize cleanup manifest"
+          git push origin HEAD:hardening/privacy-gates-20260828
