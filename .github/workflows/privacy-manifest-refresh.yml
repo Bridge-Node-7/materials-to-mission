@@ -1,0 +1,31 @@
+name: One-time privacy manifest refresh
+
+on:
+  push:
+    branches:
+      - hardening/remote-privacy-gate-20260828
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout hardening branch
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: hardening/remote-privacy-gate-20260828
+      - name: Remove one-time workflow and refresh manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          git rm .github/workflows/privacy-manifest-refresh.yml
+          python scripts/build_manifest.py
+          git add REPO_FILE_MANIFEST.sha256
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: refresh manifest for privacy gate"
+          git push origin HEAD:hardening/remote-privacy-gate-20260828
