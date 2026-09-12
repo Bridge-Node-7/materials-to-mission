@@ -68,6 +68,10 @@ The repository demonstrates a versioned evidence structure, deterministic valida
 
 The current checked-in test, coverage, packaging, and validation state is recorded in [`VALIDATION_REPORT.md`](VALIDATION_REPORT.md).
 
+## Release Posture
+
+`main` is the current reviewed source. GitHub Releases are explicit distribution milestones and may intentionally lag validated maintenance on `main`; published tags remain immutable historical baselines.
+
 ## What Is Not Claimed
 
 This repository does not establish material or supplier qualification, certification or legal compliance, production capacity or assured supply, laboratory validity outside supplied evidence, acquisition or mission readiness, customer adoption or commercial validation, government endorsement, investment merit, or guaranteed mission performance.
