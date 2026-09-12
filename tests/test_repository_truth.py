@@ -87,3 +87,20 @@ def test_pages_requires_post_deploy_anonymous_readback() -> None:
     assert "needs: deploy" in workflow
     assert "scripts/verify_production.py" in workflow
     assert "https://bridgenode7.com/materials-to-mission/" in workflow
+
+
+def test_post_decision_outcome_boundary_matches_v010_schema() -> None:
+    mar_doc = (ROOT / "docs/MATERIAL_ASSURANCE_RECORD.md").read_text(encoding="utf-8")
+    method_doc = (ROOT / "docs/METHOD.md").read_text(encoding="utf-8")
+    passport_doc = (ROOT / "docs/DECISION_PASSPORT.md").read_text(encoding="utf-8")
+    interoperability_doc = (ROOT / "docs/INTEROPERABILITY.md").read_text(encoding="utf-8")
+    mar_schema = json.loads(
+        (ROOT / "schemas/material-assurance-record.schema.json").read_text(encoding="utf-8")
+    )
+
+    assert "does not encode a post-decision observed-outcome record" in mar_doc
+    assert "preserve decision-time state" in method_doc
+    assert "decision-time snapshot" in passport_doc
+    assert "downstream consumers" in interoperability_doc
+    assert "observed_outcome" not in mar_schema["properties"]
+    assert "reassessment_trigger" in mar_schema["required"]

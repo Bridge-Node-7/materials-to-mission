@@ -18,6 +18,12 @@ qualification authority.
 8. **Act** with acceptance criteria, success signals, stop rules, and reassessment triggers.
 9. **Prove** the result and preserve the decision lineage.
 
+Step 9 closes the learning loop without rewriting history. The v0.1.0 MAR and
+Decision Passport preserve decision-time state; later proof and observed
+outcomes are recorded separately and linked to the original decision lineage.
+Reassessment creates a new governed state or downstream record rather than
+silently changing what was known at the time.
+
 ## Allowed Dispositions
 
 - `ADVANCE`
