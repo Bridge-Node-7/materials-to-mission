@@ -11,4 +11,10 @@ Integration must preserve evidence classes, unknown states, critical conditions,
 human authority, version identity, public boundaries, and provenance. Domain
 scoring models must not be silently merged.
 
+Post-decision outcome systems are downstream consumers, not implicit extensions
+of the v0.1.0 Materials-to-Mission schemas. They should reference stable MAR and
+Decision Passport identities and store later observed outcomes and learning as
+separate governed records. Consumers must not backfill later facts into
+historical decision-time artifacts.
+
 Validation consumers must preserve the distinction between structural schema identity and semantic validation-profile identity. Canonical records remain bound to the immutable v0.1.0 schemas, while semantic acceptance is evaluated under an explicit profile such as `m0-baseline-0.1.0` or `m0-strict-0.2.0`. A consumer must not infer a validation profile solely from `schema_version`.
