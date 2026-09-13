@@ -29,7 +29,15 @@ jobs:
           cache: pip
       - name: Privacy path scan
         run: python scripts/check_privacy.py
-      - name: Follow documented consumer path
+      - name: Prepare expected repository manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "${RUNNER_TEMP}/m2m-manifest"
+          python scripts/build_manifest.py
+          cp REPO_FILE_MANIFEST.sha256 "${RUNNER_TEMP}/m2m-manifest/"
+          git checkout -- REPO_FILE_MANIFEST.sha256
+      - name: Follow documented consumer path and prove FMA interoperability
         shell: bash
         run: |
           set -euo pipefail
@@ -55,7 +63,26 @@ jobs:
           assert data["toolkit_version"] == expected_version
           assert data["validation_profile"] == "m0-strict-0.4.0"
           PY
-      - name: Upload consumer evidence
+
+          python scripts/export_fma_projection.py \
+            examples/synthetic-critical-material-pathway/case.json \
+            --output-dir build/fma-projection
+
+          FMA_VERSION="0.4.1"
+          FMA_WHEEL="frontier_mission_assurance-${FMA_VERSION}-py3-none-any.whl"
+          FMA_SHA256="a86070c828a58e5267aa5622c0ab933b5b948dcb53983d25712e3a07ee8ade93"
+          curl -fsSL \
+            "https://github.com/Bridge-Node-7/frontier-mission-assurance/releases/download/v${FMA_VERSION}/${FMA_WHEEL}" \
+            -o "${RUNNER_TEMP}/${FMA_WHEEL}"
+          printf '%s  %s\n' "$FMA_SHA256" "${RUNNER_TEMP}/${FMA_WHEEL}" | sha256sum -c -
+          python -m pip install "PyYAML==6.0.3"
+          python -m pip install --no-deps "${RUNNER_TEMP}/${FMA_WHEEL}"
+          test "$(fma --version)" = "fma ${FMA_VERSION}"
+          fma validate build/fma-projection/assurance-graph.json
+          fma decision \
+            build/fma-projection/assurance-graph.json \
+            build/fma-projection/decision-receipt.json
+      - name: Upload consumer and interoperability evidence
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
@@ -63,6 +90,8 @@ jobs:
           path: |
             build/consumer-validation.json
             build/guided-decision-passport.md
+            build/fma-projection/
+            ${{ runner.temp }}/m2m-manifest/
           if-no-files-found: ignore
           retention-days: 14
 
