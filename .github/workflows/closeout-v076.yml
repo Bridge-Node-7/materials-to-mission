@@ -31,6 +31,7 @@ jobs:
         run: |
           set -euo pipefail
           python scripts/closeout_nojs_v076.py
+          python -m pip install --no-deps --no-build-isolation -e .
           tmpdir="$(mktemp -d)"
           mv scripts/closeout_nojs_v076.py "$tmpdir/"
           mv .github/workflows/closeout-v076.yml "$tmpdir/"
