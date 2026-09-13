@@ -49,7 +49,7 @@ The manifest also records the Research Receipt identifier for ecosystem discover
 
 ## Hosted portfolio proof
 
-CI downloads the exact public FMA `v0.4.1` wheel, verifies its published SHA-256 digest before installation, generates the M2M projection, and then runs:
+CI downloads the exact public FMA `v0.5.0` wheel, verifies its published SHA-256 digest before installation, generates the M2M projection, and then runs:
 
 ```text
 fma validate build/fma-projection/assurance-graph.json
@@ -57,6 +57,8 @@ fma decision \
   build/fma-projection/assurance-graph.json \
   build/fma-projection/decision-receipt.json
 ```
+
+FMA `v0.5.0` is the current hosted interoperability baseline for this adapter. The adapter continues to target the stable Assurance Graph v1 and Decision Receipt v1 contracts; it does not manufacture a Research Receipt v3 unless an actual research execution exists.
 
 That path proves that a real BN7 domain artifact can be projected into FMA contracts and consumed by the independently released FMA package.
 

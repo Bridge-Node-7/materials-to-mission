@@ -68,9 +68,9 @@ jobs:
             examples/synthetic-critical-material-pathway/case.json \
             --output-dir build/fma-projection
 
-          FMA_VERSION="0.4.1"
+          FMA_VERSION="0.5.0"
           FMA_WHEEL="frontier_mission_assurance-${FMA_VERSION}-py3-none-any.whl"
-          FMA_SHA256="a86070c828a58e5267aa5622c0ab933b5b948dcb53983d25712e3a07ee8ade93"
+          FMA_SHA256="50e9d059d12649ecc572cf14a984305250f70dca0ac88f485d3b44d6ddd00895"
           curl -fsSL \
             "https://github.com/Bridge-Node-7/frontier-mission-assurance/releases/download/v${FMA_VERSION}/${FMA_WHEEL}" \
             -o "${RUNNER_TEMP}/${FMA_WHEEL}"
