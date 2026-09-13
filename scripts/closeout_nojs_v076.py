@@ -16,7 +16,6 @@ def replace_once(path: str, old: str, new: str) -> None:
     p.write_text(text.replace(old, new, 1), encoding="utf-8", newline="\n")
 
 
-# Progressive enhancement boundary: static evidence remains usable without JavaScript.
 index = ROOT / "web/index.html"
 html = index.read_text(encoding="utf-8")
 if 'id="no-js-boundary"' not in html:
@@ -31,10 +30,9 @@ styles = ROOT / "web/styles.css"
 css = styles.read_text(encoding="utf-8")
 block = '''\n/* v0.7.6 progressive-enhancement boundary */\n.no-js-notice{max-width:1180px;margin:0 auto;padding:1rem 1.25rem 1.25rem;border-bottom:1px solid rgba(241,200,107,.28);background:rgba(10,19,36,.92)}\n.no-js-notice h2{margin:.2rem 0 .55rem;font-size:clamp(1.35rem,2.7vw,2rem)}\n.no-js-notice p{max-width:78ch;margin:.45rem 0;color:var(--muted,#b8c2d1);line-height:1.55}\n.no-js-notice a{color:var(--gold,#f1c86b)}\nhtml:not(.js-ready) #constellationPanel{display:none!important}\nhtml:not(.js-ready) #indexPanel{display:block!important}\n'''
 if "/* v0.7.6 progressive-enhancement boundary */" not in css:
-    css = css.rstrip() + block + "\n"
+    css = css.rstrip() + block
 styles.write_text(css, encoding="utf-8", newline="\n")
 
-# Release identity: bounded accessibility/progressive-enhancement maintenance release.
 (ROOT / "VERSION").write_text(NEW + "\n", encoding="utf-8", newline="\n")
 replace_once("pyproject.toml", f'version = "{OLD}"', f'version = "{NEW}"')
 replace_once("CITATION.cff", f"version: {OLD}", f"version: {NEW}")
@@ -57,7 +55,6 @@ facts["maintenance_v076"] = {
 }
 facts_path.write_text(json.dumps(facts, indent=2, sort_keys=False) + "\n", encoding="utf-8", newline="\n")
 
-# Current-facing release documents move forward; historical records remain intact.
 for rel in ("docs/CURRENT_STATE.md", "VALIDATION_REPORT.md"):
     p = ROOT / rel
     text = p.read_text(encoding="utf-8")
@@ -75,8 +72,6 @@ if old not in text:
     raise SystemExit("unexpected changelog header")
 changelog.write_text(text.replace(old, new, 1), encoding="utf-8", newline="\n")
 
-# Existing release-contract tests intentionally track the active source version even
-# when their filenames preserve the release in which the invariant was introduced.
 for rel in (
     "tests/test_foundation_hardening.py",
     "tests/test_v061_truth_accessibility.py",
@@ -89,6 +84,5 @@ for rel in (
     if OLD in text:
         p.write_text(text.replace(OLD, NEW), encoding="utf-8", newline="\n")
 
-# Dedicated regression for the graceful no-JavaScript path.
 test = ROOT / "tests/test_v076_nojs_boundary.py"
 test.write_text('''from pathlib import Path\n\nROOT = Path(__file__).resolve().parents[1]\n\n\ndef test_no_javascript_boundary_is_explicit_and_evidence_preserving() -> None:\n    html = (ROOT / "web/index.html").read_text(encoding="utf-8")\n    css = (ROOT / "web/styles.css").read_text(encoding="utf-8")\n    assert '<noscript>' in html\n    assert 'id="no-js-boundary"' in html\n    assert 'Continue to the static Mineral List' in html\n    assert 'Review evidence &amp; sources' in html\n    assert 'JavaScript is required' not in html\n    assert html.count('<h1') == 1\n    assert 'html:not(.js-ready) #constellationPanel{display:none!important}' in css\n    assert 'html:not(.js-ready) #indexPanel{display:block!important}' in css\n\n\ndef test_v076_release_identity_and_truth_boundaries() -> None:\n    import json\n    facts = json.loads((ROOT / "PROJECT_FACTS.json").read_text(encoding="utf-8"))\n    assert (ROOT / "VERSION").read_text(encoding="utf-8").strip() == "0.7.6"\n    assert facts["version"] == facts["source_version"] == "0.7.6"\n    assert facts["maintenance_v076"]["evidence_model_changed"] is False\n    assert facts["maintenance_v076"]["schema_or_pathway_changed"] is False\n    assert facts["maintenance_v076"]["human_decision_authority_changed"] is False\n''', encoding="utf-8", newline="\n")
