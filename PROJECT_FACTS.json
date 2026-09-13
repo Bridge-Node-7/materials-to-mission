@@ -76,7 +76,7 @@
   "real_case_count": 0,
   "real_world_qualification_claimed": false,
   "reference_case": "examples/synthetic-critical-material-pathway/case.json",
-  "release_artifact": "materials-to-mission-v0.7.5.zip",
+  "release_artifact": "materials-to-mission-v0.7.6.zip",
   "release_creation_authority": "tag-triggered GitHub Actions Release workflow",
   "release_notes": "RELEASE_NOTES.md",
   "release_publication_authority": "GitHub verified signed tags and immutable Releases",
@@ -102,10 +102,10 @@
     "m0-strict-0.2.0",
     "m0-strict-0.4.0"
   ],
-  "version": "0.7.5",
+  "version": "0.7.6",
   "visual_experience_baseline_version": "0.5.0",
   "visual_experience_source_status": "v0.7.3-clarity-orientation-candidate-external-publication-authority-is-GitHub",
-  "source_version": "0.7.5",
+  "source_version": "0.7.6",
   "visual_experience_status": "field-focus-proof-selected-pathways-progressive-disclosure",
   "website_integration": "Home -> Materials-to-Mission -> Partner -> Golden Age; Frontier Decision Engine is contextual decision support; inbound website routes governed separately",
   "website_integration_status": "corporate-site-advanced-beyond-historical-v1.2.1-reference-current-signed-release-not-asserted",
@@ -218,5 +218,16 @@
     "yig_evidence_changed": false,
     "schema_or_pathway_changed": false,
     "public_product_behavior_changed": false
+  },
+  "maintenance_v076": {
+    "scope": "NO_JAVASCRIPT_PROGRESSIVE_ENHANCEMENT_BOUNDARY_ONLY",
+    "static_evidence_mode": true,
+    "static_index_forced_visible_without_javascript": true,
+    "interactive_constellation_hidden_without_javascript": true,
+    "evidence_model_changed": false,
+    "gallium_evidence_changed": false,
+    "yig_evidence_changed": false,
+    "schema_or_pathway_changed": false,
+    "human_decision_authority_changed": false
   }
 }

@@ -1,21 +1,15 @@
-# Materials-to-Mission v0.7.5 - Trust Hardening
+# Materials-to-Mission v0.7.6 - Trust Hardening
 
 ## Purpose
 
-v0.7.5 is a bounded trust-hardening maintenance release. It closes verified public-boundary and deployment-permission gaps without changing the underlying evidence, public product behavior, or decision authority.
+v0.7.6 is a bounded accessibility and resilience maintenance release. It makes the no-JavaScript operating boundary explicit and preserves a useful static evidence path without changing the underlying evidence, schemas, pathways, or human decision authority.
 
-## Hardened
+## Improved
 
-- Version-pinned Unicode 17.0.0 confusable normalization for public-boundary scanning.
-- Compound secret-key and narrowly scoped credential-shaped value detection.
-- Least-privilege GitHub Pages deployment permissions.
-- Removal of an inert synthetic-marker policy field rather than implying unenforced coverage.
-
-## Clarified
-
-- Machine-checked evidence consistency is distinct from human-owned evidence truth and sufficiency.
-- Repository manifests establish byte consistency; verified signed tags and immutable GitHub Releases establish release authenticity.
-- Forward cleanup is distinct from an explicitly authorized secret-history rewrite.
+- Added an explicit no-JavaScript static evidence notice.
+- Forced the complete static Mineral List visible when JavaScript is unavailable.
+- Hid the interactive constellation when it cannot function, avoiding a misleading inert control surface.
+- Preserved direct access to reviewed pathways, claim registers, and source-linked evidence.
 
 ## Preserved
 
@@ -24,9 +18,8 @@ v0.7.5 is a bounded trust-hardening maintenance release. It closes verified publ
 - YIG remains an engineered material system, not a USGS critical mineral.
 - Unknown remains non-favorable and Evidence Horizon remains explicit.
 - Human consequential authority remains required.
-- No schema, pathway, qualification, readiness, supplier, customer, government, investment, acquisition, mission, or commercial-validation claim is added.
-- Historical v0.7.4 is not moved, rewritten, or retagged.
+- No supplier, customer, government, investment, acquisition, readiness, certification, or operational qualification claim is added.
 
 ## Validation
 
-The complete repository gate, deterministic packaging, required CI/CodeQL/Browser UAT checks, verified signed annotated tag, immutable GitHub Release, and anonymous production readback remain authoritative.
+The complete repository gate, deterministic packaging, required CI/CodeQL/Browser UAT checks, and production readback remain authoritative.
