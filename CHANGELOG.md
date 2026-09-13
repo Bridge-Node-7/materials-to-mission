@@ -4,7 +4,17 @@ All notable changes are documented here.
 
 ## Unreleased
 
-No changes recorded after v0.7.5.
+No changes recorded after v0.7.6.
+
+## [0.7.6] - 2026-09-13
+
+### Improved
+- Added an explicit no-JavaScript static evidence mode and direct route to the complete Mineral List and sources.
+- Forced the static index visible and the interactive constellation hidden when JavaScript is unavailable.
+- Added regression coverage for the progressive-enhancement boundary.
+
+### Preserved
+- Existing evidence, schemas, qualification boundaries, selected pathways, maturity semantics, and human consequential authority.
 
 ## [0.7.5] - 2026-08-22
 
