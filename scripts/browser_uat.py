@@ -54,7 +54,14 @@ def assert_core_arrival(page,checks,expect_js=True):
     assert page.locator('.start-here').count() == 0
     guide_text = page.locator('#how-this-map-works').text_content()
     assert guide_text.count('Supported facts stay supported. Unknowns stay visible.') == 1
-    assert 'M0 identifies the experimental public evidence method used here. It does not indicate readiness, qualification, certification, or acquisition approval.' in guide_text
+    assert 'This experimental public evidence method does not indicate readiness, qualification, certification, or acquisition approval.' in guide_text
+    public_html = page.content()
+    assert 'M0 Public Method' not in public_html
+    assert 'M0 identifies' not in public_html
+    assert 'BN7-specific precursor' not in public_html
+    assert 'mission-specific precursor form' in public_html
+    assert 'GA-001 historical snapshot profile' in public_html
+    assert 'm0-strict-0.2.0' in public_html
     assert page.locator('body').inner_text().count('Reviewed does not mean qualified.') == 1
     assert page.locator('#selected-pathways').inner_text().count('Public evidence is continuous through Gallium; qualified domestic primary recovery remains unresolved.') == 1
     assert page.locator('#selected-pathways').inner_text().count('Public evidence is continuous through critical materials; a qualified material stack remains unresolved.') == 1

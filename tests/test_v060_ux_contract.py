@@ -13,7 +13,7 @@ def test_v060_field_focus_proof_contract(tmp_path: Path) -> None:
     assert 'class="map-toolbar js-only"' in html
     assert html.count('class="mineral')==60
     assert 'let selectedId = null;' in js and 'aria-activedescendant' in js
-    assert 'GA-001 snapshot validation profile' in html
+    assert 'GA-001 historical snapshot profile' in html
     assert html.count('class="ga-claim"')==7
     assert html.count('class="ga-source-card"')==4
     assert 'Materials Field Sources' in html and 'GA-001 Reviewed Sources' in html

@@ -98,7 +98,7 @@
       "context_source_ids": [
         "USGS-Y-2026"
       ],
-      "evidence_basis": "No qualifying public evidence was identified in the reviewed corpus for a BN7-specific precursor form, purity, processor, substrate lot, repeatability, or assured mission-relevant YIG material stack."
+      "evidence_basis": "No qualifying public evidence was identified in the reviewed corpus for a mission-specific precursor form, purity, processor, substrate lot, repeatability, or assured mission-relevant YIG material stack."
     },
     {
       "id": "yig-growth",
