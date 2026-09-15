@@ -26,10 +26,10 @@ def test_v073_first_use_orientation_is_exact_and_bounded(tmp_path: Path) -> None
     assert html.count("Supported facts stay supported. Unknowns stay visible.") >= 1
     assert html.count("Reviewed does not mean qualified.") == 1
     text = re.sub(r"<[^>]+>", "", html)
-    assert text.count("M0 identifies the experimental public evidence method used here. It does not indicate readiness, qualification, certification, or acquisition approval.") == 1
+    assert text.count("This experimental public evidence method does not indicate readiness, qualification, certification, or acquisition approval.") == 1
     assert 'class="start-here"' not in html
     assert "<strong>Evidence boundary.</strong> Supported facts stay supported. Unknowns stay visible." in html
-    assert "<strong>Public method.</strong> M0 identifies the experimental public evidence method used here." in html
+    assert "<strong>Public method.</strong> This experimental public evidence method" in html
 
 
 def test_v073_pathway_cues_preserve_exact_two_examples(tmp_path: Path) -> None:

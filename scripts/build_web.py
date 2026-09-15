@@ -970,7 +970,7 @@ def render(template, payload):
             '</summary><div class="support-body"><div class="support-meta">'
             f'<div><span>Source label</span><b>{esc(item["source_label"])}</b></div>'
             f'<div><span>Source date</span><b>{esc(item["source_date"] or "Undated")}</b></div>'
-            f'<div><span>GA-001 snapshot validation profile</span><b>{esc(view["validation_profile"])}</b></div>'
+            f'<div><span>GA-001 historical snapshot profile</span><b>{esc(view["validation_profile"])}</b></div>'
             '<div><span>Claim source IDs</span><b class="claim-source-links">'
             + " ".join(ga_source_ref(source_id) for source_id in claim["source_ids"])
             + '</b></div>'

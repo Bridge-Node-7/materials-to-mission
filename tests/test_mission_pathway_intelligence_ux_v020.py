@@ -31,7 +31,9 @@ def test_v020_atlas_first_journey_and_visual_discovery(tmp_path: Path) -> None:
     assert html.count('class="selected-pathway-signal"') == 2
     assert html.count('class="selected-pathways-legend"') == 1
     assert html.count('class="selected-pathway-preview-meta"') == 2
-    assert "Mission Pathway Intelligence · M0 Public Method" not in html
+    assert "M0 Public Method" not in html
+    assert "M0 identifies" not in html
+    assert "<strong>Public</strong><span>Method<br>Human Authority</span>" in html
     assert 'class="mpi-hero"' not in html
     assert 'id="pathway-explanation"' not in html
     ids = (
@@ -53,7 +55,7 @@ def test_v020_preserves_identity_classification_and_human_boundary(tmp_path: Pat
     assert 'data-pathway="gallium"' in html and 'data-pathway="yig"' in html
     assert html.count("Human decision authority remains required.") >= 3
     assert "Reviewed does not mean qualified." in html
-    assert "M0 identifies the experimental public evidence method used here. It does not indicate readiness, qualification, certification, or acquisition approval." in html
+    assert "This experimental public evidence method does not indicate readiness, qualification, certification, or acquisition approval." in html
 
 
 def test_v020_pathway_previews_are_build_time_and_non_authoritative(tmp_path: Path) -> None:
