@@ -1,6 +1,6 @@
 # Decision Charter
 
-The Decision Charter freezes the problem before analysis begins.
+The Decision Charter stabilizes the decision frame before analysis begins.
 
 Required elements include the decision statement, mission, scope, stakeholder
 role, human decision owner, disposition authority, deadline, consequences,

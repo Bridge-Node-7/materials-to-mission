@@ -26,7 +26,7 @@ The registry is source-controlled and intentionally extensible. Future systems m
 
 ## YIG rule
 
-YIG is a discreet primary example because it demonstrates the full Materials-to-Mission problem:
+YIG is a discreet primary example because it demonstrates the full Materials-to-Mission assurance chain:
 
 critical inputs → qualified material stack → film/crystal growth → fabrication → research/device evidence → independent validation → acquisition/transition → deployment/sustainment.
 

@@ -1,6 +1,6 @@
 ## Objective
 
-Describe the bounded problem and intended outcome.
+Describe the bounded objective and intended outcome.
 
 ## Evidence
 
