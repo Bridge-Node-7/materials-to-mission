@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 import unicodedata
@@ -103,6 +104,22 @@ def _walk(value: Any, path: str = "$") -> Iterator[tuple[str, Any]]:
             yield from _walk(item, f"{path}[{index}]")
 
 
+def _blocked_phrase_hash_hits(text: str, policy: dict[str, Any]) -> int:
+    tokens = re.findall(r"[a-z0-9-]+", _security_skeleton(text).casefold())
+    hits = 0
+    for width_text, blocked in policy.get("blocked_phrase_sha256", {}).items():
+        width = int(width_text)
+        blocked_set = set(blocked)
+        if width <= 0 or len(tokens) < width:
+            continue
+        for index in range(len(tokens) - width + 1):
+            phrase = " ".join(tokens[index:index + width])
+            digest = hashlib.sha256(phrase.encode("utf-8")).hexdigest()
+            if digest in blocked_set:
+                hits += 1
+    return hits
+
+
 def scan_public_boundary(
     value: Any,
     policy_path: str | Path | None = None,
@@ -123,13 +140,11 @@ def scan_public_boundary(
         if _secret_like_key(normalized):
             findings.append(f"prohibited public key at {location}: {key}")
 
-    for token in policy["prohibited_case_insensitive_tokens"]:
-        token_skeleton = _security_skeleton(token).casefold()
-        if token_skeleton in lower:
-            findings.append(f"prohibited public token: {token}")
+    if _blocked_phrase_hash_hits(text, policy):
+        findings.append("release hygiene phrase match")
     for pattern in policy["prohibited_regexes"]:
         if re.search(pattern, text) or re.search(pattern, skeleton):
-            findings.append(f"prohibited public pattern: {pattern}")
+            findings.append("release hygiene pattern match")
     for label, pattern in _SECRET_VALUE_PATTERNS:
         if pattern.search(text) or pattern.search(skeleton):
             findings.append(f"prohibited credential-shaped public value: {label}")
