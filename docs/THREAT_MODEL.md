@@ -2,15 +2,15 @@
 
 ## Scope
 
-This threat model covers the public Materials-to-Mission repository, its schemas, CLI,
-synthetic fixtures, validation tooling, release automation, and public contribution paths.
-It does not authorize storage or processing of real protected operational cases.
+This threat model covers the public Materials-to-Mission repository, its schemas,
+CLI, synthetic fixtures, validation tooling, release automation, and contribution
+paths. Use repository inputs that are approved for the intended environment.
 
-## Protected Assets
+## Security properties
 
 - Integrity of canonical schemas and version identifiers
 - Human decision authority
-- Public/private information boundary
+- Approved-release surface integrity
 - Deterministic release identity
 - Synthetic-fixture authenticity
 - Validation and release evidence
@@ -18,14 +18,13 @@ It does not authorize storage or processing of real protected operational cases.
 
 ## Primary Threats
 
-### Protected-Data Disclosure
+### Unintended Publication
 
-A contributor may place customer, supplier, laboratory, sample, lot, pricing, capacity,
-patent-sensitive, export-controlled, procurement-sensitive, personal, or restricted
-information into a public record.
+A contribution may include material that is not approved for the repository's
+distribution context.
 
-**Controls:** boundary policy, scanner, synthetic fixtures, contribution template,
-human review, fail-closed release gate.
+**Controls:** release-surface validation, scanner, synthetic fixtures, contribution
+guidance, human review, and a fail-closed release gate.
 
 ### Authority Substitution
 
