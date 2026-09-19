@@ -32,17 +32,14 @@ critical inputs → qualified material stack → film/crystal growth → fabrica
 
 The public pathway exposes where evidence stops. Public peer-reviewed demonstrations remain context if an earlier qualified-material or manufacturing condition is unresolved.
 
-## Public boundary
+## Publication boundary
 
-Public inclusion of YIG/GGG does not authorize publication of:
+The public registry contains only the reviewed material-system identities,
+relationships, sources, and qualification-state language needed to understand
+the published method.
 
-- private supplier identities or terms;
-- nonpublic laboratory data;
-- protected process parameters;
-- patent-sensitive implementation detail;
-- private device architecture;
-- customer/program-specific requirements;
-- restricted, classified, export-controlled, or CUI information.
+If a contribution cannot be confidently treated as public-safe evidence, do not
+submit it to the public repository.
 
 ## Human authority
 
