@@ -24,6 +24,16 @@ def test_v075_public_policy_has_no_dead_synthetic_marker_field():
     assert "required_synthetic_markers" not in policy
 
 
+def test_public_policy_does_not_publish_plaintext_semantic_denylist():
+    policy = json.loads((ROOT / "policy/public-boundary-policy.json").read_text(encoding="utf-8"))
+    assert "prohibited_case_insensitive_tokens" not in policy
+    assert policy["blocked_phrase_sha256"]
+    for width, digests in policy["blocked_phrase_sha256"].items():
+        assert int(width) > 0
+        assert digests
+        assert all(len(digest) == 64 for digest in digests)
+
+
 def test_v075_unicode_confusables_are_version_pinned():
     data = json.loads((ROOT / "policy/unicode-confusables-17.0.0.json").read_text(encoding="utf-8"))
     assert data["unicode_version"] == "17.0.0"
