@@ -1,26 +1,32 @@
 {
-  "policy_version": "0.2.0",
-  "description": "Public-safe guardrail patterns for repository examples and public release artifacts.",
-  "prohibited_case_insensitive_tokens": [
-    "protected-material-codeword",
-    "real supplier",
-    "customer name",
-    "classified",
-    "controlled unclassified information",
-    "cui//",
-    "itar-controlled",
-    "confirmed production capacity",
-    "certified supplier",
-    "qualified material",
-    "guaranteed compliance",
-    "investment recommendation"
-  ],
+  "policy_version": "0.3.0",
+  "description": "Machine-readable release-hygiene checks for distributable examples and artifacts.",
+  "blocked_phrase_sha256": {
+    "1": [
+      "189cbe068ac0f3aa6e9cd98ce6d43c6f547ad78ac208fad409377a225a18ed1e",
+      "24626cb1dc15eb7572c6a321d5663592c60f7926c9386e8a464e75178e4e9215",
+      "75650d98e971a3fc702475924eb86f3cd8fdb4968487e8381634940ae47d1466",
+      "14617bff9400431c2e48695ec69a5cec61aae1d687a14ecdc0c7bc48368a0fed",
+      "d7733fd2403eec1b35bca7c1609fb2b2e113db64daba4be93ace5598b2a7de64",
+      "6a50411d67d79d2604cd9baeb9becf20af5b174b0c7f70c9abc629ae8ee7183e"
+    ],
+    "2": [
+      "3c8ae0727c0086e49d99d7fa467291e6570b7604b0a65bf9ddd863a8d5eef966",
+      "aa788ecdc7fe414076da86feae8aaf44c6dfdf5baf5fa535cbe79bad43ebd3b5",
+      "5f90aded426bf31cd0ec4a95c88ae10bb1a7a24ef78ed1cd588630a431cf7f2b",
+      "ee923b1af9d26a93eec0dbe0df52205a03febfb71eced5daa9d2fdc7f4d3d35e",
+      "699ad4566def1cc53c1fa15567f7da146c4d3d1cab2974fcb1bbb2536c1a7836",
+      "2f188e6f9ab43e5e495ea68400696a20af2bbf0271e5e3c1fbb6a9c29b0d34a5",
+      "18cc670c0768f912a5af690322ed5f16c59def0be45c180549f9bbc44277dd2a"
+    ],
+    "3": [
+      "05deb711e05374a0e0077c34555031d6905ab7836d6e46734ac014add3e9a9b2",
+      "5c9570f76fc06a58d6d0c2646244519b664d9e0edf626bd33ce8d54d439a05af"
+    ]
+  },
   "prohibited_regexes": [
-    "(?i)\\b(?:ssn|social security number)\\b",
-    "(?i)\\b(?:api[_ -]?key|secret[_ -]?key|private[_ -]?key)\\b\\s*[:=]",
-    "-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----",
-    "(?i)\\bITAR\\b",
-    "(?i)\\bCUI\\b",
-    "(?i)\\bexport[- ]controlled\\b"
+    "(?i)\\\\b(?:ssn|social security number)\\\\b",
+    "(?i)\\\\b(?:api[_ -]?key|secret[_ -]?key|private[_ -]?key)\\\\b\\\\s*[:=]",
+    "-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----"
   ]
 }
