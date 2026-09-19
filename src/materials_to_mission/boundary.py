@@ -105,18 +105,24 @@ def _walk(value: Any, path: str = "$") -> Iterator[tuple[str, Any]]:
 
 
 def _blocked_phrase_hash_hits(text: str, policy: dict[str, Any]) -> int:
-    tokens = re.findall(r"[a-z0-9-]+", _security_skeleton(text).casefold())
+    token_streams = (
+        re.findall(r"[a-z0-9-]+", text.casefold()),
+        re.findall(r"[a-z0-9-]+", _security_skeleton(text).casefold()),
+    )
     hits = 0
     for width_text, blocked in policy.get("blocked_phrase_sha256", {}).items():
         width = int(width_text)
         blocked_set = set(blocked)
-        if width <= 0 or len(tokens) < width:
+        if width <= 0:
             continue
-        for index in range(len(tokens) - width + 1):
-            phrase = " ".join(tokens[index:index + width])
-            digest = hashlib.sha256(phrase.encode("utf-8")).hexdigest()
-            if digest in blocked_set:
-                hits += 1
+        for tokens in token_streams:
+            if len(tokens) < width:
+                continue
+            for index in range(len(tokens) - width + 1):
+                phrase = " ".join(tokens[index:index + width])
+                digest = hashlib.sha256(phrase.encode("utf-8")).hexdigest()
+                if digest in blocked_set:
+                    hits += 1
     return hits
 
 
