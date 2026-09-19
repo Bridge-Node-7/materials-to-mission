@@ -8,7 +8,10 @@
       "75650d98e971a3fc702475924eb86f3cd8fdb4968487e8381634940ae47d1466",
       "14617bff9400431c2e48695ec69a5cec61aae1d687a14ecdc0c7bc48368a0fed",
       "d7733fd2403eec1b35bca7c1609fb2b2e113db64daba4be93ace5598b2a7de64",
-      "6a50411d67d79d2604cd9baeb9becf20af5b174b0c7f70c9abc629ae8ee7183e"
+      "6a50411d67d79d2604cd9baeb9becf20af5b174b0c7f70c9abc629ae8ee7183e",
+      "5de7de2a8e45dc4458335275fb406091c7d381e340cf40738a3464d15e53ca51",
+      "b1cd89d02890277c91ea9ba71ffa9a605ca9403dd40dd8dc98b2c12436c61b78",
+      "7b18f199984c57b21bc6f65f028d25aa4f40b443f4d5e11228fff30e8edb4955"
     ],
     "2": [
       "3c8ae0727c0086e49d99d7fa467291e6570b7604b0a65bf9ddd863a8d5eef966",
@@ -17,16 +20,22 @@
       "ee923b1af9d26a93eec0dbe0df52205a03febfb71eced5daa9d2fdc7f4d3d35e",
       "699ad4566def1cc53c1fa15567f7da146c4d3d1cab2974fcb1bbb2536c1a7836",
       "2f188e6f9ab43e5e495ea68400696a20af2bbf0271e5e3c1fbb6a9c29b0d34a5",
-      "18cc670c0768f912a5af690322ed5f16c59def0be45c180549f9bbc44277dd2a"
+      "18cc670c0768f912a5af690322ed5f16c59def0be45c180549f9bbc44277dd2a",
+      "b3bc47db4a4f9914c8db6d9c2ccd68c66c91b6ceed2ebd553c0ecd9f9b15cd51",
+      "5cb6873b8026363c658783d52da85e5921abab492616024f2e09efcf022f5a13",
+      "9a0fd47b4109c62afc5d450b30bc0462c14b389dc88e1f0cda1810139b0925ec",
+      "7a32b6c0329ab50e0aa6163a5f5f1ddba22d084c749302ea8b005849a9f54632"
     ],
     "3": [
       "05deb711e05374a0e0077c34555031d6905ab7836d6e46734ac014add3e9a9b2",
-      "5c9570f76fc06a58d6d0c2646244519b664d9e0edf626bd33ce8d54d439a05af"
+      "5c9570f76fc06a58d6d0c2646244519b664d9e0edf626bd33ce8d54d439a05af",
+      "a88b4d84aaf064fe976995e34a5adfa4d9120938cb98bcbe4b503469819e5ee9",
+      "d6cb5feb23fb69c70a64b4615edda1c7ccd1c1f87104a6bbf7c1a306a67fdac7"
     ]
   },
   "prohibited_regexes": [
-    "(?i)\\\\b(?:ssn|social security number)\\\\b",
-    "(?i)\\\\b(?:api[_ -]?key|secret[_ -]?key|private[_ -]?key)\\\\b\\\\s*[:=]",
+    "(?i)\\b(?:ssn|social security number)\\b",
+    "(?i)\\b(?:api[_ -]?key|secret[_ -]?key|private[_ -]?key)\\b\\s*[:=]",
     "-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----"
   ]
 }
