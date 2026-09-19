@@ -89,13 +89,13 @@ Public maturity remains **M0 experimental public method**.
 - [Interoperability](docs/INTEROPERABILITY.md)
 - [Validation](docs/VALIDATION.md)
 - [Validation Profiles](docs/VALIDATION_PROFILES.md)
-- [Public Boundary](docs/PUBLIC_BOUNDARY.md)
+- [Repository Scope](docs/SCOPE.md)
 - [AI Provenance](docs/AI_PROVENANCE.md)
 - [Schema Catalog](SCHEMA_CATALOG.json)
 
-## Public Boundary
+## Repository Scope
 
-This repository contains material approved for public release. Public examples are synthetic or explicitly identified public-source records.
+This repository provides the public method, synthetic examples, and reviewed public-source records described above. Use real or restricted evidence only in an environment authorized for that material.
 
 Use [`SECURITY.md`](SECURITY.md) for private vulnerability reporting.
 

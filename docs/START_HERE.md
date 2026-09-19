@@ -26,6 +26,6 @@ The synthetic reference case teaches structure only. GA-001 is separately identi
 - [`EVIDENCE_MODEL.md`](EVIDENCE_MODEL.md)
 - [`INTEROPERABILITY.md`](INTEROPERABILITY.md)
 - [`VALIDATION.md`](VALIDATION.md)
-- [`PUBLIC_BOUNDARY.md`](PUBLIC_BOUNDARY.md)
+- [`SCOPE.md`](SCOPE.md)
 
 Materials-to-Mission remains M0. Automation validates declared conditions; humans own consequential conclusions.

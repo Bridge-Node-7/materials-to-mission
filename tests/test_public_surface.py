@@ -39,7 +39,7 @@ def test_public_use_routes_remain() -> None:
     for relative in (
         "docs/START_HERE.md", "docs/FIVE_MINUTE_EVALUATION.md", "docs/METHOD.md",
         "docs/EVIDENCE_MODEL.md", "docs/MATERIAL_ASSURANCE_RECORD.md", "docs/DECISION_PASSPORT.md",
-        "docs/INTEROPERABILITY.md", "docs/VALIDATION.md", "docs/PUBLIC_BOUNDARY.md",
+        "docs/INTEROPERABILITY.md", "docs/VALIDATION.md", "docs/SCOPE.md",
         "SECURITY.md", "CONTRIBUTING.md", "LICENSE",
     ):
         assert (ROOT / relative).exists(), relative
