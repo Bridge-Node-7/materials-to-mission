@@ -5,7 +5,7 @@ labels: [bug]
 body:
   - type: markdown
     attributes:
-      value: Do not include secrets, real suppliers, customers, samples, lots, laboratory data, patent-sensitive material, or restricted information.
+      value: Use only synthetic or public-safe information in a public issue. If you are unsure whether the material is suitable for public disclosure, do not post it here.
   - type: input
     id: version
     attributes:
@@ -33,7 +33,7 @@ body:
   - type: checkboxes
     id: boundary
     attributes:
-      label: Public boundary
+      label: Public-safe report
       options:
         - label: I confirm this report contains only synthetic or public-safe information.
           required: true
