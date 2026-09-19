@@ -95,9 +95,11 @@ Public maturity remains **M0 experimental public method**.
 
 ## Repository Scope
 
-This repository provides the public method, synthetic examples, and reviewed public-source records described above. Use real or restricted evidence only in an environment authorized for that material.
+This repository provides the public method, synthetic examples, and reviewed
+public-source records described above. Contributions and demonstrations should
+use only material that is suitable for public release.
 
-Use [`SECURITY.md`](SECURITY.md) for private vulnerability reporting.
+Use [`SECURITY.md`](SECURITY.md) for vulnerability reporting.
 
 ## Open Source
 
