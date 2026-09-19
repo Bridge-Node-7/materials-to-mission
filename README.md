@@ -90,7 +90,7 @@ Public maturity remains **M0 experimental public method**.
 - [Validation](docs/VALIDATION.md)
 - [Validation Profiles](docs/VALIDATION_PROFILES.md)
 - [Repository Scope](docs/SCOPE.md)
-- [AI Provenance](docs/AI_PROVENANCE.md)
+- [Automation & AI Provenance](docs/AUTOMATION_PROVENANCE.md)
 - [Schema Catalog](SCHEMA_CATALOG.json)
 
 ## Repository Scope
