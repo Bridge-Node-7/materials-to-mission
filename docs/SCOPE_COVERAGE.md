@@ -4,9 +4,12 @@
 
 Materials-to-Mission provides a public-safe method, versioned schemas, deterministic local validation and rendering, synthetic examples, public-source evidence snapshots, a Material Assurance Record, a Decision Passport, visible uncertainty, noncompensating critical conditions, human-owned dispositions, public-boundary scanning, and reproducible release evidence.
 
-## Outside the public repository
+## Repository scope
 
-Non-public customer, supplier, facility, sample, lot, laboratory, pricing, capacity, contract, ownership, mission-vulnerability, controlled-information, export-controlled, patent-sensitive, and other protected operational records remain outside the public repository unless separately authorized for a bounded public-source artifact.
+M0 publishes the method, versioned schemas, synthetic examples, reviewed
+public-source snapshots, and release evidence described above. Authoritative
+operational records remain with the systems that own them; this repository uses
+only approved public artifacts and governed references.
 
 ## Authority boundary
 
