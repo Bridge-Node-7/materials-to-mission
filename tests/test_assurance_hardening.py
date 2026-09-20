@@ -215,11 +215,10 @@ def test_symlink_policy_allows_only_untracked_ignored_paths(
 @pytest.mark.parametrize(
     "alias",
     [
-        "ChatGPT",
-        "GPT-4",
+        "Large Language Model",
         "LLM",
         "A.I.",
-        "Claude",
+        "Chatbot",
         "autonomous agent",
         "our AI",
         "system-selected agent",
