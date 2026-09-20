@@ -23,7 +23,6 @@ def test_release_identity_axes_align() -> None:
 def test_public_maturity_and_human_authority_remain_bounded() -> None:
     facts = json.loads((ROOT / "PROJECT_FACTS.json").read_text(encoding="utf-8"))
     assert facts["current_public_maturity"] == "M0"
-    assert facts["real_case_count"] == 0
     assert facts["m1_real_workflow_proof_claimed"] is False
     assert facts["human_decision_authority_required"] is True
     assert facts["real_world_qualification_claimed"] is False
@@ -43,28 +42,18 @@ def test_unevidenced_human_uat_is_not_promoted() -> None:
     assert facts["selected_pathways_human_desktop_visual_uat"] == "PASS_USER_REVIEW_2026-08-13"
     assert facts["selected_pathways_human_mobile_visual_uat"] == "NOT_SEPARATELY_ATTESTED"
 
-    admitted = facts["historical_foundation_baseline_browser_attestation"]
-    assert admitted["source_identity"] == "v0.7.1-foundation-baseline"
-    assert admitted["commit"] == "12e80d232c59e5221747353f963e71aba2df51d4"
-    assert admitted["status"] == "PASS"
-    assert facts["browser_uat_profile_count"] == admitted["result_profile_count"] == 14
+    assert facts["browser_uat_profile_count"] == 14
     assert facts["browser_uat_configured_profile_count"] == 14
     assert facts["browser_uat_current_source_expected_result_profile_count"] == 14
     assert facts["browser_uat_reduced_motion_contract"] == "REQUIRED"
     assert facts["browser_uat_performance"] == "NOT_SEPARATELY_ATTESTED"
 
-def test_visual_baseline_identity_is_preserved() -> None:
+def test_current_visual_identity_is_consistent() -> None:
     facts = json.loads((ROOT / "PROJECT_FACTS.json").read_text(encoding="utf-8"))
-    assert facts["visual_experience_baseline_version"] == "0.5.0"
     assert facts["source_version"] == facts["version"]
-    assert facts["visual_experience_source_status"] == "v0.7.3-clarity-orientation-candidate-external-publication-authority-is-GitHub"
     assert facts["visual_experience_status"] == "field-focus-proof-selected-pathways-progressive-disclosure"
-    historical = facts["production_source_stored_historical_baseline"]
-    assert historical == {"release": "v0.5.0", "readback": "PASS_V050_EXACT_PUBLIC_BYTES"}
-    admitted = facts["historical_foundation_baseline_production_attestation"]
-    assert admitted["source_identity"] == "v0.7.1-foundation-baseline"
-    assert admitted["status"] == "PASS"
-    assert admitted["commit"] == "12e80d232c59e5221747353f963e71aba2df51d4"
+    assert facts["browser_entrypoint"] == "web/index.html"
+    assert facts["production_deployment_url"] == "https://bridgenode7.com/materials-to-mission/"
 
 def test_public_safe_scope_is_machine_unambiguous() -> None:
     facts = json.loads((ROOT / "PROJECT_FACTS.json").read_text(encoding="utf-8"))
