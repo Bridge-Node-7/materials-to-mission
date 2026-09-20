@@ -55,7 +55,7 @@ def test_v072_does_not_claim_ineffective_meta_frame_ancestors() -> None:
     html = (ROOT / "web/index.html").read_text(encoding="utf-8").lower()
     assert "frame-ancestors" not in html
     observation = json.loads((ROOT / "PROJECT_FACTS.json").read_text(encoding="utf-8"))[
-        "corrective_maintenance_v072"
+        "runtime_accessibility_v072"
     ]["anti_framing_observation"]
     assert observation["content_security_policy_header"] == "ABSENT"
     assert observation["x_frame_options_header"] == "ABSENT"
