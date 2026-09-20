@@ -4,7 +4,7 @@
   "browser_backend_required": false,
   "browser_build_command": "python scripts/build_web.py",
   "browser_entrypoint": "web/index.html",
-  "browser_implementation_status": "v0.7.3-clarity-orientation-over-v0.7.2-corrective-foundation",
+  "browser_implementation_status": "v0.7.3-clarity-orientation-over-v0.7.2-runtime-accessibility-baseline",
   "browser_telemetry_enabled": false,
   "browser_uat_accessibility_contract": "AUTOMATED_KEYBOARD_FOCUS_FORCED_COLORS_REDUCED_MOTION_REFLOW; HUMAN_ASSISTIVE_TECHNOLOGY_NOT_SEPARATELY_ATTESTED",
   "browser_uat_configured_profile_count": 14,
@@ -166,7 +166,7 @@
   "selected_pathways_human_mobile_visual_uat": "NOT_SEPARATELY_ATTESTED",
   "selected_pathways_human_assistive_technology_uat": "NOT_ATTESTED",
   "historical_v070_selected_pathways_release_matrix": "72_SCENARIO_CONFIGURATIONS_X_72_ACCEPTANCE_PROBES_EXTERNAL_GATE",
-  "corrective_maintenance_v072": {
+  "runtime_accessibility_v072": {
     "mobile_detail_dialog": "NATIVE_MODAL",
     "accessible_name_lifecycle": "STATIC_ARIA_LABEL_THEN_VALID_ARIA_LABELLEDBY",
     "rare_earth_convention": "CONTROLLED_USGS_15_COUNT_SCANDIUM_SEPARATELY_LISTED",

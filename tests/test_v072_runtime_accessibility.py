@@ -7,14 +7,14 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_v072_corrective_maintenance_truth_is_bounded() -> None:
+def test_v072_runtime_accessibility_truth_is_bounded() -> None:
     facts = json.loads((ROOT / "PROJECT_FACTS.json").read_text(encoding="utf-8"))
-    correction = facts["corrective_maintenance_v072"]
-    assert correction["mobile_detail_dialog"] == "NATIVE_MODAL"
-    assert correction["accessible_name_lifecycle"] == "STATIC_ARIA_LABEL_THEN_VALID_ARIA_LABELLEDBY"
-    assert correction["rare_earth_convention"] == "CONTROLLED_USGS_15_COUNT_SCANDIUM_SEPARATELY_LISTED"
-    assert correction["touch_target_disposition"].startswith("ACCEPTED_NO_CHANGE")
-    assert correction["anti_framing_disposition"] == (
+    contract = facts["runtime_accessibility_v072"]
+    assert contract["mobile_detail_dialog"] == "NATIVE_MODAL"
+    assert contract["accessible_name_lifecycle"] == "STATIC_ARIA_LABEL_THEN_VALID_ARIA_LABELLEDBY"
+    assert contract["rare_earth_convention"] == "CONTROLLED_USGS_15_COUNT_SCANDIUM_SEPARATELY_LISTED"
+    assert contract["touch_target_disposition"].startswith("ACCEPTED_NO_CHANGE")
+    assert contract["anti_framing_disposition"] == (
         "VERIFIED_HOSTING_LAYER_LIMITATION_EXTERNAL_GOVERNANCE_DECISION_REQUIRED"
     )
     assert facts["current_public_maturity"] == "M0"
@@ -55,7 +55,7 @@ def test_v072_does_not_claim_ineffective_meta_frame_ancestors() -> None:
     html = (ROOT / "web/index.html").read_text(encoding="utf-8").lower()
     assert "frame-ancestors" not in html
     observation = json.loads((ROOT / "PROJECT_FACTS.json").read_text(encoding="utf-8"))[
-        "corrective_maintenance_v072"
+        "runtime_accessibility_v072"
     ]["anti_framing_observation"]
     assert observation["content_security_policy_header"] == "ABSENT"
     assert observation["x_frame_options_header"] == "ABSENT"
