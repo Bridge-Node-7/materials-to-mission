@@ -21,6 +21,5 @@ def test_v076_release_identity_and_truth_boundaries() -> None:
     facts = json.loads((ROOT / "PROJECT_FACTS.json").read_text(encoding="utf-8"))
     assert (ROOT / "VERSION").read_text(encoding="utf-8").strip() == "0.7.6"
     assert facts["version"] == facts["source_version"] == "0.7.6"
-    assert facts["maintenance_v076"]["evidence_model_changed"] is False
-    assert facts["maintenance_v076"]["schema_or_pathway_changed"] is False
-    assert facts["maintenance_v076"]["human_decision_authority_changed"] is False
+    assert facts["current_public_maturity"] == "M0"
+    assert facts["human_decision_authority_required"] is True
