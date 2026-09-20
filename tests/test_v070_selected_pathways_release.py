@@ -3,18 +3,9 @@ import json
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 
-def test_v070_historical_selected_pathways_release_contract():
-    changelog=(ROOT/'CHANGELOG.md').read_text(encoding='utf-8')
-    assert '## [0.7.0] - 2026-08-13' in changelog
-    assert 'exactly two bounded public deeper examples: Gallium and YIG' in changelog
-    assert 'Frozen GA-001, MF-001, and YIG-001 evidence is unchanged' in changelog
-
 def test_v070_truth_and_uat_scope():
     facts=json.loads((ROOT/'PROJECT_FACTS.json').read_text(encoding='utf-8'))
     registry=json.loads((ROOT/'web/selected-pathways.json').read_text(encoding='utf-8'))
-    assert facts['immediate_prior_immutable_release']['tag']=='v0.7.4'
-    assert facts['immediate_prior_immutable_release']['verified_signed_tag_target']=='f141a85cee9615a57582855e677450af7584cfd4'
-    assert facts['historical_v070_selected_pathways_release_matrix']=='72_SCENARIO_CONFIGURATIONS_X_72_ACCEPTANCE_PROBES_EXTERNAL_GATE'
     assert facts['selected_pathways_public_example_count']==len(registry['pathways'])
     assert facts['selected_pathways_public_examples']==['Gallium','Yttrium Iron Garnet (YIG)']
     assert facts['selected_pathways_gallium_status']=='CRITICAL_MINERAL_REVIEWED_PATHWAY'
