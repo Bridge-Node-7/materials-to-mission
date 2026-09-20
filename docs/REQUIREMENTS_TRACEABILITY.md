@@ -21,7 +21,7 @@
 
 ## v0.1.1 assurance-hardening traceability
 
-The maintenance candidate adds semantic checks that the M0 schemas alone cannot express:
+The current validation adds semantic checks that the M0 schemas alone cannot express:
 
 - consequential owners and disposition authorities may not be automation identities;
 - MAR and Passport dispositions must be allowed by the Decision Charter;
