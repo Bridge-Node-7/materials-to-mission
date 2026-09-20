@@ -26,7 +26,8 @@ def test_v070_release_boundaries_are_explicit():
     facts=json.loads((ROOT/'PROJECT_FACTS.json').read_text(encoding='utf-8'))
     notes=(ROOT/facts['release_notes']).read_text(encoding='utf-8')
     state=(ROOT/'docs/CURRENT_STATE.md').read_text(encoding='utf-8')
-    assert 'does not add or upgrade underlying evidence' in state
+    assert 'M0 experimental public method' in state
+    assert 'human consequential authority' in state.lower()
     assert 'YIG remains an engineered material system, not a USGS critical mineral' in notes
     for token in ('M0 remains M0','No M1','Human consequential authority remains required','Unknown remains non-favorable'):
         assert token.lower() in notes.lower()
