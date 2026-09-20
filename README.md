@@ -70,7 +70,7 @@ The current checked-in test, coverage, packaging, and validation state is record
 
 ## Release Posture
 
-`main` is the current reviewed source. GitHub Releases are explicit distribution milestones and may intentionally lag validated maintenance on `main`; published tags remain immutable historical baselines.
+`main` is the current reviewed source. GitHub Releases are explicit distribution milestones and may intentionally lag validated maintenance on `main`; published tags identify prior distribution milestones.
 
 ## What Is Not Claimed
 
