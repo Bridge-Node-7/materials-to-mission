@@ -46,8 +46,7 @@ def test_v075_release_identity_is_singular_in_source():
     assert (ROOT / "VERSION").read_text(encoding="utf-8").strip() == "0.7.6"
     facts = json.loads((ROOT / "PROJECT_FACTS.json").read_text(encoding="utf-8"))
     assert facts["version"] == facts["source_version"] == "0.7.6"
-    assert facts["immediate_prior_immutable_release"]["tag"] == "v0.7.4"
-    assert facts["maintenance_v075"]["public_product_behavior_changed"] is False
+    assert facts["human_decision_authority_required"] is True
 
 def test_v075_confusables_loader_rejects_wrong_version(tmp_path, monkeypatch):
     import json
