@@ -121,7 +121,7 @@ No changes recorded after v0.7.6.
 - Added combobox `aria-activedescendant`, result-count announcements, neutral keyboard entry, legacy hash compatibility, and deterministic selection/filter behavior.
 - Restored the missing v0.5.3 history in this changelog.
 ### Assurance
-- Added v0.6.0 public-surface regression coverage and durable multi-viewport Chromium UAT in CI.
+- Added v0.6.0 regression coverage and durable multi-viewport Chromium UAT in CI.
 - Preserved the exact 60-mineral USGS 2025 field, 15 rare earth elements, frozen GA-001 v1.0.0 evidence, YIG engineered-system classification, no-score behavior, public/private boundary, and canonical v0.1.0 schema authority.
 
 ## [0.5.3] - 2026-08-12
@@ -377,7 +377,7 @@ Candidate 0.2.0 resolves that ambiguity by keeping schema authority unchanged wh
 
 - Aligned the configured coverage threshold with the 95 percent repository validation.
 - Made packaged-resource validation fail closed without rewriting tracked files.
-- Added generated-state cleanup before every complete validation run.
+- Added deterministic generated-state preparation before every complete validation run.
 - Preserved canonical-source validation evidence on failure.
 - Renamed the second source validation stage to describe its publication-kit boundary function.
 - Added a separate publication-kit contract validator and regression coverage.
