@@ -63,7 +63,7 @@ and regression-test repeat packaging.
 
 ### Release Substitution
 
-A release may be created from a different tree than the reviewed candidate.
+A release may be created from a different tree than the reviewed source.
 
 **Controls:** exact commit and tree records, deterministic archive, SHA-256 manifests,
 hosted-check review for the exact SHA, signed tag, public readback.

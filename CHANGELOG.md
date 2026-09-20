@@ -45,7 +45,6 @@ No changes recorded after v0.7.6.
 - M0 evidence semantics and human consequential authority.
 - Frozen GA-001, MF-001, and YIG-001 evidence.
 - Gallium/YIG pathway meaning, schemas, qualification boundaries, and public product behavior.
-- Historical release records and immutable GitHub release history.
 
 ## [0.7.3] - 2026-08-14
 
@@ -72,9 +71,9 @@ No changes recorded after v0.7.6.
 
 ## [0.7.1] - 2026-08-14
 ### Foundation
-- Hardened Selected Pathways into validated, build-time progressive HTML derived from controlled records and a public-safe presentation registry.
+- Added validated, build-time progressive HTML for Selected Pathways derived from controlled records and a presentation registry.
 - Made Browser UAT and local preview infrastructure version-neutral and standardized preview transport on repo-owned HTTP/1.1.
-- Reconciled immediate-prior immutable `v0.7.0`, foundation-baseline provenance, automated attestation, and the `v0.7.1` source/release identity.
+- Aligned v0.7.1 release identity, browser validation, provenance records, and automated attestation.
 - Hardened Actions checkout credentials and Pages production-attestation summary rendering.
 
 ### Assurance
@@ -151,10 +150,10 @@ No changes recorded after v0.7.6.
 ## [0.5.1] - 2026-08-11
 
 ### Corrected
-- Reconciled repository truth records after the immutable v0.5.0 release.
-- Removed active candidate/not-released assertions from current-state metadata.
+- Aligned repository truth records with the v0.5.0 release.
+- Aligned current-state metadata with published release identity.
 - Delegated external publication status to verified signed GitHub tags and immutable GitHub Releases.
-- Added regression coverage preventing candidate-era release truth from surviving into a release source line.
+- Added regression coverage for consistent release identity across source metadata.
 
 ### Preserved
 - Exact v0.5.0 Precision Evidence Experience visual bytes.
