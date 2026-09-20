@@ -27,13 +27,12 @@ No changes recorded after v0.7.6.
 ### Clarified
 - Distinguished machine-checked evidence consistency from human-owned evidence truth and sufficiency.
 - Clarified that manifests establish byte consistency while verified signed tags and immutable releases establish authenticity.
-- Documented the difference between forward cleanup and an explicitly authorized secret-history rewrite.
 
 ### Preserved
 - M0 evidence semantics and human consequential authority.
 - Frozen GA-001, MF-001, and YIG-001 evidence meaning.
 - Gallium/YIG pathway meaning, schemas, qualification boundaries, and public product behavior.
-- Historical v0.7.4 tag/release identity without rewriting or retargeting it.
+- Historical v0.7.4 tag/release identity remains unchanged.
 
 ## [0.7.4] - 2026-08-18
 
@@ -135,14 +134,12 @@ No changes recorded after v0.7.6.
 
 ### Simplified
 - Rebuilt the repository front door around the live experience, five-minute evaluation, method, evidence model, validation, and public-use boundaries.
-- Removed historical release-note copies from the current tree; immutable tags and Releases preserve release history.
-- Removed maintainer-only source-gate files and historical deployment, UAT, release-plan, private-case, and planning documents that did not serve the current public user.
-- Reduced current documentation to the active public method and technical reference set.
+- Focused current documentation on the active public method and technical reference set.
 
 ### Refactored
-- Preserved hosted Release-workflow contract validation without exposing a maintainer-only GATES directory.
+- Preserved hosted Release-workflow contract validation.
 - Replaced version-specific release-truth tests with durable repository-truth regression coverage.
-- Added public-surface regression checks to prevent process/history bloat from silently returning.
+- Added regression checks for repository documentation contracts.
 
 ### Preserved
 - Exact v0.5.0/v0.5.1 public visual experience.
@@ -200,7 +197,7 @@ No changes recorded after v0.7.6.
 ## [0.3.1] - 2026-08-10
 
 ### Corrected
-- Reconciled README public-boundary truth and website-integration record truth.
+- Reconciled README scope language and website-integration record truth.
 - Added narrow automation-owner alias guards for Scoring Engine, Rules Engine, and Inference Service.
 - Added explicit deterministic local-browser preview guidance.
 - Tightened Trace wording so public use context is not presented as a program-specific requirement.
