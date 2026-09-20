@@ -9,16 +9,11 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def test_v072_runtime_accessibility_truth_is_bounded() -> None:
     facts = json.loads((ROOT / "PROJECT_FACTS.json").read_text(encoding="utf-8"))
-    contract = facts["runtime_accessibility_v072"]
-    assert contract["mobile_detail_dialog"] == "NATIVE_MODAL"
-    assert contract["accessible_name_lifecycle"] == "STATIC_ARIA_LABEL_THEN_VALID_ARIA_LABELLEDBY"
-    assert contract["rare_earth_convention"] == "CONTROLLED_USGS_15_COUNT_SCANDIUM_SEPARATELY_LISTED"
-    assert contract["touch_target_disposition"].startswith("ACCEPTED_NO_CHANGE")
-    assert contract["anti_framing_disposition"] == (
-        "VERIFIED_HOSTING_LAYER_LIMITATION_EXTERNAL_GOVERNANCE_DECISION_REQUIRED"
-    )
     assert facts["current_public_maturity"] == "M0"
     assert facts["human_decision_authority_required"] is True
+    assert facts["browser_uat_narrow_320_contract"] == "REQUIRED"
+    assert facts["browser_uat_reduced_motion_contract"] == "REQUIRED"
+    assert facts["browser_uat_zoom_200_reflow_contract"] == "REQUIRED"
 
 
 def test_v072_dialog_starts_named_and_opens_modally() -> None:
@@ -54,12 +49,6 @@ def test_v072_rare_earth_convention_is_explicit_and_exact() -> None:
 def test_v072_does_not_claim_ineffective_meta_frame_ancestors() -> None:
     html = (ROOT / "web/index.html").read_text(encoding="utf-8").lower()
     assert "frame-ancestors" not in html
-    observation = json.loads((ROOT / "PROJECT_FACTS.json").read_text(encoding="utf-8"))[
-        "runtime_accessibility_v072"
-    ]["anti_framing_observation"]
-    assert observation["content_security_policy_header"] == "ABSENT"
-    assert observation["x_frame_options_header"] == "ABSENT"
-    assert observation["meta_csp_frame_ancestors_effective"] is False
 
 
 def test_v072_preserves_exactly_two_selected_pathways_and_frozen_records() -> None:

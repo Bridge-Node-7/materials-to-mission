@@ -4,7 +4,7 @@ Materials-to-Mission is an **M0 experimental public method**.
 
 Current source version: **0.7.6**
 
-`VERSION` identifies source line `0.7.6`. v0.7.6 is a bounded trust-hardening maintenance release. It closes verified public-boundary and deployment-permission gaps and does not add or upgrade underlying evidence. It changes no M0 evidence model, Gallium or YIG evidence, schema/pathway semantics, qualification state, or public product behavior. This repository does not assert a current signed corporate website release; the website-integration reference is historical.
+`VERSION` identifies source line `0.7.6`.
 
 Live experience: https://bridgenode7.com/materials-to-mission/
 
@@ -18,6 +18,7 @@ The public experience includes:
 - visible unknowns and Evidence Horizon;
 - public-source provenance and bounded reviewed context;
 - deterministic local validation and rendering;
+- a no-JavaScript static evidence path;
 - human consequential authority.
 
 Gallium is a reviewed public-source pathway. YIG is a reviewed engineered-material-system context. Reviewed does not mean qualified.
@@ -36,4 +37,4 @@ Physical-device mobile UAT, human assistive-technology UAT, and first-time human
 
 ## Release identity
 
-The immutable `v0.1.0` release remains the canonical structural schema baseline. Published GitHub tags and Releases govern external release identity. Historical release records remain available through Git history and GitHub Releases.
+Published GitHub tags and Releases govern external release identity. The current source version may be ahead of the latest published stable release.

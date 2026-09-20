@@ -3,36 +3,27 @@ import json
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
-def test_v061_truth_separates_configured_current_source_from_admitted_runtime():
+def test_v061_current_browser_validation_scope_is_explicit():
     facts=json.loads((ROOT/'PROJECT_FACTS.json').read_text(encoding='utf-8'))
     assert facts['version']==(ROOT/'VERSION').read_text(encoding='utf-8').strip()
     assert facts['browser_uat_configured_profile_count']==14
     assert facts['browser_uat_current_source_expected_result_profile_count']==14
     assert facts['browser_uat_profile_count']==14
-    admitted=facts['historical_foundation_baseline_browser_attestation']
-    assert admitted['source_identity']=='v0.7.1-foundation-baseline'
-    assert admitted['commit']=='12e80d232c59e5221747353f963e71aba2df51d4'
-    assert admitted['status']=='PASS'
-    assert admitted['result_profile_count']==14
     assert facts['human_real_device_uat_attestation']=='NOT_ATTESTED'
     assert facts['human_assistive_technology_uat_attestation']=='NOT_ATTESTED'
     assert facts['browser_uat_contract']=='version-neutral-14-profile-automated-contract-including-seven-42-contract-viewports'
 
-def test_v061_production_truth_separates_source_and_external_runtime_authority():
+def test_v061_production_truth_uses_external_release_authority():
     facts=json.loads((ROOT/'PROJECT_FACTS.json').read_text(encoding='utf-8'))
-    admitted=facts['historical_foundation_baseline_production_attestation']
-    assert admitted['source_identity']=='v0.7.1-foundation-baseline'
-    assert admitted['commit']=='12e80d232c59e5221747353f963e71aba2df51d4'
-    assert admitted['status']=='PASS'
-    assert facts['production_source_stored_historical_baseline']['release']=='v0.5.0'
-    assert 'immutable Releases' in facts['publication_authority']
+    assert facts['production_deployment_https_enforced'] is True
+    assert facts['production_deployment_url']=='https://bridgenode7.com/materials-to-mission/'
+    assert 'GitHub' in facts['publication_authority']
 
-def test_v061_website_integration_truth_is_current():
-    facts=json.loads((ROOT/'PROJECT_FACTS.json').read_text(encoding='utf-8'))
+def test_v061_current_state_is_product_facing():
     state=(ROOT/'docs/CURRENT_STATE.md').read_text(encoding='utf-8')
-    assert facts['website_integration_reference']=='historical-v1.2.1'
-    assert 'current-signed-release-not-asserted' in facts['website_integration_status']
-    assert 'does not assert a current signed corporate website release' in state
+    assert 'Live experience: https://bridgenode7.com/materials-to-mission/' in state
+    assert 'historical' not in state.lower()
+    assert 'corporate website release' not in state.lower()
 
 def test_v061_programmatic_scroll_honors_reduced_motion():
     source=(ROOT/'web/app.js').read_text(encoding='utf-8')

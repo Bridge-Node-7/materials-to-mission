@@ -1,8 +1,8 @@
-# Materials-to-Mission v0.7.6 - Trust Hardening
+# Materials-to-Mission v0.7.6 - Accessibility and Resilience
 
 ## Purpose
 
-v0.7.6 is a bounded accessibility and resilience maintenance release. It makes the no-JavaScript operating boundary explicit and preserves a useful static evidence path without changing the underlying evidence, schemas, pathways, or human decision authority.
+v0.7.6 improves accessibility and resilience by making the no-JavaScript operating boundary explicit and preserving a useful static evidence path without changing the underlying evidence, schemas, pathways, or human decision authority.
 
 ## Improved
 
