@@ -78,8 +78,8 @@ def _schema_findings(case: dict[str, Any]) -> list[ValidationFinding]:
 
 _AUTOMATION_TERM = re.compile(
     r"\b(?:ai|artificial intelligence|automated|automation|algorithm(?:ic)?|"
-    r"machine(?: learning)?|bot|chatbot|large language model|llm|chatgpt|"
-    r"gpt(?:\s+\d+(?:\.\d+)?)?|claude|autonomous(?: agent)?|"
+    r"machine(?: learning)?|bot|chatbot|large language model|llm|"
+    r"autonomous(?: agent)?|"
     r"decision engine|system selected agent|agent|model)\b",
     re.IGNORECASE,
 )
