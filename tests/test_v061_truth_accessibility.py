@@ -25,6 +25,16 @@ def test_v061_current_state_is_product_facing():
     assert 'historical' not in state.lower()
     assert 'corporate website release' not in state.lower()
 
+def test_v061_gallium_current_context_is_separate_from_frozen_snapshot():
+    readme=(ROOT/'README.md').read_text(encoding='utf-8')
+    state=(ROOT/'docs/CURRENT_STATE.md').read_text(encoding='utf-8')
+    assert 'Current supply-policy context is maintained separately' in readme
+    assert 'GA-001 v1.0.0 remains a frozen reviewed snapshot dated 2026-08-10' in state
+    for token in ('China','99%','export controls','time-sensitive','does not establish source qualification'):
+        assert token in state
+    assert 'https://www.usgs.gov/centers/national-minerals-information-center/china' in state
+    assert 'https://www.whitehouse.gov/fact-sheets/2025/11/' in state
+
 def test_v061_programmatic_scroll_honors_reduced_motion():
     source=(ROOT/'web/app.js').read_text(encoding='utf-8')
     assert 'matchMedia("(prefers-reduced-motion: reduce)")' in source

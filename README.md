@@ -60,6 +60,8 @@ Automation validates structure, declared evidence state, boundaries, and determi
 
 **GA-001** is a reviewed public-source Gallium evidence snapshot based on official public sources and original paraphrase. It is not a real operational Case 001 and does not imply qualification, acquisition approval, mission readiness, adoption, or commercial validation.
 
+Current supply-policy context is maintained separately in [Current State](docs/CURRENT_STATE.md) so new public facts do not silently rewrite the frozen GA-001 v1.0.0 review basis.
+
 **YIG-001** is bounded Reviewed Public Context. It demonstrates how scientific evidence may be connected to a material-system pathway while leaving unresolved qualification and supply links explicitly unresolved.
 
 ## What Is Proven Here
