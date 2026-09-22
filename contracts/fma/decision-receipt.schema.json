@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bridge-node-7.github.io/frontier-mission-assurance/decision-receipt.schema.json",
+  "title": "Decision Receipt",
+  "type": "object",
+  "required": [
+    "decision_version",
+    "decision",
+    "basis"
+  ],
+  "properties": {
+    "decision_version": {
+      "const": "1.0"
+    },
+    "decision": {
+      "type": "object",
+      "required": [
+        "id",
+        "disposition",
+        "rationale",
+        "reopen_when"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "disposition": {
+          "enum": [
+            "APPROVE",
+            "HOLD",
+            "REVISE",
+            "REJECT"
+          ]
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reopen_when": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "basis": {
+      "type": "object",
+      "required": [
+        "node_refs"
+      ],
+      "properties": {
+        "node_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}
