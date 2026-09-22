@@ -6,6 +6,10 @@ Materials-to-Mission is Bridge Node 7's open-source method and toolkit for traci
 
 **[Open the live experience](https://bridgenode7.com/materials-to-mission/)** · **[Run the five-minute evaluation](docs/FIVE_MINUTE_EVALUATION.md)** · **[Read the method](docs/METHOD.md)** · **[See validation evidence](VALIDATION_REPORT.md)**
 
+## Bridge Node 7 system role
+
+Materials-to-Mission is the **materials and physical-dependency domain implementation** within [Bridge Node 7's Frontier Assurance Architecture](https://github.com/Bridge-Node-7/Bridge-Node-7/blob/main/docs/FRONTIER_ASSURANCE_ARCHITECTURE.md). It owns its Material Assurance Record and domain methodology. It does not redefine core assurance semantics or make the consequential human decision.
+
 ## Why It Exists
 
 Critical-material and advanced-material decisions often fail because evidence, assumptions, unknowns, requirements, alternatives, and decision authority are scattered across documents and systems.
