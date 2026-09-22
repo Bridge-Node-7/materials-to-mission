@@ -108,5 +108,7 @@
   "selected_pathways_yig_status": "ENGINEERED_MATERIAL_SYSTEM_REVIEWED_CONTEXT",
   "selected_pathways_human_desktop_visual_uat": "PASS_USER_REVIEW_2026-08-13",
   "selected_pathways_human_mobile_visual_uat": "NOT_SEPARATELY_ATTESTED",
-  "selected_pathways_human_assistive_technology_uat": "NOT_ATTESTED"
+  "selected_pathways_human_assistive_technology_uat": "NOT_ATTESTED",
+  "portable_interface_manifest": "INTERFACES.json",
+  "fma_interoperability": "CONTRACT_FIRST_NATIVE_VALIDATION; CURRENT_IMPLEMENTATION_COMPATIBILITY_RECORDED_SEPARATELY"
 }
