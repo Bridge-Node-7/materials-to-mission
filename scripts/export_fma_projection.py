@@ -15,10 +15,23 @@ import json
 from pathlib import Path
 from typing import Any
 
+from jsonschema import Draft202012Validator
+
 ADAPTER_VERSION = "1.0"
 FMA_GRAPH_ID = "https://bridge-node-7.github.io/frontier-mission-assurance/assurance-graph.schema.json"
 FMA_DECISION_ID = "https://bridge-node-7.github.io/frontier-mission-assurance/decision-receipt.schema.json"
 FMA_RESEARCH_ID = "https://bridge-node-7.github.io/frontier-mission-assurance/research-receipt.schema.json"
+ROOT = Path(__file__).resolve().parents[1]
+FMA_CONTRACTS = {
+    FMA_GRAPH_ID: (
+        ROOT / "contracts" / "fma" / "assurance-graph.schema.json",
+        "28be24c589f7b3e26586af58c4a6f413e9398ca784cac95191a928d85a619f85",
+    ),
+    FMA_DECISION_ID: (
+        ROOT / "contracts" / "fma" / "decision-receipt.schema.json",
+        "dd19aad0fb1dd2f877e15d04e5d8812e4e2fe0cccb634c513e62f91148056fcf",
+    ),
+}
 
 DISPOSITION_MAP = {
     "ADVANCE": "APPROVE",
@@ -46,6 +59,35 @@ def _canonical_bytes(value: Any) -> bytes:
 
 def _sha256_bytes(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
+
+
+def _load_fma_contract(contract_id: str) -> dict[str, Any]:
+    path, expected_sha256 = FMA_CONTRACTS[contract_id]
+    raw = path.read_bytes()
+    actual = _sha256_bytes(raw)
+    if actual != expected_sha256:
+        raise ValueError(
+            f"pinned FMA contract digest mismatch for {contract_id}: {actual} != {expected_sha256}"
+        )
+    schema = json.loads(raw.decode("utf-8"))
+    if schema.get("$id") != contract_id:
+        raise ValueError(f"pinned FMA contract identity mismatch for {contract_id}")
+    Draft202012Validator.check_schema(schema)
+    return schema
+
+
+def _validate_fma_output(contract_id: str, value: dict[str, Any]) -> None:
+    schema = _load_fma_contract(contract_id)
+    errors = sorted(
+        Draft202012Validator(schema).iter_errors(value),
+        key=lambda item: list(item.path),
+    )
+    if errors:
+        rendered = "; ".join(
+            f"{'.'.join(str(part) for part in error.path) or '<root>'}: {error.message}"
+            for error in errors
+        )
+        raise ValueError(f"FMA portable-contract validation failed for {contract_id}: {rendered}")
 
 
 def _write_json(path: Path, value: Any) -> None:
@@ -306,6 +348,10 @@ def project_case(case: dict[str, Any], *, source_path: str, source_sha256: str) 
             "schema_version": case.get("schema_version"),
         },
         "target_contracts": [FMA_GRAPH_ID, FMA_DECISION_ID],
+        "target_contract_sha256": {
+            FMA_GRAPH_ID: FMA_CONTRACTS[FMA_GRAPH_ID][1],
+            FMA_DECISION_ID: FMA_CONTRACTS[FMA_DECISION_ID][1],
+        },
         "authoritative_model": "Materials-to-Mission source case",
         "projection_is_lossy": True,
         "preserved_m2m_evidence_fields": preserved_evidence_fields,
@@ -331,6 +377,9 @@ def export_projection(case_path: Path, output_dir: Path) -> dict[str, str]:
         source_path=case_path.as_posix(),
         source_sha256=_sha256_bytes(source_bytes),
     )
+    _validate_fma_output(FMA_GRAPH_ID, graph)
+    _validate_fma_output(FMA_DECISION_ID, decision)
+
     graph_path = output_dir / "assurance-graph.json"
     decision_path = output_dir / "decision-receipt.json"
     manifest_path = output_dir / "projection-manifest.json"
