@@ -68,20 +68,24 @@ jobs:
             examples/synthetic-critical-material-pathway/case.json \
             --output-dir build/fma-projection
 
-          FMA_VERSION="0.5.0"
-          FMA_WHEEL="frontier_mission_assurance-${FMA_VERSION}-py3-none-any.whl"
-          FMA_SHA256="50e9d059d12649ecc572cf14a984305250f70dca0ac88f485d3b44d6ddd00895"
-          curl -fsSL \
-            "https://github.com/Bridge-Node-7/frontier-mission-assurance/releases/download/v${FMA_VERSION}/${FMA_WHEEL}" \
-            -o "${RUNNER_TEMP}/${FMA_WHEEL}"
-          printf '%s  %s\n' "$FMA_SHA256" "${RUNNER_TEMP}/${FMA_WHEEL}" | sha256sum -c -
-          python -m pip install "PyYAML==6.0.3"
-          python -m pip install --no-deps "${RUNNER_TEMP}/${FMA_WHEEL}"
-          test "$(fma --version)" = "fma ${FMA_VERSION}"
-          fma validate build/fma-projection/assurance-graph.json
-          fma decision \
-            build/fma-projection/assurance-graph.json \
-            build/fma-projection/decision-receipt.json
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+
+          interfaces = json.loads(Path("INTERFACES.json").read_text(encoding="utf-8"))
+          assert interfaces["format"] == "bn7.interfaces/0.1"
+          assert interfaces["system"] == "materials-to-mission"
+          assert "application_version" not in interfaces
+          for contract in interfaces["accepts"]:
+              path = Path(contract["schema_path"])
+              assert hashlib.sha256(path.read_bytes()).hexdigest() == contract["sha256"]
+          projection = json.loads(Path("build/fma-projection/projection-manifest.json").read_text(encoding="utf-8"))
+          assert projection["target_contract_sha256"] == {
+              contract["contract_id"]: contract["sha256"]
+              for contract in interfaces["accepts"]
+          }
+          PY
       - name: Upload consumer and interoperability evidence
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1

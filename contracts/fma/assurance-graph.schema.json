@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bridge-node-7.github.io/frontier-mission-assurance/assurance-graph.schema.json",
+  "title": "Frontier Mission Assurance Graph",
+  "type": "object",
+  "required": [
+    "graph_version",
+    "nodes",
+    "edges"
+  ],
+  "properties": {
+    "graph_version": {
+      "const": "1.0"
+    },
+    "metadata": {
+      "type": "object"
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "kind",
+          "title",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "enum": [
+              "mission",
+              "claim",
+              "requirement",
+              "assumption",
+              "model",
+              "simulation",
+              "experiment",
+              "evidence",
+              "component",
+              "interface",
+              "failure_mode",
+              "risk",
+              "decision"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "enum": [
+              "proposed",
+              "open",
+              "active",
+              "verified",
+              "validated",
+              "retired",
+              "superseded",
+              "planned",
+              "complete"
+            ]
+          },
+          "criticality": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 5
+          },
+          "source": {
+            "type": [
+              "string",
+              "object"
+            ]
+          },
+          "notes": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "from",
+          "to",
+          "relation"
+        ],
+        "properties": {
+          "from": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          },
+          "relation": {
+            "enum": [
+              "supports",
+              "depends_on",
+              "contradicts",
+              "verifies",
+              "validates",
+              "implements",
+              "requires",
+              "generated_by",
+              "supersedes",
+              "mitigates"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

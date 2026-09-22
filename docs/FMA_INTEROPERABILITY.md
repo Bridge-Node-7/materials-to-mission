@@ -47,20 +47,17 @@ The adapter targets the public FMA contracts:
 
 The manifest also records the Research Receipt identifier for ecosystem discoverability, but this adapter does not manufacture a research execution receipt when no experiment was executed.
 
-## Hosted portfolio proof
+## Contract-first native proof
 
-CI downloads the exact public FMA `v0.5.0` wheel, verifies its published SHA-256 digest before installation, generates the M2M projection, and then runs:
+M2M native CI validates the projection locally against exact pinned copies of the producer-owned FMA Assurance Graph v1 and Decision Receipt v1 schemas. `INTERFACES.json` records their stable identifiers and raw SHA-256 values independently from any FMA application version.
 
-```text
-fma validate build/fma-projection/assurance-graph.json
-fma decision \
-  build/fma-projection/assurance-graph.json \
-  build/fma-projection/decision-receipt.json
-```
+The projection exporter fails closed if a pinned schema digest or identifier changes, validates both projected artifacts under the exact portable contracts, and records the contract digests in `projection-manifest.json`.
 
-FMA `v0.5.0` is the current hosted interoperability baseline for this adapter. The adapter continues to target the stable Assurance Graph v1 and Decision Receipt v1 contracts; it does not manufacture a Research Receipt v3 unless an actual research execution exists.
+This proves deterministic transformation and portable-contract conformance without downloading or repinning an FMA application merely because its release number changed.
 
-That path proves that a real BN7 domain artifact can be projected into FMA contracts and consumed by the independently released FMA package.
+Current-product M2M → FMA interoperability is a separate estate-level conformance question. It should be recorded in a BN7 compatibility receipt for the exact tested implementation commits/releases rather than making ordinary M2M CI depend on a historical FMA wheel.
+
+The adapter does not manufacture a Research Receipt v3 unless an actual research execution exists.
 
 ## Assurance boundary
 
