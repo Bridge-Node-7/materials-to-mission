@@ -59,6 +59,12 @@ def test_projection_is_deterministic_and_preserves_rich_evidence_semantics():
             "https://bridge-node-7.github.io/frontier-mission-assurance/assurance-graph.schema.json",
             "https://bridge-node-7.github.io/frontier-mission-assurance/decision-receipt.schema.json",
         ]
+        assert manifest["target_contract_sha256"] == {
+            "https://bridge-node-7.github.io/frontier-mission-assurance/assurance-graph.schema.json":
+                "28be24c589f7b3e26586af58c4a6f413e9398ca784cac95191a928d85a619f85",
+            "https://bridge-node-7.github.io/frontier-mission-assurance/decision-receipt.schema.json":
+                "dd19aad0fb1dd2f877e15d04e5d8812e4e2fe0cccb634c513e62f91148056fcf",
+        }
 
 
 def test_public_projection_refuses_non_synthetic_case():
