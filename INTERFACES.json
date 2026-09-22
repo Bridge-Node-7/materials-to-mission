@@ -1,0 +1,29 @@
+{
+  "format": "bn7.interfaces/0.1",
+  "system": "materials-to-mission",
+  "provides": [
+    {
+      "contract_id": "https://raw.githubusercontent.com/Bridge-Node-7/materials-to-mission/v0.1.0/schemas/material-assurance-record.schema.json",
+      "contract_version": "0.1.0",
+      "schema_path": "schemas/material-assurance-record.schema.json",
+      "sha256": "c9023c5cd3a6464eb120ce7e81bb661b02b37b4305324ae223454bfa51211c70",
+      "authority": "PRODUCER_OWNED_PORTABLE_CONTRACT"
+    }
+  ],
+  "accepts": [
+    {
+      "contract_id": "https://bridge-node-7.github.io/frontier-mission-assurance/assurance-graph.schema.json",
+      "contract_version": "1.0",
+      "schema_path": "contracts/fma/assurance-graph.schema.json",
+      "sha256": "28be24c589f7b3e26586af58c4a6f413e9398ca784cac95191a928d85a619f85",
+      "authority": "PINNED_PORTABLE_VALIDATION_CONTRACT"
+    },
+    {
+      "contract_id": "https://bridge-node-7.github.io/frontier-mission-assurance/decision-receipt.schema.json",
+      "contract_version": "1.0",
+      "schema_path": "contracts/fma/decision-receipt.schema.json",
+      "sha256": "dd19aad0fb1dd2f877e15d04e5d8812e4e2fe0cccb634c513e62f91148056fcf",
+      "authority": "PINNED_PORTABLE_VALIDATION_CONTRACT"
+    }
+  ]
+}
