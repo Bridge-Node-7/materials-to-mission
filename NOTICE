@@ -1,6 +1,14 @@
 Materials-to-Mission
 Copyright 2026 Bridge Node 7
 
+Authoritative upstream:
+https://github.com/Bridge-Node-7/materials-to-mission
+
+Official Bridge Node 7 releases of this project are published from the
+authoritative upstream. Third-party forks, mirrors, modifications, and
+redistributions are not official Bridge Node 7 releases unless explicitly
+identified as such by Bridge Node 7.
+
 Materials-to-Mission is an experimental public-safe method and validation toolkit.
 The repository contains synthetic examples only.
 
