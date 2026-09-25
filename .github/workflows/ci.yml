@@ -80,6 +80,10 @@ jobs:
           for contract in interfaces["accepts"]:
               path = Path(contract["schema_path"])
               assert hashlib.sha256(path.read_bytes()).hexdigest() == contract["sha256"]
+              assert contract["authority"] == "PINNED_PORTABLE_VALIDATION_CONTRACT"
+          provided = interfaces["provides"]
+          assert len(provided) == 1
+          assert provided[0]["authority"] == "PRODUCER_OWNED_PORTABLE_CONTRACT"
           projection = json.loads(Path("build/fma-projection/projection-manifest.json").read_text(encoding="utf-8"))
           assert projection["target_contract_sha256"] == {
               contract["contract_id"]: contract["sha256"]
