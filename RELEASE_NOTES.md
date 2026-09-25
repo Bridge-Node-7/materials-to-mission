@@ -14,7 +14,7 @@ v0.7.6 improves accessibility and resilience by making the no-JavaScript operati
 ## Preserved
 
 - M0 remains M0; no M1 capability is claimed.
-- Frozen GA-001 v1.0.0, MF-001, and YIG-001 evidence meaning is unchanged.
+- GA-001 v1.0.0, MF-001, and YIG-001 evidence meaning is unchanged.
 - YIG remains an engineered material system, not a USGS critical mineral.
 - Unknown remains non-favorable and Evidence Horizon remains explicit.
 - Human consequential authority remains required.
