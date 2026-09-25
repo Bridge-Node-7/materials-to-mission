@@ -393,7 +393,7 @@ def assert_csp_and_navigation(page):
         assert text in footer.inner_text()
     continuation=page.locator('.continuation')
     assert continuation.locator('a').count()==2
-    assert continuation.locator('a').nth(0).get_attribute('href')=='https://bridgenode7.com/frontier-decision-engine/start.html'
+    assert continuation.locator('a').nth(0).get_attribute('href')=='https://bridgenode7.com/frontier-decision-engine/#/method'
     assert continuation.locator('a').nth(1).get_attribute('href')=='https://bridgenode7.com/partner/'
 
 def main():
