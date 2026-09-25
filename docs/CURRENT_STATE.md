@@ -25,7 +25,7 @@ Gallium is a reviewed public-source pathway. YIG is a reviewed engineered-materi
 
 ## Gallium supply context after GA-001
 
-GA-001 v1.0.0 remains a frozen reviewed snapshot dated 2026-08-10. The following later/current public context is maintained separately and does not change the evidence state, qualification boundary, or conclusions of that frozen record.
+GA-001 v1.0.0 remains the reviewed snapshot dated 2026-08-10. The following later/current public context is maintained separately and does not change the evidence state, qualification boundary, or conclusions of that reviewed record.
 
 As of this source review on **2026-09-21**:
 
