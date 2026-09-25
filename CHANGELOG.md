@@ -30,7 +30,7 @@ No changes recorded after v0.7.6.
 
 ### Preserved
 - M0 evidence semantics and human consequential authority.
-- Frozen GA-001, MF-001, and YIG-001 evidence meaning.
+- GA-001, MF-001, and YIG-001 evidence meaning.
 - Gallium/YIG pathway meaning, schemas, qualification boundaries, and public product behavior.
 - Historical v0.7.4 tag/release identity remains unchanged.
 
@@ -43,7 +43,7 @@ No changes recorded after v0.7.6.
 
 ### Preserved
 - M0 evidence semantics and human consequential authority.
-- Frozen GA-001, MF-001, and YIG-001 evidence.
+- GA-001, MF-001, and YIG-001 evidence.
 - Gallium/YIG pathway meaning, schemas, qualification boundaries, and public product behavior.
 
 ## [0.7.3] - 2026-08-14
