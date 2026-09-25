@@ -25,11 +25,11 @@ def test_v061_current_state_is_product_facing():
     assert 'historical' not in state.lower()
     assert 'corporate website release' not in state.lower()
 
-def test_v061_gallium_current_context_is_separate_from_frozen_snapshot():
+def test_v061_gallium_current_context_is_separate_from_reviewed_snapshot():
     readme=(ROOT/'README.md').read_text(encoding='utf-8')
     state=(ROOT/'docs/CURRENT_STATE.md').read_text(encoding='utf-8')
     assert 'Current supply-policy context is maintained separately' in readme
-    assert 'GA-001 v1.0.0 remains a frozen reviewed snapshot dated 2026-08-10' in state
+    assert 'GA-001 v1.0.0 remains the reviewed snapshot dated 2026-08-10' in state
     for token in ('China','99%','export controls','time-sensitive','does not establish source qualification'):
         assert token in state
     assert 'https://www.usgs.gov/centers/national-minerals-information-center/china' in state
@@ -67,5 +67,5 @@ def test_v061_public_identity_and_boundaries_remain_bounded():
     assert 'Explore the 60-mineral Materials-to-Mission Atlas' in readme
     assert 'Explore the 60-mineral Strategic Constellation' not in readme
     assert '`VERSION` identifies source line `0.7.6`' in state
-    for token in ('Frozen GA-001 v1.0.0','YIG remains an engineered material system','M0','Human consequential authority'):
+    for token in ('GA-001 v1.0.0','YIG remains an engineered material system','M0','Human consequential authority'):
         assert token.lower() in notes.lower()
