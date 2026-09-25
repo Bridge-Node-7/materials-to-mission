@@ -54,7 +54,7 @@ def test_public_experience_has_institutional_continuity_without_replacing_produc
         "https://bridgenode7.com/golden-age/",
         "https://bridgenode7.com/materials-to-mission/",
         "https://bridgenode7.com/partner/",
-        "https://bridgenode7.com/frontier-decision-engine/start.html",
+        "https://bridgenode7.com/frontier-decision-engine/#/method",
         "https://bridgenode7.com/privacy/",
         "https://bridgenode7.com/privacy/#security",
         "Contact",
