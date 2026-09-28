@@ -49,7 +49,7 @@ def test_v060_release_and_browser_dependency_contract() -> None:
     browser_workflow=(ROOT/'.github/workflows/browser-uat.yml').read_text(encoding='utf-8')
     release_workflow=(ROOT/'.github/workflows/release.yml').read_text(encoding='utf-8')
     assert '-r requirements-dev.txt' in browser_lock
-    assert 'playwright==1.55.0' in browser_lock
+    assert 'playwright==1.57.0' in browser_lock
     assert 'pip install -r requirements-browser.lock' in browser_workflow
     assert 'pip install playwright' not in browser_workflow
     assert '--title "$release_title"' in release_workflow
