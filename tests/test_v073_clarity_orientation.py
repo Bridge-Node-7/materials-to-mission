@@ -23,6 +23,7 @@ def build_html(tmp_path: Path) -> str:
 def test_v073_first_use_orientation_is_exact_and_bounded(tmp_path: Path) -> None:
     html = build_html(tmp_path)
     assert html.count("Start with one material. Follow the pathway. See how far the evidence carries. Identify what must be proven next.") == 1
+    assert html.count("See the pathway. Identify the bottleneck. Verify the next move.") == 1
     assert html.count("Supported facts stay supported. Unknowns stay visible.") >= 1
     assert html.count("Reviewed does not mean qualified.") == 1
     text = re.sub(r"<[^>]+>", "", html)
