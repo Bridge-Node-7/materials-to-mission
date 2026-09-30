@@ -55,3 +55,5 @@ Physical-device mobile UAT, human assistive-technology UAT, and first-time human
 ## Release identity
 
 Published GitHub tags and Releases govern external release identity. The current source version may be ahead of the latest published stable release.
+
+`CITATION.cff` identifies the current source version. When that source version is ahead of the latest stable GitHub Release, `date-released` is intentionally omitted rather than carrying forward an earlier version's release date. Stable-release preparation adds the actual release date before the signed tag is created.
