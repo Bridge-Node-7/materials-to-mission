@@ -55,10 +55,12 @@ def test_v073_release_history_is_recorded_in_changelog() -> None:
     assert "## [0.7.3] - 2026-08-14" in changelog
 
 
-def test_v073_release_preparation_truth_is_exact() -> None:
+def test_current_unreleased_source_does_not_reuse_prior_release_date() -> None:
     citation = (ROOT / "CITATION.cff").read_text(encoding="utf-8")
+    current_state = (ROOT / "docs/CURRENT_STATE.md").read_text(encoding="utf-8")
     changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
-    assert "date-released: 2026-08-22" in citation
+    assert "date-released:" not in citation
+    assert "`date-released` is intentionally omitted" in current_state
     assert "## Unreleased\n\nNo changes recorded after v0.7.6." in changelog
     assert "## [0.7.3] - 2026-08-14" in changelog
     assert "preferred first pathway" not in changelog
