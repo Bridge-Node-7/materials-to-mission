@@ -196,8 +196,8 @@ def test_guided_evaluator_has_truthful_install_preflight(root: Path, monkeypatch
 def test_consumer_lock_contains_exact_build_backend(root: Path) -> None:
     runtime = (root / "requirements.txt").read_text(encoding="utf-8")
     dev = (root / "requirements-dev.txt").read_text(encoding="utf-8")
-    assert "setuptools==83.0.0" in runtime
-    assert dev.count("setuptools==83.0.0") == 0
+    assert "setuptools==84.0.0" in runtime
+    assert dev.count("setuptools==84.0.0") == 0
     assert "-r requirements.txt" in dev
 
 
