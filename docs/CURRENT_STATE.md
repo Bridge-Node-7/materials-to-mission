@@ -27,11 +27,12 @@ Gallium is a reviewed public-source pathway. YIG is a reviewed engineered-materi
 
 GA-001 v1.0.0 remains the reviewed snapshot dated 2026-08-10. The following later/current public context is maintained separately and does not change the evidence state, qualification boundary, or conclusions of that reviewed record.
 
-As of this source review on **2026-09-21**:
+As of this source review on **2026-10-02**:
 
 - The U.S. Geological Survey reports that China was responsible for **99% of world primary gallium production in 2024**, establishing a material concentration dependency for gallium supply.
 - USGS Mineral Commodity Summaries 2026 records China's gallium export controls beginning in 2023, a December 2024 ban on gallium exports to the United States, and a one-year lifting of that ban in November 2025.
 - A November 2025 White House fact sheet states that China would issue general licenses for exports of gallium and several other controlled materials for U.S. end users and their suppliers, characterizing that step as de facto removal of controls imposed since 2023.
+- The controlled USGS, DOE, DFARS, APS, and Nature sources supporting the public materials field and YIG context were rechecked; no reviewed source required a change to the current evidence horizon, qualification boundary, or public maturity state.
 
 Official sources:
 - USGS China minerals profile: https://www.usgs.gov/centers/national-minerals-information-center/china
