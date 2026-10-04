@@ -92,6 +92,7 @@ Public maturity remains **M0 experimental public method**.
 - [Material Assurance Record](docs/MATERIAL_ASSURANCE_RECORD.md)
 - [Decision Passport](docs/DECISION_PASSPORT.md)
 - [Qualification and Readiness States](docs/QUALIFICATION_AND_READINESS_STATES.md)
+- [Schedule Exposure and Common-Cause Dependency](docs/SCHEDULE_AND_COMMON_CAUSE.md)
 - [Interoperability](docs/INTEROPERABILITY.md)
 - [Validation](docs/VALIDATION.md)
 - [Validation Profiles](docs/VALIDATION_PROFILES.md)
