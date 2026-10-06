@@ -77,8 +77,10 @@ def test_pages_requires_post_deploy_anonymous_readback() -> None:
     assert "verify-production:" in workflow
     assert "needs: [build, deploy]" in workflow
     assert "scripts/verify_production.py" in workflow
-    assert "steps.pages.outputs.base_url" in workflow
-    assert "needs.build.outputs.pages_base_url" in workflow
+    assert "steps.pages.outputs.host" in workflow
+    assert "steps.pages.outputs.base_path" in workflow
+    assert "needs.build.outputs.pages_public_url" in workflow
+    assert "steps.pages.outputs.base_url" not in workflow
     assert "needs.deploy.outputs.page_url" in workflow
     assert "--base-url \"https://bridgenode7.com/materials-to-mission/\"" not in workflow
 
