@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import json
 import re
+import subprocess
+import sys
 import tomllib
 from pathlib import Path
 
@@ -73,9 +75,36 @@ def test_codeql_covers_python_and_browser_javascript() -> None:
 def test_pages_requires_post_deploy_anonymous_readback() -> None:
     workflow = (ROOT / ".github/workflows/pages.yml").read_text(encoding="utf-8")
     assert "verify-production:" in workflow
-    assert "needs: deploy" in workflow
+    assert "needs: [build, deploy]" in workflow
     assert "scripts/verify_production.py" in workflow
-    assert "https://bridgenode7.com/materials-to-mission/" in workflow
+    assert "steps.pages.outputs.base_url" in workflow
+    assert "needs.build.outputs.pages_base_url" in workflow
+    assert "needs.deploy.outputs.page_url" in workflow
+    assert "--base-url \"https://bridgenode7.com/materials-to-mission/\"" not in workflow
+
+
+def test_public_web_build_accepts_deployment_self_url(tmp_path) -> None:
+    output = tmp_path / "web"
+    public_url = "https://portable.example/materials-to-mission/"
+    result = subprocess.run(
+        [
+            sys.executable,
+            "scripts/build_web.py",
+            "--output",
+            str(output),
+            "--public-url",
+            public_url,
+        ],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert result.returncode == 0, result.stdout + result.stderr
+    page = (output / "index.html").read_text(encoding="utf-8")
+    assert page.count(public_url) == 2
+    assert 'href="https://bridgenode7.com/"' in page
+    assert "https://bridgenode7.com/assets/images/social-preview.png" in page
 
 
 def test_post_decision_outcome_boundary_matches_v010_schema() -> None:

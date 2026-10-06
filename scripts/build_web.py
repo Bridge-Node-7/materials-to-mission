@@ -1240,10 +1240,56 @@ def render(template, payload):
     return rendered
 
 
-def build(output: Path):
+PUBLIC_URL_FIELDS = (
+    ("og:url", re.compile(r'(<meta property="og:url" content=")([^"]+)(">)')),
+    ("canonical", re.compile(r'(<link rel="canonical" href=")([^"]+)(">)')),
+)
+
+
+def normalize_public_url(value):
+    candidate = str(value).strip()
+    parsed = urlparse(candidate)
+    if (
+        parsed.scheme != "https"
+        or not parsed.hostname
+        or parsed.username
+        or parsed.password
+        or parsed.query
+        or parsed.fragment
+    ):
+        raise SystemExit(
+            "STOP - public URL must be an absolute HTTPS URL without credentials, query, or fragment"
+        )
+    return candidate.rstrip("/") + "/"
+
+
+def apply_public_url(rendered, public_url):
+    if public_url is None:
+        return rendered
+    target = normalize_public_url(public_url)
+    observed = []
+    for label, pattern in PUBLIC_URL_FIELDS:
+        matches = list(pattern.finditer(rendered))
+        if len(matches) != 1:
+            raise SystemExit(
+                f"STOP - deployment {label} field count changed: expected 1, observed {len(matches)}"
+            )
+        observed.append(normalize_public_url(matches[0].group(2)))
+        rendered = pattern.sub(
+            lambda match: f"{match.group(1)}{target}{match.group(3)}",
+            rendered,
+            count=1,
+        )
+    if len(set(observed)) != 1:
+        raise SystemExit("STOP - deployment self URL fields disagree in source template")
+    return rendered
+
+
+def build(output: Path, public_url=None):
     payload = project()
     template = (WEB / "index.html").read_text(encoding="utf-8")
     rendered = render(template, payload)
+    rendered = apply_public_url(rendered, public_url)
     if "<!-- R6:" in rendered:
         raise SystemExit("STOP - unresolved public template marker")
 
@@ -1270,8 +1316,9 @@ def build(output: Path):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", type=Path, default=ROOT / "build/web")
+    parser.add_argument("--public-url", default=None)
     args = parser.parse_args()
-    out = build(args.output.resolve())
+    out = build(args.output.resolve(), args.public_url)
     print(f"PASS - deterministic R6 public web build: {out}")
     return 0
 
