@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     outputs:
-      pages_base_url: ${{ steps.pages.outputs.base_url }}
+      pages_public_url: "https://${{ steps.pages.outputs.host }}${{ steps.pages.outputs.base_path }}"
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
@@ -41,7 +41,7 @@ jobs:
           git diff --exit-code
           python scripts/build_web.py \
             --output _site \
-            --public-url "${{ steps.pages.outputs.base_url }}"
+            --public-url "https://${{ steps.pages.outputs.host }}${{ steps.pages.outputs.base_path }}"
           python - <<'PY'
           import hashlib
           from pathlib import Path
@@ -116,7 +116,7 @@ jobs:
           python -m pip install --no-deps --no-build-isolation -e .
           python scripts/build_web.py \
             --output _site \
-            --public-url "${{ needs.build.outputs.pages_base_url }}"
+            --public-url "${{ needs.build.outputs.pages_public_url }}"
       - name: Verify anonymous production bytes
         shell: bash
         run: |
