@@ -16,6 +16,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    outputs:
+      pages_base_url: ${{ steps.pages.outputs.base_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
@@ -26,6 +28,9 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d
       - name: Validate and build deterministic public site
         shell: bash
         run: |
@@ -34,7 +39,9 @@ jobs:
           python -m pip install --no-deps --no-build-isolation -e .
           python scripts/check_repo.py
           git diff --exit-code
-          python scripts/build_web.py --output _site
+          python scripts/build_web.py \
+            --output _site \
+            --public-url "${{ steps.pages.outputs.base_url }}"
           python - <<'PY'
           import hashlib
           from pathlib import Path
@@ -66,8 +73,6 @@ jobs:
 
           print("PASS - exact deterministic Pages artifact")
           PY
-      - name: Setup Pages
-        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9
         with:
@@ -83,6 +88,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     needs: build
+    outputs:
+      page_url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
@@ -90,7 +97,7 @@ jobs:
   verify-production:
     runs-on: ubuntu-latest
     timeout-minutes: 12
-    needs: deploy
+    needs: [build, deploy]
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
@@ -107,14 +114,16 @@ jobs:
           set -euo pipefail
           python -m pip install -r requirements-dev.txt
           python -m pip install --no-deps --no-build-isolation -e .
-          python scripts/build_web.py --output _site
+          python scripts/build_web.py \
+            --output _site \
+            --public-url "${{ needs.build.outputs.pages_base_url }}"
       - name: Verify anonymous production bytes
         shell: bash
         run: |
           set -euo pipefail
           python scripts/verify_production.py \
             --expected-dir _site \
-            --base-url "https://bridgenode7.com/materials-to-mission/" \
+            --base-url "${{ needs.deploy.outputs.page_url }}" \
             --output production-attestation.json \
             --github-sha "$GITHUB_SHA" \
             --attempts 12 \
