@@ -7,6 +7,9 @@ import sys
 import tempfile
 from pathlib import Path
 
+from materials_to_mission import __version__
+from materials_to_mission.validation_profiles import DEFAULT_VALIDATION_PROFILE
+
 ROOT = Path(__file__).resolve().parents[1]
 CASE = ROOT / "examples" / "synthetic-critical-material-pathway" / "case.json"
 SCRIPT = ROOT / "scripts" / "export_fma_projection.py"
@@ -36,6 +39,8 @@ def test_projection_is_deterministic_and_preserves_rich_evidence_semantics():
             assert (first / name).read_bytes() == (second / name).read_bytes()
 
         graph = json.loads((first / "assurance-graph.json").read_text(encoding="utf-8"))
+        assert graph["metadata"]["source_validation_profile"] == DEFAULT_VALIDATION_PROFILE
+        assert graph["metadata"]["source_toolkit_version"] == __version__
         nodes = {node["id"]: node for node in graph["nodes"]}
         evidence = nodes["E-005"]["m2m_projection"]
         assert evidence["ai_involvement"] == {"used": True, "tasks": ["Comparison"]}
@@ -52,6 +57,8 @@ def test_projection_is_deterministic_and_preserves_rich_evidence_semantics():
         manifest = json.loads((first / "projection-manifest.json").read_text(encoding="utf-8"))
         assert manifest["projection_is_lossy"] is True
         assert manifest["source"]["sha256"] == hashlib.sha256(CASE.read_bytes()).hexdigest()
+        assert manifest["source"]["validation_profile"] == DEFAULT_VALIDATION_PROFILE
+        assert manifest["source"]["toolkit_version"] == __version__
         assert "ai_involvement" in manifest["preserved_m2m_evidence_fields"]
         assert "human_reviewer" in manifest["preserved_m2m_evidence_fields"]
         assert "contradictory_evidence" in manifest["preserved_m2m_evidence_fields"]
@@ -84,3 +91,42 @@ def test_public_projection_refuses_non_synthetic_case():
         )
         assert result.returncode == 2
         assert "requires synthetic=true and public_safe=true" in result.stdout
+
+
+def test_projection_refuses_invalid_source_cases_before_writing_artifacts():
+    with tempfile.TemporaryDirectory() as td:
+        root = Path(td)
+        for source in sorted((ROOT / "examples" / "invalid").glob("*.json")):
+            output_dir = root / source.stem
+            result = subprocess.run(
+                [sys.executable, str(SCRIPT), str(source), "--output-dir", str(output_dir)],
+                cwd=ROOT,
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            assert result.returncode == 2, result.stdout + result.stderr
+            assert "M2M source validation failed" in result.stdout
+            assert not output_dir.exists()
+
+
+def test_projection_refuses_public_boundary_violation_before_writing_artifacts():
+    with tempfile.TemporaryDirectory() as td:
+        root = Path(td)
+        case = json.loads(CASE.read_text(encoding="utf-8"))
+        case["material_assurance_record"]["evidence_records"][0]["title"] = (
+            "Synthetic protected-material-codeword boundary sentinel"
+        )
+        source = root / "case.json"
+        source.write_text(json.dumps(case), encoding="utf-8")
+        output_dir = root / "output"
+        result = subprocess.run(
+            [sys.executable, str(SCRIPT), str(source), "--output-dir", str(output_dir)],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        assert result.returncode == 2, result.stdout + result.stderr
+        assert "PUBLIC_BOUNDARY" in result.stdout
+        assert not output_dir.exists()
