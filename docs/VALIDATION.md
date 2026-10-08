@@ -49,4 +49,4 @@ material, supplier, laboratory, mission, legal, or commercial conclusions.
 
 ## Validation Profiles
 
-Semantic validation is explicitly versioned independently from the immutable v0.1.0 JSON Schema authority. The default profile is `m0-strict-0.2.0`. Historical v0.1.0 compatibility is available through `m0-baseline-0.1.0`. The complete maintainer gate verifies the default profile recorded by the toolkit, `PROJECT_FACTS.json`, and generated validation evidence.
+Semantic validation is explicitly versioned independently from the immutable v0.1.0 JSON Schema authority. The default profile is `m0-strict-0.4.0`. Historical v0.1.0 compatibility is available through `m0-baseline-0.1.0`. The complete maintainer gate verifies the default profile recorded by the toolkit, `PROJECT_FACTS.json`, and generated validation evidence.
