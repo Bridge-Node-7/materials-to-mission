@@ -17,6 +17,10 @@ from typing import Any
 
 from jsonschema import Draft202012Validator
 
+from materials_to_mission import __version__
+from materials_to_mission.validation_profiles import DEFAULT_VALIDATION_PROFILE
+from materials_to_mission.validator import validate_case
+
 ADAPTER_VERSION = "1.0"
 FMA_GRAPH_ID = "https://bridge-node-7.github.io/frontier-mission-assurance/assurance-graph.schema.json"
 FMA_DECISION_ID = "https://bridge-node-7.github.io/frontier-mission-assurance/decision-receipt.schema.json"
@@ -114,6 +118,14 @@ def _decision_id(case_id: str) -> str:
 def project_case(case: dict[str, Any], *, source_path: str, source_sha256: str) -> tuple[dict, dict, dict]:
     if case.get("synthetic") is not True or case.get("public_safe") is not True:
         raise ValueError("FMA public projection requires synthetic=true and public_safe=true")
+
+    validation = validate_case(case, public=True, profile=DEFAULT_VALIDATION_PROFILE)
+    if not validation.valid:
+        findings = "; ".join(
+            f"{finding.code} {finding.path}: {finding.message}"
+            for finding in validation.findings
+        )
+        raise ValueError(f"M2M source validation failed for {source_path}: {findings}")
 
     case_id = str(case.get("case_id", "")).strip()
     if not case_id:
@@ -294,6 +306,8 @@ def project_case(case: dict[str, Any], *, source_path: str, source_sha256: str) 
             "source_case_path": source_path,
             "source_case_sha256": source_sha256,
             "source_schema_version": case.get("schema_version"),
+            "source_validation_profile": validation.validation_profile,
+            "source_toolkit_version": __version__,
             "fma_contract_ids": {
                 "assurance_graph": FMA_GRAPH_ID,
                 "decision_receipt": FMA_DECISION_ID,
@@ -346,6 +360,8 @@ def project_case(case: dict[str, Any], *, source_path: str, source_sha256: str) 
             "path": source_path,
             "sha256": source_sha256,
             "schema_version": case.get("schema_version"),
+            "validation_profile": validation.validation_profile,
+            "toolkit_version": __version__,
         },
         "target_contracts": [FMA_GRAPH_ID, FMA_DECISION_ID],
         "target_contract_sha256": {
