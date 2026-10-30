@@ -4,7 +4,99 @@ All notable changes are documented here.
 
 ## Unreleased
 
-No changes recorded after v0.7.6.
+No changes recorded after v0.8.0.
+
+## [0.8.0]
+
+
+### Features
+
+* align Materials-to-Mission journey and repository truth ([209966d](https://github.com/Bridge-Node-7/materials-to-mission/commit/209966da67506b55b271ea704efe53ebd1e54da9))
+* implement v0.3 Golden Journey browser ([1d0fa08](https://github.com/Bridge-Node-7/materials-to-mission/commit/1d0fa08562a80cf832c72e49b287a11fa8eb5db9))
+* improve Materials-to-Mission first-use clarity ([19aba05](https://github.com/Bridge-Node-7/materials-to-mission/commit/19aba05d9915a314ccd9ec2ef2b35a00575184eb))
+* precision evidence experience v0.5.0 candidate ([314f47a](https://github.com/Bridge-Node-7/materials-to-mission/commit/314f47a990d955c249e959de3ecbd4a06548b669))
+* publish Materials-to-Mission v0.1.0 public baseline ([783dd8d](https://github.com/Bridge-Node-7/materials-to-mission/commit/783dd8ddd039af07252ea4d0871f28ca8f4a5eb4))
+
+
+### Bug Fixes
+
+* accept repository release title contract ([e50dd3e](https://github.com/Bridge-Node-7/materials-to-mission/commit/e50dd3e815286fc5580e8d90f08604e5c1ce590e))
+* canonicalize cross-platform artifact ordering ([5562e05](https://github.com/Bridge-Node-7/materials-to-mission/commit/5562e053ad547660df1669144867c7c8e57c92b9))
+* canonicalize cross-platform ZIP metadata ([372e9ae](https://github.com/Bridge-Node-7/materials-to-mission/commit/372e9aec879f6d1c7b73096b46d2d59f0cb3026f))
+* close M0 authority and traceability gaps ([1ccdc6f](https://github.com/Bridge-Node-7/materials-to-mission/commit/1ccdc6f6b4c7211468a1c35c940292629130064a))
+* close M0 authority and traceability gaps for v0.1.2 ([5d37d8b](https://github.com/Bridge-Node-7/materials-to-mission/commit/5d37d8b45f633f642a423b486bb35781a537e33a))
+* close v0.7.2 accessibility maintenance findings ([df77a9e](https://github.com/Bridge-Node-7/materials-to-mission/commit/df77a9e3fc61c78d1522c9ab4f36521aac9023fe))
+* close WEB-03 observed browser UAT ([a91f983](https://github.com/Bridge-Node-7/materials-to-mission/commit/a91f983c6a80ad833e223959c48e2d61b58f90cf))
+* converge v0.6.1 truth and accessibility ([#25](https://github.com/Bridge-Node-7/materials-to-mission/issues/25)) ([cd6edb0](https://github.com/Bridge-Node-7/materials-to-mission/commit/cd6edb0670fc502799f9fd3d6a37a73c004076ac))
+* finalize history sanitization hardening ([16ea2bb](https://github.com/Bridge-Node-7/materials-to-mission/commit/16ea2bb579c40609e98c725bc2fd002fd5a1604a))
+* finalize v0.7.3 experience ([3c971ea](https://github.com/Bridge-Node-7/materials-to-mission/commit/3c971ea11548d781e109897739e275bc72b50515))
+* harden production assurance and continuity ([1d830d6](https://github.com/Bridge-Node-7/materials-to-mission/commit/1d830d6a76380e78a8f18b8ce0bed0613fb7efa3))
+* harden validation and public assurance controls ([5857eb0](https://github.com/Bridge-Node-7/materials-to-mission/commit/5857eb05c43698dee636b93c8c0509ae131afef2))
+* harden validation and public assurance controls ([17ab896](https://github.com/Bridge-Node-7/materials-to-mission/commit/17ab896659efc4176416a7c812c693a88274b066))
+* make generated release evidence LF-stable ([5ea036a](https://github.com/Bridge-Node-7/materials-to-mission/commit/5ea036a387ec932402fe78990c488a27965c936f))
+* make manifest hashing host-independent ([fb57508](https://github.com/Bridge-Node-7/materials-to-mission/commit/fb57508bee3cb89adc49c7fc19a4fb958498102d))
+* make validation evidence reproducible across hosts ([7591f7b](https://github.com/Bridge-Node-7/materials-to-mission/commit/7591f7b7efc654203652e412e144502fb69a7705))
+* validate M2M source before FMA projection (F01) ([63867a6](https://github.com/Bridge-Node-7/materials-to-mission/commit/63867a6f4563585e989fee8bc0174eb6ad5df182))
+
+
+### Security
+
+* pin reviewed public metadata policy ([#98](https://github.com/Bridge-Node-7/materials-to-mission/issues/98)) ([829039e](https://github.com/Bridge-Node-7/materials-to-mission/commit/829039ebc988d62e65f5208363f4f69314302fdf))
+* remove plaintext semantic release deny-list ([#62](https://github.com/Bridge-Node-7/materials-to-mission/issues/62)) ([b554517](https://github.com/Bridge-Node-7/materials-to-mission/commit/b554517a8c26266629a0cc8bdbfcd2dcd2384375))
+* repin reviewed privacy policy ([ba3d1b1](https://github.com/Bridge-Node-7/materials-to-mission/commit/ba3d1b182962fe7e039d6cdf1f1f85e667ae8f1d))
+
+
+### Documentation
+
+* add current gallium supply context ([#74](https://github.com/Bridge-Node-7/materials-to-mission/issues/74)) ([eddd42c](https://github.com/Bridge-Node-7/materials-to-mission/commit/eddd42c6b13a8f97acb9427745bc9d6e5faf9645))
+* align changelog state language ([#69](https://github.com/Bridge-Node-7/materials-to-mission/issues/69)) ([c7a8bda](https://github.com/Bridge-Node-7/materials-to-mission/commit/c7a8bdafb3cb501c54b1def63989bb20eac73506))
+* align current state after v0.1.1 closeout ([fa1a182](https://github.com/Bridge-Node-7/materials-to-mission/commit/fa1a182da53a319b4db1a8efe7b6f21ed9697747))
+* align current state after v0.1.1 closeout ([#5](https://github.com/Bridge-Node-7/materials-to-mission/issues/5)) ([6c712ec](https://github.com/Bridge-Node-7/materials-to-mission/commit/6c712ec10987511ad372c310e8f9106359d8aca8))
+* align M2M validation guide with default profile ([41f821f](https://github.com/Bridge-Node-7/materials-to-mission/commit/41f821fe997ed4e10fd37984b34e7e9a157700ce))
+* align publication guidance ([#68](https://github.com/Bridge-Node-7/materials-to-mission/issues/68)) ([8f7deec](https://github.com/Bridge-Node-7/materials-to-mission/commit/8f7deecfffcb1617ab89702e13c51f7ab6ac2354))
+* align release and validation language ([#72](https://github.com/Bridge-Node-7/materials-to-mission/issues/72)) ([42d1b74](https://github.com/Bridge-Node-7/materials-to-mission/commit/42d1b74b07ea8198b01ec2869e3a638548a4158f))
+* clarify current source and release posture ([f6c59bc](https://github.com/Bridge-Node-7/materials-to-mission/commit/f6c59bcb6daa06aa8460d38e44bfcc453c50a6b7))
+* clarify decision-to-outcome lineage boundary ([#52](https://github.com/Bridge-Node-7/materials-to-mission/issues/52)) ([8da4eaf](https://github.com/Bridge-Node-7/materials-to-mission/commit/8da4eafcb79a6aa30a4987b2480d68f9f7c2c378))
+* clarify material-system example terminology ([914aa62](https://github.com/Bridge-Node-7/materials-to-mission/commit/914aa628e70d279352df673935559398d9749ad7))
+* clarify repository scope ([#59](https://github.com/Bridge-Node-7/materials-to-mission/issues/59)) ([1b37e39](https://github.com/Bridge-Node-7/materials-to-mission/commit/1b37e390116cf3dc43a92af56d3f29123aefeef2))
+* clarify role in Frontier Assurance architecture ([#76](https://github.com/Bridge-Node-7/materials-to-mission/issues/76)) ([6e381b4](https://github.com/Bridge-Node-7/materials-to-mission/commit/6e381b4df2bc09659e7f1f908e5e57ddf5e90fa9))
+* close v0.3.0 public visual release ([6ae3d27](https://github.com/Bridge-Node-7/materials-to-mission/commit/6ae3d275a61add20312970bffd2799b1b529e9fd))
+* document current state and M1 readiness ([7026b5e](https://github.com/Bridge-Node-7/materials-to-mission/commit/7026b5ee1568a1334fa60d0c7a377435476f082c))
+* document current state and M1 readiness ([9e46fbb](https://github.com/Bridge-Node-7/materials-to-mission/commit/9e46fbb6fa5c55ed5987c4f7d3e05a0a5ce56ced))
+* freeze v0.3 public visual foundation ([e340c25](https://github.com/Bridge-Node-7/materials-to-mission/commit/e340c25e769df37ec66f3fde6908c1a517640534))
+* integrate public program register and current state ([7b1169f](https://github.com/Bridge-Node-7/materials-to-mission/commit/7b1169f6d925b7c5b14f4d33c888dd18f79cb9a0))
+* integrate public program register and current state ([#8](https://github.com/Bridge-Node-7/materials-to-mission/issues/8)) ([f0112d2](https://github.com/Bridge-Node-7/materials-to-mission/commit/f0112d2b4e4f8a4061bc3d2259d1ed9440822cef))
+* make publication boundary user-facing ([#60](https://github.com/Bridge-Node-7/materials-to-mission/issues/60)) ([b3f1711](https://github.com/Bridge-Node-7/materials-to-mission/commit/b3f17114d4e55acdbf07b6cd2ab232e927abe656))
+* minimize public project facts ([#70](https://github.com/Bridge-Node-7/materials-to-mission/issues/70)) ([1b5fef0](https://github.com/Bridge-Node-7/materials-to-mission/commit/1b5fef027aadc325a5d3e919f9e03b8a5a3f50ce))
+* normalize repository shape and public boundary ([#33](https://github.com/Bridge-Node-7/materials-to-mission/issues/33)) ([3901b07](https://github.com/Bridge-Node-7/materials-to-mission/commit/3901b076836578a25bf25a8c4d75ab35c1ebdbde))
+* refine public repository surface ([#32](https://github.com/Bridge-Node-7/materials-to-mission/issues/32)) ([78808bd](https://github.com/Bridge-Node-7/materials-to-mission/commit/78808bd44cd39ebf2c23503ad66389c38fb358e3))
+* simplify public contribution guidance ([#71](https://github.com/Bridge-Node-7/materials-to-mission/issues/71)) ([637e8a8](https://github.com/Bridge-Node-7/materials-to-mission/commit/637e8a853586af08e7a319a94442ab13bb547bd0))
+* simplify public threat-model disclosure language ([#61](https://github.com/Bridge-Node-7/materials-to-mission/issues/61)) ([8b37fa2](https://github.com/Bridge-Node-7/materials-to-mission/commit/8b37fa2be1e91f0abfd935f0860c9fe36548caf8))
+* state repository scope without protected-data inventory ([#63](https://github.com/Bridge-Node-7/materials-to-mission/issues/63)) ([7002486](https://github.com/Bridge-Node-7/materials-to-mission/commit/7002486bf50b84ccfe3ab8996f50a3338b7acc5b))
+
+
+### CI
+
+* add pinned public privacy preflight ([be817e1](https://github.com/Bridge-Node-7/materials-to-mission/commit/be817e135bdd07ebb8c94a055a903a16e38e3795))
+* add release-please and repository quality gates ([b28e602](https://github.com/Bridge-Node-7/materials-to-mission/commit/b28e60237c2f233281f2dd3d4995d4ad74f0576f))
+* recheck privacy after PR metadata edits ([706d69d](https://github.com/Bridge-Node-7/materials-to-mission/commit/706d69d5f0053d889fc1db664f9d829ac8a9e621))
+
+
+### Miscellaneous
+
+* add reproducible hook initialization ([4d47641](https://github.com/Bridge-Node-7/materials-to-mission/commit/4d4764112ff8d03636e4939362f3e7df966aa302))
+* **deps:** bump the github-actions group with 3 updates ([#87](https://github.com/Bridge-Node-7/materials-to-mission/issues/87)) ([416d904](https://github.com/Bridge-Node-7/materials-to-mission/commit/416d904cc55689e649185ea1aa6b87991b7f9632))
+* **deps:** bump the python-dependencies group with 5 updates ([#86](https://github.com/Bridge-Node-7/materials-to-mission/issues/86)) ([dd69e86](https://github.com/Bridge-Node-7/materials-to-mission/commit/dd69e8658bc6002e1d6d7c7e164d01fe6a927fe6))
+* **deps:** update setuptools to 84.1.0 ([#99](https://github.com/Bridge-Node-7/materials-to-mission/issues/99)) ([f619854](https://github.com/Bridge-Node-7/materials-to-mission/commit/f619854ef951d326b851705494d15a65e2bdbee2))
+* prepare v0.7.3 release ([ec3affe](https://github.com/Bridge-Node-7/materials-to-mission/commit/ec3affe9e5493650385514c20ceadc83acd02dd1))
+* reconcile release truth for v0.5.1 ([b07ad6a](https://github.com/Bridge-Node-7/materials-to-mission/commit/b07ad6aef7273366f176367fd841e95e9ff0ad93))
+* **release:** prepare v0.1.2 ([8e9b5bd](https://github.com/Bridge-Node-7/materials-to-mission/commit/8e9b5bd16ffc313b52ac4f13b0a5ef461fe23865))
+* simplify public repository surface for v0.5.2 ([609019a](https://github.com/Bridge-Node-7/materials-to-mission/commit/609019ae5e515ce219e2bbdcc48e3422a8971c10))
+
+
+### Refactoring
+
+* generalize authority aliases ([#73](https://github.com/Bridge-Node-7/materials-to-mission/issues/73)) ([db841c2](https://github.com/Bridge-Node-7/materials-to-mission/commit/db841c26e0697b15773d51c3a7e22a6455a795da))
 
 ## [0.7.6] - 2026-09-13
 

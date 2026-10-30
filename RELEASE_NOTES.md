@@ -1,15 +1,14 @@
-# Materials-to-Mission v0.7.6 - Accessibility and Resilience
+# Materials-to-Mission v0.8.0
 
 ## Purpose
 
-v0.7.6 improves accessibility and resilience by making the no-JavaScript operating boundary explicit and preserving a useful static evidence path without changing the underlying evidence, schemas, pathways, or human decision authority.
+v0.8.0 aligns the Materials-to-Mission journey and repository truth, including first-use clarity, Golden Journey browser coverage, and precision evidence experience updates, without changing the underlying evidence, schemas, pathways, or human decision authority.
 
 ## Improved
 
-- Added an explicit no-JavaScript static evidence notice.
-- Forced the complete static Mineral List visible when JavaScript is unavailable.
-- Hid the interactive constellation when it cannot function, avoiding a misleading inert control surface.
-- Preserved direct access to reviewed pathways, claim registers, and source-linked evidence.
+- Align Materials-to-Mission journey and repository truth.
+- Improve first-use clarity and Golden Journey browser coverage.
+- Advance the precision evidence experience while keeping reviewed pathways and source-linked evidence intact.
 
 ## Preserved
 

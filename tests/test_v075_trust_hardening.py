@@ -43,9 +43,9 @@ def test_v075_unicode_confusables_are_version_pinned():
 
 
 def test_v075_release_identity_is_singular_in_source():
-    assert (ROOT / "VERSION").read_text(encoding="utf-8").strip() == "0.7.6"
+    assert (ROOT / "VERSION").read_text(encoding="utf-8").strip() == "0.8.0"
     facts = json.loads((ROOT / "PROJECT_FACTS.json").read_text(encoding="utf-8"))
-    assert facts["version"] == facts["source_version"] == "0.7.6"
+    assert facts["version"] == facts["source_version"] == "0.8.0"
     assert facts["human_decision_authority_required"] is True
 
 def test_v075_confusables_loader_rejects_wrong_version(tmp_path, monkeypatch):

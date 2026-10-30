@@ -19,7 +19,7 @@ def test_no_javascript_boundary_is_explicit_and_evidence_preserving() -> None:
 def test_v076_release_identity_and_truth_boundaries() -> None:
     import json
     facts = json.loads((ROOT / "PROJECT_FACTS.json").read_text(encoding="utf-8"))
-    assert (ROOT / "VERSION").read_text(encoding="utf-8").strip() == "0.7.6"
-    assert facts["version"] == facts["source_version"] == "0.7.6"
+    assert (ROOT / "VERSION").read_text(encoding="utf-8").strip() == "0.8.0"
+    assert facts["version"] == facts["source_version"] == "0.8.0"
     assert facts["current_public_maturity"] == "M0"
     assert facts["human_decision_authority_required"] is True
