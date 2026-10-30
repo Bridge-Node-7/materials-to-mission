@@ -2,6 +2,8 @@
 
 **Evidence-backed materials decisions · Deterministic validation · Human-owned conclusions**
 
+Stable public release — see the latest [GitHub Release](https://github.com/Bridge-Node-7/materials-to-mission/releases/latest). Quickstart: [Five-minute evaluation](docs/FIVE_MINUTE_EVALUATION.md) · `python scripts/check_repo.py`. Collaboration: [GitHub Issues](https://github.com/Bridge-Node-7/materials-to-mission/issues).
+
 Materials-to-Mission is Bridge Node 7's open-source method and toolkit for tracing a material or component dependency from source evidence to a defined human decision.
 
 **[Open the live experience](https://bridgenode7.com/materials-to-mission/)** · **[Run the five-minute evaluation](docs/FIVE_MINUTE_EVALUATION.md)** · **[Read the method](docs/METHOD.md)** · **[See validation evidence](VALIDATION_REPORT.md)**
