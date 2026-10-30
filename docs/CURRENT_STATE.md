@@ -2,9 +2,9 @@
 
 Materials-to-Mission is an **M0 experimental public method**.
 
-Current source version: **0.7.6**
+Current source version: **0.8.0**
 
-`VERSION` identifies source line `0.7.6`.
+`VERSION` identifies source line `0.8.0`.
 
 Live experience: https://bridgenode7.com/materials-to-mission/
 
