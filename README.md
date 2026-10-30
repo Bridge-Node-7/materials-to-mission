@@ -1,18 +1,8 @@
 # Materials-to-Mission
 
-[![Release](https://img.shields.io/github/v/release/Bridge-Node-7/materials-to-mission?display_name=tag)](https://github.com/Bridge-Node-7/materials-to-mission/releases/latest)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![CI](https://img.shields.io/github/actions/workflow/status/Bridge-Node-7/materials-to-mission/ci.yml?branch=main&label=CI)](https://github.com/Bridge-Node-7/materials-to-mission/actions/workflows/ci.yml)
-
 **Evidence-backed materials decisions · Deterministic validation · Human-owned conclusions**
 
-| | |
-|---|---|
-| **What** | Open method and toolkit tracing a material or component dependency from source evidence to a defined human decision |
-| **Status** | Stable public release — latest [GitHub Release](https://github.com/Bridge-Node-7/materials-to-mission/releases/latest) |
-| **Quickstart** | [Five-minute evaluation](docs/FIVE_MINUTE_EVALUATION.md) · `python scripts/check_repo.py` |
-| **Architecture** | [Frontier Assurance Architecture](https://github.com/Bridge-Node-7/Bridge-Node-7/blob/main/docs/FRONTIER_ASSURANCE_ARCHITECTURE.md) · [docs/METHOD.md](docs/METHOD.md) |
-| **Collaboration** | [Issues](https://github.com/Bridge-Node-7/materials-to-mission/issues) · [Innovation Partnerships](https://bridgenode7.com/partner/) |
+Stable public release — see the latest [GitHub Release](https://github.com/Bridge-Node-7/materials-to-mission/releases/latest). Quickstart: [Five-minute evaluation](docs/FIVE_MINUTE_EVALUATION.md) · `python scripts/check_repo.py`. Collaboration: [GitHub Issues](https://github.com/Bridge-Node-7/materials-to-mission/issues).
 
 Materials-to-Mission is Bridge Node 7's open-source method and toolkit for tracing a material or component dependency from source evidence to a defined human decision.
 
