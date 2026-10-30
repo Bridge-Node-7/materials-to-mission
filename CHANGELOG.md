@@ -6,7 +6,7 @@ All notable changes are documented here.
 
 No changes recorded after v0.8.0.
 
-## 0.8.0
+## [0.8.0]
 
 
 ### Features
