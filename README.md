@@ -1,7 +1,7 @@
 # Materials-to-Mission
 
 [![Release](https://img.shields.io/github/v/release/Bridge-Node-7/materials-to-mission?display_name=tag)](https://github.com/Bridge-Node-7/materials-to-mission/releases/latest)
-[![License: Apache-2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![CI](https://img.shields.io/github/actions/workflow/status/Bridge-Node-7/materials-to-mission/ci.yml?branch=main&label=CI)](https://github.com/Bridge-Node-7/materials-to-mission/actions/workflows/ci.yml)
 
 **Evidence-backed materials decisions · Deterministic validation · Human-owned conclusions**
