@@ -132,11 +132,12 @@ jobs:
           python scripts/check_repo.py
           git diff --exit-code
       - name: Coverage summary
-        if: always()
+        if: always() && runner.os == 'Linux'
+        shell: bash
         run: |
           set -euo pipefail
           if [ -f build/coverage.json ]; then
-            python -c "import json,os; from pathlib import Path; d=json.loads(Path('build/coverage.json').read_text()); pct=d['totals']['percent_covered']; open(os.environ['GITHUB_STEP_SUMMARY'],'a').write(f'### Coverage\\n\\nLine coverage: **{pct:.2f}%** (floor enforced in check_repo.py)\\n')"
+            python -c "import json,os; from pathlib import Path; d=json.loads(Path('build/coverage.json').read_text()); pct=d['totals']['percent_covered']; open(os.environ['GITHUB_STEP_SUMMARY'],'a').write(f'### Coverage\n\nLine coverage: **{pct:.2f}%** (floor enforced in check_repo.py)\n')"
           else
             echo 'build/coverage.json not produced' >> "$GITHUB_STEP_SUMMARY"
           fi
