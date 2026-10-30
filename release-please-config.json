@@ -16,7 +16,8 @@
           "path": "CITATION.cff",
           "jsonpath": "$.version"
         }
-      ]
+      ],
+      "version-file": "VERSION"
     }
   },
   "changelog-sections": [
