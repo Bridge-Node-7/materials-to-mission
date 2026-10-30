@@ -4,7 +4,7 @@ All notable changes are documented here.
 
 ## Unreleased
 
-No changes recorded after v0.7.6.
+No changes recorded after v0.8.0.
 
 ## [0.8.0](https://github.com/Bridge-Node-7/materials-to-mission/compare/v0.7.6...v0.8.0) (2026-10-30)
 
