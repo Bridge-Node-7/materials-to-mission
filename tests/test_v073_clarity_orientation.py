@@ -44,7 +44,7 @@ def test_v073_pathway_cues_preserve_exact_two_examples(tmp_path: Path) -> None:
 
 def test_v073_truth_preserves_human_and_evidence_boundaries() -> None:
     facts = json.loads((ROOT / "PROJECT_FACTS.json").read_text(encoding="utf-8"))
-    assert facts["version"] == facts["source_version"] == "0.8.0"
+    assert facts["version"] == facts["source_version"] == "0.8.1"
     assert facts["current_public_maturity"] == "M0"
     assert facts["human_decision_authority_required"] is True
     assert facts["human_first_time_comprehension_uat_attestation"] == "NOT_ATTESTED"

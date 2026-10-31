@@ -12,8 +12,8 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def test_current_source_identity_is_consistent() -> None:
     facts = json.loads((ROOT / "PROJECT_FACTS.json").read_text(encoding="utf-8"))
-    assert (ROOT / "VERSION").read_text(encoding="utf-8").strip() == "0.8.0"
-    assert facts["version"] == facts["source_version"] == "0.8.0"
+    assert (ROOT / "VERSION").read_text(encoding="utf-8").strip() == "0.8.1"
+    assert facts["version"] == facts["source_version"] == "0.8.1"
     assert facts["current_public_maturity"] == "M0"
     assert facts["human_decision_authority_required"] is True
     assert "GitHub" in facts["publication_authority"]
@@ -117,7 +117,8 @@ def test_pages_summary_fences_are_literal_and_verification_remains_fail_closed()
 def test_release_title_is_derived_from_version_matched_notes_h1() -> None:
     workflow = (ROOT / ".github/workflows/release.yml").read_text(encoding="utf-8")
     notes_h1 = (ROOT / "RELEASE_NOTES.md").read_text(encoding="utf-8").splitlines()[0]
-    assert notes_h1 == "# Materials-to-Mission v0.8.0"
+    version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
+    assert notes_h1 == f"# Materials-to-Mission v{version}"
     assert "release_title=\"$(sed -n '1s/^# //p' \"$notes_file\")\"" in workflow
     assert 'expected_title_prefix="Materials-to-Mission ${GITHUB_REF_NAME}"' in workflow
     assert '"$expected_title_prefix"|"$expected_title_prefix — "*|"$expected_title_prefix - "*)' in workflow
