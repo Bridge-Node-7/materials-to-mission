@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Align VERSION/PROJECT_FACTS, strip pre-tag CHANGELOG compare URLs, refresh file manifest."""
 from __future__ import annotations
 import json, re, subprocess, sys
