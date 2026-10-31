@@ -2,7 +2,7 @@
 
 **Evidence-backed materials decisions · Deterministic validation · Human-owned conclusions**
 
-Stable public release — see the latest [GitHub Release](https://github.com/Bridge-Node-7/materials-to-mission/releases/latest). Quickstart: [Five-minute evaluation](docs/FIVE_MINUTE_EVALUATION.md) · `python scripts/check_repo.py`. Collaboration: [GitHub Issues](https://github.com/Bridge-Node-7/materials-to-mission/issues).
+Stable public release — see the latest [GitHub Release](https://github.com/Bridge-Node-7/materials-to-mission/releases/latest). Quickstart: [Five-minute evaluation](docs/FIVE_MINUTE_EVALUATION.md) · `python3 scripts/check_repo.py`. Collaboration: [GitHub Issues](https://github.com/Bridge-Node-7/materials-to-mission/issues).
 
 Materials-to-Mission is Bridge Node 7's open-source method and toolkit for tracing a material or component dependency from source evidence to a defined human decision.
 
@@ -35,13 +35,15 @@ The method keeps uncertainty visible and stops a continuous evidence path at the
 
 ## Try It in Five Minutes
 
-Requires Python 3.11 or newer.
+Requires Python 3.11 or newer (`python3` on most systems).
 
-    python -m venv .venv
-    source .venv/bin/activate        # Windows Git Bash: source .venv/Scripts/activate
-    python -m pip install -r requirements.txt
-    python -m pip install --no-deps --no-build-isolation -e .
-    python scripts/evaluate_public_method.py
+    python3 -m venv ../m2m-venv
+    source ../m2m-venv/bin/activate        # Windows Git Bash: source ../m2m-venv/Scripts/activate
+    python3 -m pip install -r requirements.txt
+    python3 -m pip install --no-deps --no-build-isolation -e .
+    python3 scripts/evaluate_public_method.py
+
+Keep the virtualenv outside the clone so repository file-policy checks do not treat local env files as source.
 
 Expected result:
 
