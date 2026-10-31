@@ -6,6 +6,13 @@ All notable changes are documented here.
 
 No changes recorded after v0.8.0.
 
+## [0.8.2](https://github.com/Bridge-Node-7/materials-to-mission/compare/v0.8.1...v0.8.2) (2026-10-31)
+
+
+### CI
+
+* restore concurrency group expression ([#108](https://github.com/Bridge-Node-7/materials-to-mission/issues/108)) ([0aee5e4](https://github.com/Bridge-Node-7/materials-to-mission/commit/0aee5e4ec495c2114130923533c8489510fd49e8))
+
 ## [0.8.1] (2026-10-31)
 
 
