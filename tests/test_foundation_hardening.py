@@ -12,8 +12,8 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def test_current_source_identity_is_consistent() -> None:
     facts = json.loads((ROOT / "PROJECT_FACTS.json").read_text(encoding="utf-8"))
-    assert (ROOT / "VERSION").read_text(encoding="utf-8").strip() == "0.8.0"
-    assert facts["version"] == facts["source_version"] == "0.8.0"
+    assert (ROOT / "VERSION").read_text(encoding="utf-8").strip() == "0.8.1"
+    assert facts["version"] == facts["source_version"] == "0.8.1"
     assert facts["current_public_maturity"] == "M0"
     assert facts["human_decision_authority_required"] is True
     assert "GitHub" in facts["publication_authority"]
