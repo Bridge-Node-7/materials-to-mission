@@ -6,6 +6,20 @@ All notable changes are documented here.
 
 No changes recorded after v0.8.0.
 
+## [0.8.1](https://github.com/Bridge-Node-7/materials-to-mission/compare/v0.8.0...v0.8.1) (2026-10-31)
+
+
+### Bug Fixes
+
+* **release:** set version-file to VERSION for release-please simple ([#105](https://github.com/Bridge-Node-7/materials-to-mission/issues/105)) ([deb255b](https://github.com/Bridge-Node-7/materials-to-mission/commit/deb255b1657e1d8b0dc12ac9de0dd96b3f8d88d5))
+* **release:** use generic extra-file type for VERSION ([#103](https://github.com/Bridge-Node-7/materials-to-mission/issues/103)) ([467a071](https://github.com/Bridge-Node-7/materials-to-mission/commit/467a071232bf3a2ca3e5dc7d9a7eeae04c991f94))
+
+
+### Documentation
+
+* partner-ready front door and publish coverage artifact ([#106](https://github.com/Bridge-Node-7/materials-to-mission/issues/106)) ([e34af50](https://github.com/Bridge-Node-7/materials-to-mission/commit/e34af5057879839f5c40838ac6c11388b8e309bb))
+* prefer python3 and out-of-tree venv in quickstart ([#107](https://github.com/Bridge-Node-7/materials-to-mission/issues/107)) ([2fd7e5d](https://github.com/Bridge-Node-7/materials-to-mission/commit/2fd7e5db0f0e3e13f2663ff6ad2aef3f02428d94))
+
 ## [0.8.0]
 
 
