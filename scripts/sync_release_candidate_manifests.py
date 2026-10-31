@@ -40,6 +40,27 @@ def main() -> int:
         print("PASS: stripped pre-tag CHANGELOG compare URL")
     else:
         print("PASS: CHANGELOG compare heading already plain or absent")
+    state = root / "docs/CURRENT_STATE.md"
+    if state.is_file():
+        text = state.read_text(encoding="utf-8")
+        updated = re.sub(
+            r"Current source version: \*\*\d+\.\d+\.\d+\*\*",
+            f"Current source version: **{version}**",
+            text,
+            count=1,
+        )
+        updated = re.sub(
+            r"`VERSION` identifies source line `\d+\.\d+\.\d+`",
+            f"`VERSION` identifies source line `{version}`",
+            updated,
+            count=1,
+        )
+        if updated != text:
+            state.write_text(updated, encoding="utf-8", newline="\n")
+            print(f"PASS: aligned docs/CURRENT_STATE.md to {version}")
+        else:
+            print(f"PASS: docs/CURRENT_STATE.md already {version}")
+
     r = subprocess.run([sys.executable, "scripts/sync_resources.py"], cwd=root)
     if r.returncode != 0: return r.returncode
     r = subprocess.run([sys.executable, "scripts/build_manifest.py"], cwd=root)

@@ -66,6 +66,7 @@ def test_v061_public_identity_and_boundaries_remain_bounded():
     state=(ROOT/'docs/CURRENT_STATE.md').read_text(encoding='utf-8')
     assert 'Explore the 60-mineral Materials-to-Mission Atlas' in readme
     assert 'Explore the 60-mineral Strategic Constellation' not in readme
-    assert '`VERSION` identifies source line `0.8.0`' in state
+    version = (ROOT / 'VERSION').read_text(encoding='utf-8').strip()
+    assert f'`VERSION` identifies source line `{version}`' in state
     for token in ('GA-001 v1.0.0','YIG remains an engineered material system','M0','Human consequential authority'):
         assert token.lower() in notes.lower()
