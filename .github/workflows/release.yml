@@ -32,11 +32,13 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
-      - name: Checkout main for nonpublishing dry-run
+      - name: Checkout dispatched ref for nonpublishing dry-run
         if: github.event_name == 'workflow_dispatch'
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          ref: main
+          # Use the ref selected for dispatch so review-branch rehearsals exercise
+          # the branch under test; post-merge rehearsals use main.
+          ref: ${{ github.ref }}
           fetch-depth: 0
           persist-credentials: false
       - name: Set up Python
@@ -60,20 +62,16 @@ jobs:
           verified="$(printf '%s' "$tag_json" | python -c 'import json,sys; print(str(json.load(sys.stdin)["verification"]["verified"]).lower())')"
           test "$target" = "$GITHUB_SHA"
           test "$verified" = "true"
-      - name: Resolve dry-run release identity from VERSION
-        if: github.event_name == 'workflow_dispatch'
-        shell: bash
-        run: |
-          set -euo pipefail
-          version="$(tr -d '\r\n' < VERSION)"
-          echo "DRY_RUN_TAG=v${version}" >> "$GITHUB_ENV"
-          echo "Nonpublishing dry-run for v${version} at $(git rev-parse HEAD)"
-      - name: Install locked dependencies and validate
+      - name: Install locked dependencies and validate repository
         run: |
           python -m pip install -r requirements-dev.txt
           python -m pip install --no-deps --no-build-isolation -e .
           python scripts/check_repo.py
           git diff --exit-code
+      - name: Build production candidate from signed annotated tag
+        if: github.event_name == 'push'
+        run: |
+          set -euo pipefail
           rm -rf dist
           M2M_RELEASE_MODE=candidate python scripts/build_release.py
           python - <<'PY'
@@ -81,17 +79,61 @@ jobs:
           from pathlib import Path
           data = json.loads(Path("dist/release-manifest.json").read_text())
           assert data["git_bound"] is True
+          assert data.get("rehearsal") is False
           assert data["tag"] == f"v{data['version']}"
           assert data["commit"]
           assert data["tree"]
           PY
+      - name: Build nonpublishing rehearsal candidate (local-only tag)
+        if: github.event_name == 'workflow_dispatch'
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Synthetic proposed-version fixture: proves full candidate construction
+          # and sealing without colliding with any published tag identity.
+          # The annotated tag exists only in this runner workspace and is never pushed.
+          REHEARSAL_VERSION="0.0.0-rehearsal.${GITHUB_RUN_ID}"
+          REHEARSAL_TAG="v${REHEARSAL_VERSION}"
+          # Local identity for the runner-only annotated tag (never pushed).
+          git -c user.name=Bridge-Node-7 -c user.email=291729790+Bridge-Node-7@users.noreply.github.com \
+            tag -a "${REHEARSAL_TAG}" -m "Nonpublishing rehearsal tag (local only; never push)"
+          # Guard: must remain absent from origin
+          if git ls-remote --tags origin "refs/tags/${REHEARSAL_TAG}" | grep -q .; then
+            echo "STOP - rehearsal tag unexpectedly present on origin" >&2
+            exit 1
+          fi
+          echo "REHEARSAL_TAG=${REHEARSAL_TAG}" >> "$GITHUB_ENV"
+          echo "REHEARSAL_VERSION=${REHEARSAL_VERSION}" >> "$GITHUB_ENV"
+          rm -rf dist
+          export GITHUB_REF_NAME="${REHEARSAL_TAG}"
+          export M2M_REHEARSAL_VERSION="${REHEARSAL_VERSION}"
+          M2M_RELEASE_MODE=candidate python scripts/build_release.py
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          data = json.loads(Path("dist/release-manifest.json").read_text())
+          assert data["git_bound"] is True
+          assert data["rehearsal"] is True
+          assert data["tag"] == f"v{data['version']}"
+          assert data["version"] == os.environ["REHEARSAL_VERSION"]
+          assert data["commit"]
+          assert data["tree"]
+          PY
+          # Reconfirm local-only (never pushed) after build
+          if git ls-remote --tags origin "refs/tags/${REHEARSAL_TAG}" | grep -q .; then
+            echo "STOP - rehearsal tag appeared on origin during build" >&2
+            exit 1
+          fi
+          echo "Nonpublishing rehearsal sealed for ${REHEARSAL_TAG} at $(git rev-parse HEAD)"
       - name: Seal release candidate handoff
         shell: bash
         run: |
           set -euo pipefail
-          TAG_NAME="${GITHUB_REF_NAME}"
           if [ "${GITHUB_EVENT_NAME}" = "workflow_dispatch" ]; then
-            TAG_NAME="v$(tr -d '\r\n' < VERSION)"
+            TAG_NAME="${REHEARSAL_TAG}"
+          else
+            TAG_NAME="${GITHUB_REF_NAME}"
           fi
           notes_file="RELEASE_NOTES.md"
           archive="dist/materials-to-mission-${TAG_NAME}.zip"
@@ -110,6 +152,13 @@ jobs:
             "$notes_file" \
             > dist/RELEASE_CANDIDATE_SHA256SUMS
           sha256sum -c dist/RELEASE_CANDIDATE_SHA256SUMS
+          # Dry-run must not publish: build job remains contents:read; publish job is push-only.
+          if [ "${GITHUB_EVENT_NAME}" = "workflow_dispatch" ]; then
+            if git ls-remote --tags origin "refs/tags/${TAG_NAME}" | grep -q .; then
+              echo "STOP - dry-run must not create a remote tag" >&2
+              exit 1
+            fi
+          fi
       - name: Upload validated release candidate
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:

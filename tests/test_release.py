@@ -129,3 +129,87 @@ def test_release_allows_dist_and_external_output(tmp_path):
     internal = build_deterministic_zip(root, root / "dist/release.zip")
     external = build_deterministic_zip(root, tmp_path / "external/release.zip")
     assert sha256(internal) == sha256(external)
+
+
+def test_rehearsal_candidate_binds_synthetic_version(root, tmp_path):
+    import json
+    import os
+    import subprocess
+    import sys
+
+    env = os.environ.copy()
+    env["M2M_RELEASE_MODE"] = "candidate"
+    env["M2M_REHEARSAL_VERSION"] = "0.0.0-rehearsal.test"
+    env["GITHUB_REF_NAME"] = "v0.0.0-rehearsal.test"
+    env["GITHUB_SHA"] = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=root, text=True).strip()
+    subprocess.run([sys.executable, "scripts/build_release.py"], cwd=root, env=env, check=True)
+    manifest = json.loads((root / "dist/release-manifest.json").read_text(encoding="utf-8"))
+    assert manifest["git_bound"] is True
+    assert manifest["rehearsal"] is True
+    assert manifest["version"] == "0.0.0-rehearsal.test"
+    assert manifest["tag"] == "v0.0.0-rehearsal.test"
+    assert (root / "dist" / manifest["archive"]).is_file()
+
+
+def test_rehearsal_version_rejected_outside_candidate(root):
+    import os
+    import subprocess
+    import sys
+
+    env = os.environ.copy()
+    env["M2M_RELEASE_MODE"] = "source"
+    env["M2M_REHEARSAL_VERSION"] = "0.0.0-rehearsal.test"
+    result = subprocess.run(
+        [sys.executable, "scripts/build_release.py"],
+        cwd=root,
+        env=env,
+        check=False,
+        text=True,
+        capture_output=True,
+    )
+    assert result.returncode != 0
+    assert "only valid in candidate mode" in result.stdout + result.stderr
+
+
+def test_rehearsal_version_rejects_non_fixture_prefix(root):
+    import os
+    import subprocess
+    import sys
+
+    env = os.environ.copy()
+    env["M2M_RELEASE_MODE"] = "candidate"
+    env["M2M_REHEARSAL_VERSION"] = "0.8.1"
+    env["GITHUB_REF_NAME"] = "v0.8.1"
+    env["GITHUB_SHA"] = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=root, text=True).strip()
+    result = subprocess.run(
+        [sys.executable, "scripts/build_release.py"],
+        cwd=root,
+        env=env,
+        check=False,
+        text=True,
+        capture_output=True,
+    )
+    assert result.returncode != 0
+    assert "0.0.0-rehearsal." in result.stdout + result.stderr
+
+
+def test_production_candidate_still_requires_matching_tag(root):
+    import os
+    import subprocess
+    import sys
+
+    env = os.environ.copy()
+    env["M2M_RELEASE_MODE"] = "candidate"
+    env.pop("M2M_REHEARSAL_VERSION", None)
+    env["GITHUB_REF_NAME"] = "fix/not-a-tag"
+    env["GITHUB_SHA"] = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=root, text=True).strip()
+    result = subprocess.run(
+        [sys.executable, "scripts/build_release.py"],
+        cwd=root,
+        env=env,
+        check=False,
+        text=True,
+        capture_output=True,
+    )
+    assert result.returncode != 0
+    assert "requires exact commit, tree, and tag" in result.stdout + result.stderr
