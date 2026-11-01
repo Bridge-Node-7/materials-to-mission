@@ -1,4 +1,4 @@
-"""Align VERSION/PROJECT_FACTS, strip pre-tag CHANGELOG compare URLs, refresh file manifest."""
+"""Align VERSION/PROJECT_FACTS/RELEASE_NOTES/VALIDATION_REPORT, strip pre-tag CHANGELOG compare URLs, refresh file manifest."""
 from __future__ import annotations
 import json, re, subprocess, sys
 from pathlib import Path
@@ -52,6 +52,21 @@ def main() -> int:
                 print(f"PASS: aligned RELEASE_NOTES.md H1 to v{version}")
             else:
                 print(f"PASS: RELEASE_NOTES.md H1 already v{version}")
+
+    report = root / "VALIDATION_REPORT.md"
+    if report.is_file():
+        rtext = report.read_text(encoding="utf-8")
+        updated_report = re.sub(
+            r"(?m)^(\*\*Version:\*\* )\d+\.\d+\.\d+$",
+            rf"\g<1>{version}",
+            rtext,
+            count=1,
+        )
+        if updated_report != rtext:
+            report.write_text(updated_report, encoding="utf-8", newline="\n")
+            print(f"PASS: aligned VALIDATION_REPORT.md Version to {version}")
+        else:
+            print(f"PASS: VALIDATION_REPORT.md Version already {version}")
 
     state = root / "docs/CURRENT_STATE.md"
     if state.is_file():
