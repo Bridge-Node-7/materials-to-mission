@@ -4,12 +4,18 @@ on:
   push:
     tags:
       - "v*"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Nonpublishing: build/validate release candidate on main; do not create tag or GitHub Release"
+        type: boolean
+        default: true
 
 permissions:
   contents: read
 
 concurrency:
-  group: release-${{ github.ref }}
+  group: release-${{ github.event_name == 'workflow_dispatch' && format('dispatch-{0}', github.sha) || github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -21,8 +27,16 @@ jobs:
       contents: read
     steps:
       - name: Checkout exact tagged source
+        if: github.event_name == 'push'
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Checkout main for nonpublishing dry-run
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
           fetch-depth: 0
           persist-credentials: false
       - name: Set up Python
@@ -31,6 +45,7 @@ jobs:
           python-version: "3.12"
           cache: pip
       - name: Verify signed annotated tag and version
+        if: github.event_name == 'push'
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
@@ -45,6 +60,14 @@ jobs:
           verified="$(printf '%s' "$tag_json" | python -c 'import json,sys; print(str(json.load(sys.stdin)["verification"]["verified"]).lower())')"
           test "$target" = "$GITHUB_SHA"
           test "$verified" = "true"
+      - name: Resolve dry-run release identity from VERSION
+        if: github.event_name == 'workflow_dispatch'
+        shell: bash
+        run: |
+          set -euo pipefail
+          version="$(tr -d '\r\n' < VERSION)"
+          echo "DRY_RUN_TAG=v${version}" >> "$GITHUB_ENV"
+          echo "Nonpublishing dry-run for v${version} at $(git rev-parse HEAD)"
       - name: Install locked dependencies and validate
         run: |
           python -m pip install -r requirements-dev.txt
@@ -66,8 +89,12 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          TAG_NAME="${GITHUB_REF_NAME}"
+          if [ "${GITHUB_EVENT_NAME}" = "workflow_dispatch" ]; then
+            TAG_NAME="v$(tr -d '\r\n' < VERSION)"
+          fi
           notes_file="RELEASE_NOTES.md"
-          archive="dist/materials-to-mission-${GITHUB_REF_NAME}.zip"
+          archive="dist/materials-to-mission-${TAG_NAME}.zip"
           test -s "$notes_file"
           test -s "$archive"
           test -s dist/SHA256SUMS
@@ -88,7 +115,7 @@ jobs:
         with:
           name: m2m-stable-release-candidate
           path: |
-            dist/materials-to-mission-${{ github.ref_name }}.zip
+            dist/materials-to-mission-v*.zip
             dist/SHA256SUMS
             dist/release-manifest.json
             dist/RELEASE_CANDIDATE_SHA256SUMS
@@ -101,6 +128,9 @@ jobs:
   publish:
     name: Publish validated release
     needs: build
+    # Live publish remains tag-push of a verified annotated tag.
+    # workflow_dispatch is nonpublishing validation only (t91u); no PAT required.
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
