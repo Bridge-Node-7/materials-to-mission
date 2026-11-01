@@ -108,15 +108,14 @@ jobs:
           export GITHUB_REF_NAME="${REHEARSAL_TAG}"
           export M2M_REHEARSAL_VERSION="${REHEARSAL_VERSION}"
           M2M_RELEASE_MODE=candidate python scripts/build_release.py
-          python - <<'PY'
+          python - <<PY
           import json
-          import os
           from pathlib import Path
           data = json.loads(Path("dist/release-manifest.json").read_text())
           assert data["git_bound"] is True
           assert data["rehearsal"] is True
           assert data["tag"] == f"v{data['version']}"
-          assert data["version"] == os.environ["REHEARSAL_VERSION"]
+          assert data["version"] == "${REHEARSAL_VERSION}"
           assert data["commit"]
           assert data["tree"]
           PY
