@@ -140,7 +140,8 @@ jobs:
           archive="dist/materials-to-mission-${GITHUB_REF_NAME}.zip"
           test -f "$notes_file"
           test -f "$archive"
-          release_title="$(sed -n '1s/^# //p' "$notes_file")"
+          # Strip optional release-please generic annotation from the H1.
+          release_title="$(sed -n '1s/^# //p' "$notes_file" | sed -E 's/[[:space:]]*<!--.*-->[[:space:]]*$//')"
           expected_title_prefix="Materials-to-Mission ${GITHUB_REF_NAME}"
           test -n "$release_title"
           case "$release_title" in

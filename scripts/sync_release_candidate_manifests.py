@@ -40,6 +40,19 @@ def main() -> int:
         print("PASS: stripped pre-tag CHANGELOG compare URL")
     else:
         print("PASS: CHANGELOG compare heading already plain or absent")
+    notes = root / "RELEASE_NOTES.md"
+    if notes.is_file():
+        nlines = notes.read_text(encoding="utf-8").splitlines(True)
+        if nlines:
+            desired = f"# Materials-to-Mission v{version} <!-- x-release-please-version -->\n"
+            # Preserve historical body; only normalize the current H1 + release-please marker.
+            if nlines[0] != desired:
+                nlines[0] = desired
+                notes.write_text("".join(nlines), encoding="utf-8", newline="\n")
+                print(f"PASS: aligned RELEASE_NOTES.md H1 to v{version}")
+            else:
+                print(f"PASS: RELEASE_NOTES.md H1 already v{version}")
+
     state = root / "docs/CURRENT_STATE.md"
     if state.is_file():
         text = state.read_text(encoding="utf-8")

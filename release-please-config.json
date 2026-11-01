@@ -12,6 +12,10 @@
           "path": "VERSION"
         },
         {
+          "type": "generic",
+          "path": "RELEASE_NOTES.md"
+        },
+        {
           "type": "yaml",
           "path": "CITATION.cff",
           "jsonpath": "$.version"
