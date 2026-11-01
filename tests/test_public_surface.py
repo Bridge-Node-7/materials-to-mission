@@ -24,6 +24,7 @@ def test_release_notes_use_one_stable_current_record() -> None:
     assert not list(ROOT.glob("RELEASE_NOTES_v*.md"))
     first_line = notes_path.read_text(encoding="utf-8").splitlines()[0]
     assert first_line.startswith(f"# Materials-to-Mission v{version}")
+    assert "<!-- x-release-please-version -->" in first_line
     assert f"## [{version}]" in changelog
 
 def test_docs_surface_is_bounded() -> None:
