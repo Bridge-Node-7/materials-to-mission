@@ -116,14 +116,14 @@ def test_pages_summary_fences_are_literal_and_verification_remains_fail_closed()
 
 
 def test_release_title_is_derived_from_version_matched_notes_h1() -> None:
-    import re
     workflow = (ROOT / ".github/workflows/release.yml").read_text(encoding="utf-8")
     notes_h1 = (ROOT / "RELEASE_NOTES.md").read_text(encoding="utf-8").splitlines()[0]
     version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
-    # Optional release-please generic annotation may trail the H1.
-    h1_core = re.sub(r"\s*<!--.*?-->\s*$", "", notes_h1).rstrip()
+    # Release-please generic marker may trail the H1; strip the known token only.
+    marker = "<!-- x-release-please-version -->"
+    assert marker in notes_h1
+    h1_core = notes_h1.replace(marker, "").rstrip()
     assert h1_core == f"# Materials-to-Mission v{version}"
-    assert "<!-- x-release-please-version -->" in notes_h1
     assert "release_title=\"$(sed -n '1s/^# //p' \"$notes_file\" | sed -E 's/[[:space:]]*<!--.*-->[[:space:]]*$//')\"" in workflow
     assert 'expected_title_prefix="Materials-to-Mission ${GITHUB_REF_NAME}"' in workflow
     assert '"$expected_title_prefix"|"$expected_title_prefix — "*|"$expected_title_prefix - "*)' in workflow
