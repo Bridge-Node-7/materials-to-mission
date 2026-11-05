@@ -2,118 +2,91 @@
 
 **Evidence-backed materials decisions · Deterministic validation · Human-owned conclusions**
 
-Stable public release — see the latest [GitHub Release](https://github.com/Bridge-Node-7/materials-to-mission/releases/latest). Quickstart: [Five-minute evaluation](docs/FIVE_MINUTE_EVALUATION.md) · `python3 scripts/check_repo.py`. Collaboration: [GitHub Issues](https://github.com/Bridge-Node-7/materials-to-mission/issues).
+Materials-to-Mission traces a material or component dependency from source evidence to a defined human decision—keeping uncertainty visible and stopping a continuous evidence path at the first unresolved link.
 
-Materials-to-Mission is Bridge Node 7's open-source method and toolkit for tracing a material or component dependency from source evidence to a defined human decision.
+[Live experience](https://bridgenode7.com/materials-to-mission/) · [Five-minute evaluation](docs/FIVE_MINUTE_EVALUATION.md) · [Method](docs/METHOD.md) · [Validation](VALIDATION_REPORT.md) · [Latest release](https://github.com/Bridge-Node-7/materials-to-mission/releases/latest) · [Partner](https://bridgenode7.com/partner/)
 
-**[Open the live experience](https://bridgenode7.com/materials-to-mission/)** · **[Run the five-minute evaluation](docs/FIVE_MINUTE_EVALUATION.md)** · **[Read the method](docs/METHOD.md)** · **[See validation evidence](VALIDATION_REPORT.md)**
+## Role
 
-## Bridge Node 7 system role
+The materials and physical-dependency domain implementation within [Bridge Node 7’s Frontier Assurance Architecture](https://github.com/Bridge-Node-7/Bridge-Node-7/blob/main/docs/FRONTIER_ASSURANCE_ARCHITECTURE.md). It owns the Material Assurance Record and domain methodology. Accountable human decisions remain human-owned.
 
-Materials-to-Mission is the **materials and physical-dependency domain implementation** within [Bridge Node 7's Frontier Assurance Architecture](https://github.com/Bridge-Node-7/Bridge-Node-7/blob/main/docs/FRONTIER_ASSURANCE_ARCHITECTURE.md). It owns its Material Assurance Record and domain methodology. It does not redefine core assurance semantics or make the consequential human decision.
+## Method
 
-## Why It Exists
-
-Critical-material and advanced-material decisions often fail because evidence, assumptions, unknowns, requirements, alternatives, and decision authority are scattered across documents and systems.
+Critical-material and advanced-material decisions often fail because evidence, assumptions, unknowns, requirements, alternatives, and decision authority are scattered.
 
 Materials-to-Mission makes that chain inspectable:
 
 `Signal → Source → Evidence → Requirement → Material → Origin → Process → Supplier → Facility → Component → System → Mission → Risk → Weak Link → Alternative → Qualification Evidence State → Mitigation → Human Decision → Action → Outcome → Proof → Reassessment`
 
-The method keeps uncertainty visible and stops a continuous evidence path at the first unresolved link. Later supported facts may remain useful context, but they do not silently repair an earlier evidence gap.
+Later supported facts may remain useful context; they do not silently repair an earlier evidence gap.
 
-## What You Can Do
+## What you can do
 
-- Explore the 60-mineral Materials-to-Mission Atlas and engineered-material systems.
-- Inspect Gallium GA-001 as a bounded reviewed public-source pathway.
-- Examine YIG as bounded public research context without turning research into readiness.
-- Validate synthetic or public-safe records against explicit evidence rules.
-- Keep unknown, unsupported, expired, and contradictory evidence visible.
-- Prevent critical conditions from being averaged away.
-- Generate a concise Decision Passport from the complete evidence-bearing record.
-- Preserve a named human owner for every consequential disposition.
+- Explore the 60-mineral Materials-to-Mission Atlas and engineered-material systems
+- Inspect Gallium GA-001 as a bounded reviewed public-source pathway
+- Examine YIG as bounded public research context
+- Validate synthetic or public-safe records against explicit evidence rules
+- Keep unknown, unsupported, expired, and contradictory evidence visible
+- Generate a Decision Passport from the complete evidence-bearing record
+- Preserve a named human owner for every consequential disposition
 
-## Try It in Five Minutes
+## Try it in five minutes
 
-Requires Python 3.11 or newer (`python3` on most systems).
+Requires Python 3.11+ (`python3`). Keep the virtualenv outside the clone.
 
-    python3 -m venv ../m2m-venv
-    source ../m2m-venv/bin/activate        # Windows Git Bash: source ../m2m-venv/Scripts/activate
-    python3 -m pip install -r requirements.txt
-    python3 -m pip install --no-deps --no-build-isolation -e .
-    python3 scripts/evaluate_public_method.py
-
-Keep the virtualenv outside the clone so repository file-policy checks do not treat local env files as source.
+```bash
+python3 -m venv ../m2m-venv
+source ../m2m-venv/bin/activate        # Windows Git Bash: source ../m2m-venv/Scripts/activate
+python3 -m pip install -r requirements.txt
+python3 -m pip install --no-deps --no-build-isolation -e .
+python3 scripts/evaluate_public_method.py
+```
 
 Expected result:
 
-    PASS - SYNTHETIC CASE VALID
-    PASS - DECISION PASSPORT WRITTEN
-    PASS - FAIL-CLOSED EXAMPLE CONFIRMED
-    NEXT - OPEN build/guided-decision-passport.md
+```text
+PASS - SYNTHETIC CASE VALID
+PASS - DECISION PASSPORT WRITTEN
+PASS - FAIL-CLOSED EXAMPLE CONFIRMED
+NEXT - OPEN build/guided-decision-passport.md
+```
 
-Direct CLI use:
+Direct CLI:
 
-    m2m validate examples/synthetic-critical-material-pathway/case.json --public
-    m2m render examples/synthetic-critical-material-pathway/case.json --output build/decision-passport.md
-    m2m validate examples/invalid/missing-human-owner.json --public --json
+```bash
+m2m validate examples/synthetic-critical-material-pathway/case.json --public
+m2m render examples/synthetic-critical-material-pathway/case.json --output build/decision-passport.md
+m2m validate examples/invalid/missing-human-owner.json --public --json
+```
 
-## Evidence Model
+## Evidence model
 
-The complete evidence lineage lives in the **Material Assurance Record**. The **Decision Passport** is the smaller human-facing decision artifact derived from it.
+The complete evidence lineage lives in the **Material Assurance Record**. The **Decision Passport** is the human-facing decision artifact derived from it.
 
-Automation validates structure, declared evidence state, boundaries, and deterministic behavior. It does not certify truth, qualify a supplier or material, approve acquisition, or replace human judgment.
+Automation validates structure, declared evidence state, boundaries, and deterministic behavior.
 
-## Public Demonstrations
+## Public demonstrations
 
-**GA-001** is a reviewed public-source Gallium evidence snapshot based on official public sources and original paraphrase. It is not a real operational Case 001 and does not imply qualification, acquisition approval, mission readiness, adoption, or commercial validation.
+**GA-001** — reviewed public-source Gallium evidence snapshot. Current supply-policy context is maintained separately in [Current State](docs/CURRENT_STATE.md) so new public facts do not silently rewrite the GA-001 review basis.
 
-Current supply-policy context is maintained separately in [Current State](docs/CURRENT_STATE.md) so new public facts do not silently rewrite the GA-001 v1.0.0 review basis.
+**YIG-001** — bounded Reviewed Public Context connecting scientific evidence to a material-system pathway while leaving unresolved qualification and supply links explicit.
 
-**YIG-001** is bounded Reviewed Public Context. It demonstrates how scientific evidence may be connected to a material-system pathway while leaving unresolved qualification and supply links explicitly unresolved.
+Checked-in validation state: [`VALIDATION_REPORT.md`](VALIDATION_REPORT.md).
 
-## What Is Proven Here
+## Assurance boundary
 
-The repository demonstrates a versioned evidence structure, deterministic validation, fail-closed public boundaries, reproducible packaging, public-source provenance, explicit human decision authority, and a working browser experience.
+Truth certification, supplier or material qualification, acquisition approval, and consequential judgment remain with accountable human processes. Public examples are evaluation material.
 
-The current checked-in test, coverage, packaging, and validation state is recorded in [`VALIDATION_REPORT.md`](VALIDATION_REPORT.md).
+## Release
 
-## Release Posture
+`main` is the current reviewed source. Distribution identity lives on Releases and in CHANGELOG.
 
-`main` is the current reviewed source. GitHub Releases are explicit distribution milestones and may intentionally lag validated maintenance on `main`; published tags identify prior distribution milestones.
+## Reference
 
-## What Is Not Claimed
-
-This repository does not establish material or supplier qualification, certification or legal compliance, production capacity or assured supply, laboratory validity outside supplied evidence, acquisition or mission readiness, customer adoption or commercial validation, government endorsement, investment merit, or guaranteed mission performance.
-
-Public maturity remains **M0 experimental public method**.
-
-## Technical Reference
-
-- [Start Here](docs/START_HERE.md)
-- [Method](docs/METHOD.md)
-- [Evidence Model](docs/EVIDENCE_MODEL.md)
-- [Material Assurance Record](docs/MATERIAL_ASSURANCE_RECORD.md)
-- [Decision Passport](docs/DECISION_PASSPORT.md)
+- [Start Here](docs/START_HERE.md) · [Method](docs/METHOD.md) · [Evidence Model](docs/EVIDENCE_MODEL.md)
+- [Material Assurance Record](docs/MATERIAL_ASSURANCE_RECORD.md) · [Decision Passport](docs/DECISION_PASSPORT.md)
 - [Qualification and Readiness States](docs/QUALIFICATION_AND_READINESS_STATES.md)
-- [Schedule Exposure and Common-Cause Dependency](docs/SCHEDULE_AND_COMMON_CAUSE.md)
-- [Interoperability](docs/INTEROPERABILITY.md)
-- [Validation](docs/VALIDATION.md)
-- [Validation Profiles](docs/VALIDATION_PROFILES.md)
-- [Repository Scope](docs/SCOPE.md)
-- [Automation & AI Provenance](docs/AUTOMATION_PROVENANCE.md)
-- [Schema Catalog](SCHEMA_CATALOG.json)
+- [Interoperability](docs/INTEROPERABILITY.md) · [Validation](docs/VALIDATION.md) · [Scope](docs/SCOPE.md)
+- [Schema Catalog](SCHEMA_CATALOG.json) · [Security](SECURITY.md) · [Contributing](CONTRIBUTING.md)
 
-## Repository Scope
-
-This repository provides the public method, synthetic examples, and reviewed
-public-source records described above. Contributions and demonstrations should
-use only material that is suitable for public release.
-
-Use [`SECURITY.md`](SECURITY.md) for vulnerability reporting.
-
-## Open Source
-
-MIT licensed. Contributions should remain public-safe, evidence-aware, tested, and human-accountable. See [`CONTRIBUTING.md`](CONTRIBUTING.md).
-
-Built and maintained by [Bridge Node 7](https://bridgenode7.com/).
+MIT licensed. Built and maintained by [Bridge Node 7](https://bridgenode7.com/).
