@@ -62,6 +62,6 @@ def test_current_unreleased_source_does_not_reuse_prior_release_date() -> None:
     changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
     assert "date-released:" not in citation
     assert "`date-released` is intentionally omitted" in current_state
-    assert "## Unreleased\n\nNo changes recorded after v0.8.0." in changelog
+    assert "## Unreleased\n\nNo unreleased changes recorded after v0.8.2." in changelog
     assert "## [0.7.3] - 2026-08-14" in changelog
     assert "preferred first pathway" not in changelog
