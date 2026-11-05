@@ -4,7 +4,7 @@ All notable changes are documented here.
 
 ## Unreleased
 
-No changes recorded after v0.8.0.
+No unreleased changes recorded after v0.8.2.
 
 ## [0.8.2] (2026-11-01)
 

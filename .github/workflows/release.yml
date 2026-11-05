@@ -177,7 +177,7 @@ jobs:
     name: Publish validated release
     needs: build
     # Live publish remains tag-push of a verified annotated tag.
-    # workflow_dispatch is nonpublishing validation only (t91u); no PAT required.
+    # workflow_dispatch is nonpublishing validation only; no PAT required.
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     timeout-minutes: 10

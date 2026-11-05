@@ -22,7 +22,7 @@ jobs:
         id: release
         uses: googleapis/release-please-action@16a9c90856f42705d54a6fda1823352bdc62cf38 # v4.4.0
         with:
-          # t91u: release-please prepares VERSION/CHANGELOG/PR only.
+          # Release-please prepares VERSION/CHANGELOG/PR only; the Stable Release workflow publishes.
           # Authoritative Release workflow creates signed/annotated tag + five assets.
           # Default GITHUB_TOKEN Releases preempt that publisher (lightweight, 0 assets).
           skip-github-release: true
