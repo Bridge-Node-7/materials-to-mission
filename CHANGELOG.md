@@ -6,6 +6,19 @@ All notable changes are documented here.
 
 No changes recorded after v0.8.0.
 
+## [0.8.2] (2026-11-01)
+
+
+### Bug Fixes
+
+* **ci:** release-please must not preempt signed Release publisher ([#112](https://github.com/Bridge-Node-7/materials-to-mission/issues/112)) ([d9fe116](https://github.com/Bridge-Node-7/materials-to-mission/commit/d9fe1165fcb2022af034bac93f5c4bbfbdd46629))
+* durable VERSION-derived release identity checks ([#110](https://github.com/Bridge-Node-7/materials-to-mission/issues/110)) ([fae14aa](https://github.com/Bridge-Node-7/materials-to-mission/commit/fae14aa5c9f7e2a2695ec6b0ed26533eab35782f))
+
+
+### CI
+
+* restore concurrency group expression ([#108](https://github.com/Bridge-Node-7/materials-to-mission/issues/108)) ([0aee5e4](https://github.com/Bridge-Node-7/materials-to-mission/commit/0aee5e4ec495c2114130923533c8489510fd49e8))
+
 ## [0.8.1] (2026-10-31)
 
 
