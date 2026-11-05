@@ -22,7 +22,7 @@ Later supported facts may remain useful context; they do not silently repair an 
 
 ## What you can do
 
-- Explore the Materials-to-Mission Atlas and engineered-material systems
+- Explore the 60-mineral Materials-to-Mission Atlas and engineered-material systems
 - Inspect Gallium GA-001 as a bounded reviewed public-source pathway
 - Examine YIG as bounded public research context
 - Validate synthetic or public-safe records against explicit evidence rules
@@ -67,7 +67,7 @@ Automation validates structure, declared evidence state, boundaries, and determi
 
 ## Public demonstrations
 
-**GA-001** — reviewed public-source Gallium evidence snapshot. Supply-policy context is maintained separately in [Current State](docs/CURRENT_STATE.md) so new public facts do not silently rewrite the GA-001 review basis.
+**GA-001** — reviewed public-source Gallium evidence snapshot. Current supply-policy context is maintained separately in [Current State](docs/CURRENT_STATE.md) so new public facts do not silently rewrite the GA-001 review basis.
 
 **YIG-001** — bounded Reviewed Public Context connecting scientific evidence to a material-system pathway while leaving unresolved qualification and supply links explicit.
 
