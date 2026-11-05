@@ -1,29 +1,12 @@
-## Objective
+## Summary
 
-Describe the bounded objective and intended outcome.
-
-## Evidence
-
-Describe the evidence supporting the change.
-
-## Changes
-
-- [ ] Code
-- [ ] Schemas
-- [ ] Tests
-- [ ] Documentation
-- [ ] Examples
-- [ ] Release metadata
+Describe the change using public or synthetic information only.
 
 ## Validation
 
+List checks run and their results.
+
 - [ ] `python scripts/check_repo.py` passes
-- [ ] Expected behavior is tested
-- [ ] Failure behavior is tested
-- [ ] Public-boundary review is complete
-- [ ] No protected or restricted information is included
-- [ ] Human authority remains explicit
-
-## Claims and Limitations
-
-State what the change proves and what it does not prove.
+- [ ] Expected and failure behavior are tested
+- [ ] No protected data, secrets, or nonpublic context
+- [ ] Claims remain supported and human authority remains explicit
