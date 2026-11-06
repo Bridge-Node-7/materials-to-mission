@@ -101,7 +101,7 @@ jobs:
             build/fma-projection/
             ${{ runner.temp }}/m2m-manifest/
           if-no-files-found: ignore
-          retention-days: 14
+          retention-days: 7
 
   test:
     strategy:
@@ -150,4 +150,4 @@ jobs:
             dist/
             VALIDATION_REPORT.md
           if-no-files-found: ignore
-          retention-days: 14
+          retention-days: 7

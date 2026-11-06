@@ -56,4 +56,4 @@ jobs:
             build/browser-uat/
             build/http.log
           if-no-files-found: error
-          retention-days: 14
+          retention-days: 7
