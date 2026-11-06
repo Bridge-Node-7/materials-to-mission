@@ -42,8 +42,8 @@ The projection manifest explicitly declares `projection_is_lossy: true`. Consume
 
 The adapter targets the public FMA contracts:
 
-- `https://bridge-node-7.github.io/frontier-mission-assurance/assurance-graph.schema.json`
-- `https://bridge-node-7.github.io/frontier-mission-assurance/decision-receipt.schema.json`
+- [Assurance Graph v1](../contracts/fma/assurance-graph.schema.json)
+- [Decision Receipt v1](../contracts/fma/decision-receipt.schema.json)
 
 The manifest also records the Research Receipt identifier for ecosystem discoverability, but this adapter does not manufacture a research execution receipt when no experiment was executed.
 
