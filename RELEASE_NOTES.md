@@ -2,13 +2,13 @@
 
 ## Purpose
 
-v0.8.0 aligns the Materials-to-Mission journey and repository truth, including first-use clarity, Golden Journey browser coverage, and precision evidence experience updates, without changing the underlying evidence, schemas, pathways, or human decision authority.
+v0.8.2 strengthens release integrity: version identity derives from `VERSION`, the signed Release publisher runs without contention, and workflow concurrency is restored. The evidence, schemas, pathways, and human decision authority are unchanged.
 
 ## Improved
 
-- Align Materials-to-Mission journey and repository truth.
-- Improve first-use clarity and Golden Journey browser coverage.
-- Advance the precision evidence experience while keeping reviewed pathways and source-linked evidence intact.
+- Derive release identity checks durably from `VERSION`.
+- Keep signed Release publication independent of release preparation.
+- Restore the workflow concurrency group expression.
 
 ## Preserved
 
