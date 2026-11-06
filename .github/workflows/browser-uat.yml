@@ -23,6 +23,11 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
+          cache-dependency-path: |
+            requirements.txt
+            requirements-dev.txt
+            requirements-browser.lock
+            pyproject.toml
       - name: Install locked browser dependencies and build
         shell: bash
         run: |
